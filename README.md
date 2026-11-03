@@ -46,7 +46,7 @@ frequencies and normalised alternatives are directional and do not belong in
 
 `py/weights.py` computes the weight of a source string by the rule of the source paper,
 `amt_weight = 1 / (n_questionmark + n_possibilities)`, and derives the FW type
-(`fw:Uncertainty`, `fw:Vagueness`, `fw:FuzzinessWobbliness`) from the pattern of the string
+(`fw:Certainty`, `fw:Uncertainty`, `fw:Vagueness`, `fw:FuzzinessWobbliness`) from the pattern of the string
 (question mark, AND, OR) for each relation. A statement then is a **hextuple** with the terms of the
 [FW ontology](https://github.com/caa-datadragons/FW_Ontology): subject, predicate, object,
 `fw:hasDegreeOfConnection` (the same as `amt:weight`), `fw:hasType` and `fw:hasMethod`
@@ -54,7 +54,7 @@ frequencies and normalised alternatives are directional and do not belong in
 `py/step_chains.py` models three chains from the CHNT data (`data/chains-source.csv`) and runs two
 models over them: M1 (this ontology) and M2 (`ontology/variant-b-derived.ttl`, carrier-centre derived
 from the actor). It reads its own Turtle back and checks that every statement leads to its string. If
-the AMT engine 0.6.0 or newer is installed (`pip install -r requirements.txt`), it also runs the three
+the AMT engine with `fw:Certainty` (0.6.0 plus the engine step S25, see `requirements.txt`) is installed, it also runs the three
 models with the engine and compares every edge, type and method included.
 `dist/chains-with-model.ttl` can be run with the AMT runner or loaded in the AMT Explorer.
 `ontology/fw-implemented-by.ttl` is the one triple (`fw:implementedBy`) that the FW ontology still lacks.
@@ -74,7 +74,7 @@ Pages serves it; set Pages to "Deploy from a branch", folder `/docs`.
 
 The `reason` step (toy chain) uses an independent reference reasoner (`py/reference_reasoner.py`,
 about sixty lines). If the AMT engine is importable
-(`pip install "amt @ git+https://github.com/alpaca-fair-framework/amt-engine.git@v0.6.0"`),
+(`pip install "amt @ git+https://github.com/alpaca-fair-framework/amt-engine.git@ce23c5c"`),
 the same step also runs the engine on `dist/mini-amt-with-toy.ttl` and fails if the two disagree on
 any edge or weight.
 

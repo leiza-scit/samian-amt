@@ -15,10 +15,12 @@ Semantics implemented
                     maximum weight
 Only Goedel (min) and Product are supported; anything else raises.
 
-Type and method (hextuple, AMT.engine 0.6.0). An edge may carry an FW type (fw:Uncertainty,
-fw:Vagueness, fw:FuzzinessWobbliness; None = not stated, which AMT reads as fw:Vagueness).
+Type and method (hextuple, AMT.engine 0.6.0, fw:Certainty since the engine step S25). An edge may
+carry an FW type (fw:Certainty, fw:Uncertainty, fw:Vagueness, fw:FuzzinessWobbliness; None = not
+stated, which AMT reads as fw:Vagueness; fw:Certainty is never assumed).
   RoleChainAxiom    method = the logic of the axiom; type = the common type of the
-                    antecedent edges, or fw:FuzzinessWobbliness if they differ
+                    antecedent edges, or fw:FuzzinessWobbliness if they differ;
+                    fw:Certainty adds no fuzziness and is left out when another type is present
   InverseAxiom,
   SubsumptionAxiom  no method; type of the source edge
   Equal weights     the path with the smaller (method, type) wins, so that the result
@@ -32,7 +34,7 @@ from math import prod
 
 LOGIC = {"GoedelLogic": min, "ProductLogic": prod}
 
-VAGUENESS, FUZZINESS_WOBBLINESS = "Vagueness", "FuzzinessWobbliness"
+CERTAINTY, VAGUENESS, FUZZINESS_WOBBLINESS = "Certainty", "Vagueness", "FuzzinessWobbliness"
 
 
 def effective_type(t: str | None) -> str:
@@ -43,6 +45,8 @@ def effective_type(t: str | None) -> str:
 def combine_types(types) -> str | None:
     """Type of a derived edge from its antecedents (stored form: None = vagueness)."""
     seen = {effective_type(t) for t in types}
+    if len(seen) > 1:
+        seen.discard(CERTAINTY)                  # a certain statement adds no fuzziness
     result = next(iter(seen)) if len(seen) == 1 else FUZZINESS_WOBBLINESS
     return None if result == VAGUENESS else result
 

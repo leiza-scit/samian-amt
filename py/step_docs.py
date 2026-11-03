@@ -276,7 +276,7 @@ adds two elements, which make it a hextuple, and an optional link to the source:
 | Element | Carries | Value |
 |---|---|---|
 | `fw:hasDegreeOfConnection` | the weight; the same as `amt:weight` (the AMT engine reads both) | `0.33` |
-| `fw:hasType` | the kind of fuzziness | an individual of `fw:FW_Type`: `fw:Uncertainty`, `fw:Vagueness` or `fw:FuzzinessWobbliness`; absent for a certain statement, which AMT reads as `fw:Vagueness` |
+| `fw:hasType` | the kind of fuzziness | an individual of `fw:FW_Type`: `fw:Certainty`, `fw:Uncertainty`, `fw:Vagueness` or `fw:FuzzinessWobbliness`; `fw:Certainty` is written for a certain statement and is never assumed (a statement without type is read as `fw:Vagueness`) |
 | `fw:hasMethod` | how the weight was obtained | `fw:{W.FW_METHOD}`, the rule above; `fw:implementedBy` is meant to point to [`py/weights.py`]({T.BLOB}py/weights.py) ([triple]({T.BLOB}ontology/fw-implemented-by.ttl)) |
 | `fw:derivedFrom` | what the weight rests on (optional) | a `fw:TextEvidence` node with the source string (`fw:sourceString`); all statements of one string share the node |
 
@@ -284,6 +284,7 @@ The type follows from the pattern of the string:
 
 | Pattern | Source | FW type |
 |---|---|---|
+| `certain` | one entity, no question mark, no AND, no OR (weight 1.0) | `fw:Certainty` |
 | `q` | question mark only | `fw:Uncertainty` |
 | `or` | OR, no question mark | `fw:Vagueness` |
 | `and` | AND, no question mark | `fw:Vagueness` |
@@ -303,7 +304,7 @@ and the spelling.
 **Derived statements.** AMT.engine 0.6.0 and the reference reasoner of this repository agree on the type and
 method of what the reasoner derives: a role chain gives the derived statement the logic as its method (for
 example `amt:ProductLogic`) and the common type of its antecedents, or `fw:FuzzinessWobbliness` if they differ
-(a statement without type counts as `fw:Vagueness`); an inverse takes the type of the statement it comes from
+(a statement without type counts as `fw:Vagueness`; `fw:Certainty` adds no fuzziness, so a chain of certain statements stays certain and a certain statement next to another type gives that type); an inverse takes the type of the statement it comes from
 and has no method; of several paths to the same pair the one with the highest weight wins.
 
 """

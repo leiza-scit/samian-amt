@@ -81,7 +81,8 @@ Eigenschaften, die das Ergebnis haben muss:
 | Hextupel | Quadrupel plus Typ und Methode; Methode wird in `caa-datadragons/FW_Ontology` beschrieben und verlinkt | 2026-10-30 |
 | Namen für Gewicht, Typ, Methode, Evidenz | `fw:hasDegreeOfConnection` (≡ `amt:weight`), `fw:hasType` (Individuen `fw:Uncertainty` / `fw:Vagueness` / `fw:FuzzinessWobbliness`), `fw:hasMethod` (`fw:EqualShareRule`), optional `fw:derivedFrom` (`fw:TextEvidence`). Hinfällig: die Vorschläge `amt:type`, `amt:method`, `nfdi_fw:ReciprocalPossibilityWeight` und `nfdi_fw:WeightMethod`; die FW-Ontologie hat es am 2026-10-30 anders festgelegt. Mini-AMT zieht in S3a nach | 2026-10-30 |
 | Methode und Typ abgeleiteter Kanten | wie in AMT.engine 0.6.0: Rollenkette setzt die Logik als `fw:hasMethod` (`amt:ProductLogic` usw.) und als Typ den gemeinsamen Typ der Vorderglieder, bei Unterschied `fw:FuzzinessWobbliness`; Inverse und Subsumtion übernehmen den Typ und haben keine Methode; kein Typ gilt als `fw:Vagueness`; der Referenz-Reasoner bildet das nach und wird gegen die Engine geprüft | 2026-10-30 |
-| Typ einer sicheren Aussage (Muster `certain`) | kein `fw:hasType` geschrieben; AMT liest das als `fw:Vagueness` (Standard der Engine seit 0.6.0) | 2026-10-30 |
+| Typ einer sicheren Aussage (Muster `certain`) | `fw:hasType fw:Certainty` (Gewicht 1.0); `createdBy` in M2 ebenso; `fw:Certainty` wird nie angenommen. Ersetzt: „kein Typ, AMT liest `fw:Vagueness`“ (2026-10-30) | 2026-11-03 |
+| Typ abgeleiteter Kanten mit `fw:Certainty` | `fw:Certainty` zählt nicht mit, sobald ein anderer Typ vorkommt; eine Kette sicherer Kanten bleibt sicher (Engine S25) | 2026-11-03 |
 | Gewicht im Hextupel | `fw:hasDegreeOfConnection` (die Engine liest es wie `amt:weight`); beide zusammen werden nicht geschrieben | 2026-10-30 |
 | Evidenzknoten | ein `fw:TextEvidence`-Knoten je Quellzeichenkette (`mini:ev_<potform\|centre>_<slug>`, `?` als `_q`), von allen Aussagen der Zeichenkette über `fw:derivedFrom` geteilt | 2026-10-30 |
 | Logik der Rollenketten | `ProductLogic` wie im Paper | Vorschlag |
@@ -114,6 +115,7 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S3 | Gewichtsregel, Hextupel, drei echte Ketten, Modell M2 (0.3.0) | CHNT2026-amt | S2 | erledigt 2026-10-30 |
 | S4 | Entscheidung M1 / M2 und Logik nach der Prüfung durch Allard | CHNT2026-amt | S3 | offen |
 | S3a | Mini-AMT an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | CHNT2026-amt | S3 | erledigt 2026-10-30 (0.4.0) |
+| S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | CHNT2026-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
 | S5 | Methode und Typen in der FW-Ontologie | FW_Ontology | S3 | FW-Seite erledigt 2026-10-30; `fw:implementedBy` offen (Triple liegt in `ontology/fw-implemented-by.ttl`) |
 | S10 | Hextupel in amt-engine und amt-runner einlesen und durchreichen | amt-engine, amt-runner | S3a | erledigt 2026-10-30 (Engine 0.6.0, Runner 0.5.0; in den Primern dort S19 bis S23) |
 | S6 | Alle Potter und Träger als Hextupel (Export → `dist/`) | CHNT2026-amt | S4 | offen |
@@ -178,6 +180,20 @@ Inhalt:
 - Seiten *Weights* und *Chains*, Grafik 05, `README.md`, `CHANGELOG.md`, `requirements.txt` (Engine-Zeile jetzt `alpaca-fair-framework`, ab `v0.6.0`).
 - Geprüft (Linux, Python 3.13.18, Engine 0.6.0 aus dem Klon): `python main.py` zweimal, Status stabil; 340 Kanten gleich; der Rückweg liest 20 Aussagen. Mit einer installierten Engine 0.5.0 meldet der Schritt, dass er mindestens 0.6.0 braucht, und überspringt den Abgleich (0.5.0 liest die `fw:`-Begriffe nicht und würde sonst alle Kanten als fehlend melden).
 - Nicht geprüft: Windows; ob die Grafiken 01 bis 04 dort unverändert bleiben (matplotlib erzeugt auf anderen Versionen andere Bytes).
+
+## S3b — `fw:Certainty`
+
+**Ziel:** Das Mini-AMT folgt der Engine (S25) und der FW-Ontologie (2026-11-03): sichere Aussagen tragen `fw:Certainty`.
+
+**Inhalt:** `py/weights.py` (`CERTAINTY`, `FW_TYPE["certain"]`), `py/reference_reasoner.py` (`combine_types` wie die Engine), `py/step_chains.py` (`createdBy` mit `Certainty`, Engine-Prüfung überspringt Engines ohne `fw:Certainty`), `py/step_diagrams.py` (Kennzeichen `C`), `py/step_docs.py`, `data/weight-cases.csv`, README, `requirements.txt` (Engine-Commit `ce23c5c`), CHANGELOG 0.5.0.
+
+**Abnahme:** `python main.py` läuft durch; „17 cases agree“; 340 Kanten stimmen mit der Engine überein; zwei Läufe, `git status` bleibt stabil (nach dem ersten Lauf die neu gezeichneten Grafiken in `docs/diagrams/` mitcommitten).
+
+### Erledigt 2026-11-03 (S3b, Version 0.5.0)
+
+- Geprüft (Linux, Python 3.13, Engine `ce23c5c`): `python main.py`; 17 Fälle, 340 Kanten gleich, Rückweg liest 20 Aussagen, SHACL wie bisher (M1 vier Verstöße, M2 konform).
+- Die vier Ketten haben kein reines `certain`-Muster; `Certainty` kommt in den Daten nur über `createdBy` in M2 vor. Die Ketten-Docs ändern sich nicht.
+- Nicht geprüft: Windows; die Grafiken wurden hier nicht eingecheckt, matplotlib zeichnet auf anderen Versionen andere Bytes.
 
 ## S5 — FW-Ontologie
 

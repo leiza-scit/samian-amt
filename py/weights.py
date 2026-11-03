@@ -14,15 +14,15 @@ A string that mixes AND and OR is not covered by the rule and raises ValueError.
 
 Hextuple. An AMT statement is a reified quadruple (subject, predicate, object, weight). The FW
 ontology (http://w3id.org/fw_ontology/) adds two more elements: fw:hasType, the kind of
-imprecision (one of the individuals fw:Uncertainty, fw:Vagueness, fw:FuzzinessWobbliness), and
+imprecision (one of the individuals fw:Certainty, fw:Uncertainty, fw:Vagueness, fw:FuzzinessWobbliness), and
 fw:hasMethod, how the weight was obtained (here fw:EqualShareRule, which describes this very rule).
 The source string itself is kept as fw:TextEvidence (fw:sourceString) and linked with
 fw:derivedFrom; the entities of one string share one evidence node.
 
     statement                  FW type (fw:hasType)                     pattern
     -------------------------  ---------------------------------------  -------
-    no ?, no AND, no OR        none: AMT reads a missing type as        certain
-                               fw:Vagueness (the default)
+    no ?, no AND, no OR        fw:Certainty (weight 1.0; AMT.engine        certain
+                               without a type would read fw:Vagueness)
     ? only                     fw:Uncertainty                           q
     OR (several), no ?         fw:Vagueness                             or
     AND (several), no ?        fw:Vagueness                             and
@@ -49,8 +49,8 @@ from mini_amt_utils import DIST, ROOT  # noqa: E402
 CASES = ROOT / "data" / "weight-cases.csv"
 
 FW = "http://w3id.org/fw_ontology/"                      # namespace of the FW ontology
-UNCERTAINTY, VAGUENESS, FUZZINESS_WOBBLINESS = "Uncertainty", "Vagueness", "FuzzinessWobbliness"
-FW_TYPE = {"q": UNCERTAINTY, "or": VAGUENESS, "and": VAGUENESS,
+CERTAINTY, UNCERTAINTY, VAGUENESS, FUZZINESS_WOBBLINESS = "Certainty", "Uncertainty", "Vagueness", "FuzzinessWobbliness"
+FW_TYPE = {"certain": CERTAINTY, "q": UNCERTAINTY, "or": VAGUENESS, "and": VAGUENESS,
            "q+or": FUZZINESS_WOBBLINESS, "q+and": FUZZINESS_WOBBLINESS}
 FW_METHOD = "EqualShareRule"                              # fw:EqualShareRule in the FW ontology
 # fw:implementedBy of fw:EqualShareRule: where the rule is implemented and tested
@@ -87,7 +87,7 @@ class Statement:
 
     @property
     def fw_type(self) -> str | None:
-        """The local name of the fw:hasType individual; None for a certain statement (AMT default: Vagueness)."""
+        """The local name of the fw:hasType individual (fw:Certainty for a certain statement)."""
         return FW_TYPE.get(self.pattern)
 
 

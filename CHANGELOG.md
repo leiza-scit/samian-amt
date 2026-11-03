@@ -2,6 +2,20 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.5.0] - fw:Certainty for certain statements
+
+The engine and the FW ontology have a fourth type, `fw:Certainty` (engine step S25, FW ontology 2026-11-03): a certain statement is not fuzzy at all and has weight 1.0. The Mini-AMT uses it instead of leaving the type out.
+
+### Changed
+- **Certain statements** (one entity, no `?`, no AND, no OR; weight 1.0) get the pattern type `fw:Certainty` in `py/weights.py` (`FW_TYPE["certain"]`). Before, no `fw:hasType` was written and AMT read that as `fw:Vagueness`. *Warum:* Eine sichere Aussage ist weder vage noch unsicher; mit dem eigenen Typ ist sie von „Typ nicht angegeben“ zu unterscheiden und rechnet im Reasoning richtig (Beschluss 2026-11-03, FW-Ontologie und Engine).
+- **`createdBy` in model M2** (crisp, weight 1.0) is a certain statement as well and carries `fw:hasType fw:Certainty`, in the reference reasoner and in the engine input. A chain `createdBy` o `worksAt` therefore takes the type of `worksAt` (before: vagueness next to `fw:Uncertainty` gave `fw:FuzzinessWobbliness`).
+- **Type of derived edges** in `py/reference_reasoner.py` as in the engine: `fw:Certainty` adds no fuzziness; it is left out as soon as another type is present, a chain of certain edges stays certain.
+- `data/weight-cases.csv`: the certain case expects `Certainty`. Pages *Weights* (type table, pattern `certain`, derived statements) and figure 05 (tag `C`) say so; `README.md`; the optional engine line in `requirements.txt` names the engine commit `ce23c5c`.
+- The cross-check with the engine is skipped, with a message, if the installed engine does not know `fw:Certainty`.
+
+### Checked
+- 340 edges of the three runs agree with AMT.engine (commit `ce23c5c`) in weight, type and method; the 17 weight cases agree; the round trip reads 20 statements back.
+
 ## [0.4.0] - FW terms, evidence, check against AMT.engine 0.6.0
 
 The hextuples use the terms the FW ontology fixed on 2026-10-30 (`caa-datadragons/FW_Ontology`, `15ae05f`); the proposals `amt:type`, `amt:method` and `nfdi_fw:ReciprocalPossibilityWeight` are gone. AMT.engine 0.6.0 reads the result.

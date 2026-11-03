@@ -1,5 +1,5 @@
 text,context,entities,weight,pattern,fw_type,listed,source
-Rheinzabern,actor--productioncentre,1,1.0,certain,,yes,no AND or OR
+Rheinzabern,actor--productioncentre,1,1.0,certain,Certainty,yes,no AND or OR
 Rheinzabern?,actor--productioncentre,1,0.5,q,Uncertainty,yes,question mark only
 Kräherwald and Rheinzabern,actor--productioncentre,2,1.0,and,Vagueness,yes,paper figure 5 (AND)
 Kräherwald and Rheinzabern?,actor--productioncentre,2,0.5,q+and,FuzzinessWobbliness,yes,AND with question mark
