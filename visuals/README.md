@@ -14,7 +14,7 @@ GitHub Pages site (menu entry *Visuals*). The matplotlib figures in `docs/diagra
 | PF.2 | informationcarrier--potform | `A?` | Uncertainty | Onnio-, `18/31?` |
 | PF.3 | informationcarrier--potform | `A or B?` | FuzzinessWobbliness | Secundus ii, `15/17 or 18 (R?)` |
 | PF.4 | informationcarrier--potform | `A or B` with observed shares | Vagueness | `31 or 31R`: 80.25 % / 19.75 % (proposal: `fw:RelativeFrequency`) |
-| PC.1 | actor--productioncentre | `A or B` | Vagueness | Sem- i, `Aspiran or Saint-Saturnin` |
+| PC.1 | actor--productioncentre | `A or B` | Vagueness | Saciro iv, `Pfaffenhofen or Westerndorf` |
 | PC.2 | actor--productioncentre | `A and B` | Vagueness | Regulus i, `Lezoux and Toulon-sur-Allier` |
 | PC.3 | actor--productioncentre | `A and B and C?` | FuzzinessWobbliness | Paternus v |
 | PC.4 | actor--productioncentre | `A?` | Uncertainty | Gongius, `Lezoux?` |

@@ -2,6 +2,15 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.13.2] - Fix: case figures were no longer rebuilt; PC.1 with Saciro iv
+
+### Fixed
+- Since 0.12.1 `visuals/build.py` stopped with `A.4: pattern not expected for informationcarrier--productioncentre`, and the case figures (PF, PC, IC-PC) and the pages Overview, Potform and Maps were not rebuilt. Cause: the chain pages add their cases (A.1, A.4, ...) to `CASES`, and `check_cases()` checked those too. It now checks only the cases of `data/cases.csv`. *Warum:* Die Fallgrafiken wurden seit S21 nicht mehr neu erzeugt; die Prüfung galt versehentlich auch für die Kettenfälle.
+
+### Changed
+- **PC.1** (One OR between centres) shows Saciro iv, `Pfaffenhofen or Westerndorf`, carrier 202335 (before: Sem- i, `Aspiran or Saint-Saturnin`). The caption no longer carries the counts of the old query.
+- All case figures are rebuilt; the kiln sites of `kilnsites-extra.csv` appear among the "other kiln sites".
+
 ## [0.13.1] - Decisions from Allard Mees (S4)
 
 ### Changed

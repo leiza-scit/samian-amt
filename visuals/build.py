@@ -137,6 +137,7 @@ def read_csv(p, delim=","):
 
 
 CASES = {r["case"]: r for r in read_csv(DATA / "cases.csv")}
+CASES_SRC = dict(CASES)   # the cases of data/cases.csv; the chain pages add their own entries to CASES
 SHARES = read_csv(DATA / "shares.csv")
 KILNS = {r["site"]: r for r in read_csv(DATA / "kilnsites-gaul.csv")}
 if (DATA / "kilnsites-extra.csv").exists():   # same columns; sites outside the Gaulish export, see visuals/sql/
@@ -570,7 +571,7 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
 
 def check_cases():
     """Stop if a case no longer says what the figures draw."""
-    for code, c in CASES.items():
+    for code, c in CASES_SRC.items():
         ed = wt.edges_for(c["source_string"], c["relation"])
         if not all(e["listed"] for e in ed):
             raise SystemExit(f"{code}: pattern not expected for {c['relation']}")
@@ -605,7 +606,7 @@ def main():
         "Bars as on the Samian Research website (form “31 or 31R”, Dish); counts taken from a screenshot. The frequency method is a proposal, not yet in the FW ontology."),
         "PF.4", "Observed frequency instead of equal share", C["PF.4"]))
     specs = [("PC.1-one-or", "PC.1", "One OR between centres",
-              f"Samian Research, Gaulish tradition: {C['PC.1']['query_rows']} carriers with OR in the centre; this string on {C['PC.1']['string_rows']}.", "actor"),
+              f"Samian Research: carrier {C['PC.1']['carrier_id']} of {C['PC.1']['pottername']}, centre string “{C['PC.1']['source_string']}” (Raetian tradition); the same string as in chain B.", "actor"),
              ("PC.2-multiple-and", "PC.2", "Several centres with AND",
               f"Samian Research, Gaulish tradition: {n_fmt(C['PC.2']['query_rows'])} carriers with AND and no ?; this string on {C['PC.2']['string_rows']}.", "actor"),
              ("PC.3-and-question-mark", "PC.3", "AND and a question mark",

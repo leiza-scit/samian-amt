@@ -145,7 +145,8 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S19 | Ein Design für Docs und Visuals, Chain-Unterseiten (A, B, C), matplotlib entfernt (0.11.0) | CHNT2026-amt | S18 | erledigt 2026-11-04 |
 | S20 | Chain-Seiten: Kettengrafik oben, Entitäten und Aussagen im Text; Menü Docs/Visuals getrennt (0.12.0) | CHNT2026-amt | S19 | erledigt 2026-11-04 |
 | S21 | Chain-Seiten: Figuren für InformationCarrier–ProductionCentre je Carrier (0.12.1) | CHNT2026-amt | S20 | erledigt 2026-11-04 |
-| S22 | Koordinaten der vier Zentren und Profilzeichnungen 24, 27, 31, 32, 33 eingebaut (0.13.0) | CHNT2026-amt | S21 | Patch geliefert 2026-11-04 |
+| S22 | Koordinaten der vier Zentren und Profilzeichnungen 24, 27, 31, 32, 33 eingebaut (0.13.0) | CHNT2026-amt | S21 | erledigt 2026-11-04 |
+| S23 | Fehlerbehebung `check_cases` (Fallgrafiken wurden nicht neu gebaut); PC.1 mit Saciro iv (0.13.2) | CHNT2026-amt | S22 | Patch geliefert 2026-11-04 |
 | S9 | Engine-Abgleich und SHACL-Validierung | CHNT2026-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
 
 S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die Entscheidung in S4.
