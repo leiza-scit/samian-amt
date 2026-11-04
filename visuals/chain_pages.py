@@ -32,14 +32,36 @@ def form_key(label):
     return k if k in B.FORMS else None
 
 
-def table(head, rows):
+def table_inner(head, rows):
     th = "".join(f"<th>{escape(h)}</th>" for h in head)
     tr = "".join("<tr>" + "".join(f"<td>{escape(str(c))}</td>" for c in r) + "</tr>" for r in rows)
-    return f'<section><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></section>'
+    return f"<table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table>"
+
+
+def table(head, rows):
+    return f"<section>{table_inner(head, rows)}</section>"
 
 
 def step(n, text):
-    return f'<h2 class="step"><span class="n">{n}</span>{escape(text)}</h2>'
+    num = f'<span class="n">{n}</span>' if n != "" else ""
+    return f'<h2 class="step">{num}{escape(text)}</h2>'
+
+
+READING = {
+    "q": "One value, marked with ? in the source: the recorder is not sure (uncertainty).",
+    "or": "Several values joined by OR: exactly one of them holds, which one is open; the weight is shared equally (vagueness).",
+    "and": "Several values joined by AND, no ?: all of them hold, each with the full weight (vagueness in the FW typing).",
+    "q+and": "AND with ?: all listed values are meant, but the statement is marked as doubtful (fuzziness-wobbliness).",
+    "q+or": "OR with ?: one of several values, and doubtful on top (fuzziness-wobbliness).",
+}
+CLASS_NOTE = {
+    "InformationCarrier": "the recorded object; its id is the carrier id of Samian Research",
+    "Actor": "the potter, by the name in the data",
+    "Potform": "the vessel form named in the record of the carrier",
+    "ProductionCentre": "a kiln site",
+}
+CLASS_ORDER = ["InformationCarrier", "Actor", "Potform", "ProductionCentre"]
+PLURAL = {"InformationCarrier": "carriers", "Actor": "actor", "Potform": "potforms", "ProductionCentre": "production centres"}
 
 
 def fmt(x):
@@ -91,14 +113,35 @@ def main():
         ae = next(e["from"] for e in edges if e["role"] == "worksAt" and e["to"] in pcs and nodes[e["from"]][1] == potter)
         mine_nodes = set(ics) | pfs | pcs | {ae}
         cards.append(step(3, "What the reasoning derives"))
-        cards.append(B.card("Result", f"Chain {L}: asserted statements and derived degrees",
-                            "Product logic. M1: carrier-centre statements asserted; M2: derived from the actor.", f"model-05{L.lower()}-chain-{L}"))
-        hx = [(nodes[e["from"]][1], e["role"], nodes[e["to"]][1], fmt(e["weight"]), TYPE[e["type"]])
-              for e in edges if e["from"] in mine_nodes and e["to"] in mine_nodes]
-        cards.append(table(["From", "Role", "To", "Weight", "FW type"], hx))
         dr = [(c["relation"], nodes[c["from"]][1], nodes[c["to"]][1], fmt(c["m1_product"]), fmt(c["m1_goedel"]), fmt(c["m2_product"]))
               for c in comp if c["from"] in mine_nodes and c["to"] in mine_nodes]
         cards.append(table(["Derived role", "From", "To", "M1 product", "M1 Goedel", "M2 product"], dr))
+        types = sorted({TYPE[e["type"]] for e in edges if e["from"] in mine_nodes and e["to"] in mine_nodes})
+
+        # top of the page: the chain figure, the entities, the statements
+        top = [step("", "The chain"),
+               B.card("Chain", f"Asserted statements and derived degrees ({potter})",
+                      "Product logic. M1: carrier-centre statements asserted; M2: derived from the actor.", f"model-05{L.lower()}-chain-{L}")]
+        counts = {c: sorted(k for k, v in nodes.items() if k in mine_nodes and v[0] == c) for c in CLASS_ORDER}
+        total = sum(len(v) for v in counts.values())
+        listing = ", ".join(f"{len(counts[c])} {PLURAL[c] if len(counts[c]) != 1 else {'InformationCarrier': 'carrier', 'Actor': 'actor', 'Potform': 'potform', 'ProductionCentre': 'production centre'}[c]}" for c in CLASS_ORDER)
+        top.append(f'<section class="text"><h3>Entities</h3><p>This chain has {total} entities: {listing}. '
+                   f'The potter is {escape(potter)}; the carriers say which form the vessel has, and the potter says where the work was done.</p>')
+        top.append(table_inner(["Class", "Entity", "Meaning"],
+                               [(c, nodes[k][1], CLASS_NOTE[c]) for c in CLASS_ORDER for k in counts[c]]) + "</section>")
+        srows, seen = [], set()
+        for e in edges:
+            if e["from"] in mine_nodes and e["to"] in mine_nodes and e["role"] in ("hasType", "hasProductionCentre", "worksAt"):
+                st = B.wt.parse(e["source"])
+                srows.append((e["role"], nodes[e["from"]][1], nodes[e["to"]][1], e["source"], TYPE[e["type"]],
+                              f"1/({st.n_questionmark} + {st.n_possibilities}) = {fmt(e['weight'])}"))
+                seen.add(e["pattern"])
+        read = "".join(f"<li><b>{escape(k)}</b>: {escape(READING[k])}</li>" for k in READING if k in seen)
+        top.append(f'<section class="text"><h3>Vague, uncertain and fuzzy-wobbly statements</h3>'
+                   f'<p>The statements come from the strings of the source data. Each string becomes one statement per entity, '
+                   f'with a degree of connection (weight) and a type from the FW ontology. In this chain:</p><ul>{read}</ul>'
+                   + table_inner(["Role", "From", "To", "Source string", "FW type", "Weight = 1/(? + possibilities)"], srows) + "</section>")
+        cards = top + cards
         types = sorted({TYPE[e["type"]] for e in edges if e["from"] in mine_nodes and e["to"] in mine_nodes})
         B.page(f"chain-{L}.html", f"Chain {L}: {potter}",
                f"{len(mine)} carrier{'s' if len(mine) > 1 else ''} of the potter; statement types in this chain: {', '.join(types)}. "

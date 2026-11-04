@@ -129,7 +129,8 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S16 | Nummerierte Kanten in `docs/diagrams/02_full_semantics` (0.9.2) | CHNT2026-amt | S15 | Patch geliefert 2026-11-04 |
 | S17 | Review-Seite aus der öffentlichen Version genommen, `REVIEW.md` intern (0.9.3) | CHNT2026-amt | S16 | Patch geliefert 2026-11-04 |
 | S18 | Visuals-Seiten im Layout von GeoScience-FAIRification-LOD, getrennt nach Potform / Karten modern / Karten römisch (0.10.0) | CHNT2026-amt | S17 | Patch geliefert 2026-11-04 |
-| S19 | Ein Design für Docs und Visuals, Chain-Unterseiten (A, B, C), matplotlib entfernt (0.11.0) | CHNT2026-amt | S18 | Patch geliefert 2026-11-04 |
+| S19 | Ein Design für Docs und Visuals, Chain-Unterseiten (A, B, C), matplotlib entfernt (0.11.0) | CHNT2026-amt | S18 | erledigt 2026-11-04 |
+| S20 | Chain-Seiten: Kettengrafik oben, Entitäten und Aussagen im Text; Menü Docs/Visuals getrennt (0.12.0) | CHNT2026-amt | S19 | Patch geliefert 2026-11-04 |
 | S9 | Engine-Abgleich und SHACL-Validierung | CHNT2026-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
 
 S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die Entscheidung in S4.

@@ -334,10 +334,11 @@ def main():
         figs.append((f"model-05{chain.lower()}-chain-{chain}", f"Chain {chain}: {potter}",
                      "The same chain as in the three-chain figure, on its own.", "05_chains"))
 
-    cards = [B.card(f"{i}", t, c, n, [(f"../diagrams/{d}.svg", "docs version (matplotlib)")])
+    cards = [B.card(f"{i}", t, c, n, [])
              for i, (n, t, c, d) in enumerate(figs, 1)]
     B.page("model.html", "Model",
-           "The Mini-AMT model in the style of the case figures. The figures in the documentation pages (<a href=\"../model.html\">Model</a>, "
-           "<a href=\"../reasoning.html\">Reasoning</a>, <a href=\"../chains.html\">Chains</a>) are the matplotlib versions and are developed there; "
-           "this page shows the same content for presentations and papers.", cards)
+           "The Mini-AMT model: ontology, full semantics, toy reasoning, both directions and the three chains. "
+           "The same figures stand in the documentation pages (<a href=\"../model.html\">Model</a>, "
+           "<a href=\"../reasoning.html\">Reasoning</a>, <a href=\"../chains.html\">Chains</a>); here they are collected for presentations and papers, "
+           "with PNG and SVG downloads.", cards)
     print(len(figs), "model figures ->", B.IMG)

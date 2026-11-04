@@ -2,6 +2,16 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.12.0] - Chain pages: chain figure first, entities and statements in text; separated navigation
+
+### Changed
+- **Chain pages** start with the chain figure, then a text on the entities of the chain (counts per class and a table of class, entity and meaning), then the vague, uncertain and fuzzy-wobbly statements: a short reading of every pattern that occurs (`?`, OR, AND, AND with `?`) and a table with role, source string, FW type and weight written as `1/(? + possibilities)`. The statement figures and the table of derived degrees follow. *Warum:* Wer die Seite öffnet, soll zuerst die ganze Kette sehen und lesen, welche Entitäten und welche unscharfen Aussagen darin stecken.
+- **Navigation**: one framed box with two bands; the *Documentation* band has a dark label and a dark bar, the *Visuals* band an accent-coloured label and bar, a rule between them. *Warum:* Dokumentation und Visuals sollen auf einen Blick getrennt sein.
+- Model figures page: intro text without the matplotlib remark.
+
+### Removed
+- The dead links "docs version (matplotlib)" on the model figures page (`docs/diagrams/` no longer exists).
+
 ## [0.11.0] - One design for documentation and visuals, chain sub pages
 
 ### Added
