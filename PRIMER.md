@@ -134,7 +134,8 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die Samian-Exporte (nur bei Schritt
 | S4a | Neue Gewichtsregel (`?` halbiert) und Häufigkeitsanteile als Zusatzinformation (Stufe A) (0.14.0) | samian-amt | S4 | Patch geliefert 2026-11-04 |
 | S24 | AMT Explorer für die drei Ketten (A, B, C) auf den GitHub Pages, nur eine Reasoning-Richtung (0.15.0) | samian-amt | S4a | Patch geliefert 2026-11-04; Live-Test auf GitHub Pages steht aus |
 | S25 | Umbenennung auf `samian-amt` (Repository, Links, Prefix `sam:`, Dateinamen) (0.16.0) | samian-amt | S24 | Patch geliefert 2026-11-04 |
-| S26 | Explorer überarbeitet: Kopfzeile, Logos, Legende, Cypher, Details, Layout in Kettenrichtung, PNG/SVG, Link, Vollbild (0.17.0) | samian-amt | S25 | Patch geliefert 2026-11-04; mainzed-Logo steht aus |
+| S26 | Explorer überarbeitet: Kopfzeile, Logos, Legende, Cypher, Details, Layout in Kettenrichtung, PNG/SVG, Link, Vollbild (0.17.0) | samian-amt | S25 | Patch geliefert und eingespielt 2026-11-04 (Live-Seite geprüft) |
+| S27 | Explorer ruhiger: Beschriftung bei Auswahl, nur inferierte Linien, Positionen im Link, Legende kurz, mainzed-Logo (0.17.1) | samian-amt | S26 | Patch geliefert 2026-11-04 |
 | S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | samian-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
 | S3a | samian-amt an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | samian-amt | S3 | erledigt 2026-10-30 (0.4.0) |
 | S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | samian-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
@@ -245,8 +246,21 @@ Link merkt sich Kette, Reasoning, Beschriftung.
 **Abnahme:** Chromium (headless): Titel, keine Konsolenfehler außer dem fehlenden mainzed-Logo, Kanten ohne Reasoning 8 und mit Reasoning 16 (Chain A),
 Cypher-Dialog mit 7 Knoten und 16 Beziehungen, PNG und SVG laden, der Link stellt Kette, Reasoning und Beschriftung wieder her.
 
-**Offen:** `docs/explorer/assets/img/mainzed.png` (kein Zugriff auf mainzed.org aus der Arbeitsumgebung); Live-Test auf GitHub Pages;
-Cypher-Test in einer echten Neo4j-Instanz (hier nur die Textform geprüft).
+**Offen:** Cypher-Test in einer echten Neo4j-Instanz (hier nur die Textform geprüft). Das mainzed-Logo kam mit S27.
+
+## S27 — Explorer ruhiger
+
+**Ziel:** Das Bild bleibt auch in Kette A mit Reasoning lesbar (Rückmeldung nach dem Live-Test, 2026-11-04).
+
+Inhalt (0.17.1): Kantenbeschriftung standardmäßig nur bei Auswahl („Labels: on selection“); Schalter „nur inferierte Linien“ in der Legende (`only=inferred`);
+verschobene Knoten stehen im Link (`pos=`) und bleiben nach Auswahl und Beschriftungswechsel stehen; Legende nennt nur den Begriff, die Erklärung steht
+im Details-Panel; `mainzed.png` im Repository.
+
+**Abnahme:** Chromium (headless): ohne Auswahl keine Beschriftung, mit Auswahl die Linien der Nachbarschaft; „nur inferierte“ zeigt 8 von 16 Linien (Chain A);
+Knoten ziehen, auswählen und Beschriftung wechseln lässt die Position stehen; der Link stellt die Positionen wieder her; keine Konsolenfehler,
+mainzed-Logo geladen.
+
+**Offen:** Ziehen im echten Browser (hier nur simuliert); Fullscreen mit dem neuen Layout.
 
 ## S4b — Hybridmodell Träger–Zentrum (zurückgestellt)
 

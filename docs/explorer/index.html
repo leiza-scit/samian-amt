@@ -71,7 +71,7 @@
       .card a { color: var(--link); }
       .card code { background: var(--code-bg); padding: 0 3px; border-radius: 2px; font-size: 11.5px; word-break: break-all; }
 
-      #legend { right: 12px; bottom: 12px; width: 300px; }
+      #legend { right: 12px; bottom: 12px; width: 250px; }
       #legend .hd { display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; font-size: 13px; user-select: none; }
       #legend .hd i { font-size: 20px; transition: transform .15s; }
       #legend.shut .hd i { transform: rotate(180deg); }
@@ -101,6 +101,7 @@
       #origin { border-color: var(--pal-green-deep); }
       #origin .logos { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
       #origin .logos img { height: 34px; width: auto; display: block; }
+      #origin .logos img[alt=mainzed] { height: 20px; }
       #origin .logos .txt { font-weight: 700; font-size: 20px; letter-spacing: .02em; color: var(--pal-steel-dark); }
 
       #cypherModal { max-height: 85% !important; width: 80% !important; }
@@ -127,7 +128,7 @@
       </span>
       <span class="sep"></span>
       <a class="pill" id="r-but" onclick="toggleReasoning()" title="reasoning on/off">Reasoning: off</a>
-      <a class="pill" id="l-but" onclick="cycleLabels()" title="what is written on the lines">Labels: names + weights</a>
+      <a class="pill" id="l-but" onclick="cycleLabels()" title="what is written on the lines">Labels: on selection</a>
       <span class="sep"></span>
       <span id="exports">
         <a class="ibtn" onclick="exportTTL()" title="Download Turtle (including inferred statements and the inverse roles)"><i class="material-icons">file_download</i></a>

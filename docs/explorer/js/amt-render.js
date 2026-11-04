@@ -27,7 +27,10 @@ _AMT.reasoning = false;
 _AMT.rdf       = "";
 _AMT.file      = "chain-A.ttl";
 _AMT.info      = "";            // one line about the chain, from data/examples.json
-_AMT.labels    = "names";       // names | weights | none
+_AMT.labels    = "focus";       // focus | names | weights | none
+_AMT.only      = false;         // show the inferred lines only
+_AMT.pos       = null;          // positions from the link, used once
+_AMT.moved     = false;         // nodes were dragged (the link then carries the positions)
 _AMT.generic   = false;         // show the generic role (reaches) as well
 _AMT.selected  = null;          // { kind: "node" | "edge", id }
 
@@ -36,7 +39,7 @@ _AMT.selected  = null;          // { kind: "node" | "edge", id }
 // The order is the direction of the chain.
 // ------------------------------------------------------------
 var AMT_CONCEPTS = [
-    { name: "Potform",            bg: "#4a9a82", border: "#184838", font: "#000", gloss: "vessel form (type)" },
+    { name: "Potform",            bg: "#4a9a82", border: "#184838", font: "#000", gloss: "vessel form" },
     { name: "InformationCarrier", bg: "#e8b878", border: "#8a5a1a", font: "#000", gloss: "stamped vessel or sherd" },
     { name: "ProductionCentre",   bg: "#8fa3c4", border: "#2c3a52", font: "#000", gloss: "kiln site" },
     { name: "Actor",              bg: "#c8833f", border: "#8a5a1a", font: "#000", gloss: "potter" }
@@ -113,10 +116,14 @@ var shortenURI = function(uri) {
 // ------------------------------------------------------------
 // styleEdges: asserted = solid dark, inferred = dashed red; the line gets thicker with the weight
 // ------------------------------------------------------------
-var edgeLabel = function(e, role, weight) {
-    if (_AMT.labels === "none") return "";
+var fullLabel = function(e, role, weight) {
     if (_AMT.labels === "weights" || e.inferred) return String(weight);
     return role + " " + weight;
+};
+
+var edgeLabel = function(e, role, weight) {
+    if (_AMT.labels === "none" || _AMT.labels === "focus") return "";   // focus: written by applyFocus
+    return fullLabel(e, role, weight);
 };
 
 var styleEdges = function(edges) {
@@ -219,14 +226,16 @@ var buildLegend = function() {
     var h = "<b>Nodes</b>";
     AMT_CONCEPTS.forEach(function(c) {
         h += '<div class="lg"><i class="dot" style="background:' + c.bg + ';border-color:' + c.border + '"></i>' +
-             '<span><b>' + (c.name === "Actor" ? "Actor" : c.name) + '</b> &ndash; ' + c.gloss + '</span></div>';
+             '<span><b>' + c.name + '</b></span></div>';
     });
     h += '<b class="sec">Lines</b>' +
          '<div class="lg"><i class="ln" style="border-top:3px solid var(--asserted)"></i><span>asserted (in the data)</span></div>' +
          '<div class="lg"><i class="ln" style="border-top:3px dashed var(--inferred)"></i><span>inferred by reasoning (one direction)</span></div>' +
          '<div class="lg"><i class="ln thick"></i><span>thicker line = higher weight</span></div>' +
          '<label class="sw"><input type="checkbox" id="sw-generic"' + (_AMT.generic ? " checked" : "") +
-         ' onchange="toggleGeneric(this.checked)" /><span>also show the generic role <code>reaches</code></span></label>';
+         ' onchange="toggleGeneric(this.checked)" /><span>also show the generic role <code>reaches</code></span></label>' +
+         '<label class="sw"><input type="checkbox" id="sw-only"' + (_AMT.only ? " checked" : "") +
+         ' onchange="toggleOnly(this.checked)" /><span>show the inferred lines only</span></label>';
     $("#legend-body").html(h);
 };
 
@@ -252,6 +261,7 @@ var update = function() {
         graph.edges = graph.edges.filter(function(e) { return !hiddenRoles[e.role]; });
         graph.nodes = styleNodes(graph.nodes);
         graph.edges = styleEdges(graph.edges);
+        if (_AMT.only) graph.edges = graph.edges.filter(function(e) { return e.inferred; });
         graph.edges.forEach(function(e, i) { e.id = "e" + i; });
 
         _AMT.graph.nodes = new vis.DataSet(graph.nodes);
@@ -266,12 +276,21 @@ var update = function() {
         _AMT.thisEdges = graph.edges;
         _AMT.selected = null;
 
+        _AMT.moved = false;
+        _network.on("dragEnd", function(p) {
+            if (p.nodes && p.nodes.length) { _AMT.moved = true; arcInferred(); syncUrl(); }
+        });
         _network.on("click", function(p) {
             if (p.nodes.length) selectItem("node", p.nodes[0]);
             else if (p.edges.length) selectItem("edge", p.edges[0]);
             else selectItem(null);
         });
         _network.once("afterDrawing", function() {
+            if (_AMT.pos && _AMT.pos.length === graph.nodes.length) {
+                _AMT.pos.forEach(function(xy, i) { _network.moveNode(graph.nodes[i].id, xy[0], xy[1]); });
+                _AMT.moved = true;
+            }
+            _AMT.pos = null;
             arcInferred();
             _network.fit({ animation: false });
             // a little smaller and to the left, so the legend at the bottom right does not cover a node
@@ -282,6 +301,7 @@ var update = function() {
         showStatus(amt);
         showDetail();
         syncUrl();
+        if (_AMT.pos) setTimeout(syncUrl, 400);   // positions from the link are applied after the first drawing
     });
 };
 
@@ -290,6 +310,14 @@ var update = function() {
 // picture), so they no longer run over the asserted edges. Done once after the layout has placed the nodes.
 // vis.js: for a chord running to the right, curvedCW bows up and curvedCCW down (the other way round to the left).
 // ------------------------------------------------------------
+// vis.js lays a hierarchical graph out again whenever a data set changes, which would throw dragged nodes back.
+// Every change after a drag therefore goes through keepPositions, which puts the nodes back where they were.
+var keepPositions = function(change) {
+    var before = (_AMT.moved && _network) ? _network.getPositions() : null;
+    change();
+    if (before) Object.keys(before).forEach(function(id) { _network.moveNode(id, before[id].x, before[id].y); });
+};
+
 var arcInferred = function() {
     var pos = _network.getPositions();
     var ys = Object.keys(pos).map(function(k) { return pos[k].y; });
@@ -311,7 +339,7 @@ var arcInferred = function() {
         e.roundnessUsed = round;
         upd.push({ id: e.id, smooth: e.smooth });
     });
-    if (upd.length) _AMT.graph.edges.update(upd);
+    if (upd.length) keepPositions(function() { _AMT.graph.edges.update(upd); });
 };
 
 // ------------------------------------------------------------
@@ -333,6 +361,10 @@ var applyFocus = function() {
         if (e0) { keepEdges[e0.id] = true; keepNodes[e0.from] = true; keepNodes[e0.to] = true; }
     }
     var dim = !!sel;
+    keepPositions(function() { applyFocusStyles(dim, sel, keepNodes, keepEdges); });
+};
+
+var applyFocusStyles = function(dim, sel, keepNodes, keepEdges) {
     _AMT.graph.nodes.update(_AMT.thisNodes.map(function(n) {
         var on = !dim || keepNodes[n.id];
         var c = n.baseColour;
@@ -346,11 +378,13 @@ var applyFocus = function() {
         var on = !dim || keepEdges[e.id];
         var isSel = sel && sel.kind === "edge" && sel.id === e.id;
         var col = on ? (e.inferred ? rgba(e.baseColour, 0.85) : e.baseColour) : rgba(e.baseColour, 0.15);
-        return { id: e.id,
+        var upd = { id: e.id,
                  color: { color: col, highlight: col, hover: col },
                  font: { align: "middle", size: e.inferred ? 11 : 12, color: on ? e.baseColour : rgba(e.baseColour, 0.25),
                          face: "Fira Sans, Roboto, Arial, sans-serif", strokeWidth: 4, strokeColor: amtColour("bg", "#f8f7f1") },
                  shadow: isSel ? { enabled: true, color: "rgba(0,0,0,0.35)", size: 8, x: 0, y: 0 } : { enabled: false } };
+        if (_AMT.labels === "focus") e.label = upd.label = (sel && keepEdges[e.id]) ? fullLabel(e, amtLocal(e.role), e.weight) : "";
+        return upd;
     }));
 };
 
@@ -403,7 +437,7 @@ var showDetail = function() {
         var out = _AMT.thisEdges.filter(function(e) { return e.from === n.id; }).length;
         var inn = _AMT.thisEdges.filter(function(e) { return e.to === n.id; }).length;
         h += '<h6>' + esc(n.label) + '</h6>' +
-             '<p class="who">' + esc(idx >= 0 ? AMT_CONCEPTS[idx].name + " (" + AMT_CONCEPTS[idx].gloss + ")" : amtLocal(n.concept)) + '</p><table>' +
+             '<p class="who">' + esc(idx >= 0 ? AMT_CONCEPTS[idx].name + " \u2013 " + AMT_CONCEPTS[idx].gloss : amtLocal(n.concept)) + '</p><table>' +
              row("IRI", "<code>" + esc(shortenURI(n.id)) + "</code>") +
              row("edges shown", out + " outgoing, " + inn + " incoming") + '</table>';
     } else {
@@ -444,13 +478,14 @@ var toggleReasoning = function() {
     update();
 };
 
-var LABEL_MODES = ["names", "weights", "none"];
-var LABEL_TEXT  = { names: "Labels: names + weights", weights: "Labels: weights", none: "Labels: off" };
+var LABEL_MODES = ["focus", "names", "weights", "none"];
+var LABEL_TEXT  = { focus: "Labels: on selection", names: "Labels: names + weights", weights: "Labels: weights", none: "Labels: off" };
 var cycleLabels = function() {
     _AMT.labels = LABEL_MODES[(LABEL_MODES.indexOf(_AMT.labels) + 1) % LABEL_MODES.length];
     $("#l-but").text(LABEL_TEXT[_AMT.labels]);
     _AMT.thisEdges.forEach(function(e) { e.label = edgeLabel(e, amtLocal(e.role), e.weight); });
-    _AMT.graph.edges.update(_AMT.thisEdges.map(function(e) { return { id: e.id, label: e.label }; }));
+    keepPositions(function() { _AMT.graph.edges.update(_AMT.thisEdges.map(function(e) { return { id: e.id, label: e.label }; })); });
+    applyFocus();   // in the mode "on selection" this writes the labels of the selected neighbourhood
     syncUrl();
 };
 
@@ -459,11 +494,25 @@ var toggleGeneric = function(on) {
     update();
 };
 
+var toggleOnly = function(on) {
+    _AMT.only = !!on;
+    if (_AMT.only && !_AMT.reasoning) {   // there is nothing inferred without reasoning
+        _AMT.reasoning = true;
+        $("#r-but").addClass("on").text("Reasoning: on");
+    }
+    update();
+};
+
 var linkUrl = function() {
     var q = ["ttl=" + encodeURIComponent(_AMT.file)];
     if (_AMT.reasoning) q.push("reasoning=on");
-    if (_AMT.labels !== "names") q.push("labels=" + _AMT.labels);
+    if (_AMT.labels !== "focus") q.push("labels=" + _AMT.labels);
     if (_AMT.generic) q.push("generic=1");
+    if (_AMT.only) q.push("only=inferred");
+    if (_AMT.moved && _network) {   // dragged nodes: one x,y pair per node, in the order of the node list
+        var pos = _network.getPositions();
+        q.push("pos=" + _AMT.thisNodes.map(function(n) { return Math.round(pos[n.id].x) + "," + Math.round(pos[n.id].y); }).join(";"));
+    }
     return window.location.href.replace(/[?#].*$/, "") + "?" + q.join("&");
 };
 
@@ -586,6 +635,10 @@ $(function() {
     var params = new URLSearchParams(window.location.search);
     _AMT.reasoning = params.get("reasoning") === "on";
     _AMT.generic   = params.get("generic") === "1";
+    _AMT.only      = params.get("only") === "inferred";
+    if (_AMT.only) _AMT.reasoning = true;
+    if (params.get("pos")) _AMT.pos = params.get("pos").split(";").map(function(t) { return t.split(",").map(Number); })
+        .filter(function(xy) { return xy.length === 2 && isFinite(xy[0]) && isFinite(xy[1]); });
     if (LABEL_MODES.indexOf(params.get("labels")) >= 0) _AMT.labels = params.get("labels");
     $("#r-but").toggleClass("on", _AMT.reasoning).text(_AMT.reasoning ? "Reasoning: on" : "Reasoning: off");
     $("#l-but").text(LABEL_TEXT[_AMT.labels]);

@@ -2,6 +2,20 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.17.1] - Explorer: quieter picture
+
+### Added
+- **Labels on selection** (new default of the label button): the lines carry no text until a node or a line is clicked; then the lines of the selection show role and weight. The other modes (names and weights, weights, off) stay. *Warum:* In Kette A lagen die Beschriftungen der gestrichelten Bögen übereinander und verdeckten die Knoten.
+- Legend switch **show the inferred lines only** (link parameter `only=inferred`; switches reasoning on if it is off).
+- **Dragged nodes are kept in the link** (`pos=x,y;x,y;...`, one pair per node); a link opens the picture as it was arranged. PNG and SVG export what is shown. After a drag, selecting or relabelling no longer throws the nodes back (vis.js lays a hierarchical graph out again on every data change).
+- `docs/explorer/assets/img/mainzed.png`: the logo of mainzed.
+
+### Changed
+- The legend names only the concept (Potform, InformationCarrier, ProductionCentre, Actor) and is narrower; the plain-language gloss ("vessel form", "kiln site", ...) stays in the details panel (before: "Potform (vessel form (type))" with a double bracket, now "Potform – vessel form").
+
+### Removed
+- The note that `mainzed.png` is missing (see 0.17.0).
+
 ## [0.17.0] - Explorer: header, legend, details, Cypher, readable reasoning
 
 ### Added
