@@ -2,6 +2,15 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.6.0] - Case figures for Potform and ProductionCentre
+
+### Added
+- **`visuals/`**: eight figures in the house pattern of the `*-visuals` folders (1750x1000, Fira Sans, SVG and PNG, caption page `visuals/site/index.html`), one per vagueness / uncertainty case: PF.1 (multiple OR), PF.2 (`A?`), PF.3 (`A or B?`), PC.1 (one OR), PC.2 (multiple AND), PC.3 (AND with `?`), PC.4 (`A?`) and IC-PC.1 (carrier to centre, `A?`). Weight, FW type and method of every statement come from `py/weights.py`; `check_cases()` stops the build if the rule no longer gives the pattern drawn. *Warum:* Die Fälle aus den SQL-Abfragen werden an echten Samian-Beispielen gezeigt, ohne dass Gewichte von Hand gesetzt sind.
+- **Profile drawings** (Drag. 15/17, 18, 18/31 and the rim variants 15/17R, 18R, 18/31R, 31R) redrawn as vector paths by `visuals/trace_forms.py` from the supplied JPGs (`visuals/data/forms-src/`); result in `visuals/data/forms.json`.
+- **Maps** for the centre cases: Natural Earth coastline (`visuals/prepare_basemap.py`, public domain) and the 36 Gaulish kiln sites with Wikidata IDs (`visuals/data/kilnsites-gaul.csv`). A marker with `?` is drawn hollow and dashed.
+- `visuals/data/cases.csv`: the example strings and carriers (extract of the CHNT exports, with the number of rows per query).
+- Step `visuals` in `main.py`; `resvg-py` and `pillow` in `requirements.txt`.
+
 ## [0.5.0] - fw:Certainty for certain statements
 
 The engine and the FW ontology have a fourth type, `fw:Certainty` (engine step S25, FW ontology 2026-11-03): a certain statement is not fuzzy at all and has weight 1.0. The Mini-AMT uses it instead of leaving the type out.

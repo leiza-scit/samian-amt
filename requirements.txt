@@ -9,6 +9,10 @@
 rdflib>=7.0        # parse ontology + toy data, read axioms
 matplotlib>=3.8    # the diagrams (Mermaid-like, drawn by py/diagram_kit.py)
 
+resvg-py>=0.2      # step visuals: SVG -> PNG
+pillow>=10         # step visuals: text widths with the bundled Fira Sans
+# scikit-image>=0.22  # only for visuals/trace_forms.py and prepare_basemap.py (one-off, output is committed)
+
 # Optional: the AMT engine (https://github.com/alpaca-fair-framework/amt-engine). 0.6.0 is the first
 # version that reads fw:hasType, fw:hasMethod and fw:derivedFrom; fw:Certainty came after the 0.6.0 tag
 # (engine step S25), so the line below names a commit. With an older engine the cross-check is skipped.

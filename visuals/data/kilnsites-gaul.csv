@@ -1,0 +1,37 @@
+"id","coordinate1","coordinate2","site","tradition","datemin","datemax","wikidataid"
+1,3.083333,44.1,"La Graufesenque","South Gaulish",10,120,"Q102763431"
+2,3.2,44.433333,"Banassac","South Gaulish",110,140,"Q381323"
+3,3.216667,44.18333,"Le Rozier","South Gaulish",50,70,"Q472900"
+4,1.666667,44.46667,"Carrade","South Gaulish",50,100,NULL
+5,1.9,43.865,"Crambade","South Gaulish",10,50,NULL
+6,2.766667,44.516667,"Espalion","South Gaulish",30,100,"Q326699"
+7,3.466667,43.683333,"Jonquières, Saint Saturnin","South Gaulish",10,30,"Q204326"
+8,3.433333,43.566667,"Aspiran","South Gaulish",20,45,"Q607047"
+11,1.9,43.866667,"Montans","South Gaulish",10,120,"Q1613888"
+12,1.916667,43.9,"Saint-Sauveur","South Gaulish",40,70,"Q202143"
+13,1.966667,43.783333,"Valéry","South Gaulish",10,150,NULL
+14,3.216667,45.75,"Cournon","Central Gaulish",150,260,"Q69288"
+15,4.066667,46.6,"Gueugnon","Central Gaulish",150,260,"Q431817"
+16,3.383333,45.833333,"Lezoux","Central Gaulish",120,260,"Q1221375"
+17,3.633333,46.25,"Lubié","Central Gaulish",140,250,NULL
+18,3.2,45.683333,"Les Martres-de-Veyre","Central Gaulish",100,120,"Q1159666"
+19,0.466667,47.1,"Mougon","Central Gaulish",150,260,NULL
+20,0.55,47.05,"Nouâtre","Central Gaulish",150,190,NULL
+21,3.366667,46.516667,"Toulon-sur-Allier","Central Gaulish",150,260,NULL
+22,3.4,46.116667,"Vichy, Terre Franche","Central Gaulish",150,260,NULL
+23,6.105278,50.770833,"Aachen","East Gaulish",100,120,NULL
+27,7.25,49.216667,"Blickweiler","East Gaulish",125,180,NULL
+28,7.183333,49.116667,"Bliesbruck","East Gaulish",NULL,NULL,NULL
+29,6.6,49.15,"Boucheporn","East Gaulish",110,200,NULL
+30,6.50833,49.15,"Chémery-Faulquemont","East Gaulish",70,170,NULL
+31,6.6,48.983333,"Eincheville","East Gaulish",NULL,NULL,NULL
+32,7.2,49.3,"Eschweilerhof","East Gaulish",120,180,NULL
+33,6.2,49.35,"Haute-Yutz","East Gaulish",130,250,NULL
+37,3.783333,47.966667,"Jaulges-Villiers-Vineux","East Gaulish",150,190,NULL
+38,6.25,48.65,"La Madeleine","East Gaulish",130,180,NULL
+43,6.383333,47.816667,"Luxeuil-les-Bains","East Gaulish",100,200,NULL
+46,6.883333,47.666667,"Offemont","East Gaulish",NULL,NULL,NULL
+48,7.25,50.55,"Sinzig","East Gaulish",130,170,NULL
+49,6.633333,49.75,"Trier","East Gaulish",140,260,NULL
+102,2.149255,43.927186,"Albi","South Gaulish",50,80,NULL
+103,2.572616,44.35237,"Rodez","South Gaulish",50,80,NULL
