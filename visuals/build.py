@@ -460,6 +460,8 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
         lats = [float(k["coordinate2"]) for _, _, k, _ in ents]
         clon, clat = (min(lons) + max(lons)) / 2, (min(lats) + max(lats)) / 2
         span = max(6.0, 1.9 * max(max(lats) - min(lats), (max(lons) - min(lons)) * math.cos(math.radians(clat))))
+        half = span / (2 * math.cos(math.radians(clat)))   # keep the window inside the data window (-6 .. 13 degrees east)
+        clon = min(max(clon, -6.0 + half), 13.0 - half)
         win = (clon, clat, span, 1000 / span)
         # marker positions first, so that city labels can keep clear of them
         placed, labels = [], []   # a marker that would touch an earlier one is pushed away, with a leader line

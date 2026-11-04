@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""trace_forms.py - redraw the seven profile drawings in data/forms-src/ as vector paths.
+"""trace_forms.py - redraw the profile drawings in data/forms-src/ as vector paths.
 
 Marching squares on a 8x bicubic enlargement of each JPG gives sub-pixel outlines.
 Three layers per drawing: the black section (level 140), the thin lines (level 215)

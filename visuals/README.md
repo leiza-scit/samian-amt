@@ -40,6 +40,6 @@ licence of DARE, still to be checked and stated here.
 
 `chain_pages.py` builds one page per chain of `data/chains-source.csv` (A, B, C): the asserted statements first (potform of each carrier,
 centres of the potter, as figures in the case style, centres on a modern and a Roman map), then the derived degrees (chain figure, table of
-the hextuples, table of the degrees under M1 and M2). Centres without coordinates in `data/kilnsites-gaul.csv` (Kräherwald, Rheinzabern,
-Pfaffenhofen, Westerndorf) get a figure without map until `data/kilnsites-extra.csv` exists (query: `sql/kilnsites-chains.sql`); forms without
-profile drawing (24, 27, 31, 32, 33) show a placeholder.
+the hextuples, table of the degrees under M1 and M2). The four centres of the chains outside the Gaulish export (Kräherwald, Rheinzabern, Pfaffenhofen, Westerndorf) are in `data/kilnsites-extra.csv`
+(query: `sql/kilnsites-chains.sql`; a centre missing there gets a figure without map). The profile drawings of the forms 24, 27, 31, 32 and 33
+are in `data/forms-src/` and traced into `data/forms.json`; a form without drawing shows a placeholder.

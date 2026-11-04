@@ -2,6 +2,15 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.13.0] - Chain pages: kiln coordinates and profile drawings
+
+### Added
+- `visuals/data/kilnsites-extra.csv`: coordinates of Kräherwald, Rheinzabern, Pfaffenhofen and Westerndorf (from `cat29.tblkilnsites`). The centre figures of chains A and B now have a modern and a Roman map.
+- Profile drawings of the forms 24, 27, 31, 32 and 33 (`visuals/data/forms-src/`, traced into `forms.json`); the potform figures of the three chains show them instead of the placeholder. *Warum:* Die Platzhalter („no map yet“, „no profile drawing yet“) entfallen; die Ketten sind vollständig dargestellt.
+
+### Changed
+- Map window of the centre figures: it stays inside the data window (6° west to 13° east), so a centre in Raetia (Pfaffenhofen, Westerndorf) no longer gets an empty strip at the right edge. Maps whose window was inside the data window are unchanged.
+
 ## [0.12.1] - Chain pages: the carrier-centre statements get their figures
 
 ### Added
