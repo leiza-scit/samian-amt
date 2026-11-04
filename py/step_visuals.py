@@ -10,8 +10,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "visuals"))
 def main() -> int:
     import build
     import model_figs
+    model_figs.main()      # first: the overview page of build.main() shows a model figure
     build.main()
-    model_figs.main()
     return 0
 
 

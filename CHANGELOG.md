@@ -2,6 +2,13 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.10.0] - Visuals pages in the layout of the GeoScience-FAIRification-LOD figure page, split by group
+
+### Changed
+- The pages of `docs/visuals/` take the layout of the figure page of `GeoScience-FAIRification-LOD`: cream background, one white card with a rim per figure, accent colour `#9a3412` for the figure label, a *Copy* button for the caption, credit line, PNG and SVG downloads. Fira Sans is shipped in `docs/visuals/fonts/` so the page looks the same on every machine.
+- The case figures are separated into **Potform** (`potform.html`: PF.1 to PF.4), **Maps, modern** (`maps-modern.html`) and **Maps, Roman** (`maps-roman.html`); `index.html` is an overview with one card per group, `model.html` keeps the model figures. A navigation bar links the pages and the documentation. *Warum:* Die Fallgrafiken waren eine lange Liste; die Gruppen (Formen, moderne Karten, römische Karten) sollen getrennt auffindbar sein.
+- `step_visuals` draws the model figures first, because the overview shows one of them.
+
 ## [0.9.3] - Review page no longer published
 
 ### Changed

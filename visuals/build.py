@@ -606,32 +606,102 @@ def main():
     print(len(figs), "figures ->", IMG)
 
 
-NAV = ('<nav><a href="../index.html">Mini-AMT docs</a> · <a href="index.html">Case figures</a> · '
-       '<a href="model.html">Model figures</a></nav>')
-CSS = ('body{font:16px/1.5 "Fira Sans",sans-serif;max-width:960px;margin:2rem auto;padding:0 1rem;color:#1f1f1d}'
-       'nav{border-bottom:1px solid #ddd;padding-bottom:.6rem;margin-bottom:1.5rem;font-size:.9rem}'
-       'figure{margin:0 0 2rem}img{max-width:100%;border:1px solid #ddd}figcaption{color:#55544f}')
+PAGES = [("index.html", "Overview"), ("potform.html", "Potform"), ("maps-modern.html", "Maps, modern"),
+         ("maps-roman.html", "Maps, Roman"), ("model.html", "Model")]
+ACCENT = "#9a3412"
+CSS = """
+@font-face{font-family:"Fira Sans";font-weight:400;src:url(fonts/FiraSans-Regular.ttf) format("truetype")}
+@font-face{font-family:"Fira Sans";font-weight:500;src:url(fonts/FiraSans-Medium.ttf) format("truetype")}
+:root{--bg:#f6f6f3;--card:#fff;--ink:#1f1f1d;--mut:#55544f;--line:#d8d6ce}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Fira Sans",system-ui,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:32px 16px 64px}
+nav{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;margin:0 0 22px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+nav a{color:var(--mut);text-decoration:none}nav a:hover{color:#9a3412}
+nav a.on{color:#9a3412;font-weight:500}nav .up{margin-right:10px}
+h1{font-size:28px;font-weight:500;margin:0 0 10px}
+.intro{margin:0 0 24px;color:var(--mut)}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 24px}
+img{display:block;width:100%;height:auto;border-radius:4px}
+.row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-top:14px}
+.cap{margin:0;font-size:20px;font-weight:500}
+.cap a{color:inherit;text-decoration:none}
+.n{color:#9a3412;margin-right:10px}
+.cr{margin:6px 0 0;color:var(--mut);font-size:14px}
+.dl{margin:6px 0 0;font-size:14px}
+.dl a{color:#9a3412;margin-right:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid section{margin:0}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+button{flex:none;font:inherit;font-size:14px;padding:5px 12px;border:1px solid #9a3412;border-radius:6px;background:#fff;color:#9a3412;cursor:pointer}
+button:hover{background:#9a3412;color:#fff}
+"""
+JS = """document.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){
+  var ok=function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1200)};
+  if(navigator.clipboard){navigator.clipboard.writeText(b.dataset.c).then(ok).catch(function(){})}
+})});"""
 
 
-def page(file, title, intro, rows):
-    html = (f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-            f'<title>{escape(title)}</title><style>{CSS}</style>{NAV}<h1>{escape(title)}</h1><p>{intro}</p>'
-            + "".join(rows) + "</html>\n")
+def png_size(name):
+    import struct
+    with open(IMG / f"{name}.png", "rb") as h:
+        head = h.read(24)
+    return struct.unpack(">II", head[16:24])
+
+
+def card(label, caption, credit, name, extra=(), href=None):
+    """One figure card. With href it is an overview card: linked image and title, no copy button or downloads."""
+    w, h = png_size(name)
+    img = f'<img src="img/{name}.png" width="{w}" height="{h}" loading="lazy" alt="{escape(label + " " + caption)}">'
+    if href:
+        return (f'<section>\n<a href="{href}">{img}</a>\n<div class="row"><p class="cap"><span class="n">{escape(label)}</span>'
+                f'<a href="{href}">{escape(caption)}</a></p></div>\n<p class="cr">{escape(credit)}</p>\n</section>')
+    links = "".join(f'<a href="{u}">{t}</a>' for u, t in extra)
+    return (f'<section id="{name}">\n{img}\n'
+            f'<div class="row"><p class="cap"><span class="n">{escape(label)}</span>{escape(caption)}</p>'
+            f'<button type="button" data-c="{escape(caption).replace(chr(34), "&quot;")}">Copy</button></div>\n'
+            f'<p class="cr">{escape(credit)}</p>\n'
+            f'<p class="dl"><a href="img/{name}.png" download>PNG</a><a href="img/{name}.svg" download>SVG</a>{links}</p>\n</section>')
+
+
+def page(file, title, intro, cards, grid=False):
+    import shutil
+    nav = '<a class="up" href="../index.html">&larr; Mini-AMT docs</a>' + "".join(
+        f'<a{" class=on" if f == file else ""} href="{f}">{t}</a>' for f, t in PAGES)
+    body = f'<div class="grid">\n{chr(10).join(cards)}\n</div>' if grid else "\n".join(cards)
+    html = (f'<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            f'<title>{escape(title)} · Mini-AMT visuals</title>\n<style>{CSS}</style></head><body><main>\n'
+            f'<nav>{nav}</nav>\n<h1>{escape(title)}</h1>\n<p class="intro">{intro}</p>\n{body}\n</main>\n<script>{JS}</script></body></html>\n')
     SITE.mkdir(parents=True, exist_ok=True)
+    (SITE / "fonts").mkdir(exist_ok=True)
+    for f in (R, M):
+        shutil.copyfile(f, SITE / "fonts" / f.name)
     (SITE / file).write_text(html, encoding="utf-8", newline="\n")
 
 
 def write_site(figs):
-    rows = []
+    groups = {"potform.html": [], "maps-modern.html": [], "maps-roman.html": []}
     for name, code, title, c in figs:
-        ed = wt.edges_for(c["source_string"], c["relation"])
-        e = ed[0]
-        rows.append(f'<figure id="{name}"><img src="img/{name}.png" alt="{escape(code + " " + title)}" width="875">'
-                    f'<figcaption><b>{code}</b> {escape(title)}. {escape(c["relation"])}; string <code>{escape(c["source_string"])}</code> '
-                    f'({escape(c["pottername"] + ", id " + c["carrier_id"] if c["carrier_id"] else "any carrier")}); weight {e["weight"]:.2f} per statement, fw:{e["type"]}, fw:{e["method"]}. '
-                    f'<a href="img/{name}.svg">SVG</a></figcaption></figure>')
-    page("index.html", "Vagueness and uncertainty cases",
-         "Potform and ProductionCentre, one figure per case. Examples from the Samian Research database.", rows)
+        e = wt.edges_for(c["source_string"], c["relation"])[0]
+        who = (c["pottername"] + ", id " + c["carrier_id"]) if c["carrier_id"] else "any carrier"
+        credit = (f'{c["relation"]}; string {c["source_string"]} ({who}); weight {e["weight"]:.2f} per statement, '
+                  f'fw:{e["type"]}, fw:{e["method"]}. Data: Samian Research; figure CC BY 4.0.')
+        key = "potform.html" if code.startswith("PF") else "maps-roman.html" if name.endswith("-roman") else "maps-modern.html"
+        groups[key].append((name, card(code, title.replace(" (Roman map)", ""), credit, name)))
+    info = {"potform.html": ("Potform", "informationcarrier--potform: vagueness (OR), uncertainty (?), fuzziness-wobbliness, and observed frequency. Drawings are the profile forms of the Samian Research website, redrawn."),
+            "maps-modern.html": ("Maps, modern", "actor--productioncentre and informationcarrier--productioncentre on a modern basemap (coast, rivers, regions, borders, cities: Natural Earth)."),
+            "maps-roman.html": ("Maps, Roman", "The same cases on a Roman basemap: provinces and places (DARE), roads (Itiner-e, CC BY 4.0), Latin river names.")}
+    for file, (title, intro) in info.items():
+        page(file, title, intro, [h for _, h in groups[file]], grid=False)
+    thumbs = []
+    for file, (title, intro) in info.items():
+        first = groups[file][0][0]
+        thumbs.append(card(f"{len(groups[file])}×", title, intro, first, href=file))
+    thumbs.append(card("8×", "Model", "The Mini-AMT model in the same style: simple view, full semantics, toy reasoning, both directions, three chains (also one by one).",
+                       "model-01-simple", href="model.html"))
+    page("index.html", "Mini-AMT visuals",
+         "Figures for the vagueness and uncertainty cases of the Potform and ProductionCentre relations, with examples from the Samian Research database, and for the model.",
+         thumbs, grid=True)
 
 
 if __name__ == "__main__":

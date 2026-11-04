@@ -2,7 +2,7 @@
 
 Fourteen figures for the vagueness / uncertainty patterns of the Mini-AMT, each with a real example from the Samian
 Research database, plus the five model figures (`model_figs.py`, same content as `docs/diagrams`, in the same style).
-Everything is generated into `docs/visuals/` (pages `index.html` and `model.html`, images in `img/`) and so is published with the
+Everything is generated into `docs/visuals/` (pages `index.html` (overview), `potform.html`, `maps-modern.html`, `maps-roman.html` and `model.html`, images in `img/`, Fira Sans in `fonts/`) and so is published with the
 GitHub Pages site (menu entry *Visuals*). The matplotlib figures in `docs/diagrams/` stay the figures of the documentation pages.
 
     pip install -r requirements.txt

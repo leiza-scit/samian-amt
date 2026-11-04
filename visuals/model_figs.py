@@ -334,11 +334,10 @@ def main():
         figs.append((f"model-05{chain.lower()}-chain-{chain}", f"Chain {chain}: {potter}",
                      "The same chain as in the three-chain figure, on its own.", "05_chains"))
 
-    rows = [f'<figure id="{n}"><img src="img/{n}.png" alt="{escape(t)}" width="875"><figcaption><b>{escape(t)}.</b> {escape(c)} '
-            f'<a href="img/{n}.svg">SVG</a> · <a href="../diagrams/{d}.svg">docs version (matplotlib)</a></figcaption></figure>'
-            for n, t, c, d in figs]
-    B.page("model.html", "Model figures",
+    cards = [B.card(f"{i}", t, c, n, [(f"../diagrams/{d}.svg", "docs version (matplotlib)")])
+             for i, (n, t, c, d) in enumerate(figs, 1)]
+    B.page("model.html", "Model",
            "The Mini-AMT model in the style of the case figures. The figures in the documentation pages (<a href=\"../model.html\">Model</a>, "
            "<a href=\"../reasoning.html\">Reasoning</a>, <a href=\"../chains.html\">Chains</a>) are the matplotlib versions and are developed there; "
-           "this page shows the same content for presentations and papers.", rows)
+           "this page shows the same content for presentations and papers.", cards)
     print(len(figs), "model figures ->", B.IMG)

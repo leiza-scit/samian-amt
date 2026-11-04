@@ -1,1 +1,86 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Model figures</title><style>body{font:16px/1.5 "Fira Sans",sans-serif;max-width:960px;margin:2rem auto;padding:0 1rem;color:#1f1f1d}nav{border-bottom:1px solid #ddd;padding-bottom:.6rem;margin-bottom:1.5rem;font-size:.9rem}figure{margin:0 0 2rem}img{max-width:100%;border:1px solid #ddd}figcaption{color:#55544f}</style><nav><a href="../index.html">Mini-AMT docs</a> · <a href="index.html">Case figures</a> · <a href="model.html">Model figures</a></nav><h1>Model figures</h1><p>The Mini-AMT model in the style of the case figures. The figures in the documentation pages (<a href="../model.html">Model</a>, <a href="../reasoning.html">Reasoning</a>, <a href="../chains.html">Chains</a>) are the matplotlib versions and are developed there; this page shows the same content for presentations and papers.</p><figure id="model-01-simple"><img src="img/model-01-simple.png" alt="Simple view" width="875"><figcaption><b>Simple view.</b> Classes, asserted properties with their inverses, and the three derived properties (red). <a href="img/model-01-simple.svg">SVG</a> · <a href="../diagrams/01_simple_model.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-02-full-semantics"><img src="img/model-02-full-semantics.png" alt="Full semantics" width="875"><figcaption><b>Full semantics.</b> Roles with domain and range, InverseAxiom, RoleChainAxiom with ordered antecedents, SubsumptionAxiom. <a href="img/model-02-full-semantics.svg">SVG</a> · <a href="../diagrams/02_full_semantics.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-03-toy-reasoning"><img src="img/model-03-toy-reasoning.png" alt="Toy reasoning" width="875"><figcaption><b>Toy reasoning.</b> The same picture on the abstract toy chain, with toy weights and product logic. <a href="img/model-03-toy-reasoning.svg">SVG</a> · <a href="../diagrams/03_toy_reasoning.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-04-both-directions"><img src="img/model-04-both-directions.png" alt="Both directions" width="875"><figcaption><b>Both directions.</b> Every derived property (&gt;&gt;) with its inverse (&lt;&lt;) below. <a href="img/model-04-both-directions.svg">SVG</a> · <a href="../diagrams/04_reasoning_both.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-05-chains"><img src="img/model-05-chains.png" alt="Three chains" width="875"><figcaption><b>Three chains.</b> Three real chains from the CHNT data: hextuples with weight and FW type, derived degrees for M1 and M2. <a href="img/model-05-chains.svg">SVG</a> · <a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-05a-chain-A"><img src="img/model-05a-chain-A.png" alt="Chain A: Vitalis viii" width="875"><figcaption><b>Chain A: Vitalis viii.</b> The same chain as in the three-chain figure, on its own. <a href="img/model-05a-chain-A.svg">SVG</a> · <a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-05b-chain-B"><img src="img/model-05b-chain-B.png" alt="Chain B: Onnio-" width="875"><figcaption><b>Chain B: Onnio-.</b> The same chain as in the three-chain figure, on its own. <a href="img/model-05b-chain-B.svg">SVG</a> · <a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></figcaption></figure><figure id="model-05c-chain-C"><img src="img/model-05c-chain-C.png" alt="Chain C: Ve- i" width="875"><figcaption><b>Chain C: Ve- i.</b> The same chain as in the three-chain figure, on its own. <a href="img/model-05c-chain-C.svg">SVG</a> · <a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></figcaption></figure></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model · Mini-AMT visuals</title>
+<style>
+@font-face{font-family:"Fira Sans";font-weight:400;src:url(fonts/FiraSans-Regular.ttf) format("truetype")}
+@font-face{font-family:"Fira Sans";font-weight:500;src:url(fonts/FiraSans-Medium.ttf) format("truetype")}
+:root{--bg:#f6f6f3;--card:#fff;--ink:#1f1f1d;--mut:#55544f;--line:#d8d6ce}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Fira Sans",system-ui,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:32px 16px 64px}
+nav{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;margin:0 0 22px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+nav a{color:var(--mut);text-decoration:none}nav a:hover{color:#9a3412}
+nav a.on{color:#9a3412;font-weight:500}nav .up{margin-right:10px}
+h1{font-size:28px;font-weight:500;margin:0 0 10px}
+.intro{margin:0 0 24px;color:var(--mut)}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 24px}
+img{display:block;width:100%;height:auto;border-radius:4px}
+.row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-top:14px}
+.cap{margin:0;font-size:20px;font-weight:500}
+.cap a{color:inherit;text-decoration:none}
+.n{color:#9a3412;margin-right:10px}
+.cr{margin:6px 0 0;color:var(--mut);font-size:14px}
+.dl{margin:6px 0 0;font-size:14px}
+.dl a{color:#9a3412;margin-right:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid section{margin:0}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+button{flex:none;font:inherit;font-size:14px;padding:5px 12px;border:1px solid #9a3412;border-radius:6px;background:#fff;color:#9a3412;cursor:pointer}
+button:hover{background:#9a3412;color:#fff}
+</style></head><body><main>
+<nav><a class="up" href="../index.html">&larr; Mini-AMT docs</a><a href="index.html">Overview</a><a href="potform.html">Potform</a><a href="maps-modern.html">Maps, modern</a><a href="maps-roman.html">Maps, Roman</a><a class=on href="model.html">Model</a></nav>
+<h1>Model</h1>
+<p class="intro">The Mini-AMT model in the style of the case figures. The figures in the documentation pages (<a href="../model.html">Model</a>, <a href="../reasoning.html">Reasoning</a>, <a href="../chains.html">Chains</a>) are the matplotlib versions and are developed there; this page shows the same content for presentations and papers.</p>
+<section id="model-01-simple">
+<img src="img/model-01-simple.png" width="3500" height="1600" loading="lazy" alt="1 Simple view">
+<div class="row"><p class="cap"><span class="n">1</span>Simple view</p><button type="button" data-c="Simple view">Copy</button></div>
+<p class="cr">Classes, asserted properties with their inverses, and the three derived properties (red).</p>
+<p class="dl"><a href="img/model-01-simple.png" download>PNG</a><a href="img/model-01-simple.svg" download>SVG</a><a href="../diagrams/01_simple_model.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-02-full-semantics">
+<img src="img/model-02-full-semantics.png" width="4400" height="2360" loading="lazy" alt="2 Full semantics">
+<div class="row"><p class="cap"><span class="n">2</span>Full semantics</p><button type="button" data-c="Full semantics">Copy</button></div>
+<p class="cr">Roles with domain and range, InverseAxiom, RoleChainAxiom with ordered antecedents, SubsumptionAxiom.</p>
+<p class="dl"><a href="img/model-02-full-semantics.png" download>PNG</a><a href="img/model-02-full-semantics.svg" download>SVG</a><a href="../diagrams/02_full_semantics.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-03-toy-reasoning">
+<img src="img/model-03-toy-reasoning.png" width="3500" height="1600" loading="lazy" alt="3 Toy reasoning">
+<div class="row"><p class="cap"><span class="n">3</span>Toy reasoning</p><button type="button" data-c="Toy reasoning">Copy</button></div>
+<p class="cr">The same picture on the abstract toy chain, with toy weights and product logic.</p>
+<p class="dl"><a href="img/model-03-toy-reasoning.png" download>PNG</a><a href="img/model-03-toy-reasoning.svg" download>SVG</a><a href="../diagrams/03_toy_reasoning.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-04-both-directions">
+<img src="img/model-04-both-directions.png" width="3500" height="2000" loading="lazy" alt="4 Both directions">
+<div class="row"><p class="cap"><span class="n">4</span>Both directions</p><button type="button" data-c="Both directions">Copy</button></div>
+<p class="cr">Every derived property (&gt;&gt;) with its inverse (&lt;&lt;) below.</p>
+<p class="dl"><a href="img/model-04-both-directions.png" download>PNG</a><a href="img/model-04-both-directions.svg" download>SVG</a><a href="../diagrams/04_reasoning_both.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-05-chains">
+<img src="img/model-05-chains.png" width="3500" height="3920" loading="lazy" alt="5 Three chains">
+<div class="row"><p class="cap"><span class="n">5</span>Three chains</p><button type="button" data-c="Three chains">Copy</button></div>
+<p class="cr">Three real chains from the CHNT data: hextuples with weight and FW type, derived degrees for M1 and M2.</p>
+<p class="dl"><a href="img/model-05-chains.png" download>PNG</a><a href="img/model-05-chains.svg" download>SVG</a><a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-05a-chain-A">
+<img src="img/model-05a-chain-A.png" width="3500" height="1420" loading="lazy" alt="6 Chain A: Vitalis viii">
+<div class="row"><p class="cap"><span class="n">6</span>Chain A: Vitalis viii</p><button type="button" data-c="Chain A: Vitalis viii">Copy</button></div>
+<p class="cr">The same chain as in the three-chain figure, on its own.</p>
+<p class="dl"><a href="img/model-05a-chain-A.png" download>PNG</a><a href="img/model-05a-chain-A.svg" download>SVG</a><a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-05b-chain-B">
+<img src="img/model-05b-chain-B.png" width="3500" height="1420" loading="lazy" alt="7 Chain B: Onnio-">
+<div class="row"><p class="cap"><span class="n">7</span>Chain B: Onnio-</p><button type="button" data-c="Chain B: Onnio-">Copy</button></div>
+<p class="cr">The same chain as in the three-chain figure, on its own.</p>
+<p class="dl"><a href="img/model-05b-chain-B.png" download>PNG</a><a href="img/model-05b-chain-B.svg" download>SVG</a><a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></p>
+</section>
+<section id="model-05c-chain-C">
+<img src="img/model-05c-chain-C.png" width="3500" height="1680" loading="lazy" alt="8 Chain C: Ve- i">
+<div class="row"><p class="cap"><span class="n">8</span>Chain C: Ve- i</p><button type="button" data-c="Chain C: Ve- i">Copy</button></div>
+<p class="cr">The same chain as in the three-chain figure, on its own.</p>
+<p class="dl"><a href="img/model-05c-chain-C.png" download>PNG</a><a href="img/model-05c-chain-C.svg" download>SVG</a><a href="../diagrams/05_chains.svg">docs version (matplotlib)</a></p>
+</section>
+</main>
+<script>document.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){
+  var ok=function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1200)};
+  if(navigator.clipboard){navigator.clipboard.writeText(b.dataset.c).then(ok).catch(function(){})}
+})});</script></body></html>
