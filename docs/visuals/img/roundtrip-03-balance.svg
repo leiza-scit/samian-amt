@@ -1,0 +1,57 @@
+<svg width="1750" height="1000" viewBox="0 0 1750 1000" xmlns="http://www.w3.org/2000/svg" role="img"><title>What the round trip keeps, changes and drops</title>
+<rect width="1750" height="1000" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">What the round trip keeps, changes and drops</text>
+<rect x="60" y="110" width="510" height="830" rx="8" fill="#faf9f5" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="80" y="130" width="470" height="60" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="315.0" y="160.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#ffffff">Comes back unchanged</text>
+<rect x="80" y="220" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="96" y="248" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Subject, predicate, object</text>
+<text x="96" y="282" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">20 hextuples of the chains, 36 of the pattern cases</text>
+<rect x="80" y="356" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="96" y="384" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Degree of connection</text>
+<text x="96" y="418" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">fw:hasDegreeOfConnection, two decimals</text>
+<rect x="80" y="492" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="96" y="520" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">FW type</text>
+<text x="96" y="554" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">Certainty, Uncertainty, Vagueness,</text>
+<text x="96" y="578" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">FuzzinessWobbliness</text>
+<rect x="80" y="628" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="96" y="656" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Nodes</text>
+<text x="96" y="690" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">19 nodes: concept and label</text>
+<rect x="80" y="764" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="96" y="792" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Reasoning result</text>
+<text x="96" y="826" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">340 edges in the three runs: weight, type, method of</text>
+<text x="96" y="850" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">derived edges</text>
+<rect x="620" y="110" width="510" height="830" rx="8" fill="#faf9f5" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="640" y="130" width="470" height="60" rx="6" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="875.0" y="160.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#000000">Changes</text>
+<rect x="640" y="220" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="656" y="248" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">fw:hasMethod</text>
+<text x="656" y="282" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">fw:EqualShareRule becomes fw:AFEAssignment on all</text>
+<text x="656" y="306" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">20 statements</text>
+<rect x="640" y="356" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="656" y="384" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Statement nodes</text>
+<text x="656" y="418" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">new blank nodes; the statements stay the same</text>
+<rect x="640" y="492" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="656" y="520" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">AND and OR</text>
+<text x="656" y="554" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">no longer a string: read from the form and from</text>
+<text x="656" y="578" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">weight and type</text>
+<rect x="1180" y="110" width="510" height="830" rx="8" fill="#faf9f5" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="1200" y="130" width="470" height="60" rx="6" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1435.0" y="160.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#ffffff">Not carried by the AFE pattern</text>
+<rect x="1200" y="220" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1216" y="248" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Source strings</text>
+<text x="1216" y="282" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">7 fw:TextEvidence nodes (fw:sourceString,</text>
+<text x="1216" y="306" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">fw:derivedFrom)</text>
+<rect x="1200" y="356" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1216" y="384" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Frequency shares</text>
+<text x="1216" y="418" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">3 statements with sam:frequencyShare and its</text>
+<text x="1216" y="442" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">sources</text>
+<rect x="1200" y="492" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1216" y="520" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">sam:attributedTo</text>
+<text x="1216" y="554" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">4 links, used only by model M2</text>
+<rect x="1200" y="628" width="470" height="120" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1216" y="656" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Order and spelling</text>
+<text x="1216" y="690" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">of the entities in a string (already lost in step</text>
+<text x="1216" y="714" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#55544f">weights)</text>
+</svg>

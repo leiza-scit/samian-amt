@@ -228,7 +228,7 @@ def engine_inputs(res: dict) -> dict:
             "M2 product": VARIANT.read_text(encoding="utf-8") + "\n" + body + m2_statements + "\n" + created + "\n"}
 
 
-def engine_check(res: dict) -> int:
+def engine_check(res: dict, prefix: str = "") -> int:
     """Run the three models with the AMT engine and compare every edge (weight, type, method of derived edges)."""
     try:
         import amt
@@ -250,13 +250,13 @@ def engine_check(res: dict) -> int:
     VAG = "Vagueness"
     problems = []
     for name, text in engine_inputs(res).items():
-        path = DIST / f"engine-input-{name.replace(' ', '-')}.ttl"
+        path = DIST / f"engine-input-{prefix}{name.replace(' ', '-')}.ttl"
         path.write_text(text, encoding="utf-8", newline="\n")
         data = load_amt(str(path))
         if name != "M1 goedel":                      # the logic does not change the shapes
             shapes = validate_against_shapes(path)
             focus = sorted({v["focus"] for v in shapes.violations})
-            print(f"SHACL (engine shapes), {name}: " + ("conforms" if shapes.conforms else
+            print(f"SHACL (engine shapes), {prefix}{name}: " + ("conforms" if shapes.conforms else
                   f"{len(shapes.violations)} violation(s) at {', '.join(focus)}"))
         out = {(local(e["role"]), local(e["from"]), local(e["to"])): e
                for e in do_reasoning(data["edges"], data["axioms"])}

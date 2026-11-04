@@ -70,6 +70,12 @@ sam:Actor a amt:Concept ;
     rdfs:comment "Person working at a production centre (the source model's ActorEntity and Actor are collapsed here)."@en .
 
 
+sam:Entity a amt:Concept ;
+    rdfs:label "Entity" ;
+    amt:placeholder "Entity" ;
+    rdfs:comment "Helper concept: any of the four concepts above. It is used only as domain and range of the generic roles reaches and reachedBy, which span several concept pairs; no individual is declared an instance of it."@en .
+
+
 # ── 2. Roles: asserted (direction of the source data) ───────────────────────
 
 sam:hasType a amt:Role ;
@@ -167,13 +173,17 @@ sam:actorToPotform a amt:Role ;
 
 sam:reaches a amt:Role ;
     rdfs:label "reaches" ;
+    rdfs:domain sam:Entity ;
+    rdfs:range  sam:Entity ;
     skos:definition "Generic derived role (>>): any of the three derived association roles. One query on it finds all of them."@en ;
-    skos:scopeNote  "Has no domain or range because it spans several concept pairs."@en .
+    skos:scopeNote  "Spans several concept pairs, so its domain and range are the helper concept Entity (the AMT shapes ask for exactly one of each)."@en .
 
 sam:reachedBy a amt:Role ;
     rdfs:label "reachedBy" ;
+    rdfs:domain sam:Entity ;
+    rdfs:range  sam:Entity ;
     skos:definition "Generic derived inverse role (<<). Inverse of reaches."@en ;
-    skos:scopeNote  "Has no domain or range because it spans several concept pairs."@en .
+    skos:scopeNote  "Spans several concept pairs, so its domain and range are the helper concept Entity (the AMT shapes ask for exactly one of each)."@en .
 
 
 # ── 5. Axioms: inverses ─────────────────────────────────────────────────────

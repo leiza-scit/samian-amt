@@ -1,0 +1,76 @@
+# samian-amt: AFE pattern -> AMT (the way back of the round trip AMT -> AFE -> AMT).
+#
+# Reads the container pattern of the AFE coin data on the samian-amt roles and builds hextuples again. Compared with
+# the AFE -> AMT query for coins (AFE-AMT-AFE package, version 3) the properties are sam:hasType, sam:hasProductionCentre
+# and sam:worksAt, the nodes carry the samian-amt concepts, and the degree is written as fw:hasDegreeOfConnection
+# (the same as amt:weight; the AMT engine reads either).
+#   direct value              fw:Certainty, 1.0
+#   container, one value      the type of the container class, the confidence as degree
+#   skos:Collection           one hextuple per member, the type of the container class
+# fw:hasMethod is fw:AFEAssignment: AFE says that a value and a confidence were assigned, not how (decided with the AFE
+# side on 2026-11-03). The source string is not in AFE, so there is no fw:derivedFrom.
+PREFIX amt:  <http://academic-meta-tool.xyz/vocab#>
+PREFIX fw:   <http://w3id.org/fw_ontology/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sam:  <http://example.org/samian-amt/>
+
+CONSTRUCT {
+    ?node amt:instanceOf ?concept ;
+          rdfs:label ?label .
+    ?edge rdf:subject   ?s ;
+          rdf:predicate ?p ;
+          rdf:object    ?o ;
+          fw:hasDegreeOfConnection ?w ;
+          fw:hasType    ?fwType ;
+          fw:hasMethod  fw:AFEAssignment .
+}
+WHERE {
+    {
+        VALUES ?concept { sam:Potform sam:InformationCarrier sam:ProductionCentre sam:Actor }
+        ?node a ?concept ;
+              rdfs:label ?label .
+    }
+    UNION
+    {
+        # a collection: one hextuple per member
+        VALUES ?p { sam:hasType sam:hasProductionCentre sam:worksAt }
+        ?s ?p ?container .
+        ?container skos:member ?member ;
+                   a ?cType .
+        ?member rdf:value ?o ;
+                fw:hasConfidence ?w .
+        VALUES (?cType ?fwType) {
+            (fw:VagueValue fw:Vagueness) (fw:VagueResourceValue fw:Vagueness)
+            (fw:UncertainValue fw:Uncertainty) (fw:UncertainResourceValue fw:Uncertainty)
+            (fw:FuzzinessWobblinessValue fw:FuzzinessWobbliness) (fw:FuzzinessWobblinessResourceValue fw:FuzzinessWobbliness)
+        }
+        BIND(BNODE() AS ?edge)
+    }
+    UNION
+    {
+        # a container with one value and its confidence
+        VALUES ?p { sam:hasType sam:hasProductionCentre sam:worksAt }
+        ?s ?p ?container .
+        ?container rdf:value ?o ;
+                   fw:hasConfidence ?w ;
+                   a ?cType .
+        VALUES (?cType ?fwType) {
+            (fw:VagueValue fw:Vagueness) (fw:VagueResourceValue fw:Vagueness)
+            (fw:UncertainValue fw:Uncertainty) (fw:UncertainResourceValue fw:Uncertainty)
+            (fw:FuzzinessWobblinessValue fw:FuzzinessWobbliness) (fw:FuzzinessWobblinessResourceValue fw:FuzzinessWobbliness)
+        }
+        BIND(BNODE() AS ?edge)
+    }
+    UNION
+    {
+        # a certain value, directly on the subject
+        VALUES ?p { sam:hasType sam:hasProductionCentre sam:worksAt }
+        ?s ?p ?o .
+        FILTER(isIRI(?o))
+        BIND("1.0"^^<http://www.w3.org/2001/XMLSchema#decimal> AS ?w)
+        BIND(fw:Certainty AS ?fwType)
+        BIND(BNODE() AS ?edge)
+    }
+}

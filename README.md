@@ -15,7 +15,7 @@ and three real chains from the Samian Research data. There are no persistent IRI
 
 | Layer | What | Names |
 |---|---|---|
-| Concepts | four classes | `Potform`, `InformationCarrier`, `ProductionCentre`, `Actor` |
+| Concepts | four classes and a helper | `Potform`, `InformationCarrier`, `ProductionCentre`, `Actor`; `Entity` is only the domain and range of `reaches` / `reachedBy` |
 | Asserted roles | direction of the source data | `hasType` (IC -> Potform), `hasProductionCentre` (IC -> PC), `worksAt` (Actor -> PC) |
 | Inverse roles | `amt:InverseAxiom` | `isTypeOf`, `isProductionCentreOf`, `hasWorker` |
 | Derived roles (`>>`) | `amt:RoleChainAxiom` | `potformToCentre`, `carrierToActor`, `potformToActor` |
@@ -41,6 +41,15 @@ inverse is the same statement read from the other end. All AMT operators are
 symmetric, so a derived `>>` and its `<<` carry the same degree too. Shares,
 frequencies and normalised alternatives are directional and do not belong in
 `amt:weight`. Details: `docs/weights.md`.
+
+## Round trip AMT → AFE → AMT
+
+`queries/amt-to-afe.rq` writes the hextuples of the chains as the container pattern of the AFE coin data
+(a value, or a `skos:Collection` of members with `fw:hasConfidence`), `queries/afe-to-amt.rq` reads it back.
+`py/step_roundtrip.py` (`python main.py --only roundtrip`) runs both and checks that subject, predicate, object,
+weight and FW type of every hextuple come back unchanged, and that the reasoning on the returned statements gives the
+same edges. Not carried (documented, not smuggled through): source string, method, frequency shares, attribution.
+The AFE side is a rebuilt pattern with `sam:` predicates, not AFE data. Details: `docs/roundtrip.md`.
 
 ## Weights, hextuple and chains
 

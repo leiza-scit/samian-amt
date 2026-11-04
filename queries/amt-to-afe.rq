@@ -1,0 +1,70 @@
+# samian-amt: AMT -> AFE pattern (the way out of the round trip AMT -> AFE -> AMT).
+#
+# Reads hextuples (rdf:subject, rdf:predicate, rdf:object, fw:hasDegreeOfConnection, fw:hasType) and builds the container
+# pattern of the AFE coin data: a value is either direct (certain), a container with one value and a confidence
+# (uncertain), or a skos:Collection of members, each with a value and a confidence (vague, fuzzy / wobbly).
+# The AFE predicates are the AMT roles themselves (sam:hasType, sam:hasProductionCentre, sam:worksAt).
+#
+# The form follows from fw:hasType and the weight alone; the source string is not needed (AFE has none):
+#   fw:Certainty                               the value directly on the subject
+#   fw:Uncertainty                             fw:UncertainResourceValue with rdf:value and fw:hasConfidence
+#   fw:Vagueness, weight 1                     AND: one container per entity (fw:VagueResourceValue, one member, 1.0)
+#   fw:FuzzinessWobbliness, weight 0.5         AND with ?: one container per entity (fw:FuzzinessWobblinessResourceValue, 0.5)
+#   fw:Vagueness, weight < 1                   OR: one container with a member per entity (fw:VagueResourceValue)
+#   fw:FuzzinessWobbliness, weight < 0.5       OR with ?: one container with a member per entity
+# For a known number of edges, weight and type separate the four patterns (see py/weights.py, selftest), so this
+# reading is exact for statements made by the rule of the source paper (with the halving of the question mark).
+#
+# Containers get a generated IRI (urn:amt-afe:container:...) because SPARQL cannot share a blank node between rows;
+# py/step_roundtrip.py turns them into blank nodes. fw:hasMethod, fw:derivedFrom and the frequency shares have no
+# place in the AFE pattern and are left out.
+PREFIX amt:  <http://academic-meta-tool.xyz/vocab#>
+PREFIX fw:   <http://w3id.org/fw_ontology/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+    ?node a ?concept ;
+          rdfs:label ?label .
+    ?s ?p ?direct .
+    ?s ?p ?single .
+    ?single    a ?afeClass ;
+               rdf:value ?o ;
+               fw:hasConfidence ?w .
+    ?s ?p ?container .
+    ?container a ?afeClass , skos:Collection ;
+               skos:member ?member .
+    ?member    rdf:value ?o ;
+               fw:hasConfidence ?w .
+}
+WHERE {
+    {
+        ?node amt:instanceOf ?concept ;
+              rdfs:label ?label .
+    }
+    UNION
+    {
+        ?e rdf:subject ?s ;
+           rdf:predicate ?p ;
+           rdf:object ?o ;
+           fw:hasDegreeOfConnection ?w .
+        OPTIONAL { ?e fw:hasType ?t }
+        BIND(COALESCE(?t, fw:Vagueness) AS ?type)
+        # AND: every entity holds in full (weight 1, or 0.5 with a question mark); OR shares the weight
+        BIND((?type = fw:Vagueness && ?w = 1) || (?type = fw:FuzzinessWobbliness && ?w = 0.5) AS ?isAnd)
+        BIND(IF(?type = fw:Certainty, "direct",
+             IF(?type = fw:Uncertainty, "single",
+             IF(?isAnd, "and", "or"))) AS ?kind)
+        BIND(CONCAT(ENCODE_FOR_URI(STR(?s)), ":", ENCODE_FOR_URI(STR(?p))) AS ?key)
+        BIND(CONCAT("urn:amt-afe:container:", ?key, ":", ENCODE_FOR_URI(STR(?o))) AS ?perEntity)
+        BIND(CONCAT("urn:amt-afe:container:", ?key) AS ?shared)
+        BIND(IF(?kind = "direct", ?o, ?unbound) AS ?direct)
+        BIND(IF(?kind = "single", IRI(?perEntity), ?unbound) AS ?single)
+        BIND(IF(?kind = "and", IRI(?perEntity), IF(?kind = "or", IRI(?shared), ?unbound)) AS ?container)
+        BIND(IF(BOUND(?container), IRI(CONCAT("urn:amt-afe:member:", ?key, ":", ENCODE_FOR_URI(STR(?o)))), ?unbound) AS ?member)
+        BIND(IF(?type = fw:Vagueness, fw:VagueResourceValue,
+             IF(?type = fw:FuzzinessWobbliness, fw:FuzzinessWobblinessResourceValue,
+             IF(?type = fw:Uncertainty, fw:UncertainResourceValue, ?unbound))) AS ?afeClass)
+    }
+}

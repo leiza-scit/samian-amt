@@ -14,6 +14,10 @@ Namespace `http://example.org/samian-amt/` (placeholder, to be replaced by a per
 
 Person working at a production centre (the source model's ActorEntity and Actor are collapsed here).
 
+### sam:Entity
+
+Helper concept: any of the four concepts above. It is used only as domain and range of the generic roles reaches and reachedBy, which span several concept pairs; no individual is declared an instance of it.
+
 ### sam:InformationCarrier
 
 The object carrying the information (e.g. a stamped vessel or sherd).
@@ -143,7 +147,8 @@ The production centre is associated with the potform: a carrier attributed to th
 
 Generic derived role (>>): any of the three derived association roles. One query on it finds all of them.
 
-- **Limit:** Has no domain or range because it spans several concept pairs.
+- **Limit:** Spans several concept pairs, so its domain and range are the helper concept Entity (the AMT shapes ask for exactly one of each).
+- **Domain to range:** `Entity` to `Entity`
 - **Inverse:** `reachedBy`
 
 ### Generic inverse (<<)
@@ -152,7 +157,8 @@ Generic derived role (>>): any of the three derived association roles. One query
 
 Generic derived inverse role (<<). Inverse of reaches.
 
-- **Limit:** Has no domain or range because it spans several concept pairs.
+- **Limit:** Spans several concept pairs, so its domain and range are the helper concept Entity (the AMT shapes ask for exactly one of each).
+- **Domain to range:** `Entity` to `Entity`
 - **Inverse:** `reaches`
 
 ## Axioms

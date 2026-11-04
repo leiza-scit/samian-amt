@@ -11,6 +11,7 @@ title: Model
 | Concept | Meaning |
 |---|---|
 | `Actor` | Person working at a production centre (the source model's ActorEntity and Actor are collapsed here). |
+| `Entity` | Helper concept: any of the four concepts above. It is used only as domain and range of the generic roles reaches and reachedBy, which span several concept pairs; no individual is declared an instance of it. |
 | `InformationCarrier` | The object carrying the information (e.g. a stamped vessel or sherd). |
 | `Potform` | Vessel form or type (the typological class of an information carrier). |
 | `ProductionCentre` | Place of production (e.g. a kiln site). |

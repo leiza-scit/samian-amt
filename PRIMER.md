@@ -105,6 +105,8 @@ Eigenschaften, die das Ergebnis haben muss:
 | Titel des Explorers | „Samian Research - AMT Explorer“ (feste Kopfzeile, ohne Kettentitel); oben links das AMT-Logo (Pinguin), LEIZA, mainzed und NFDI4Objects im About-Panel | 2026-11-04 |
 | Status „consistent“ im Explorer | entfällt; nur bei Verstößen gegen die Integritätsaxiome erscheint eine Warnung | 2026-11-04 |
 | Cypher-Export im Explorer | der gezeigte Graph (eine Richtung; mit Reasoning auch die abgeleiteten Kanten), Neo4j 5, je Knoten und Kante eine Anweisung mit `MERGE`; Eigenschaften `weight`, `role`, `fwType`, `method`, `inferred`, `source` | 2026-11-04 |
+| Roundtrip AMT → AFE → AMT | Die AFE-Seite ist ein nachgebautes Muster (Container-Klassen und -Eigenschaften der AFE, Prädikate `sam:hasType`, `sam:hasProductionCentre`, `sam:worksAt`), keine AFE-Daten. UND = ein Container je Entität, ODER = ein Container mit einem Member je Entität; die Form folgt aus `fw:hasType` und Gewicht, der Quell-String wird nicht gebraucht. Verluste werden dokumentiert, nicht mitgeführt: Quell-String, Methode (kommt als `fw:AFEAssignment` zurück), Häufigkeitsanteile, `sam:attributedTo`. Prüfung: Aussagen unverändert und Reasoning gleich (340 Kanten) | 2026-11-04 |
+| Hilfsconcept `sam:Entity` | nur Domain und Range von `sam:reaches` und `sam:reachedBy`, kein Individuum ist Instanz; löst die SHACL-Verletzung von M1 im Modell (Engine bleibt unverändert) | 2026-11-04 |
 | Allgemeine Rolle `reaches` im Explorer | standardmäßig ausgeblendet (wiederholt die abgeleiteten Rollen), Schalter in der Legende; was ausgeblendet ist, steht weder im Bild noch im Cypher-Export | 2026-11-04 |
 
 ### A5 Was in welchem Chat hochgeladen wird
@@ -136,6 +138,9 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die Samian-Exporte (nur bei Schritt
 | S25 | Umbenennung auf `samian-amt` (Repository, Links, Prefix `sam:`, Dateinamen) (0.16.0) | samian-amt | S24 | Patch geliefert 2026-11-04 |
 | S26 | Explorer überarbeitet: Kopfzeile, Logos, Legende, Cypher, Details, Layout in Kettenrichtung, PNG/SVG, Link, Vollbild (0.17.0) | samian-amt | S25 | Patch geliefert und eingespielt 2026-11-04 (Live-Seite geprüft) |
 | S27 | Explorer ruhiger: Beschriftung bei Auswahl, nur inferierte Linien, Positionen im Link, Legende kurz, mainzed-Logo (0.17.1) | samian-amt | S26 | Patch geliefert 2026-11-04 |
+| S28 | Roundtrip AMT → AFE → AMT: zwei SPARQL-CONSTRUCT-Abfragen, Schritt `roundtrip`, Dokuseite „Round trip“ mit drei Grafiken (0.18.0) | samian-amt | S27 | Patch geliefert 2026-11-04 (zusammen mit S29) |
+| S29 | SHACL von M1 über das Hilfsconcept `sam:Entity` gelöst (0.18.0) | samian-amt | S27 | Patch geliefert 2026-11-04 (zusammen mit S28) |
+| S30 | Karstens Use-Case und Roundtrip AFE → AMT → AFE ins Repository übernehmen (Vollständigkeit; wird dann ebenfalls nach AMT modelliert) | samian-amt | S28, Unterlagen von Karsten | offen, wartet auf Karsten |
 | S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | samian-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
 | S3a | samian-amt an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | samian-amt | S3 | erledigt 2026-10-30 (0.4.0) |
 | S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | samian-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
@@ -262,6 +267,32 @@ mainzed-Logo geladen.
 
 **Offen:** Ziehen im echten Browser (hier nur simuliert); Fullscreen mit dem neuen Layout.
 
+## S28 — Roundtrip AMT → AFE → AMT
+
+**Ziel:** Das Gegenstück zu Karstens AFE → AMT → AFE: die drei Ketten als AFE-Containermuster schreiben, zurücklesen und vergleichen; Grafiken und Erklärung unter Documentation.
+
+Inhalt (0.18.0): `queries/amt-to-afe.rq` und `queries/afe-to-amt.rq` (SPARQL CONSTRUCT), `py/step_roundtrip.py` (Schritt `roundtrip` in `main.py`), `visuals/roundtrip_figs.py`, Dokuseite `docs/roundtrip.md` (Abläufe, Regeln, CONSTRUCT erklärt, beide Abfragen vollständig). Dieser Schritt und S29 liefen auf Wunsch von Flo in **einem** Chat und einem Patch (Ausnahme von „ein Schritt je Chat“).
+
+**Abnahme:** 20 Hextupel und 19 Knoten der Ketten und 36 Hextupel der 18 Fälle (alle sechs Muster) kommen unverändert zurück; die drei Reasoning-Läufe auf dem Rückgabegraphen ergeben dieselben 340 Kanten; Engine stimmt überein, SHACL ohne Verletzung; zwei Läufe liefern identische Dateien (kanonisches Turtle).
+
+**Erledigt 2026-11-04.**
+
+**Offen (Fragen an Karsten und Allard):** (1) Sind zwei Container am selben Prädikat eines Subjekts (UND) in AFE zulässig? (2) Muss ein FW-Container seine Confidences auf 0,5 summieren? (3) Soll UND in AFE anders als über Gewicht und Typ sichtbar sein?
+
+## S29 — SHACL von M1
+
+**Ziel:** M1 entspricht den Shapes der Engine (genau ein `rdfs:domain` und `rdfs:range` je Rolle).
+
+Inhalt (0.18.0): Hilfsconcept `sam:Entity` als Domain und Range von `sam:reaches` und `sam:reachedBy`; Doku und README nennen es.
+
+**Abnahme:** Engine-SHACL für M1 und M2: keine Verletzung (vorher 4 bei `sam:reachedBy` und `sam:reaches`); Engine und Referenz-Reasoner stimmen bei allen 340 Kanten überein.
+
+**Erledigt 2026-11-04.**
+
+## S30 — Karstens Use-Case und Roundtrip
+
+**Ziel:** Wenn die Unterlagen von Karsten (Use-Case, AFE → AMT → AFE, Fassung 3) vorliegen, kommen sie zur Vollständigkeit ins Repository und werden ebenfalls nach AMT modelliert (Flo, 2026-11-04). Die Navigation hat dafür seit 0.18.0 die eigene Kategorie „Roundtrip“ (`ROUNDTRIP_PAGES` in `py/site_kit.py`); Karstens Teil kommt iterativ als weitere Seiten dazu, die Seite „AMT → AFE → AMT“ steht schon darin. **Wartet auf Karsten.**
+
 ## S4b — Hybridmodell Träger–Zentrum (zurückgestellt)
 
 Allard (2026-11-04): Stempel-ID (`in_id`, geometrisch eindeutig) und Fundort je Träger spielen für das kleine Modell erst mal keine Rolle; Flo stimmt zu. Die Daten liegen im Drive (`ct_ic_in.csv`: Träger, Stempel, `dieposition` ignorieren; `ct_ic_pc.csv`: das Gewicht ignorieren, es wird neu abgeleitet; `tblkilnsitesWithCoordinates.csv`: Liste der Produktionsorte). Abgeleitet wird mit den Faktoren Verbreitung 0,75 und Namensgleichheit 0,5 (eigene Methode je Art); mehrere Produktionsorte gleich stark (ein „or“); `Saint-Saturnin` ist die Kurzform von `Jonquières, Saint Saturnin`.
@@ -324,7 +355,7 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 
 ## Teil D — Offene Punkte
 
-- **SHACL M1** (mit S4b klären; das Hybridmodell ändert die Rollen): `sam:reaches` und `sam:reachedBy` brauchen je ein `rdfs:domain` und ein `rdfs:range`, sonst entspricht M1 den Shapes der Engine nicht und der Runner bricht ab. Möglichkeiten: ein gemeinsames Oberconcept als Domain und Range (zum Beispiel `sam:Entity`); die Oberrolle und ihre drei Subsumtionen weglassen; oder die Shapes der Engine für Oberrollen lockern (Änderung in `amt-engine`). Das ist eine Modellentscheidung; mit S4 klären.
+- **SHACL M1:** mit S29 gelöst (Hilfsconcept `sam:Entity`); S4b muss die Domain und Range der Oberrollen im Auge behalten, falls das Hybridmodell die Rollen ändert.
 - `fw:implementedBy`: das Triple liegt bereit; an die FW-Ontologie weitergeben, mit einer Release- oder Zenodo-IRI statt des Branch-Links, sobald es eine gibt.
 - Typ abgeleiteter Kanten ist geklärt (A4), aber noch nicht mit Allard besprochen (Frage 9 der Review-Seite): eine abgeleitete Kante, deren Vorderglieder Unsicherheit und Vagheit mischen, bekommt `fw:FuzzinessWobbliness`.
 - Regionen und Gruppen ohne Zentrumsknoten (9.033 Strings): eigene Klasse oder weglassen?
@@ -333,6 +364,7 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 - **S13 Rückfragen**: (1) Lizenz der DARE-Ebenen (Provinzen, Orte) in `klokantech/roman-empire`: im Repository steht keine; vor Veröffentlichung klären; (2) die Latein-Namen der Flüsse sind mein Vorschlag, bitte gegenlesen; (3) die DARE-Provinzen haben keinen klaren Zeitschnitt (Itiner-e: größte Ausdehnung um 150 n. Chr.), reicht das, oder ein bestimmter Stand (zum Beispiel Ende 2. Jh.)?; (4) Pleiades-URIs der römischen Orte (und der Töpfereien, zum Beispiel Lezoux = Ledosum?) verlinken?
 - **S14 Rückfragen**: (1) Die fünf Modellgrafiken gibt es jetzt zweimal (matplotlib in `docs/diagrams`, Visuals-Stil in `docs/visuals`); weiterbauen wir künftig beide parallel, oder soll der Visuals-Stil für neue Grafiken (Allards Antworten, Roundtrip AMT Samian → AFE) die Hauptlinie werden? (2) Die Visuals-Seiten haben ein eigenes, schlichtes Layout; sollen sie das Jekyll-Layout der Docs übernehmen?
 - **S17 Rückfragen**: Was auf den öffentlichen Seiten noch als Vorschlag oder Platzhalter steht (Statushinweis der Startseite, Namespace `example.org`, `ProductLogic (proposal)` und die Rollennamen in *Vocabulary*, Toy-Gewichte in *Reasoning*, `fw:RelativeFrequency` auf der Visuals-Seite PF.4): bleibt es als gekennzeichneter Vorschlag stehen, oder soll es bis zur Klärung raus?
+- **S28 Rückfragen** (an Karsten und Allard): siehe Abschnitt S28 (zwei Container am selben Prädikat; Summe der Confidences; Sichtbarkeit von UND in AFE).
 - **S19 Rückfragen** (Punkte 1 und 2 mit S22 erledigt): (1) Koordinaten von Kräherwald, Rheinzabern, Pfaffenhofen und Westerndorf (`visuals/sql/kilnsites-chains.sql`, Ergebnis nach `visuals/data/kilnsites-extra.csv`); bis dahin zeigen die Zentren-Figuren der Ketten A und B keine Karte; (2) Profilzeichnungen für die Formen 24, 27, 31, 32 und 33; (3) Allard prüft, ob es für die Fälle ohne Kette bessere archäologische Beispiele gibt.
 - **FW-Ontologie (Patch zum 0.14.0):** Beschreibung und Beispiele von `fw:EqualShareRule` an die neue Regel anpassen (`Lezoux or Vichy ?` = 0,25); Eintrag für die Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“; die Texte stehen im Patch `FW_Ontology`.
 - `fw:implementedBy`-Triple: bleibt (siehe oben).

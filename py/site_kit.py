@@ -21,6 +21,7 @@ ACCENT = "#9a3412"
 
 DOC_PAGES = [("index.html", "Overview"), ("model.html", "Model"), ("vocabulary.html", "Vocabulary"),
              ("reasoning.html", "Reasoning"), ("chains.html", "Chains"), ("weights.html", "Weights")]
+ROUNDTRIP_PAGES = [("roundtrip.html", "AMT → AFE → AMT")]
 VISUAL_PAGES = [("visuals/index.html", "Overview"), ("visuals/potform.html", "Potform"),
                 ("visuals/maps-modern.html", "Maps, modern"), ("visuals/maps-roman.html", "Maps, Roman"),
                 ("visuals/chain-A.html", "Chain A"), ("visuals/chain-B.html", "Chain B"),
@@ -91,7 +92,7 @@ def nav_html(mode: str, active: str = "") -> str:
         on = ' class="on"' if path == active else ""
         return f'<a{on} href="../{path}">{label}</a>'
 
-    rows = [("Documentation", DOC_PAGES), ("Visuals", VISUAL_PAGES), ("Explorer", EXPLORER_PAGES)]
+    rows = [("Documentation", DOC_PAGES), ("Roundtrip", ROUNDTRIP_PAGES), ("Visuals", VISUAL_PAGES), ("Explorer", EXPLORER_PAGES)]
     return "<nav>" + "".join(
         f'<div class="grp"><span class="lab">{name}</span><span class="lnk">' + "".join(link(p, t) for p, t in pages) + "</span></div>"
         for name, pages in rows) + "</nav>"

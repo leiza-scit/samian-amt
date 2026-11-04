@@ -1,0 +1,79 @@
+<svg width="1750" height="1000" viewBox="0 0 1750 1000" xmlns="http://www.w3.org/2000/svg" role="img"><title>The six patterns of the weight rule and the AFE form each takes</title>
+<rect width="1750" height="1000" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">The six patterns of the weight rule and the AFE form each takes</text>
+<text x="60" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">Pattern and source string</text>
+<text x="410" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">AMT: per entity</text>
+<text x="830" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">AFE pattern</text>
+<rect x="50" y="142" width="1650" height="126" rx="8" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="60" y="150" width="330" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="225.0" y="192.24" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">Rheinzabern</text>
+<text x="225.0" y="219.52" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">pattern  certain</text>
+<text x="410" y="172" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#000000">1 × fw:hasDegreeOfConnection  1</text>
+<rect x="410" y="196" width="121.0" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="470.5" y="212" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:Certainty</text>
+<rect x="830" y="150" width="380" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1020.0" y="205.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#000000">value directly</text>
+<text x="1230" y="184" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">?s ?p ?o  (no container)</text>
+<text x="1230" y="228" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">back: Certainty, weight 1.0</text>
+<rect x="50" y="280" width="1650" height="126" rx="8" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="60" y="288" width="330" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="225.0" y="330.24" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">Rheinzabern?</text>
+<text x="225.0" y="357.52" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">pattern  q</text>
+<text x="410" y="310" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#000000">1 × fw:hasDegreeOfConnection  0.5</text>
+<rect x="410" y="334" width="143.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="481.6" y="350" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:Uncertainty</text>
+<rect x="830" y="288" width="380" height="110" rx="6" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1020.0" y="343.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#ffffff">fw:UncertainResourceValue</text>
+<text x="1230" y="322" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">rdf:value ?o ; fw:hasConfidence 0.5</text>
+<text x="1230" y="366" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">back: Uncertainty, weight = hasConfidence</text>
+<rect x="50" y="418" width="1650" height="126" rx="8" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="60" y="426" width="330" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="225.0" y="468.24" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">Pfaffenhofen or Westerndorf</text>
+<text x="225.0" y="495.52" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">pattern  or</text>
+<text x="410" y="448" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#000000">2 × fw:hasDegreeOfConnection  0.5</text>
+<rect x="410" y="472" width="134.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="477.25" y="488" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:Vagueness</text>
+<text x="410" y="524" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">OR: weight = share</text>
+<rect x="830" y="426" width="380" height="110" rx="6" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1020.0" y="481.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#ffffff">fw:VagueResourceValue</text>
+<text x="1230" y="460" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">one collection, 2 members ; fw:hasConfidence 0.5</text>
+<text x="1230" y="504" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">back: Vagueness, weight &lt; 1</text>
+<rect x="50" y="556" width="1650" height="126" rx="8" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="60" y="564" width="330" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="225.0" y="606.24" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">Kräherwald and Rheinzabern</text>
+<text x="225.0" y="633.52" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">pattern  and</text>
+<text x="410" y="586" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#000000">2 × fw:hasDegreeOfConnection  1</text>
+<rect x="410" y="610" width="134.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="477.25" y="626" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:Vagueness</text>
+<text x="410" y="662" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">AND: weight 1</text>
+<rect x="830" y="564" width="380" height="110" rx="6" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1020.0" y="619.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#ffffff">fw:VagueResourceValue</text>
+<text x="1230" y="598" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">2 containers, one member each ; fw:hasConfidence 1</text>
+<text x="1230" y="642" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">back: Vagueness, weight = 1</text>
+<rect x="50" y="694" width="1650" height="126" rx="8" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="60" y="702" width="330" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="225.0" y="744.24" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">A or B or C?</text>
+<text x="225.0" y="771.52" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">pattern  q+or</text>
+<text x="410" y="724" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#000000">3 × fw:hasDegreeOfConnection  0.17</text>
+<rect x="410" y="748" width="224.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="522.1" y="764" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:FuzzinessWobbliness</text>
+<text x="410" y="800" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">OR: weight = share</text>
+<rect x="830" y="702" width="380" height="110" rx="6" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1020.0" y="757.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#ffffff">fw:FuzzinessWobblinessResourceValue</text>
+<text x="1230" y="736" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">one collection, 3 members ; fw:hasConfidence 0.17</text>
+<text x="1230" y="780" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">back: FuzzinessWobbliness, weight &lt; 0.5</text>
+<rect x="50" y="832" width="1650" height="126" rx="8" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="60" y="840" width="330" height="110" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="225.0" y="882.24" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">Kräherwald and Rheinzabern?</text>
+<text x="225.0" y="909.52" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">pattern  q+and</text>
+<text x="410" y="862" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#000000">2 × fw:hasDegreeOfConnection  0.5</text>
+<rect x="410" y="886" width="224.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="522.1" y="902" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:FuzzinessWobbliness</text>
+<text x="410" y="938" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">AND: weight 0.5</text>
+<rect x="830" y="840" width="380" height="110" rx="6" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1020.0" y="895.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#ffffff">fw:FuzzinessWobblinessResourceValue</text>
+<text x="1230" y="874" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">2 containers, one member each ; fw:hasConfidence 0.5</text>
+<text x="1230" y="918" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">back: FuzzinessWobbliness, weight = 0.5</text>
+<text x="60" y="985" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">Back: the form and the weight decide the pattern; the source string is not needed (weights.py, self-test: no two patterns share weight and type).</text>
+</svg>

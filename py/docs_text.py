@@ -181,3 +181,63 @@ REVIEW_QUESTIONS = [
      "If the order matters, the original string becomes a seventh element or a property of the statement."),
 ]
 
+
+
+ROUNDTRIP_INTRO = """The AFE coin data and the AMT meet in the same question: how is a vague or uncertain statement written down?
+AFE answers with containers (a value and a confidence), AMT with a hextuple (a weight and an FW type). Karsten Tolle's
+round trip goes **AFE → AMT → AFE**. This page shows the other direction, **AMT → AFE → AMT**: the three chains of this
+repository are written as the AFE container pattern with two SPARQL queries, read back with a third, and compared with
+what they started as."""
+
+ROUNDTRIP_HONEST = """> **What the AFE side is.** The AFE coin data know coins, mints and denominations, not potforms or production centres.
+> The AFE side of this round trip is therefore a *rebuilt pattern*: the container classes and properties of the AFE
+> (`fw:VagueResourceValue`, `fw:UncertainResourceValue`, `fw:FuzzinessWobblinessResourceValue`, `skos:Collection`,
+> `skos:member`, `rdf:value`, `fw:hasConfidence`) with the `sam:` roles as predicates. It is not AFE data."""
+
+ROUNDTRIP_RULES = """The form follows from `fw:hasType` and the weight alone. The source string is not needed (AFE has none).
+
+| FW type and weight | Pattern | AFE form |
+|---|---|---|
+| `fw:Certainty` | certain | the value directly on the subject |
+| `fw:Uncertainty` | `A?` | one `fw:UncertainResourceValue` with `rdf:value` and `fw:hasConfidence` |
+| `fw:Vagueness`, weight 1 | `A and B` | **one container per entity** (`fw:VagueResourceValue`, one member, confidence 1) |
+| `fw:Vagueness`, weight below 1 | `A or B` | **one container** with a member per entity, each with its share |
+| `fw:FuzzinessWobbliness`, weight 0.5 | `A and B?` | one container per entity (`fw:FuzzinessWobblinessResourceValue`, confidence 0.5) |
+| `fw:FuzzinessWobbliness`, weight below 0.5 | `A or B?` | one container with a member per entity |
+
+For a known number of edges, weight and type separate the four patterns (`py/weights.py`, self-test), so reading
+AND and OR back from them is exact for statements made by the rule."""
+
+ROUNDTRIP_LOSSES = """The AFE pattern has no place for the source string, the method of the weight, the observed frequency shares or the
+attribution of model M2. They are **documented, not carried**: the round trip does not smuggle them through, and the test
+says exactly what differs. `fw:hasMethod` comes back as `fw:AFEAssignment`, because that is what the weight now is: a value
+that was assigned on the AFE side."""
+
+ROUNDTRIP_OPEN = """These points are for Karsten Tolle and Allard Mees; the repository works either way.
+
+1. Is it legal in AFE to have **two containers on the same predicate** of one subject (the AND pattern)? If not, AND needs a
+   different form, for example one container with a member per entity and a marker.
+2. Does an FW container have to sum its confidences to 0.5, or is a confidence per member of 0.5 (AND with `?`) fine?
+3. Should AND be visible in AFE other than through weight and type?"""
+
+
+ROUNDTRIP_CONSTRUCT = """A `SELECT` query returns a table. A `CONSTRUCT` query returns a **graph**: it has a *template* (the triples to write) and
+a `WHERE` pattern (what to look for). For every way the pattern matches, the variables are filled into the template and
+the triples are added to the result. A triple whose variables are not all bound is skipped. That is the whole mechanism,
+and it is why one query can write several shapes at once: a variable that stays unbound in one branch simply drops that
+part of the template."""
+
+ROUNDTRIP_TRICKS = """Four details of the two queries are worth knowing:
+
+* **`UNION` branches.** The first query has one branch for the nodes and one for the statements; the second has one branch
+  for each AFE form (collection, one value, direct value) and one for the nodes. Each branch binds only the variables its form
+  needs.
+* **The unbound-variable trick.** `BIND(IF(?kind = "direct", ?o, ?unbound) AS ?direct)` binds `?direct` only when the statement is
+  certain. `?unbound` is never bound, so the `IF` yields an error and `BIND` leaves `?direct` unbound in all other cases; the
+  template line `?s ?p ?direct` then writes nothing for them.
+* **Generated IRIs.** SPARQL cannot hand one blank node to several result rows, but an OR container needs to be *one* node
+  with several members. The first query therefore builds an IRI from subject, predicate (and object for AND), so that all rows
+  of one OR reach the same container; the step turns these IRIs into blank nodes afterwards. In the second query
+  `BIND(BNODE() AS ?edge)` gives every row its own statement node, which is what a reified statement needs.
+* **A lookup table.** `VALUES (?cType ?fwType) { ... }` maps the AFE container class to the FW type, so the type is
+  data, not code."""

@@ -2,6 +2,21 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.18.0] - Round trip AMT -> AFE -> AMT, SHACL of M1 solved
+
+### Added
+- **Round trip AMT -> AFE -> AMT** (step `roundtrip`, `py/step_roundtrip.py`): the hextuples of the three chains are written as the container pattern of the AFE coin data (`queries/amt-to-afe.rq`) and read back (`queries/afe-to-amt.rq`), mirroring Karsten Tolle's AFE -> AMT -> AFE. The AFE form follows from `fw:hasType` and the weight alone (certain: direct value; `?`: one `fw:UncertainResourceValue`; OR: one `skos:Collection` with a member per entity; AND: one container per entity). The AFE side is a rebuilt pattern with `sam:` predicates, not AFE data. *Warum:* Der Roundtrip zeigt, dass AMT-Hextupel und AFE-Container dieselbe Information tragen, ohne dass der Quell-String mitgeführt werden muss.
+- Two tests, both part of `python main.py`: (a) subject, predicate, object, weight, FW type and nodes of 20 hextuples of the chains and 36 hextuples of the 18 cases of `data/weight-cases.csv` (all six patterns) come back unchanged; (b) the three reasoning runs on the returned statements give the same 340 edges; the AMT engine, if installed, agrees on the returned graph and the SHACL shapes conform.
+- Written to `dist/`: `chains-afe.ttl`, `chains-back.ttl`, `chains-back-with-model.ttl`, `patterns-afe.ttl`, `patterns-back.ttl`, `roundtrip-report.md`; Turtle is canonical (blank nodes named by content), so two runs give identical files.
+- Documentation page **Round trip** (docs/roundtrip.md) with three figures (`roundtrip-01-flow`, `-02-patterns`, `-03-balance`), the rules, an explanation of SPARQL `CONSTRUCT` with a worked example for carrier 211974, the generated AFE Turtle, the lost information and both queries in full.
+- Helper concept `sam:Entity` (see Changed).
+- Navigation: new category **Roundtrip** (between Documentation and Visuals), for this page now and for Karsten's use case and AFE -> AMT -> AFE later.
+
+### Changed
+- **SHACL of M1:** `sam:reaches` and `sam:reachedBy` now have `rdfs:domain` and `rdfs:range` `sam:Entity`, a helper concept that is only domain and range of the two generic roles (no individual is an instance). The engine shapes (exactly one domain and one range per role) now report no violation for M1 and M2 (before: 4). *Warum:* Ohne Domain und Range brach der Runner bei M1 ab; das Oberconcept löst es im Modell, die Engine bleibt unverändert.
+- `py/step_chains.py`: `engine_check` takes a file-name prefix, so the check of the returned graph does not overwrite the engine inputs of the chains.
+- Not carried by the AFE pattern, documented and counted: source strings (`fw:TextEvidence`), `fw:hasMethod` (comes back as `fw:AFEAssignment`), frequency shares, `sam:attributedTo`.
+
 ## [0.17.1] - Explorer: quieter picture
 
 ### Added

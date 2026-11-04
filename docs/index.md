@@ -39,13 +39,14 @@ which actors. Each derived link can be read from both ends.
 | [Reasoning](reasoning.html) | Why inverses are needed, the reasoning properties read from both ends, a worked chain |
 | [Chains](chains.html) | Three real chains from the Samian Research data: weights, FW types, derived degrees, two models |
 | [Weights](weights.html) | How the weight is computed, the hextuple, and: is `amt:weight` the same in both directions? |
+| [Round trip](roundtrip.html) | AMT → AFE → AMT: the chains as the AFE container pattern and back, two SPARQL queries, what is kept and what is not |
 | [Explorer](explorer/index.html) | The AMT Explorer in the browser with the three chains to choose from: graph, reasoning on and off, details, export as Turtle, Cypher, PNG and SVG |
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| [`ontology/samian-amt.ttl`](https://github.com/leiza-scit/samian-amt/blob/main/ontology/samian-amt.ttl) | The domain model in the AMT vocabulary: 4 concepts, 14 roles, 13 axioms |
+| [`ontology/samian-amt.ttl`](https://github.com/leiza-scit/samian-amt/blob/main/ontology/samian-amt.ttl) | The domain model in the AMT vocabulary: 4 concepts plus the helper concept `Entity`, 14 roles, 13 axioms |
 | [`data/toy-chain.ttl`](https://github.com/leiza-scit/samian-amt/blob/main/data/toy-chain.ttl) | One abstract individual per concept, three weighted edges (no real cases) |
 | [`py/weights.py`](https://github.com/leiza-scit/samian-amt/blob/main/py/weights.py) | The weight rule of the source paper, the FW type and the hextuple payload, with a lossless round-trip test |
 | [`data/chains-source.csv`](https://github.com/leiza-scit/samian-amt/blob/main/data/chains-source.csv) | The source strings of the three chains, as they stand in the Samian Research data |
