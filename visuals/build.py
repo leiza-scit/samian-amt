@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """build.py - figures for the vagueness / uncertainty cases of Potform and ProductionCentre (CHNT2026).
 
-Eight figures in the *-visuals house pattern (1750x1000, Fira Sans, SVG plus PNG) and a caption
+Nine figures in the *-visuals house pattern (1750x1000, Fira Sans, SVG plus PNG) and a caption
 page, written to visuals/site/. One figure per case:
 
     PF.1  informationcarrier--potform           multiple OR        [A or B]    vagueness
     PF.2  informationcarrier--potform           question mark      [A?]        uncertainty
     PF.3  informationcarrier--potform           OR + question mark [A or B?]   fuzzy / wobbly
+    PF.4  informationcarrier--potform           OR with observed shares (colour bars of the website)
     PC.1  actor--productioncentre               one OR             [A or B]    vagueness
     PC.2  actor--productioncentre               multiple AND       [A and B]   vagueness
     PC.3  actor--productioncentre               AND + question mark            fuzzy / wobbly
@@ -136,9 +137,10 @@ def read_csv(p, delim=","):
 
 
 CASES = {r["case"]: r for r in read_csv(DATA / "cases.csv")}
+SHARES = read_csv(DATA / "shares.csv")
 KILNS = {r["site"]: r for r in read_csv(DATA / "kilnsites-gaul.csv")}
 FORMS = json.loads((DATA / "forms.json").read_text(encoding="utf-8"))
-BASEMAP = json.loads((DATA / "basemap-gaul.json").read_text(encoding="utf-8"))["rings"]
+BASE = json.loads((DATA / "basemap-gaul.json").read_text(encoding="utf-8"))
 # spelling in the centre strings -> name in the kiln-site table
 SITE_ALIAS = {"Saint-Saturnin": "Jonquières, Saint Saturnin", "Vichy": "Vichy, Terre Franche"}
 
@@ -248,11 +250,152 @@ def potform_fig(name, code, title, subnote, forms):
     return f.name
 
 
+def share_fig(name, code, title, subnote):
+    """Equal share (the rule) against the observed share of each form in the database (the colour bars of the website)."""
+    c, st, edges = statements(code)
+    rows = [r for r in SHARES if r["case"] == code]
+    freq = [round(int(r["count"]) / int(r["total"]), 2) for r in rows]
+    for r in rows:   # the percentages the website shows must follow from the counts
+        if round(100 * int(r["count"]) / int(r["total"]), 2) != float(r["page_percent"]):
+            raise SystemExit(f"{code} {r['form']}: counts give {100 * int(r['count']) / int(r['total']):.2f} %, the page says {r['page_percent']} %")
+    f = Fig(name, f"{code} {title}")
+    f.raw('<defs><linearGradient id="gy" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#15803d"/><stop offset="1" stop-color="#86efac"/></linearGradient>'
+          '<linearGradient id="rd" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#ef4444"/></linearGradient></defs>')
+    header(f, code, title, c, st, edges)
+    ch, gap, cx, cw = 240, 36, 800, 890
+    top = 190 + (650 - (2 * ch + gap)) / 2
+    cy_c = 190 + 650 / 2
+    f.box(60, cy_c - 60, 340, 120, "any carrier", "InformationCarrier  ·  with this string", INST, 28, 19, 30)
+    ev_y = 700
+    f.rect(60, ev_y, 340, 130, OWL[0], OWL[1], 6, 2.4, True)
+    f.text(230, ev_y + 30, "fw:TextEvidence", 23, True)
+    f.text(230, ev_y + 66, f"“{c['source_string']}”", 22, False, DARK, maxw=320)
+    f.text(230, ev_y + 100, "fw:sourceString", 17, False, MUTED)
+    f.path(f"M230 {cy_c + 60} V {ev_y}", dash=True)
+    f.text(242, (cy_c + 60 + ev_y) / 2, "fw:derivedFrom", 19, False, MUTED, "start")
+    f.text(440, cy_c - 30, "hasType", 21, True, DARK, "start")
+    for i, (r, e, fr) in enumerate(zip(rows, edges, freq)):
+        y = top + i * (ch + gap)
+        mid = y + ch / 2
+        f.rect(cx, y, cw, ch, "#ffffff", "#000000", 6)
+        f.rect(cx, y, 200, ch, TERM[0], "#000000", 6)
+        f.text(cx + 100, mid - 22, r["form"], 44, True, TERM[2], maxw=186)
+        f.text(cx + 100, mid + 28, "Potform", 21, False, TERM[2])
+        if r["form"] in FORMS:
+            form_art(f, r["form"], cx + 215, mid - FORMS[r["form"]]["h"] * 1.0, 2.0)
+        else:
+            f.rect(cx + 215, mid - 70, 300, 140, "#ffffff", MUTED, 4, 1.6, True)
+            f.text(cx + 365, mid, "drawing not supplied", 20, False, MUTED)
+        bx, bw = cx + 545, 320
+        f.text(bx, mid - 52, f"{100 * int(r['count']) / int(r['total']):.2f} %", 36, True, DARK, "start")
+        f.text(bx, mid - 14, f"{n_fmt(r['count'])} of {n_fmt(r['total'])}", 21, False, MUTED, "start")
+        f.rect(bx, mid + 12, bw * int(r["count"]) / int(r["total"]), 26, "url(#gy)", "#000000", 0, 1)
+        f.rect(bx + bw * int(r["count"]) / int(r["total"]), mid + 12, bw * (1 - int(r["count"]) / int(r["total"])), 26, "url(#rd)", "#000000", 0, 1)
+        f.path(f"M400 {cy_c} H 500 V {mid} H {cx}")
+        f.chip(650, mid - 20, f"equal share  {e['weight']:.2f}", 19, "middle")
+        f.chip(650, mid + 20, f"frequency  {fr:.2f}", 19, "middle", True)
+    f.text(60, 872, f"equal share: 1 / (0 + {st.n_possibilities}) = {edges[0]['weight']:.2f} each (fw:EqualShareRule)", 22, False, DARK, "start")
+    f.text(60, 906, "frequency: " + "   ·   ".join(f"{n_fmt(r['count'])} / {n_fmt(r['total'])} = {fr:.2f}" for r, fr in zip(rows, freq)), 22, False, DARK, "start")
+    x = 60
+    for t in (f"fw:hasDegreeOfConnection  {freq[0]:.2f}", f"fw:hasType  fw:{edges[0]['type']}", "fw:hasMethod  fw:RelativeFrequency (proposal)"):
+        x += f.chip(x, 944, t, 19, "start") + 12
+    note(f, subnote, 60, 978)
+    f.save()
+    return f.name
+
+
 # ---------------------------------------------------------------- production-centre figures
 
 def project(lon, lat, win):
     lon0, lat0, span, k = win
     return 1000 / 2 + (lon - lon0) * k * math.cos(math.radians(lat0)), 1000 / 2 - (lat - lat0) * k
+
+
+RIVER_W = lambda rank: 3.4 if rank <= 4 else 2.7 if rank <= 6 else 2.1 if rank <= 8 else 1.5
+RIVER_LABELS = {"Loire", "Seine", "Garonne", "Rhône", "Saône", "Allier", "Moselle", "Rhine", "Meuse", "Marne", "Dordogne", "Main", "Neckar", "Doubs"}
+C_RIVER, C_REGION, C_COUNTRY, C_PLACE = "#8fb9d6", "#b4af97", "#857f6a", "#9d977f"
+
+
+def pl(pts, win):
+    return " ".join("%.1f,%.1f" % project(x, y, win) for x, y in pts)
+
+
+def hit(r, rects):
+    return any(r[0] < q[0] + q[2] and q[0] < r[0] + r[2] and r[1] < q[1] + q[3] and q[1] < r[1] + r[3] for q in rects)
+
+
+def draw_base(f, win, keep_clear):
+    """Sea, land, region borders, country borders, rivers, region names, large cities (all Natural Earth, modern)."""
+    f.rect(0, 0, 1000, 1000, SEA)
+    for ring in BASE["rings"]:
+        f.raw(f'<polygon points="{pl(ring, win)}" fill="{LAND}" stroke="#c9c6b9" stroke-width="1"/>')
+    for line in BASE["regions"]:
+        f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_REGION}" stroke-width="1.6" stroke-dasharray="6 4"/>')
+    for line in BASE["borders"]:
+        f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_COUNTRY}" stroke-width="2"/>')
+    for r in sorted(BASE["rivers"], key=lambda r: -r["s"]):
+        f.raw(f'<polyline points="{pl(r["p"], win)}" fill="none" stroke="{C_RIVER}" stroke-width="{RIVER_W(r["s"])}" stroke-linecap="round" stroke-linejoin="round"/>')
+    taken = list(keep_clear) + [(20, 778, 262, 158)]   # markers, their names, the legend
+    # river names: on the longest stretch inside the map, at the first spot (middle, then either side) that is free
+    longest = {}
+    for r in BASE["rivers"]:
+        if r["n"] in RIVER_LABELS:
+            pts = [project(x, y, win) for x, y in r["p"]]
+            pts = [q for q in pts if 40 < q[0] < 960 and 40 < q[1] < 960]
+            if len(pts) >= 4 and len(pts) > len(longest.get(r["n"], [])):
+                longest[r["n"]] = pts
+    for name in sorted(longest):
+        pts = longest[name]
+        w = tw(name, 16) + 8
+        for frac in (0.5, 0.35, 0.65, 0.2, 0.8):
+            m = int(len(pts) * frac)
+            x, y = pts[m]
+            box = (x - w / 2 - 6, y - w / 2 - 6, w + 12, w + 12)
+            if hit(box, taken):
+                continue
+            (x0, y0), (x1, y1) = pts[max(m - 2, 0)], pts[min(m + 2, len(pts) - 1)]
+            ang = math.degrees(math.atan2(y1 - y0, x1 - x0))
+            ang = ang + 180 if ang > 90 else ang - 180 if ang < -90 else ang
+            f.raw(f'<text transform="translate({x:.1f} {y:.1f}) rotate({ang:.1f})" dy="-9" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#4f84a8" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">{escape(name)}</text>')
+            taken.append(box)
+            break
+    for lab in BASE["region_labels"]:
+        x, y = project(lab["x"], lab["y"], win)
+        t = lab["n"].upper()
+        w = tw(t, 15) + 3 * len(t)
+        r = (x - w / 2, y - 10, w, 20)
+        if 30 < x < 970 and 30 < y < 940 and not hit(r, taken):
+            f.raw(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" letter-spacing="3" fill="{C_PLACE}">{escape(t)}</text>')
+            taken.append(r)
+    n = 0
+    for c in BASE["cities"]:
+        x, y = project(c["x"], c["y"], win)
+        size = 20 if c["p"] >= 1000000 else 17
+        w = tw(c["n"], size, c["p"] >= 1000000)
+        r = (x - 6, y - 14, w + 22, 28)
+        if 30 < x < 960 - w and 30 < y < 940 and not hit(r, taken) and n < 14:
+            f.raw(f'<rect x="{x - 4.5:.1f}" y="{y - 4.5:.1f}" width="9" height="9" fill="#1f1f1d" stroke="#ffffff" stroke-width="1.2"/>')
+            f.text(x + 12, y, c["n"], size, c["p"] >= 1000000, "#3a3a37", "start", halo=True)
+            taken.append(r)
+            n += 1
+
+
+def map_legend(f):
+    f.raw('<rect x="20" y="778" width="262" height="158" rx="6" fill="#ffffff" fill-opacity="0.88"/>')
+    y = 800
+    for kind, t in (("river", "river"), ("region", "region border (modern)"), ("country", "country border"), ("city", "city > 150,000"), ("kiln", "other kiln site")):
+        if kind == "river":
+            f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_RIVER}" stroke-width="3" stroke-linecap="round"/>')
+        elif kind == "region":
+            f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_REGION}" stroke-width="1.6" stroke-dasharray="6 4"/>')
+        elif kind == "country":
+            f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_COUNTRY}" stroke-width="2"/>')
+        elif kind == "city":
+            f.raw(f'<rect x="45.5" y="{y - 4.5}" width="9" height="9" fill="#1f1f1d"/>')
+        else:
+            f.raw(f'<circle cx="50" cy="{y}" r="6" fill="#ffffff" stroke="{MUTED}" stroke-width="1.2"/>')
+        f.text(80, y, t, 17, False, DARK, "start")
+        y += 28
 
 
 def centre_fig(name, code, title, subnote, subject_kind):
@@ -269,13 +412,24 @@ def centre_fig(name, code, title, subnote, subject_kind):
     clon, clat = (min(lons) + max(lons)) / 2, (min(lats) + max(lats)) / 2
     span = max(6.0, 1.9 * max(max(lats) - min(lats), (max(lons) - min(lons)) * math.cos(math.radians(clat))))
     win = (clon, clat, span, 1000 / span)
-    # map
+    # marker positions first, so that city labels can keep clear of them
+    placed, labels = [], []   # a marker that would touch an earlier one is pushed away, with a leader line
+    for i, (ent, site, k, e) in enumerate(ents, 1):
+        tx, ty = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
+        x, y = tx, ty
+        for px_, py_, _, _ in placed:
+            d = math.hypot(x - px_, y - py_)
+            if d < 50:
+                ang = math.atan2(y - py_, x - px_) if d > 1 else math.pi / 2
+                x, y = px_ + 50 * math.cos(ang), py_ + 50 * math.sin(ang)
+        placed.append((x, y, tx, ty))
+        right = x < 700
+        wl = tw(site, 22, True)
+        labels.append((x + 28, y - 14, wl, 28) if right else (x - 28 - wl, y - 14, wl, 28))
+    keep_clear = [(x - 24, y - 24, 48, 48) for x, y, _, _ in placed] + labels
     f.raw('<defs><clipPath id="m"><rect x="0" y="0" width="1000" height="1000"/></clipPath></defs>')
     f.raw('<g clip-path="url(#m)">')
-    f.rect(0, 0, 1000, 1000, SEA)
-    for ring in BASEMAP:
-        pts = " ".join("%.1f,%.1f" % project(x, y, win) for x, y in ring)
-        f.raw(f'<polygon points="{pts}" fill="{LAND}" stroke="#c9c6b9" stroke-width="1"/>')
+    draw_base(f, win, keep_clear)
     chosen = {site for _, site, _, _ in ents}
     for site, k in KILNS.items():
         if site in chosen:
@@ -283,16 +437,7 @@ def centre_fig(name, code, title, subnote, subject_kind):
         x, y = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
         if 8 < x < 992 and 8 < y < 992:
             f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#ffffff" stroke="{MUTED}" stroke-width="1.2"/>')
-    placed = []   # displayed marker centres; a marker that would touch an earlier one is pushed away, with a leader line
-    for i, (ent, site, k, e) in enumerate(ents, 1):
-        tx, ty = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
-        x, y = tx, ty
-        for px_, py_ in placed:
-            d = math.hypot(x - px_, y - py_)
-            if d < 50:
-                ang = math.atan2(y - py_, x - px_) if d > 1 else math.pi / 2
-                x, y = px_ + 50 * math.cos(ang), py_ + 50 * math.sin(ang)
-        placed.append((x, y))
+    for i, ((ent, site, k, e), (x, y, tx, ty)) in enumerate(zip(ents, placed), 1):
         if math.hypot(x - tx, y - ty) > 1:
             f.raw(f'<line x1="{tx:.1f}" y1="{ty:.1f}" x2="{x:.1f}" y2="{y:.1f}" stroke="#000000" stroke-width="1.4"/>')
             f.raw(f'<circle cx="{tx:.1f}" cy="{ty:.1f}" r="3.5" fill="#000000"/>')
@@ -309,7 +454,8 @@ def centre_fig(name, code, title, subnote, subject_kind):
     km100 = 100 / 111.32 * win[3] * math.cos(math.radians(clat))
     f.rect(30, 944, km100, 8, "#ffffff", "#000000", 0, 1.2)
     f.text(30 + km100 + 12, 948, "100 km", 17, False, DARK, "start", halo=True)
-    f.text(30, 975, "Coastline: Natural Earth  ·  kiln sites: Samian Research (cat29.tblkilnsites)", 15, False, MUTED, "start", halo=True)
+    map_legend(f)
+    f.text(30, 975, "Coast, rivers, regions, places: Natural Earth (modern)  ·  kiln sites: Samian Research (cat29.tblkilnsites)", 15, False, MUTED, "start", halo=True)
     f.raw('<line x1="1000" y1="0" x2="1000" y2="1000" stroke="#000000" stroke-width="1"/>')
     # right panel
     px = 1040
@@ -361,7 +507,8 @@ def centre_fig(name, code, title, subnote, subject_kind):
     rule_line(f, st, edges, px, 800 if ytop < 800 else ytop + 10)
     hextuple_chips(f, edges, px, 846, vertical=True)
     f.legend(975, [(INST, "subject"), (REAL, "kiln site"), (OWL, "evidence"), (PROP, "hextuple")], px) if False else None
-    note(f, subnote, px, 984)
+    for j, ln in enumerate(wrap(subnote, 16, 690)):
+        f.text(px, 962 + 22 * j, ln, 16, False, MUTED, "start")
     f.save()
     return f.name
 
@@ -374,7 +521,7 @@ def check_cases():
         ed = wt.edges_for(c["source_string"], c["relation"])
         if not all(e["listed"] for e in ed):
             raise SystemExit(f"{code}: pattern not expected for {c['relation']}")
-    want = {"PF.1": ("or", 0.33, 3), "PF.2": ("q", 0.5, 1), "PF.3": ("q+or", 0.33, 2),
+    want = {"PF.1": ("or", 0.33, 3), "PF.2": ("q", 0.5, 1), "PF.3": ("q+or", 0.33, 2), "PF.4": ("or", 0.5, 2),
             "PC.1": ("or", 0.5, 2), "PC.2": ("and", 1.0, 2), "PC.3": ("q+and", 0.5, 3),
             "PC.4": ("q", 0.5, 1), "IC-PC.1": ("q", 0.5, 1)}
     for code, (pat, w, n) in want.items():
@@ -401,6 +548,9 @@ def main():
         f"Samian Research, Gaulish tradition: {C['PF.3']['query_rows']} carriers with OR and ? in the potform. Drawings show the rim variants (R?).",
         [("15/17", "15_17R"), ("18", "18R")]),
         "PF.3", "OR and a question mark", C["PF.3"]))
+    figs.append((share_fig("PF.4-frequency-bars", "PF.4", "Observed frequency instead of equal share",
+        "Bars as on the Samian Research website (form “31 or 31R”, Dish); counts taken from a screenshot. The frequency method is a proposal, not yet in the FW ontology."),
+        "PF.4", "Observed frequency instead of equal share", C["PF.4"]))
     figs.append((centre_fig("PC.1-one-or", "PC.1", "One OR between centres",
         f"Samian Research, Gaulish tradition: {C['PC.1']['query_rows']} carriers with OR in the centre; this string on {C['PC.1']['string_rows']}.", "actor"),
         "PC.1", "One OR between centres", C["PC.1"]))
@@ -427,7 +577,7 @@ def write_site(figs):
         e = ed[0]
         rows.append(f'<figure id="{code}"><img src="img/{name}.png" alt="{escape(code + " " + title)}" width="875">'
                     f'<figcaption><b>{code}</b> {escape(title)}. {escape(c["relation"])}; string <code>{escape(c["source_string"])}</code> '
-                    f'({escape(c["pottername"])}, id {c["carrier_id"]}); weight {e["weight"]:.2f} per statement, fw:{e["type"]}, fw:{e["method"]}. '
+                    f'({escape(c["pottername"] + ", id " + c["carrier_id"] if c["carrier_id"] else "any carrier")}); weight {e["weight"]:.2f} per statement, fw:{e["type"]}, fw:{e["method"]}. '
                     f'<a href="img/{name}.svg">SVG</a></figcaption></figure>')
     html = ('<!doctype html><html lang="en"><meta charset="utf-8"><title>CHNT2026 vagueness and uncertainty cases</title>'
             '<style>body{font:16px/1.5 "Fira Sans",sans-serif;max-width:960px;margin:2rem auto;padding:0 1rem;color:#1f1f1d}'

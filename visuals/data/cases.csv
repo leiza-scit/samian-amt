@@ -2,6 +2,7 @@ case,relation,query_rows,string_rows,carrier_id,pottername,source_string
 PF.1,informationcarrier--potform,6,4,156521,Secundus v,15/17 or 18 or 18/31
 PF.2,informationcarrier--potform,5584,249,103585,Onnio-,18/31?
 PF.3,informationcarrier--potform,3,1,210355,Secundus ii,15/17 or 18 (R?)
+PF.4,informationcarrier--potform,11302,,,,31 or 31R
 PC.1,actor--productioncentre,81,1,132215,Sem- i,Aspiran or Saint-Saturnin
 PC.2,actor--productioncentre,25088,857,120919,Regulus i,Lezoux and Toulon-sur-Allier
 PC.3,actor--productioncentre,15553,465,107098,Paternus v,Les Martres-de-Veyre and Lezoux and Toulon-sur-Allier?

@@ -2,6 +2,16 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.7.0] - Frequency case PF.4, orientation layers on the maps
+
+### Added
+- **PF.4** (`visuals/`, figure `PF.4-frequency-bars`): the colour bars of the Samian Research website (`31 or 31R`, 9,070 and 2,232 of 11,302). It sets the equal share of the rule (0.50 / 0.50, `fw:EqualShareRule`) against the observed share (0.80 / 0.20). The method `fw:RelativeFrequency` is a **proposal**, not in the FW ontology; counts are in `visuals/data/shares.csv` and the build checks that they give the percentages the page shows. *Warum:* Manche OR-Aussagen haben empirische Anteile; das Modell soll zeigen, dass der Grad dann aus einer anderen Methode kommt.
+- **Maps**: rivers (named: Loire, Seine, Garonne, Rhône, Saône, Allier, Moselle, Rhine, Meuse, Marne, Dordogne, Main, Neckar, Doubs), modern region borders and names (French régions, German states, Belgian regions), country borders and cities above 150,000 inhabitants, all Natural Earth; a legend; the map window is at least 6 degrees of latitude. *Warum:* Die Lage der Zentren war ohne Orientierung schwer zu erkennen.
+
+### Changed
+- `visuals/prepare_basemap.py` reads six Natural Earth files from a folder (see its docstring); `visuals/data/basemap-gaul.json` grew to about 160 kB.
+- Note under the map figures wraps; nine figures instead of eight.
+
 ## [0.6.0] - Case figures for Potform and ProductionCentre
 
 ### Added
