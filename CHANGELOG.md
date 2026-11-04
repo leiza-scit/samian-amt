@@ -2,6 +2,19 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.15.0] - AMT Explorer with the three chains
+
+### Added
+- `docs/explorer/`: the Explorer of [amt-engine](https://github.com/alpaca-fair-framework/amt-engine) (client-side JavaScript: N3, vis.js, the JavaScript reasoner), adapted for the Mini-AMT: new header (Mini-AMT, LEIZA and NFDI4Objects, credit to the AMT engine), only Chain A, B and C to choose from, no example list and no file upload, local paths. Libraries are copied to `docs/explorer/vendor/` (nothing from a CDN); licences stay with them.
+- Step `explorer` (`py/step_explorer.py`): writes `docs/explorer/data/chain-A.ttl`, `chain-B.ttl`, `chain-C.ttl` (model M1 plus the hextuples of one chain, including the frequency shares as extra information) and `examples.json`.
+- Menu group "Explorer" (Chain A, B, C) on all pages; Explorer row on the start page.
+
+### Changed
+- **The Explorer shows reasoning in one direction only** (Flo, 2026-11-04): edges of the inverse roles are hidden in the picture; the downloaded Turtle keeps them. *Warum:* Mit beiden Richtungen war der Graph unlesbar.
+
+### Checked
+- Headless Chromium: the three chains load, reasoning on and off works, no failed request; the weights of all 128 edges derived in the browser equal those of `py/reference_reasoner.py`.
+
 ## [0.14.0] - Question mark halves the weight; frequency shares as additional information
 
 ### Changed

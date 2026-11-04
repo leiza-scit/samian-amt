@@ -126,6 +126,7 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S3 | Gewichtsregel, Hextupel, drei echte Ketten, Modell M2 (0.3.0) | CHNT2026-amt | S2 | erledigt 2026-10-30 |
 | S4 | Entscheidung M1 / M2 und Logik nach der Prüfung durch Allard | CHNT2026-amt | S3 | entschieden 2026-11-04 (A4, Review-Seite); Umsetzung in S4a und S4b |
 | S4a | Neue Gewichtsregel (`?` halbiert) und Häufigkeitsanteile als Zusatzinformation (Stufe A) (0.14.0) | CHNT2026-amt | S4 | Patch geliefert 2026-11-04 |
+| S24 | AMT Explorer für die drei Ketten (A, B, C) auf den GitHub Pages, nur eine Reasoning-Richtung (0.15.0) | CHNT2026-amt | S4a | Patch geliefert 2026-11-04; Live-Test auf GitHub Pages steht aus |
 | S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | CHNT2026-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
 | S3a | Mini-AMT an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | CHNT2026-amt | S3 | erledigt 2026-10-30 (0.4.0) |
 | S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | CHNT2026-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
@@ -196,6 +197,21 @@ Inhalt (0.14.0):
 **Abnahme:** `python main.py` läuft durch; `31 or 31R` ergibt 0,8025 / 0,1975; zwei Läufe ändern keine Datei.
 
 **Offen:** Stufe C (Töpfer-Repertoire, geglättet, mit Belegzahl und Status) und die Stufe „Stempel“; die vollständige Belegzahl-Datei von Allard statt des Auszugs; FW-Ontologie: Beschreibung von `fw:EqualShareRule` und Eintrag für die Häufigkeitsmethode (Patch für `FW_Ontology` liegt bei).
+
+## S24 — AMT Explorer für die drei Ketten
+
+**Ziel:** Auf den Pages des Mini-AMT läuft der Explorer von `amt-engine` (reines JavaScript im Browser, Reasoner `js/amt-reasoner.js`), aber nur mit den drei Ketten.
+
+Inhalt (0.15.0):
+
+- `docs/explorer/`: Seite, Skripte, Bibliotheken und Palette (statisch, aus `amt-engine` übernommen und angepasst: Pfade, Kopfzeile, Auswahl Chain A / B / C statt Beispielliste, kein Upload). Die Bibliotheken liegen lokal, es wird nichts von einem CDN geladen.
+- Schritt `explorer` (`py/step_explorer.py`): schreibt `docs/explorer/data/chain-A.ttl`, `-B`, `-C` (Modell M1 plus die Hextupel der Kette) und `examples.json` aus `data/chains-source.csv`.
+- **Reasoning nur in eine Richtung** (Flo, 2026-11-04): Der Explorer blendet die Inversen (`isTypeOf`, `isProductionCentreOf`, `hasWorker`, `centreToPotform`, `actorToCarrier`, `actorToPotform`, `reachedBy`) aus; im Turtle-Download bleiben sie.
+- Menü der Seiten: Gruppe „Explorer“ mit Chain A, B, C.
+
+**Abnahme:** Chromium (headless): Graph lädt, Reasoning erzeugt die Kanten; die Gewichte aller 128 Kanten der drei Ketten (mit Inversen) stimmen mit `py/reference_reasoner.py` überein.
+
+**Offen:** Live-Test auf GitHub Pages; Modell M2 oder Gödel-Logik als Auswahl (bewusst nicht eingebaut).
 
 ## S4b — Hybridmodell Träger–Zentrum (zurückgestellt)
 

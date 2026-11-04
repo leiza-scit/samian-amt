@@ -1,0 +1,644 @@
+// ============================================================
+// AMT - Academic Meta Tool
+// amt.js - Local RDF/TTL version (no external triplestore)
+// Uses N3.js for Turtle parsing, replaces RDF4J SPARQL queries
+// with direct triple-pattern matching.
+// ============================================================
+
+function StrID() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  for (var i = 0; i < 12; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
+
+function UUID() {
+  var dt = new Date().getTime();
+  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+    /[xy]/g,
+    function (c) {
+      var r = ((dt + Math.random() * 16) % 16) | 0;
+      dt = Math.floor(dt / 16);
+      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+    },
+  );
+  return uuid;
+}
+
+function copyToClipboard(element) {
+  var text = $(element).clone().find("br").prepend("\r\n").end().text();
+  element = $("<textarea>").appendTo("body").val(text).select();
+  document.execCommand("copy");
+  element.remove();
+}
+
+// ============================================================
+// LocalStore: loads a TTL file via fetch and provides
+// triple-pattern lookups that mirror the original SPARQL queries.
+// ============================================================
+
+var LocalStore = (function () {
+  var _triples = []; // [{subject, predicate, object}, ...]
+  var _loaded = false;
+
+  // Helper: resolve a prefixed name to full IRI using N3 prefix map
+  function iri(value) {
+    // N3.js returns full IRIs already; named nodes are wrapped in <>
+    // Blank nodes start with "_:", literals are quoted strings.
+    return value;
+  }
+
+  // Parse Turtle text with N3.js into the store.
+  function parseText(text, callback) {
+    var parser = new N3.Parser();
+    var triples = [];
+    var finished = false;
+    parser.parse(text, function (error, quad, prefixes) {
+      if (finished) return;
+      if (error) {
+        finished = true;
+        callback(error);
+        return;
+      }
+      if (quad) {
+        triples.push({
+          subject: quad.subject.value,
+          predicate: quad.predicate.value,
+          object: quad.object.value,
+        });
+        return;
+      }
+      // quad === null: parsing is done, the prefix map comes with it
+      finished = true;
+      _triples = triples;
+      window._AMT = window._AMT || {};
+      window._AMT.prefixes = {};
+      for (var p in prefixes || {}) {
+        var ns = prefixes[p];
+        window._AMT.prefixes[p] = ns && ns.value ? ns.value : ns;
+      }
+      _loaded = true;
+      callback(null);
+    });
+  }
+
+  // `source` is a URL (string) or { text: "...turtle...", name: "..." }.
+  function load(source, callback) {
+    if (source && typeof source === "object" && typeof source.text === "string") {
+      try {
+        parseText(source.text, callback);
+      } catch (err) {
+        callback(err);
+      }
+      return;
+    }
+    fetch(source)
+      .then(function (response) {
+        if (!response.ok)
+          throw new Error("Failed to load TTL: " + source + " (HTTP " + response.status + ")");
+        return response.text();
+      })
+      .then(function (text) {
+        parseText(text, callback);
+      })
+      .catch(function (err) {
+        console.error("Load error:", err);
+        callback(err);
+      });
+  }
+
+  // Return all triples matching the given pattern (null = wildcard)
+  function match(s, p, o) {
+    return _triples.filter(function (t) {
+      return (
+        (s === null || t.subject === s) &&
+        (p === null || t.predicate === p) &&
+        (o === null || t.object === o)
+      );
+    });
+  }
+
+  // Return the single object value for (s, p, *), or null
+  function objectOf(s, p) {
+    var results = match(s, p, null);
+    return results.length > 0 ? results[0].object : null;
+  }
+
+  // Return all object values for (s, p, *)
+  function objectsOf(s, p) {
+    return match(s, p, null).map(function (t) {
+      return t.object;
+    });
+  }
+
+  // Return all subject values for (*, p, o)
+  function subjectsOf(p, o) {
+    return match(null, p, o).map(function (t) {
+      return t.subject;
+    });
+  }
+
+  return {
+    load: load,
+    match: match,
+    objectOf: objectOf,
+    objectsOf: objectsOf,
+    subjectsOf: subjectsOf,
+  };
+})();
+
+// ============================================================
+// AMT constructor - mirrors original API surface exactly
+// ============================================================
+
+var AMT = function () {
+  var CONCEPTS = [];
+  var ROLES = [];
+  var GRAPH = {
+    original: { nodes: [], edges: [] },
+    edited: { nodes: [], edges: [] },
+  };
+  var AXIOMS = [];
+  var LOAD_ERROR = null;
+
+  // Vocabulary IRIs
+  var PREFIX = "http://academic-meta-tool.xyz/vocab#";
+  var PREFIX_INSTANCES = "http://github.com/leiza-scit/CAA2026-amt/";
+
+  var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+  var RDFS = "http://www.w3.org/2000/01/rdf-schema#";
+  var AMT_NS = PREFIX;
+
+  // Frequently used full IRIs
+  var P_TYPE = RDF + "type";
+  var P_LABEL = RDFS + "label";
+  var P_SUBCLASSOF = RDFS + "subClassOf";
+  var P_DOMAIN = RDFS + "domain";
+  var P_RANGE = RDFS + "range";
+  var P_SUBJECT = RDF + "subject";
+  var P_PREDICATE = RDF + "predicate";
+  var P_OBJECT = RDF + "object";
+
+  var C_CONCEPT = AMT_NS + "Concept";
+  var C_ROLE = AMT_NS + "Role";
+  var C_AXIOM = AMT_NS + "Axiom";
+
+  var P_INSTANCEOF = AMT_NS + "instanceOf";
+  var P_PLACEHOLDER = AMT_NS + "placeholder";
+  var P_WEIGHT = AMT_NS + "weight";
+  // FW ontology: the same weight under its own name, and the two extra parts
+  // of the hextuple (type and method of a statement).
+  var FW_NS = "http://w3id.org/fw_ontology/";
+  var P_FW_WEIGHT = FW_NS + "hasDegreeOfConnection";
+  var P_FW_TYPE = FW_NS + "hasType";
+  var P_FW_METHOD = FW_NS + "hasMethod";
+  var P_ANTECEDENT1 = AMT_NS + "antecedent1";
+  var P_ANTECEDENT2 = AMT_NS + "antecedent2";
+  var P_ANTECEDENT = AMT_NS + "antecedent";
+  var P_ANTECEDENTS = AMT_NS + "antecedents";
+  var P_CONSEQUENT = AMT_NS + "consequent";
+  var P_LOGIC = AMT_NS + "logic";
+  var P_INVERSE = AMT_NS + "inverse";
+  var P_ROLE1 = AMT_NS + "role1";
+  var P_ROLE2 = AMT_NS + "role2";
+  var P_ROLE = AMT_NS + "role";
+
+  // Where the data comes from. A page can set window.AMT_SOURCE to a URL or to
+  // { text, name } (a file the visitor loaded). Otherwise the ?ttl= parameter
+  // is used; the Explorer lives in docs/explorer/ and the data in docs/data/,
+  // so a plain relative path is looked up one level up.
+  // Override via URL parameter:  explorer/?ttl=data/my-export.ttl
+  var currentSource = function () {
+    if (window.AMT_SOURCE) return window.AMT_SOURCE;
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get("ttl") || "data/chain-A.ttl";
+    if (!/^(https?:|\.\.\/|\/|data\/)/.test(p)) p = "data/" + p;
+    return p;
+  };
+
+  // --------------------------------------------------------
+  // loadGraph: replaces the 5 SPARQL queryStore() calls
+  // --------------------------------------------------------
+  var loadGraph = function (callback) {
+    LocalStore.load(currentSource(), function (err) {
+      if (err) {
+        console.error("Could not load TTL:", err);
+        LOAD_ERROR = String(err && err.message ? err.message : err);
+        CONCEPTS = [];
+        ROLES = [];
+        AXIOMS = [];
+        callback({ nodes: [], edges: [] });
+        return;
+      }
+      LOAD_ERROR = null;
+
+      var graph = {};
+
+      // ---- 1. CONCEPTS --------------------------------
+      // Original SPARQL:
+      //   SELECT ?concept ?label ?placeholder WHERE {
+      //     ?concept rdf:type amt:Concept .
+      //     ?concept rdfs:label ?label .
+      //     ?concept amt:placeholder ?placeholder . }
+      CONCEPTS = [];
+      var conceptSubjects = LocalStore.subjectsOf(P_TYPE, C_CONCEPT);
+      conceptSubjects.forEach(function (concept) {
+        var label = LocalStore.objectOf(concept, P_LABEL);
+        var placeholder = LocalStore.objectOf(concept, P_PLACEHOLDER);
+        if (label !== null) {
+          CONCEPTS.push({
+            concept: concept,
+            label: label,
+            placeholder: placeholder,
+          });
+        }
+      });
+      console.log("CONCEPTS", CONCEPTS);
+
+      // ---- 2. ROLES -----------------------------------
+      // Original SPARQL:
+      //   SELECT ?role ?label ?domain ?range WHERE {
+      //     ?role rdf:type amt:Role .
+      //     ?role rdfs:label ?label .
+      //     ?role rdfs:domain ?domain .
+      //     ?role rdfs:range ?range . }
+      //   ORDER BY ASC(?label)
+      ROLES = [];
+      var roleSubjects = LocalStore.subjectsOf(P_TYPE, C_ROLE);
+      roleSubjects.forEach(function (role) {
+        var label = LocalStore.objectOf(role, P_LABEL);
+        var domain = LocalStore.objectOf(role, P_DOMAIN);
+        var range = LocalStore.objectOf(role, P_RANGE);
+        if (label !== null) {
+          ROLES.push({
+            role: role,
+            label: label,
+            domain: domain,
+            range: range,
+          });
+        }
+      });
+      ROLES.sort(function (a, b) {
+        return a.label.localeCompare(b.label);
+      });
+      console.log("ROLES", ROLES);
+
+      // ---- 3. NODES -----------------------------------
+      // Original SPARQL:
+      //   SELECT ?id ?label ?concept WHERE {
+      //     ?concept rdf:type amt:Concept .
+      //     ?id amt:instanceOf ?concept .
+      //     ?id rdfs:label ?label . }
+      var allNodes = [];
+      conceptSubjects.forEach(function (concept) {
+        var instances = LocalStore.subjectsOf(P_INSTANCEOF, concept);
+        instances.forEach(function (id) {
+          var label = LocalStore.objectOf(id, P_LABEL);
+          if (label !== null) {
+            allNodes.push({ id: id, label: label, concept: concept });
+          }
+        });
+      });
+
+      // Filter by mode (mirrors original example1-6 logic)
+      graph.nodes = filterNodes(allNodes);
+
+      // The namespace most of the instances live in: used to shorten IRIs in
+      // labels and exports, and as the namespace of nodes added in the editor.
+      var counts = {};
+      var best = "";
+      allNodes.forEach(function (n) {
+        var cut = Math.max(n.id.lastIndexOf("/"), n.id.lastIndexOf("#")) + 1;
+        var ns = n.id.substring(0, cut);
+        counts[ns] = (counts[ns] || 0) + 1;
+        if (counts[ns] > (counts[best] || 0)) best = ns;
+      });
+      if (best) {
+        PREFIX_INSTANCES = best;
+        window._AMT = window._AMT || {};
+        window._AMT.prefix = best;
+      }
+      console.log("NODES", graph.nodes);
+
+      // ---- 4. EDGES -----------------------------------
+      // Original SPARQL:
+      //   SELECT ?role ?from ?to ?width WHERE {
+      //     ?role rdf:type amt:Role .
+      //     ?stmt rdf:subject ?from .
+      //     ?stmt rdf:predicate ?role .
+      //     ?stmt rdf:object ?to .
+      //     ?stmt amt:weight ?width . }
+      var allEdges = [];
+      // Find all blank nodes / statements that carry a weight: amt:weight, or
+      // fw:hasDegreeOfConnection for statements that have no amt:weight
+      // (amt:weight wins if both are there, as in the Python loader).
+      var weightTriples = LocalStore.match(null, P_WEIGHT, null);
+      var withAmtWeight = new Set(weightTriples.map(function (wt) { return wt.subject; }));
+      LocalStore.match(null, P_FW_WEIGHT, null).forEach(function (wt) {
+        if (!withAmtWeight.has(wt.subject)) weightTriples.push(wt);
+      });
+      weightTriples.forEach(function (wt) {
+        var stmt = wt.subject;
+        var from = LocalStore.objectOf(stmt, P_SUBJECT);
+        var role = LocalStore.objectOf(stmt, P_PREDICATE);
+        var to = LocalStore.objectOf(stmt, P_OBJECT);
+        var width = parseFloat(wt.object);
+        if (from && role && to && !isNaN(width)) {
+          allEdges.push({
+            role: role, from: from, to: to, width: width,
+            type: LocalStore.objectOf(stmt, P_FW_TYPE) || null,
+            method: LocalStore.objectOf(stmt, P_FW_METHOD) || null,
+          });
+        }
+      });
+
+      graph.edges = filterEdges(allEdges);
+      console.log("EDGES", graph.edges);
+
+      // ---- 5. AXIOMS ----------------------------------
+      // Original SPARQL:
+      //   SELECT * WHERE {
+      //     ?axiom rdf:type ?type .
+      //     ?type rdfs:subClassOf ?grp .
+      //     ?grp rdfs:subClassOf amt:Axiom .
+      //     ?axiom ?p ?o . }
+      AXIOMS = [];
+
+      // Axiom classes: the five the engine knows, plus every class declared
+      // (directly or indirectly) as a subclass of amt:Axiom in the file.
+      var allAxiomTypes = new Set(
+        ["RoleChainAxiom", "InverseAxiom", "SubsumptionAxiom", "DisjointAxiom", "SelfDisjointAxiom"].map(
+          function (n) { return PREFIX + n; }
+        )
+      );
+      LocalStore.subjectsOf(P_SUBCLASSOF, C_AXIOM).forEach(function (cls) {
+        allAxiomTypes.add(cls);
+        LocalStore.subjectsOf(P_SUBCLASSOF, cls).forEach(function (c2) {
+          allAxiomTypes.add(c2);
+        });
+      });
+
+      // The items of an RDF list, as an array of IRIs.
+      var readList = function (head) {
+        var items = [];
+        var seen = {};
+        while (head && head !== RDF + "nil" && !seen[head]) {
+          seen[head] = true;
+          var first = LocalStore.objectOf(head, RDF + "first");
+          if (first !== null) items.push(first);
+          head = LocalStore.objectOf(head, RDF + "rest");
+        }
+        return items;
+      };
+
+      var raw = [];
+      var seenAxioms = {};
+      allAxiomTypes.forEach(function (axiomType) {
+        LocalStore.subjectsOf(P_TYPE, axiomType).forEach(function (axiom) {
+          if (seenAxioms[axiom + axiomType]) return;
+          seenAxioms[axiom + axiomType] = true;
+          var entry = {
+            iri: axiom,
+            type: axiomType.startsWith(PREFIX) ? axiomType.substr(PREFIX.length) : axiomType,
+          };
+          LocalStore.match(axiom, null, null).forEach(function (t) {
+            if (t.predicate === P_TYPE) return;
+            if (t.predicate === P_ANTECEDENTS) {
+              entry.antecedents = readList(t.object);
+              return;
+            }
+            var key = t.predicate.startsWith(PREFIX) ? t.predicate.substr(PREFIX.length) : t.predicate;
+            entry[key] = t.object;
+          });
+          raw.push(entry);
+        });
+      });
+      // Same order as the Python loader (type, then IRI): it fixes the order
+      // of the provenance lists.
+      AXIOMS = AMTReasoner.normaliseAxioms(raw);
+      console.log("AXIOMS", AXIOMS);
+
+      callback(graph);
+    });
+  };
+
+  // --------------------------------------------------------
+  // filterNodes / filterEdges: no filtering, show all data
+  // --------------------------------------------------------
+  var filterNodes = function (data) {
+    return data;
+  };
+
+  var filterEdges = function (data) {
+    return data;
+  };
+
+  // --------------------------------------------------------
+  // Public API (unchanged from original)
+  // --------------------------------------------------------
+
+  this.load = function (callback) {
+    loadGraph(function (graph) {
+      GRAPH.edited = copy(graph);
+      GRAPH.original = copy(graph);
+      callback();
+    });
+  };
+
+  var copy = function (graph) {
+    var cpy = { nodes: [], edges: [] };
+    for (var i in graph.nodes) {
+      cpy.nodes.push({
+        id: graph.nodes[i].id,
+        label: graph.nodes[i].label,
+        concept: graph.nodes[i].concept,
+      });
+    }
+    for (var i in graph.edges) {
+      var width;
+      if (graph.edges[i].width > 1.0) {
+        width = 1.0;
+      } else {
+        width = parseFloat(graph.edges[i].width);
+        width = width.toFixed(3);
+      }
+      cpy.edges.push({
+        role: graph.edges[i].role,
+        from: graph.edges[i].from,
+        to: graph.edges[i].to,
+        width: graph.edges[i].width,
+        type: graph.edges[i].type || null,
+        method: graph.edges[i].method || null,
+        label: width,
+        font: {
+          align: "middle",
+          size: 16,
+          color: "blue",
+          face: "monospace",
+        },
+      });
+    }
+    return cpy;
+  };
+
+  var search = function (edges, role, from, to) {
+    for (var i in edges) {
+      if (edges[i].role == role && edges[i].from == from && edges[i].to == to) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  // Reasoning is done by amt-reasoner.js, the port of the Python engine. The
+  // edges of the graph carry their weight as `width` (vis.js naming); inferred
+  // edges are appended after the asserted ones, as in the Python result.
+  var toEngineEdges = function (edges) {
+    return edges.map(function (e) {
+      var w = parseFloat(e.width);
+      return {
+        role: e.role,
+        from: e.from,
+        to: e.to,
+        weight: isNaN(w) ? 0 : Math.min(w, 1.0),
+        inferred: false,
+        provenance: [],
+        type: e.type || null,
+        method: e.method || null,
+        evidence: null,
+      };
+    });
+  };
+
+  var runReasoner = function (graph) {
+    var reasoned = AMTReasoner.reason(toEngineEdges(graph.edges), AXIOMS).edges;
+    return reasoned;
+  };
+
+  var doReasoning = function (graph) {
+    var n = graph.edges.length;
+    var reasoned = runReasoner(graph);
+    for (var i = 0; i < n; i++) {
+      graph.edges[i].provenance = reasoned[i].provenance;
+    }
+    for (var j = n; j < reasoned.length; j++) {
+      var e = reasoned[j];
+      graph.edges.push({
+        role: e.role,
+        from: e.from,
+        to: e.to,
+        width: e.weight,
+        label: e.role.replace(_AMT.prefix, "") + ":" + e.weight,
+        inferred: true,
+        provenance: e.provenance,
+        type: e.type,
+        method: e.method,
+        font: { align: "middle", size: 16, color: "red", face: "monospace" },
+      });
+    }
+    return graph;
+  };
+
+  // Violations of the integrity axioms in the reasoned graph (strings, as in
+  // the Python engine). An empty list means consistent.
+  var violations = function (graph) {
+    var asserted = toEngineEdges(graph.edges);
+    var reasoned = AMTReasoner.reason(asserted, AXIOMS).edges;
+    return AMTReasoner.checkConsistency(asserted, AXIOMS, reasoned).violations;
+  };
+
+  var consistent = function () {
+    var v = violations(GRAPH.edited);
+    if (v.length) console.info("!consistent ->", v);
+    return v.length === 0;
+  };
+
+  this.addIndividual = function (label, concept) {
+    var id = PREFIX_INSTANCES + StrID();
+    GRAPH.edited.nodes.push({ id: id, label: label, concept: concept });
+    return id;
+  };
+  this.addExistingIndividual = function (id, label, concept) {
+    GRAPH.edited.nodes.push({ id: id, label: label, concept: concept });
+    return id;
+  };
+  this.removeIndividual = function (id) {
+    var change = true;
+    while (change) {
+      change = false;
+      for (var i in GRAPH.edited.edges) {
+        if (
+          GRAPH.edited.edges[i].from == id ||
+          GRAPH.edited.edges[i].to == id
+        ) {
+          GRAPH.edited.edges.splice(i, 1);
+          change = true;
+          break;
+        }
+      }
+    }
+    for (var i in GRAPH.edited.nodes) {
+      if (GRAPH.edited.nodes[i].id == id) {
+        GRAPH.edited.nodes.splice(i, 1);
+        break;
+      }
+    }
+    return consistent();
+  };
+  this.editAssertion = function (role, from, to, width) {
+    var index = search(GRAPH.edited.edges, role, from, to);
+    if (index >= 0) {
+      if (width > 0) GRAPH.edited.edges[index].width = width;
+      else GRAPH.edited.edges.splice(index, 1);
+    } else {
+      if (width > 0) {
+        if (width > 1.0) width = 1.0;
+        else {
+          width = parseFloat(width);
+          width = width.toFixed(2);
+        }
+        GRAPH.edited.edges.push({
+          role: role,
+          from: from,
+          to: to,
+          width: width,
+          label: width,
+          font: { align: "middle", size: 10, color: "black", face: "arial" },
+        });
+      }
+    }
+    return consistent();
+  };
+  this.addExistingAssertion = function (id, role, from, to, width) {
+    GRAPH.edited.edges.push({ role: role, from: from, to: to, width: width });
+    return consistent();
+  };
+  this.cancel = function () {
+    GRAPH.edited = copy(GRAPH.original);
+  };
+  this.getError = function () {
+    return LOAD_ERROR;
+  };
+  this.getAxioms = function () {
+    return AXIOMS;
+  };
+  this.getViolations = function (edited) {
+    return violations(edited === false ? GRAPH.original : GRAPH.edited);
+  };
+  this.getConcepts = function () {
+    return CONCEPTS;
+  };
+  this.getRoles = function () {
+    return ROLES;
+  };
+  this.getGraph = function (reasoning, edited) {
+    if (edited) {
+      return reasoning ? doReasoning(copy(GRAPH.edited)) : copy(GRAPH.edited);
+    } else {
+      return reasoning
+        ? doReasoning(copy(GRAPH.original))
+        : copy(GRAPH.original);
+    }
+  };
+};

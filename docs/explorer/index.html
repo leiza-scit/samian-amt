@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <title>Mini-AMT Explorer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Third-party libraries: kept in vendor/ (see vendor/README.md), nothing is loaded from a CDN -->
+    <!-- RDF parsing -->
+    <script src="vendor/n3/n3.min.js"></script>
+
+    <!-- Graph visualisation -->
+    <script src="vendor/vis/vis.min.js"></script>
+    <link href="vendor/vis/vis.min.css" rel="stylesheet" />
+
+    <!-- jQuery + jQuery UI -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.min.css" />
+
+    <!-- Materialize and its icon font -->
+    <script src="vendor/materialize/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="vendor/materialize/css/materialize.min.css" />
+    <link rel="stylesheet" href="vendor/material-icons/material-icons.css" />
+
+    <link rel="icon" type="image/png" href="assets/img/amt-penguin-small.png" />
+    <link rel="stylesheet" href="assets/palette.css" />
+
+    <!-- AMT scripts (order matters: n3 -> amt -> amt-render -> amt-export) -->
+    <script src="js/amt-reasoner.js"></script>
+    <script src="js/amt.js"></script>
+    <script src="js/amt-render.js"></script>
+    <script src="js/amt-export.js"></script>
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; }
+      body { display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+      #bar {
+        flex: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        padding: 6px 14px; background: var(--bar); color: var(--bar-fg); min-height: 56px;
+        border-bottom: 4px solid var(--accent);
+      }
+      #bar a.home { color: #fff; font-weight: 600; text-decoration: none; margin-right: 6px; display: inline-flex; align-items: center; gap: 8px; }
+      #bar a.home img { height: 40px; width: auto; margin: -4px 0; }
+      #bar .btn-floating { background: var(--pal-green) !important; }
+      #bar .btn-floating:hover { background: var(--pal-green-teal) !important; }
+      #bar .btn-floating { width: 36px; height: 36px; line-height: 36px; }
+      #bar .btn-floating i { line-height: 36px; font-size: 20px; }
+      #bar .grow { flex: 1; min-width: 0; }
+      #title { font-weight: 600; }
+      #status { font-size: 0.9em; margin-left: 10px; }
+      .legend { font-size: 0.85em; white-space: nowrap; background: var(--card); color: var(--fg); padding: 2px 10px; border-radius: 12px; }
+      .legend b { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 8px; }
+      #r-but { background: var(--pal-grey); color: #fff; border-radius: 18px; text-transform: none; font-weight: 600; padding: 0 14px; white-space: nowrap; }
+      #r-but.on { background: var(--pal-bronze); }
+      #origin {
+        position: fixed; right: 12px; bottom: 12px; z-index: 5; max-width: 340px;
+        background: var(--card); border: 1px solid var(--pal-green-deep); border-radius: 4px; padding: 8px 10px;
+        font-size: 12px; line-height: 1.4; color: var(--fg); box-shadow: 0 1px 4px rgba(0,0,0,.25);
+      }
+      #origin img { display: block; height: 70px; width: auto; margin: 0 auto 6px; }
+      #origin a { color: var(--link); }
+      #graph { flex: 1; min-height: 0; }
+      .modal { max-height: 80% !important; width: 90% !important; }
+      #chains { display: inline-flex; gap: 6px; }
+      #chains .chain { background: var(--pal-grey); color: #fff; border-radius: 18px; text-transform: none; font-weight: 600; padding: 0 14px; }
+      #chains .chain.on { background: var(--pal-bronze); }
+      #origin img { height: 36px; }
+      @media (max-width: 700px) { .legend, #origin img { display: none; } }
+    </style>
+  </head>
+
+  <body>
+    <div id="bar">
+      <a class="home" href="../index.html" title="Mini-AMT documentation"><img src="assets/img/leiza.png" alt="LEIZA" />Mini-AMT</a>
+      <span id="title">loading...</span><span id="status"></span>
+      <span class="grow"></span>
+      <span class="legend"><b style="background:var(--asserted)"></b>asserted<b style="background:var(--inferred)"></b>inferred (one direction)</span>
+      <span id="chains">
+        <a class="btn-small chain" data-file="chain-A.ttl" onclick="selectChain('chain-A.ttl')" title="Chain A: Vitalis viii, AND of two centres">Chain A</a>
+        <a class="btn-small chain" data-file="chain-B.ttl" onclick="selectChain('chain-B.ttl')" title="Chain B: Onnio-, OR of two centres">Chain B</a>
+        <a class="btn-small chain" data-file="chain-C.ttl" onclick="selectChain('chain-C.ttl')" title="Chain C: Ve- i, OR of three forms">Chain C</a>
+      </span>
+      <a class="btn-small" id="r-but" onclick="toggleReasoning()" title="reasoning on/off">Reasoning: off</a>
+      <a class="btn-floating" onclick="exportTTL()" title="download Turtle (including inferred statements)"><i class="material-icons">file_download</i></a>
+    </div>
+    <div id="graph"></div>
+
+    <div id="origin">
+      <img src="assets/img/nfdi4objects.png" alt="NFDI4Objects" />
+      <b>Mini-AMT Explorer</b>: three chains of the Samian Research data (potform &rarr; carrier &rarr; production centre &rarr; potter),
+      weighted by the rule of the source paper, with the reasoning of the
+      <a href="https://github.com/alpaca-fair-framework/amt-engine">Academic Meta Tool</a> (Explorer adapted from the AMT engine, MIT licence).
+      A working draft of <b>LEIZA</b> and <b>NFDI4Objects</b>; NFDI4Objects is funded by the Deutsche Forschungsgemeinschaft (DFG)
+      &ndash; project number 501836407. <a href="../chains.html">How the chains are built</a>.
+    </div>
+
+    <!-- Modal: RDF export -->
+    <div id="rdfModal" class="modal">
+      <div class="modal-content" style="height: 100%; padding: 20px; margin: 0">
+        <textarea id="rdf" style="width: 100%; height: 100%; font-family: monospace; font-size: 14px"></textarea>
+      </div>
+    </div>
+
+    <span id="hiddenclipboard" style="display: none"></span>
+    <script>
+      // The three chains replace the example dialogue of the AMT Explorer: one click loads the file, the reasoning button works on it.
+      function selectChain(file) {
+        chooseExample(file);
+        $("#chains .chain").each(function () { $(this).toggleClass("on", $(this).data("file") === file); });
+        update();
+      }
+      $(function () {
+        var f = new URLSearchParams(window.location.search).get("ttl") || "chain-A.ttl";
+        f = f.replace(/^data\//, "");
+        $("#chains .chain").each(function () { $(this).toggleClass("on", $(this).data("file") === f); });
+      });
+    </script>
+  </body>
+</html>

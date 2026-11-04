@@ -39,6 +39,7 @@ which actors. Each derived link can be read from both ends.
 | [Reasoning](reasoning.html) | Why inverses are needed, the reasoning properties read from both ends, a worked chain |
 | [Chains](chains.html) | Three real chains from the CHNT data: weights, FW types, derived degrees, two models |
 | [Weights](weights.html) | How the weight is computed, the hextuple, and: is `amt:weight` the same in both directions? |
+| [Explorer](explorer/index.html) | The AMT Explorer in the browser with the three chains to choose from: graph, reasoning on and off, Turtle download |
 
 ## Files
 

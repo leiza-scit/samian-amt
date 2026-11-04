@@ -68,7 +68,7 @@ Windows `cmd`, from the repository root:
 
     python main.py
 
-`python main.py --list` shows the steps (`weights`, `reason`, `chains`, `visuals`, `docs`),
+`python main.py --list` shows the steps (`weights`, `reason`, `chains`, `explorer`, `visuals`, `docs`),
 `--only docs` runs one. Output goes to `dist/` (reasoning) and `docs/` (figures and
 pages) and is byte-identical from run to run. `docs/` is committed because GitHub
 Pages serves it; set Pages to "Deploy from a branch", folder `/docs`.
@@ -102,5 +102,6 @@ any edge or weight.
     data/chains-source.csv     source strings of the three real chains
     data/weight-cases.csv      test cases of the weight rule
     py/                        utils, weights, reference_reasoner, site_kit, docs_text, step_*
+    docs/explorer/             the AMT Explorer with the three chains (page, scripts, libraries static; data/ generated)
     docs/                      GitHub Pages: stylesheet, layout and pages (generated), figures and figure pages in `visuals/`
     dist/                      reasoning output (generated, not committed)
