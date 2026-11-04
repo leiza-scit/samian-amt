@@ -29,6 +29,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import frequency as F  # noqa: E402
 import weights as W  # noqa: E402
 from mini_amt_utils import DIST, ONTOLOGY, ROOT, load_graph, local, read_model  # noqa: E402
 from reference_reasoner import reason  # noqa: E402
@@ -48,6 +49,10 @@ HEADER = """@prefix amt:     <http://academic-meta-tool.xyz/vocab#> .
 # (fw:Certainty, fw:Uncertainty, fw:Vagueness or fw:FuzzinessWobbliness; fw:Certainty for a certain statement) and fw:hasMethod (fw:EqualShareRule). fw:derivedFrom points to the
 # source string (fw:TextEvidence); the statements of one string share one evidence node.
 # mini:attributedTo is the crisp carrier-actor link; only model M2 uses it.
+# mini:frequencyShare (with mini:frequencyCount, mini:frequencyTotal, mini:frequencyLevel and
+# mini:frequencyMethod) is additional information on the statements of an OR in a potform string: the
+# share of the form among the vessels of all alternatives in the database. It is not a weight, does not
+# enter the chains, and a question mark does not change it (decided 2026-11-04; py/frequency.py).
 """
 
 
@@ -88,7 +93,11 @@ def build_edges(rows: list[dict]) -> tuple[list[dict], dict]:
         ic, ae = "ic_" + r["carrier_id"], "ae_" + slug(r["potter"])
         nodes[ic] = ("InformationCarrier", f"Carrier {r['carrier_id']}")
         nodes[ae] = ("Actor", r["potter"])
+        st = W.parse(r["potform_text"])
+        share = {s["entity"]: s for s in (F.shares(st.entities) if st.connective == "or" else None) or []}
         for e in W.edges_for(r["potform_text"], "informationcarrier--potform"):
+            if e["entity"] in share:
+                e = {**e, "frequency": share[e["entity"]]}
             pf = "pf_" + slug(e["entity"])
             nodes[pf] = ("Potform", "Potform " + e["entity"])
             add("hasType", ic, pf, e, "informationcarrier--potform")
@@ -101,8 +110,12 @@ def build_edges(rows: list[dict]) -> tuple[list[dict], dict]:
     return sorted(edges, key=lambda e: (e["role"], e["from"], e["to"])), nodes
 
 
-def statement_ttl(e: dict) -> str:
-    """One hextuple (or a plain quadruple if the edge has neither type, method nor evidence)."""
+def statement_ttl(e: dict, freq: bool = False) -> str:
+    """One hextuple (or a plain quadruple if the edge has neither type, method nor evidence).
+
+    With freq=True the frequency share of an OR alternative is added as extra information (dist/chains.ttl
+    only; the engine inputs do not carry it).
+    """
     parts = [f"fw:hasDegreeOfConnection {e['weight']}"]
     if e.get("type"):
         parts.append(f"fw:hasType fw:{e['type']}")
@@ -110,6 +123,11 @@ def statement_ttl(e: dict) -> str:
         parts.append(f"fw:hasMethod fw:{e['method']}")
     if e.get("evidence"):
         parts.append(f"fw:derivedFrom mini:{e['evidence']}")
+    if freq and e.get("frequency"):
+        f = e["frequency"]
+        parts += [f"mini:frequencyShare {f['share']}", f"mini:frequencyCount {f['count']}",
+                  f"mini:frequencyTotal {f['total']}", f'mini:frequencyLevel "{f["level"]}"',
+                  f"mini:frequencyMethod mini:{F.METHOD}"]
     return (f"[] rdf:subject mini:{e['from']} ; rdf:predicate mini:{e['role']} ; rdf:object mini:{e['to']} ;\n"
             f"   {' ; '.join(parts)} .")
 
@@ -130,7 +148,9 @@ def write_ttl(edges, nodes, rows) -> None:
     for r in rows:
         out.append(f"mini:ic_{r['carrier_id']} mini:attributedTo mini:ae_{slug(r['potter'])} .")
     out += ["", evidence_ttl(edges), ""]
-    out += [statement_ttl(e) for e in edges]
+    if any(e.get("frequency") for e in edges):
+        out += [f'mini:{F.METHOD} rdfs:label "{F.LABEL_EN}"@en, "{F.LABEL_DE}"@de .', ""]
+    out += [statement_ttl(e, freq=True) for e in edges]
     (DIST / "chains.ttl").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
 
 
@@ -177,6 +197,17 @@ def check_roundtrip(res: dict) -> int:
         if sorted(W.parse(back).entities) != sorted(st.entities) or W.parse(back).weight != st.weight:
             raise AssertionError(f"{subject}: {text!r} is not rebuilt from weight and type ({back!r})")
         n += len(items)
+    # frequency shares: additional information, equal to py/frequency.py, and one set per OR string
+    mini = Namespace("http://example.org/mini-amt/")
+    by_string: dict = {}
+    for s in g.subjects(mini.frequencyShare, None):
+        key = (local(g.value(s, RDF.subject)), local(g.value(s, fw.derivedFrom)))
+        by_string.setdefault(key, []).append((entity_of[local(g.value(s, RDF.object))], float(g.value(s, mini.frequencyShare))))
+    for (subject, ev), items in by_string.items():
+        text = next(str(g.value(x, fw.sourceString)) for x in g.subjects(RDF.type, fw.TextEvidence) if local(x) == ev)
+        want = {x["entity"]: x["share"] for x in F.shares(W.parse(text).entities) or []}
+        if dict(items) != want or abs(sum(v for _, v in items) - 1) > 0.001:
+            raise AssertionError(f"{subject}: frequency shares {items} differ from {want} for {text!r}")
     return n
 
 

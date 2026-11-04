@@ -1,10 +1,10 @@
-<svg width="1750" height="1000" viewBox="0 0 1750 1000" xmlns="http://www.w3.org/2000/svg" role="img"><title>PF.4 Observed frequency instead of equal share</title>
+<svg width="1750" height="1000" viewBox="0 0 1750 1000" xmlns="http://www.w3.org/2000/svg" role="img"><title>PF.4 Frequency share next to the equal share</title>
 <rect width="1750" height="1000" fill="#ffffff"/>
 <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <defs><linearGradient id="gy" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#15803d"/><stop offset="1" stop-color="#86efac"/></linearGradient><linearGradient id="rd" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#ef4444"/></linearGradient></defs>
 <rect x="60" y="46" width="82.4" height="48" rx="5" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="101.2" y="70" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="28" font-weight="500" fill="#1f1f1d">PF.4</text>
-<text x="164.4" y="70" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Observed frequency instead of equal share</text>
+<text x="164.4" y="70" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Frequency share next to the equal share</text>
 <text x="60" y="124" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" fill="#55544f">informationcarrier--potform  ·  pattern  [31 or 31R]  ·  vagueness</text>
 <rect x="60" y="455.0" width="340" height="120" rx="30" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
 <text x="230.0" y="498.76" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="28" font-weight="500" fill="#000000">any carrier</text>
@@ -44,13 +44,15 @@
 <text x="650.0" y="633.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">equal share  0.50</text>
 <rect x="574.8" y="657.0" width="150.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="650.0" y="673.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#000000">frequency  0.20</text>
-<text x="60" y="872" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" fill="#1f1f1d">equal share: 1 / (0 + 2) = 0.50 each (fw:EqualShareRule)</text>
+<text x="60" y="872" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" fill="#1f1f1d">equal share: 1 / 2 = 0.50 each (fw:EqualShareRule)</text>
 <text x="60" y="906" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" fill="#1f1f1d">frequency: 9,070 / 11,302 = 0.80   ·   2,232 / 11,302 = 0.20</text>
-<rect x="60" y="928" width="298.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="209.05" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasDegreeOfConnection  0.80</text>
-<rect x="370.1" y="928" width="240.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="490.45000000000005" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasType  fw:Vagueness</text>
-<rect x="622.8" y="928" width="427.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="836.4499999999999" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasMethod  fw:RelativeFrequency (proposal)</text>
-<text x="60" y="978" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">Bars as on the Samian Research website (form “31 or 31R”, Dish); counts taken from a screenshot. The frequency method is a proposal, not yet in the FW ontology.</text>
+<rect x="60" y="928" width="297.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="208.55" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasDegreeOfConnection  0.50</text>
+<rect x="369.1" y="928" width="240.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="489.45000000000005" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasType  fw:Vagueness</text>
+<rect x="621.8" y="928" width="310.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="777.1999999999999" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasMethod  fw:EqualShareRule</text>
+<rect x="944.5999999999999" y="928" width="243.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1066.4499999999998" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">mini:frequencyShare  0.80</text>
+<text x="60" y="978" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">Bars as on the Samian Research website (form “31 or 31R”, Dish). The degree stays the equal share; the frequency share (probability based on frequency share, level A) is additional information for the archaeologist, not a weight. Not yet in the FW ontology.</text>
 </svg>

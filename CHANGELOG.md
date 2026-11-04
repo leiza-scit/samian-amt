@@ -2,6 +2,20 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.14.0] - Question mark halves the weight; frequency shares as additional information
+
+### Changed
+- **Weight rule** (`py/weights.py`): `weight = (1 / n_possibilities) * (1/2 if "?" else 1)`, decided with Allard Mees on 2026-11-04 (Memos 0.7.0 and 0.8.0). It replaces the rule of the source paper, which counted the question mark as one more possibility. Only OR with a question mark changes: `A or B?` is 0.25 (was 0.33), `A or B or C?` 0.17 (was 0.25). `A?`, `A and B?` (0.5), `A and B` and `A or B` keep their weights. The method stays `fw:EqualShareRule`. *Warum:* Allard: Die alte Regel war „der falsche Ansatz“; das Fragezeichen schwächt alle Alternativen gleichmäßig ab.
+- Test cases (`data/weight-cases.csv`), the *Weights* and *Review* pages, the chain pages, the figures PF.3 and PF.4 and the README follow the new rule. The round trip rebuilds the pattern from weight, type and number of edges as before (checked for 2 to 50 edges).
+- PF.4: the degree stays the equal share (`fw:hasDegreeOfConnection 0.50`); the frequency share is shown as `mini:frequencyShare`, no longer as the degree. *Warum:* Die Häufigkeitsanteile sind ein Hinweis für den Archäologen, kein Wahrheitsgrad.
+
+### Added
+- `py/frequency.py` and `data/form-counts.csv` (extract of Allard Mees's `data-1793809985134.csv`, forms with at least ten vessels): level-A shares of the alternatives of an OR (`31 or 31R` = 0.8025 / 0.1975). Written beside the hextuples in `dist/chains.ttl` (`mini:frequencyShare`, `-Count`, `-Total`, `-Level`, `-Method`) for the potform statements with OR (chain C and the self-test); not a weight, not part of the chain, unchanged by a question mark. Round trip and self-test check the shares.
+- PRIMER A4: weight rule, frequency shares; S4a delivered; S4b put on hold.
+
+### Fixed
+- `visuals/build.py`: the check of the listed patterns also ran over the cases the chain pages register and stopped with `A.4: pattern not expected for informationcarrier--productioncentre`; only the nine fixed cases are checked now. *Warum:* Der Lauf `python main.py` brach in der Stufe visuals ab, die Stufe docs lief nicht mehr.
+
 ## [0.13.2] - Fix: case figures were no longer rebuilt; PC.1 with Saciro iv
 
 ### Fixed

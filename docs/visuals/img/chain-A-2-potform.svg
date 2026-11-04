@@ -25,8 +25,8 @@
 <text x="710.0" y="402.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">0.50</text>
 <rect x="800" y="528.0" width="890" height="200" rx="6" fill="#ffffff" stroke="#000000" stroke-width="2.4" stroke-dasharray="8 6"/>
 <text x="1245.0" y="610.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="30" font-weight="500" fill="#55544f">any other form</text>
-<text x="1245.0" y="652.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#55544f">the “?” counts as one more possibility; it is not an edge</text>
-<text x="60" y="880" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="24" fill="#1f1f1d">weight = 1 / (n? + n possibilities) = 1 / (1 + 1) = 0.50</text>
+<text x="1245.0" y="652.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" fill="#55544f">the “?” halves the weight; it is not an edge</text>
+<text x="60" y="880" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="24" fill="#1f1f1d">weight = 1 / 1  ×  1/2 (?) = 0.50</text>
 <rect x="60" y="906" width="311.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="215.9" y="922" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#000000">fw:hasDegreeOfConnection  0.50</text>
 <rect x="385.8" y="906" width="261.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>

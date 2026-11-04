@@ -176,7 +176,8 @@ def pattern_name(edges):
 def rule_line(f, st, edges, x, y, anchor="start"):
     e = edges[0]
     n_all = st.n_questionmark + st.n_possibilities
-    f.text(x, y, f"weight = 1 / (n? + n possibilities) = 1 / ({st.n_questionmark} + {st.n_possibilities}) = {e['weight']:.2f}", 24, False, DARK, anchor)
+    half = "  ×  1/2 (?)" if st.n_questionmark else ""
+    f.text(x, y, f"weight = 1 / {st.n_possibilities}{half} = {e['weight']:.2f}", 24, False, DARK, anchor)
 
 
 def hextuple_chips(f, edges, x, y, vertical=False):
@@ -247,7 +248,7 @@ def potform_fig(name, code, title, subnote, forms):
         y = top + ncard * (ch + gap)
         f.rect(cx, y, cw, ch, "#ffffff", "#000000", 6, 2.4, True)
         f.text(cx + cw / 2, y + ch / 2 - 18, "any other form", 30, True, MUTED)
-        f.text(cx + cw / 2, y + ch / 2 + 24, "the “?” counts as one more possibility; it is not an edge", 21, False, MUTED)
+        f.text(cx + cw / 2, y + ch / 2 + 24, "the “?” halves the weight; it is not an edge", 21, False, MUTED)
     rule_line(f, st, edges, 60, 880)
     hextuple_chips(f, edges, 60, 922)
     f.legend(968, [(INST, "InformationCarrier"), (TERM, "Potform"), (OWL, "evidence"), (PROP, "hextuple elements")], 880 if False else 1010)
@@ -261,6 +262,11 @@ def share_fig(name, code, title, subnote):
     c, st, edges = statements(code)
     rows = [r for r in SHARES if r["case"] == code]
     freq = [round(int(r["count"]) / int(r["total"]), 2) for r in rows]
+    import frequency
+    counts = frequency.load_counts()
+    for r in rows:   # the counts must be those of the export in data/form-counts.csv
+        if counts.get(r["form"]) != int(r["count"]):
+            raise SystemExit(f"{code} {r['form']}: data/form-counts.csv has {counts.get(r['form'])}, the figure says {r['count']}")
     for r in rows:   # the percentages the website shows must follow from the counts
         if round(100 * int(r["count"]) / int(r["total"]), 2) != float(r["page_percent"]):
             raise SystemExit(f"{code} {r['form']}: counts give {100 * int(r['count']) / int(r['total']):.2f} %, the page says {r['page_percent']} %")
@@ -300,10 +306,10 @@ def share_fig(name, code, title, subnote):
         f.path(f"M400 {cy_c} H 500 V {mid} H {cx}")
         f.chip(650, mid - 20, f"equal share  {e['weight']:.2f}", 19, "middle")
         f.chip(650, mid + 20, f"frequency  {fr:.2f}", 19, "middle", True)
-    f.text(60, 872, f"equal share: 1 / (0 + {st.n_possibilities}) = {edges[0]['weight']:.2f} each (fw:EqualShareRule)", 22, False, DARK, "start")
+    f.text(60, 872, f"equal share: 1 / {st.n_possibilities} = {edges[0]['weight']:.2f} each (fw:EqualShareRule)", 22, False, DARK, "start")
     f.text(60, 906, "frequency: " + "   ·   ".join(f"{n_fmt(r['count'])} / {n_fmt(r['total'])} = {fr:.2f}" for r, fr in zip(rows, freq)), 22, False, DARK, "start")
     x = 60
-    for t in (f"fw:hasDegreeOfConnection  {freq[0]:.2f}", f"fw:hasType  fw:{edges[0]['type']}", "fw:hasMethod  fw:RelativeFrequency (proposal)"):
+    for t in (f"fw:hasDegreeOfConnection  {edges[0]['weight']:.2f}", f"fw:hasType  fw:{edges[0]['type']}", "fw:hasMethod  fw:EqualShareRule", f"mini:frequencyShare  {freq[0]:.2f}"):
         x += f.chip(x, 944, t, 19, "start") + 12
     note(f, subnote, 60, 978)
     f.save()
@@ -553,7 +559,7 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
         f.text(1400, mid + 15, sub2, 17, False, "#ffffff", "start", maxw=300)
     ytop = max(rtop + n * (rh + rg) + 20, 640)
     if st.connective == "and":
-        f.text(px, ytop, ("AND: every centre holds, so each keeps the full weight" if not uncertain else "AND: every centre holds; the ? counts as one more possibility"), 20, False, MUTED, "start")
+        f.text(px, ytop, ("AND: every centre holds, so each keeps the full weight" if not uncertain else "AND: every centre holds; the ? halves the weight"), 20, False, MUTED, "start")
         ytop += 34
     elif st.connective == "or":
         f.text(px, ytop, "OR: one centre or the other, so the weight is shared", 20, False, MUTED, "start")
@@ -575,7 +581,7 @@ def check_cases():
         ed = wt.edges_for(c["source_string"], c["relation"])
         if not all(e["listed"] for e in ed):
             raise SystemExit(f"{code}: pattern not expected for {c['relation']}")
-    want = {"PF.1": ("or", 0.33, 3), "PF.2": ("q", 0.5, 1), "PF.3": ("q+or", 0.33, 2), "PF.4": ("or", 0.5, 2),
+    want = {"PF.1": ("or", 0.33, 3), "PF.2": ("q", 0.5, 1), "PF.3": ("q+or", 0.25, 2), "PF.4": ("or", 0.5, 2),
             "PC.1": ("or", 0.5, 2), "PC.2": ("and", 1.0, 2), "PC.3": ("q+and", 0.5, 3),
             "PC.4": ("q", 0.5, 1), "IC-PC.1": ("q", 0.5, 1)}
     for code, (pat, w, n) in want.items():
@@ -602,9 +608,9 @@ def main():
         f"Samian Research, Gaulish tradition: {C['PF.3']['query_rows']} carriers with OR and ? in the potform. Drawings show the rim variants (R?).",
         [("15/17", "15_17R"), ("18", "18R")]),
         "PF.3", "OR and a question mark", C["PF.3"]))
-    figs.append((share_fig("PF.4-frequency-bars", "PF.4", "Observed frequency instead of equal share",
-        "Bars as on the Samian Research website (form “31 or 31R”, Dish); counts taken from a screenshot. The frequency method is a proposal, not yet in the FW ontology."),
-        "PF.4", "Observed frequency instead of equal share", C["PF.4"]))
+    figs.append((share_fig("PF.4-frequency-bars", "PF.4", "Frequency share next to the equal share",
+        "Bars as on the Samian Research website (form “31 or 31R”, Dish). The degree stays the equal share; the frequency share (probability based on frequency share, level A) is additional information for the archaeologist, not a weight. Not yet in the FW ontology."),
+        "PF.4", "Frequency share next to the equal share", C["PF.4"]))
     specs = [("PC.1-one-or", "PC.1", "One OR between centres",
               f"Samian Research: carrier {C['PC.1']['carrier_id']} of {C['PC.1']['pottername']}, centre string “{C['PC.1']['source_string']}” (Raetian tradition); the same string as in chain B.", "actor"),
              ("PC.2-multiple-and", "PC.2", "Several centres with AND",

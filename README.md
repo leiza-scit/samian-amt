@@ -44,8 +44,9 @@ frequencies and normalised alternatives are directional and do not belong in
 
 ## Weights, hextuple and chains
 
-`py/weights.py` computes the weight of a source string by the rule of the source paper,
-`amt_weight = 1 / (n_questionmark + n_possibilities)`, and derives the FW type
+`py/weights.py` computes the weight of a source string by the rule agreed with Allard Mees
+(2026-11-04: equal share of the paper, halved by a question mark),
+`amt_weight = (1 / n_possibilities) * (1/2 if "?" else 1)`, and derives the FW type
 (`fw:Certainty`, `fw:Uncertainty`, `fw:Vagueness`, `fw:FuzzinessWobbliness`) from the pattern of the string
 (question mark, AND, OR) for each relation. A statement then is a **hextuple** with the terms of the
 [FW ontology](https://github.com/caa-datadragons/FW_Ontology): subject, predicate, object,

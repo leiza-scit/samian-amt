@@ -149,13 +149,13 @@ def main():
             if e["from"] in mine_nodes and e["to"] in mine_nodes and e["role"] in ("hasType", "hasProductionCentre", "worksAt"):
                 st = B.wt.parse(e["source"])
                 srows.append((e["role"], nodes[e["from"]][1], nodes[e["to"]][1], e["source"], TYPE[e["type"]],
-                              f"1/({st.n_questionmark} + {st.n_possibilities}) = {fmt(e['weight'])}"))
+                              f"1/{st.n_possibilities}" + (" × 1/2" if st.n_questionmark else "") + f" = {fmt(e['weight'])}"))
                 seen.add(e["pattern"])
         read = "".join(f"<li><b>{escape(k)}</b>: {escape(READING[k])}</li>" for k in READING if k in seen)
         top.append(f'<section class="text"><h3>Vague, uncertain and fuzzy-wobbly statements</h3>'
                    f'<p>The statements come from the strings of the source data. Each string becomes one statement per entity, '
                    f'with a degree of connection (weight) and a type from the FW ontology. In this chain:</p><ul>{read}</ul>'
-                   + table_inner(["Role", "From", "To", "Source string", "FW type", "Weight = 1/(? + possibilities)"], srows) + "</section>")
+                   + table_inner(["Role", "From", "To", "Source string", "FW type", "Weight = 1/possibilities (× 1/2 for ?)"], srows) + "</section>")
         cards = top + cards
         types = sorted({TYPE[e["type"]] for e in edges if e["from"] in mine_nodes and e["to"] in mine_nodes})
         B.page(f"chain-{L}.html", f"Chain {L}: {potter}",

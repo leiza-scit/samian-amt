@@ -254,10 +254,11 @@ def rule_section() -> str:
     ctx = "\n".join(f"| `{k}` | {', '.join('`' + x + '`' for x in sorted(v))} |" for k, v in sorted(W.CONTEXTS.items()))
     return f"""## How the weight is computed
 
-The rule is the one of the source paper (Thiery, Mees, Tolle and Wigg-Wolf 2021, section 4) and is
-implemented in [`py/weights.py`]({T.BLOB}py/weights.py):
+The rule was decided with Allard Mees on 4 November 2026. It keeps the equal share of the source paper
+(Thiery, Mees, Tolle and Wigg-Wolf 2021, section 4) but no longer counts the question mark as one more
+possibility: the question mark halves the weight. It is implemented in [`py/weights.py`]({T.BLOB}py/weights.py):
 
-    amt_weight = 1 / (n_questionmark + n_possibilities)      (two decimals)
+    amt_weight = (1 / n_possibilities) * (1/2 if a question mark, else 1)      (two decimals)
 
 | Source string | n_possibilities | Meaning |
 |---|---|---|
@@ -265,15 +266,30 @@ implemented in [`py/weights.py`]({T.BLOB}py/weights.py):
 | AND | 1 | all entities hold; each keeps the full weight |
 | OR | number of entities | exactly one holds; the weight is shared |
 
-`n_questionmark` is 1 if the string contains a question mark, else 0. A string that mixes AND and OR is
-not covered. Cases (checked by the self-test, `python py/weights.py`):
+`n_questionmark` is 1 if the string contains a question mark, else 0. "A or B?" therefore gives 0.25 to each
+(under the former rule of the paper 0.33), "A or B or C?" gives 0.17, and "A and B?" still gives 0.5 to each. A
+string that mixes AND and OR is not covered. Cases (checked by the self-test, `python py/weights.py`):
 
 | String | Relation | Entities | ? | Possibilities | Weight | FW type | Expected on the relation |
 |---|---|---|---|---|---|---|---|
 {rows}
 
-The rule was checked against the CHNT exports: every one of the 95,819 existing centre edges carries
-the weight the rule gives for its string.
+The former rule (`1 / (n_questionmark + n_possibilities)`) and the exports agreed on every one of the 95,819
+existing centre edges; the exported weights of strings with OR and question mark differ from the new rule,
+which Allard Mees re-derives from the strings (the weights in the database export are ignored).
+
+## Frequency shares (additional information, not a weight)
+
+For an OR of forms the database knows how often each form occurs. [`py/frequency.py`]({T.BLOB}py/frequency.py)
+divides the number of vessels of each alternative by the number of vessels of all alternatives (level A, the
+whole database): "31 or 31R" gives 9,070 / 11,302 = 0.8025 and 2,232 / 11,302 = 0.1975. The method is called
+*probability based on frequency share* (agreed with Allard Mees; local name `mini:FrequencyShare`, not yet in
+the FW ontology). The shares are a hint for the archaeologist to check an existing uncertainty against the
+distribution in the database. They are not written to `fw:hasDegreeOfConnection`, do not enter the chains,
+and a question mark does not change them. In `dist/chains.ttl` they stand beside the hextuple as
+`mini:frequencyShare`, `mini:frequencyCount`, `mini:frequencyTotal`, `mini:frequencyLevel` and
+`mini:frequencyMethod`. Planned: the potter's own repertoire (smoothed, with count and status) and the stamp
+(PRIMER.md, step S4a).
 
 ## From quadruple to hextuple
 

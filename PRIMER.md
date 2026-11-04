@@ -23,7 +23,7 @@ zurückgeschrieben. Dieses Dokument ist deutsch; alles andere im Repository ist 
 - Der Zentrums-String ist ein Attribut des **Potters**, nicht des Trägers: alle 1.375 Potter der Zentrums-Exporte
   haben genau einen String, und bei den verglichenen 1.072 Potters haben alle Träger identische Kanten. Das Paper sagt
   dasselbe (Ansatz B „folgt aus“ Ansatz A).
-- Die Gewichtsformel des Papers `1 / (n_? + n_Möglichkeiten)` stimmt für **alle 95.819** vorhandenen Zentrumskanten
+- Die frühere Gewichtsformel des Papers `1 / (n_? + n_Möglichkeiten)` (seit 2026-11-04 ersetzt, siehe A4) stimmte für **alle 95.819** vorhandenen Zentrumskanten
   in `ct_ic_pc`. 9.033 von 45.685 Zentrums-Strings haben weniger Zentrumsknoten als Entitäten (Regionen, Gruppen,
   fehlende Zuordnung): Lücke in der Abdeckung, kein Gewichtsfehler.
 - Potform-Strings tragen im Export keine Gewichte, nur Text. Die Regel gilt dort nach dem Paper (Abb. 6: 0.33).
@@ -75,7 +75,7 @@ Eigenschaften, die das Ergebnis haben muss:
 | Name der Rolle Träger → Potform | `hasType`, invers `isTypeOf` (mit Allard Mees geklärt) | vor 2026-10-30 |
 | Diagramme | „mermaid-like“, mit Python gezeichnet; Farben nach dem AMT-Schema | 2026-10-30 |
 | Ist `amt:weight` in beide Richtungen gleich? | Ja bei Inversen; Anteile und Häufigkeiten gehören nicht in `amt:weight` | 2026-10-30 |
-| Wie wird das Gewicht berechnet? | `1 / (n_? + n_Möglichkeiten)`, zwei Nachkommastellen; AND behält volles Gewicht, OR teilt, `?` zählt als eine Möglichkeit | 2026-10-30 |
+| Wie wird das Gewicht berechnet? | `Gewicht = (1 / n_Möglichkeiten) · (1/2, wenn `?`)`, zwei Nachkommastellen; AND behält volles Gewicht, OR teilt gleich, `?` halbiert das Gewicht jeder Entität (`A or B?` = 0,25; `A or B or C?` = 0,17; `A and B?` = 0,5). Ersetzt die Regel des Papers `1 / (n_? + n_Möglichkeiten)` (`?` als eine Möglichkeit mehr): „der falsche Ansatz“ (Allard); Bestätigung durch Flo im Memo 0.8.0. Methode bleibt `fw:EqualShareRule`, Beschreibung in der FW-Ontologie wird erweitert. Zwei Nachkommastellen bleiben | 2026-11-04 |
 | Zuordnung FW-Typ je Muster | `?` → `UncertainValue`; OR oder AND → `VagueValue`; `?` mit OR oder AND → `FuzzinessWobblinessValue` (Flo) | 2026-10-30 |
 | Erwartete Muster je Relation | Träger–Potform: OR, `?`, `?`+OR; Actor–Zentrum: OR, AND, `?`+AND, `?`; Träger–Zentrum: `?` (Flo) | 2026-10-30 |
 | Hextupel | Quadrupel plus Typ und Methode; Methode wird in `caa-datadragons/FW_Ontology` beschrieben und verlinkt | 2026-10-30 |
@@ -97,7 +97,7 @@ Eigenschaften, die das Ergebnis haben muss:
 | Zentren-Strings ohne Knoten („South Gaul?“) | für dieses Modell nicht verwertbar; es entstehen keine Knoten für Regionen und Gruppen | 2026-11-04 |
 | Quellzeichenkette | bleibt erhalten (`fw:TextEvidence`), Allard bestätigt | 2026-11-04 |
 | Muster `?` nach OR bei Potformen | darf nicht vorkommen; drei fehlerhafte Einträge (212025, 213077, 210355) bereinigt Allard in der Datenbank | 2026-11-04 |
-| Häufigkeitsgewichte („31 or 31R“ = 0,8025 / 0,1975) | eigener Branch `frequency-weights`, Regel des Papers bleibt Hauptlinie; eigene Methode, Name „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“ (Allard, Frage 18); Fragezeichen: erst Häufigkeitsanteile, dann Abschlag wie bisher (Frage 19); Stufe 1 (ganze Datenbank, nur die Formen im „or“) genügt zum Start, die Stufen Töpfer und Stempel müssen als Vorgehensweise im Modell vorgesehen sein (Frage 20); Zählwerte aus den Daten von Allard (Frage 21). Umsetzung: S4a | 2026-11-04 |
+| Häufigkeitsanteile („31 or 31R“ = 0,8025 / 0,1975) | Zusatzinformation, **kein Gewicht**: nicht in `fw:hasDegreeOfConnection`, nicht in der Kette, das Fragezeichen ändert sie nicht; nur ein Hinweis für den Archäologen, eine bestehende Unsicherheit an der Gesamtverteilung zu prüfen. Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“ (`mini:FrequencyShare`, noch nicht in der FW-Ontologie). Stufe A (ganze Datenbank) umgesetzt in `py/frequency.py` (allgemein) und für die drei Ketten; Stufe C (Töpfer, geglättet, k = 5, Glättung reicht als Rückfall) und Stempel vorgesehen. Belegzahlen aus `data/form-counts.csv` (Auszug aus Allards `data-1793809985134.csv`) | 2026-11-04 |
 | Typ-Klassen | hinfällig: der Typ einer Aussage ist ein Individuum von `fw:FW_Type`, keine Klasse (FW-Ontologie, 2026-10-30) | 2026-10-30 |
 | Sprache | PRIMER und Memos deutsch, Repository englisch | 2026-10-30 |
 
@@ -125,8 +125,8 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S2 | Reasoning-Rollen mit Inversen, Docs für GitHub Pages, Gewichtsrichtung (0.2.0) | CHNT2026-amt | S1 | erledigt 2026-10-30 |
 | S3 | Gewichtsregel, Hextupel, drei echte Ketten, Modell M2 (0.3.0) | CHNT2026-amt | S2 | erledigt 2026-10-30 |
 | S4 | Entscheidung M1 / M2 und Logik nach der Prüfung durch Allard | CHNT2026-amt | S3 | entschieden 2026-11-04 (A4, Review-Seite); Umsetzung in S4a und S4b |
-| S4a | Branch `frequency-weights`: Gewichte aus Häufigkeitsanteilen (Stufe A, Testfall 89087) | CHNT2026-amt | S4 | offen; wartet auf Rückfragen aus Memo 0.6.0 und die Zähltabellen |
-| S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen | CHNT2026-amt | S4 | offen; braucht Liste der Produktionsorte und Stempeldaten |
+| S4a | Neue Gewichtsregel (`?` halbiert) und Häufigkeitsanteile als Zusatzinformation (Stufe A) (0.14.0) | CHNT2026-amt | S4 | Patch geliefert 2026-11-04 |
+| S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | CHNT2026-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
 | S3a | Mini-AMT an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | CHNT2026-amt | S3 | erledigt 2026-10-30 (0.4.0) |
 | S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | CHNT2026-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
 | S5 | Methode und Typen in der FW-Ontologie | FW_Ontology | S3 | FW-Seite erledigt 2026-10-30; `fw:implementedBy` offen (Triple liegt in `ontology/fw-implemented-by.ttl`) |
@@ -183,22 +183,23 @@ die exportierten Zentrumsgewichte der vier Träger stimmen mit der Regel überei
 
 **Stand:** Allards Antworten auf Memo 0.5.0 (2026-11-04) sind in A4 und in `REVIEW.md` (Abschnitt „Answer“) festgehalten. Die Modelländerungen daraus laufen in S4a und S4b, jeweils in einem eigenen Chat.
 
-## S4a — Branch `frequency-weights`
+## S4a — Gewichtsregel und Häufigkeitsanteile
 
-**Ziel:** Gewichte der Alternativen aus Häufigkeitsanteilen, als eigene Methode neben `fw:EqualShareRule`.
+**Ziel:** Die Gewichtsregel nach Allards Antworten (Memo 0.7.0, bestätigt im Memo 0.8.0) und die Häufigkeitsanteile als Zusatzinformation.
 
-**Uploads:** `PRIMER.md`, das Repository als Bündel, Allards Daten (`auswertung_or_angaben_v2.csv`, `ct_ic_pc.csv`) und das Memo „Berechnung der Farbbalken (potform)“ mit der Abfrage (Abschnitt 10).
+Inhalt (0.14.0):
 
-Inhalt:
+- `py/weights.py`: `Gewicht = (1 / n_Möglichkeiten) · (1/2, wenn ?)`, Rekonstruktion und Selbsttest angepasst; `data/weight-cases.csv` neu gerechnet (`A or B?` 0,25; neuer Fall `A or B or C?` 0,17).
+- `py/frequency.py` und `data/form-counts.csv`: Anteile der Alternativen eines OR in der ganzen Datenbank (Stufe A). Nur Zusatzinformation (`mini:frequencyShare`, `mini:frequencyCount`, `mini:frequencyTotal`, `mini:frequencyLevel`, `mini:frequencyMethod`) in `dist/chains.ttl`; kein Gewicht, nicht in den Engine-Eingaben.
+- Grafiken, Seiten (*Weights*, *Review*, Kettenseiten, PF.3 und PF.4) und README an die Regel angepasst.
 
-- Stufe A: Anteil der Alternative unter allen Belegen der Alternativen in der ganzen Datenbank, nur sichere Formen (ohne „or“, ohne „?“). Testfall 89087: `31` 9070 von 11302 = 0,8025, `31R` 2232 von 11302 = 0,1975.
-- Fragezeichen: erst Anteile, dann Abschlag. Vorschlag: Gewicht = Anteil · n/(n+1) (bei gleichen Anteilen wie die Regel des Papers, 1/(n+1)); Bestätigung steht in Memo 0.6.0.
-- Stufe C (Töpfer-Repertoire, geglättet mit k = 5) und Stufe „Stempel“ als vorgesehene Erweiterung; jede Aussage trägt Belegzahl n und Status `attested` / `never_attested` / `no_data`.
-- Neue Methode in der FW-Ontologie (Name offen); Entwurf als `.ttl` nach dem Muster von `ontology/fw-implemented-by.ttl`.
+**Abnahme:** `python main.py` läuft durch; `31 or 31R` ergibt 0,8025 / 0,1975; zwei Läufe ändern keine Datei.
 
-**Abnahme:** Testfall 89087 ergibt 0,8025 / 0,1975; die Regel des Papers bleibt unverändert und der Standardlauf ändert keine Datei; zwei Läufe ändern keine Datei.
+**Offen:** Stufe C (Töpfer-Repertoire, geglättet, mit Belegzahl und Status) und die Stufe „Stempel“; die vollständige Belegzahl-Datei von Allard statt des Auszugs; FW-Ontologie: Beschreibung von `fw:EqualShareRule` und Eintrag für die Häufigkeitsmethode (Patch für `FW_Ontology` liegt bei).
 
-## S4b — Hybridmodell Träger–Zentrum
+## S4b — Hybridmodell Träger–Zentrum (zurückgestellt)
+
+Allard (2026-11-04): Stempel-ID (`in_id`, geometrisch eindeutig) und Fundort je Träger spielen für das kleine Modell erst mal keine Rolle; Flo stimmt zu. Die Daten liegen im Drive (`ct_ic_in.csv`: Träger, Stempel, `dieposition` ignorieren; `ct_ic_pc.csv`: das Gewicht ignorieren, es wird neu abgeleitet; `tblkilnsitesWithCoordinates.csv`: Liste der Produktionsorte). Abgeleitet wird mit den Faktoren Verbreitung 0,75 und Namensgleichheit 0,5 (eigene Methode je Art); mehrere Produktionsorte gleich stark (ein „or“); `Saint-Saturnin` ist die Kurzform von `Jonquières, Saint Saturnin`.
 
 **Ziel:** Fall 1 (Stempel im Produktionsort) bleibt `hasProductionCentre`; Fall 2 wird über die neue Rolle „gleicher Stempel“ abgeleitet; schwächere Ableitungen (Namensgleichheit, Verbreitung) bekommen eigene Methode oder Typ.
 
@@ -268,7 +269,7 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 - **S14 Rückfragen**: (1) Die fünf Modellgrafiken gibt es jetzt zweimal (matplotlib in `docs/diagrams`, Visuals-Stil in `docs/visuals`); weiterbauen wir künftig beide parallel, oder soll der Visuals-Stil für neue Grafiken (Allards Antworten, Roundtrip AMT Samian → AFE) die Hauptlinie werden? (2) Die Visuals-Seiten haben ein eigenes, schlichtes Layout; sollen sie das Jekyll-Layout der Docs übernehmen?
 - **S17 Rückfragen**: Was auf den öffentlichen Seiten noch als Vorschlag oder Platzhalter steht (Statushinweis der Startseite, Namespace `example.org`, `ProductLogic (proposal)` und die Rollennamen in *Vocabulary*, Toy-Gewichte in *Reasoning*, `fw:RelativeFrequency` auf der Visuals-Seite PF.4): bleibt es als gekennzeichneter Vorschlag stehen, oder soll es bis zur Klärung raus?
 - **S19 Rückfragen** (Punkte 1 und 2 mit S22 erledigt): (1) Koordinaten von Kräherwald, Rheinzabern, Pfaffenhofen und Westerndorf (`visuals/sql/kilnsites-chains.sql`, Ergebnis nach `visuals/data/kilnsites-extra.csv`); bis dahin zeigen die Zentren-Figuren der Ketten A und B keine Karte; (2) Profilzeichnungen für die Formen 24, 27, 31, 32 und 33; (3) Allard prüft, ob es für die Fälle ohne Kette bessere archäologische Beispiele gibt.
-- **Memo 0.6.0 an Allard** (Rückfragen zu S4a und S4b): Methodenname (Frage 18: „Wahrscheinlichkeit“ gegenüber der Quintessenz „keine Wahrscheinlichkeit, bedingte relative Häufigkeit“), Formel für „?“, Glättung k, Rohwert oder geglätteter Wert im Gewicht, Bedeutung von 0,5 in `ct_ic_pc.csv`, Trennzeichen der CSV, Namensvariante als Schwächung, Liste der Produktionsorte und Stempeldaten.
+- **FW-Ontologie (Patch zum 0.14.0):** Beschreibung und Beispiele von `fw:EqualShareRule` an die neue Regel anpassen (`Lezoux or Vichy ?` = 0,25); Eintrag für die Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“; die Texte stehen im Patch `FW_Ontology`.
 - `fw:implementedBy`-Triple: bleibt (siehe oben).
 - LICENSE, `CITATION.cff` und eine `RELEASE`-Konstante fehlen noch; mit dem ersten Zenodo-Release nachziehen.
 - Namespace `mini:` ist ein Platzhalter; persistente IRI per w3id klären.

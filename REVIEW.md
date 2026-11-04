@@ -61,9 +61,9 @@ is proposed and what would change if the answer is no.
 
 ### 10. Is a question mark one more possibility?
 
-- **Proposed:** Yes, as in the paper: "A or B?" gives one third to A and B and leaves one third to "neither".
-- **If not:** If the question mark should not take a share from the alternatives, "A or B?" would be 0.5 each and could no longer be told from "A or B"; the rule and the FW type would have to change.
-- **Answer (Allard Mees, 2026-11-04):** The question mark refers to the whole preceding chain and weakens it once more, without saying whether because of A or B. A trailing question mark always weakens the statement.
+- **Proposed:** Superseded on 2026-11-04: the question mark halves the weight ("A or B?" gives 0.25 each). The former proposal (as in the paper) gave one third to A and B and left one third to "neither".
+- **If not:** The former rule is available in the history of this file; the FW type and the pattern do not change.
+- **Answer (Allard Mees, 2026-11-04):** The question mark refers to the whole preceding chain and weakens it once more, without saying whether because of A or B. A trailing question mark always weakens the statement. Memo 0.7.0 (confirmed by Florian Thiery in Memo 0.8.0): it halves the weight of every entity; the rule of the paper (one more possibility) was "the wrong approach". Frequency shares ignore the question mark.
 
 ### 11. Which patterns occur on which relation?
 
@@ -91,7 +91,7 @@ is proposed and what would change if the answer is no.
 
 ### Weights page, formerly published
 
-The rule reads a question mark as one more possibility: "A or B?" gives one third to A, one third to B
-and leaves one third to "neither". "A and B?" gives one half to each, because under AND both hold and the
-question mark is the only doubt. Whether that is what the archaeologist means by a question mark is an
-open question (see the Review page). The weight stays symmetric under inversion either way.
+The rule halves the weight at a question mark (decided with Allard Mees, 2026-11-04): "A or B?" gives
+one quarter to each, "A and B?" one half to each, because under AND both hold and the question mark is
+the only doubt. Before that day the rule counted the question mark as one more possibility (one third
+each for "A or B?"). The weight stays symmetric under inversion either way.

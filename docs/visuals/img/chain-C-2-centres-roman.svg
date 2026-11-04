@@ -5830,8 +5830,8 @@
 <text x="1366" y="527.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#166534">2</text>
 <text x="1400" y="512.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Le Rozier</text>
 <text x="1400" y="542.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#ffffff">Q472900</text>
-<text x="1040" y="640" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#55544f">AND: every centre holds; the ? counts as one more possibility</text>
-<text x="1040" y="800" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="24" fill="#1f1f1d">weight = 1 / (n? + n possibilities) = 1 / (1 + 1) = 0.50</text>
+<text x="1040" y="640" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#55544f">AND: every centre holds; the ? halves the weight</text>
+<text x="1040" y="800" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="24" fill="#1f1f1d">weight = 1 / 1  ×  1/2 (?) = 0.50</text>
 <rect x="1040" y="830" width="311.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="1195.9" y="846" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#000000">fw:hasDegreeOfConnection  0.50</text>
 <rect x="1040" y="872" width="346.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>

@@ -1,21 +1,25 @@
 """The degree of connection and the FW type of a vague or uncertain source string.
 
-Rule of the source paper (Thiery, Mees, Tolle and Wigg-Wolf 2021, section 4):
+Rule (decided with Allard Mees and Florian Thiery on 2026-11-04; it replaces the rule of the source
+paper, Thiery, Mees, Tolle and Wigg-Wolf 2021, section 4, which counted the question mark as one more
+possibility, 1 / (n_questionmark + n_possibilities)):
 
-    amt_weight = 1 / (n_questionmark + n_possibilities)
+    amt_weight = (1 / n_possibilities) * (1/2 if there is a '?' else 1)
 
     no AND or OR   n_possibilities = 1
     AND            n_possibilities = 1   (all entities hold; each gets the full weight)
-    OR             n_possibilities = the number of entities between the ORs
-    '?'            n_questionmark  = 1   (one question mark per statement, wherever it stands)
+    OR             n_possibilities = the number of entities between the ORs (equal share)
+    '?'            halves the weight of every entity of the statement (one question mark per
+                   statement, wherever it stands)
 
-The weight is stored with two decimals, as in the paper (one in three is 0.33).
+The weight is stored with two decimals, as in the paper (one in three is 0.33, one in six 0.17).
 A string that mixes AND and OR is not covered by the rule and raises ValueError.
 
 Hextuple. An AMT statement is a reified quadruple (subject, predicate, object, weight). The FW
 ontology (http://w3id.org/fw_ontology/) adds two more elements: fw:hasType, the kind of
 imprecision (one of the individuals fw:Certainty, fw:Uncertainty, fw:Vagueness, fw:FuzzinessWobbliness), and
-fw:hasMethod, how the weight was obtained (here fw:EqualShareRule, which describes this very rule).
+fw:hasMethod, how the weight was obtained (here fw:EqualShareRule, which describes this very rule; the name stays,
+the description of the FW ontology is extended by the halving through '?').
 The source string itself is kept as fw:TextEvidence (fw:sourceString) and linked with
 fw:derivedFrom; the entities of one string share one evidence node.
 
@@ -76,7 +80,7 @@ class Statement:
 
     @property
     def weight(self) -> float:
-        return round(1 / (self.n_questionmark + self.n_possibilities), 2)
+        return round((1 / self.n_possibilities) * (0.5 if self.n_questionmark else 1), 2)
 
     @property
     def pattern(self) -> str:
@@ -128,9 +132,10 @@ def reconstruct(edges: list[dict]) -> str:
         return names[0] + ("?" if w == 0.5 else "")
     candidates = []                                       # (connective, question mark)
     for q in (0, 1):
-        if round(1 / (q + 1), 2) == w:
+        half = 0.5 if q else 1
+        if round(half, 2) == w:
             candidates.append(("and", q))
-        if round(1 / (q + n), 2) == w:
+        if round(half / n, 2) == w:
             candidates.append(("or", q))
     candidates = [c for c in candidates if FW_TYPE[("q+" if c[1] else "") + c[0]] == t]
     if len(candidates) != 1:
@@ -159,7 +164,7 @@ def selftest() -> list[dict]:
             rows.append({**case, "n_questionmark": st.n_questionmark, "n_possibilities": st.n_possibilities})
     # the claim behind the round trip: for a known number of edges, weight and type are never ambiguous
     for n in range(2, 51):
-        keys = [(round(1 / (q + (n if c == "or" else 1)), 2), FW_TYPE[("q+" if q else "") + c])
+        keys = [(round((0.5 if q else 1) / (n if c == "or" else 1), 2), FW_TYPE[("q+" if q else "") + c])
                 for c in ("and", "or") for q in (0, 1)]
         assert len(set(keys)) == 4, f"weight and type do not separate the four patterns for {n} edges"
     return rows
@@ -175,6 +180,9 @@ def main() -> int:
         w.writerows([[r["text"], r["context"], r["entities"], r["n_questionmark"], r["n_possibilities"],
                       r["weight"], r["pattern"], r["fw_type"], r["listed"], r["source"]] for r in rows])
     print(f"weight rule: {len(rows)} cases agree (weight, FW type, pattern, lossless round trip)")
+    import frequency
+    frequency.selftest()
+    print("frequency shares: 31 or 31R gives 0.8025 / 0.1975 (level A; additional information, not a weight)")
     return 0
 
 

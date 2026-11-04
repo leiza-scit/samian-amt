@@ -89,10 +89,10 @@ WEIGHTS_RULES = """1. **Assert one direction only.** Assert the roles in the dir
 4. **Check the symmetry.** A consistency check (a SPARQL query on the reasoned graph) can report every
    pair of inverse edges whose weights differ. It should return nothing."""
 
-WEIGHTS_OPEN = """The rule reads a question mark as one more possibility: "A or B?" gives one third to A, one third to B
-and leaves one third to "neither". "A and B?" gives one half to each, because under AND both hold and the
-question mark is the only doubt. Whether that is what the archaeologist means by a question mark is an
-open question (see the Review page). The weight stays symmetric under inversion either way."""
+WEIGHTS_OPEN = """The rule halves the weight at a question mark (decided with Allard Mees, 2026-11-04): "A or B?" gives
+one quarter to each, "A and B?" one half to each, because under AND both hold and the question mark is
+the only doubt. Before that day the rule counted the question mark as one more possibility (one third
+each for "A or B?"). The weight stays symmetric under inversion either way."""
 
 # Allard Mees's answers to Memo 0.5.0 (2026-11-04), keyed by question number. Shown on REVIEW.md.
 REVIEW_ANSWERS = {
@@ -109,7 +109,8 @@ REVIEW_ANSWERS = {
        "distributions (rarely documented). Distribution-based derivations are weaker than direct ones.",
     9: "Product logic.",
     10: "The question mark refers to the whole preceding chain and weakens it once more, without saying whether because of A or B. "
-        "A trailing question mark always weakens the statement.",
+        "A trailing question mark always weakens the statement. Memo 0.7.0 (confirmed by Florian Thiery in Memo 0.8.0): it halves the weight "
+        "of every entity; the rule of the paper (one more possibility) was \"the wrong approach\". Frequency shares ignore the question mark.",
     11: "Open pattern question confirmed in part: inherited patterns only in the derived case. A question mark must not follow "
         "a potform with OR; three such faulty entries exist and will be cleaned in the database (212025, 213077, 210355).",
     12: "A combined form such as 18/31 is one type, as in archaeological practice; it is not \"dish or bowl\".",
@@ -158,9 +159,9 @@ REVIEW_QUESTIONS = [
      "Goedel (minimum) avoids the double count but ignores how many doubtful steps a chain has. M2 avoids it "
      "under both operators."),
     ("Is a question mark one more possibility?",
-     "Yes, as in the paper: \"A or B?\" gives one third to A and B and leaves one third to \"neither\".",
-     "If the question mark should not take a share from the alternatives, \"A or B?\" would be 0.5 each and "
-     "could no longer be told from \"A or B\"; the rule and the FW type would have to change."),
+     "Superseded on 2026-11-04: the question mark halves the weight (\"A or B?\" gives 0.25 each). The former proposal "
+     "(as in the paper) gave one third to A and B and left one third to \"neither\".",
+     "The former rule is available in the history of this file; the FW type and the pattern do not change."),
     ("Which patterns occur on which relation?",
      "As listed on the Weights page. For the carrier-centre relation only the question mark is listed, but "
      "the exports also carry AND and OR there (inherited from the actor).",
