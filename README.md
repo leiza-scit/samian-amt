@@ -1,4 +1,4 @@
-# mini-amt
+# samian-amt
 
 A deliberately small AMT domain model for the chain
 
@@ -6,8 +6,8 @@ A deliberately small AMT domain model for the chain
 
 and the role-chain reasoning on top of it, documented as GitHub Pages in `docs/`.
 It is about the **model and its reasoning**, with the weight rule of the source paper
-and three real chains from the CHNT data. There are no persistent IRIs yet. This repository is laid out (`main.py`, `py/`,
-`ontology/`, `data/`, `docs/`) so that it can move into `CHNT2026-amt` as it is.
+and three real chains from the Samian Research data. There are no persistent IRIs yet. This repository is laid out (`main.py`, `py/`,
+`ontology/`, `data/`, `docs/`) so that it can move into `samian-amt` as it is.
 
 ![simple view](docs/visuals/img/model-01-simple.png)
 
@@ -52,7 +52,7 @@ frequencies and normalised alternatives are directional and do not belong in
 [FW ontology](https://github.com/caa-datadragons/FW_Ontology): subject, predicate, object,
 `fw:hasDegreeOfConnection` (the same as `amt:weight`), `fw:hasType` and `fw:hasMethod`
 (`fw:EqualShareRule`); the source string is kept as `fw:TextEvidence` and linked with `fw:derivedFrom`.
-`py/step_chains.py` models three chains from the CHNT data (`data/chains-source.csv`) and runs two
+`py/step_chains.py` models three chains from the Samian Research data (`data/chains-source.csv`) and runs two
 models over them: M1 (this ontology) and M2 (`ontology/variant-b-derived.ttl`, carrier-centre derived
 from the actor). It reads its own Turtle back and checks that every statement leads to its string. If
 the AMT engine with `fw:Certainty` (0.6.0 plus the engine step S25, see `requirements.txt`) is installed, it also runs the three
@@ -76,13 +76,13 @@ Pages serves it; set Pages to "Deploy from a branch", folder `/docs`.
 The `reason` step (toy chain) uses an independent reference reasoner (`py/reference_reasoner.py`,
 about sixty lines). If the AMT engine is importable
 (`pip install "amt @ git+https://github.com/alpaca-fair-framework/amt-engine.git@ce23c5c"`),
-the same step also runs the engine on `dist/mini-amt-with-toy.ttl` and fails if the two disagree on
+the same step also runs the engine on `dist/samian-amt-with-toy.ttl` and fails if the two disagree on
 any edge or weight.
 
 ## Placeholders and proposals
 
-* The namespace `mini:` (`http://example.org/mini-amt/`) is not a real IRI.
-* The documentation links to the planned home `leiza-scit/CHNT2026-amt`
+* The namespace `sam:` (`http://example.org/samian-amt/`) is not a real IRI.
+* The documentation links to the planned home `leiza-scit/samian-amt`
   (`REPO` in `py/docs_text.py`).
 * `amt:logic` of the three role chains is `amt:ProductLogic`, as in the role-chain axioms of
   the source paper. It is a proposal; the toy weights (0.9 / 0.6 / 0.8) are arbitrary.
@@ -95,7 +95,7 @@ any edge or weight.
     main.py                    orchestrator (--list, --only, --dry-run)
     requirements.txt
     CHANGELOG.md
-    ontology/mini-amt.ttl      the domain model M1, no instances
+    ontology/samian-amt.ttl      the domain model M1, no instances
     ontology/variant-b-derived.ttl   model M2: carrier-centre derived from the actor
     ontology/fw-implemented-by.ttl   the fw:implementedBy triple for fw:EqualShareRule (not read by the code)
     data/toy-chain.ttl         one abstract individual per concept

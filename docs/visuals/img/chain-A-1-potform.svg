@@ -41,5 +41,5 @@
 <text x="1409.8" y="968" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">evidence</text>
 <rect x="1523.5" y="957" width="22" height="22" rx="3" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="1555.5" y="968" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">hextuple elements</text>
-<text x="60" y="968" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">Chain A, Vitalis viii: carrier 153340; source string as in the CHNT data (data/chains-source.csv).</text>
+<text x="60" y="968" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">Chain A, Vitalis viii: carrier 153340; source string as in the Samian Research data (data/chains-source.csv).</text>
 </svg>

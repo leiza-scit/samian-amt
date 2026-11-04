@@ -48,7 +48,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from mini_amt_utils import DIST, ROOT  # noqa: E402
+from samian_amt_utils import DIST, ROOT  # noqa: E402
 
 CASES = ROOT / "data" / "weight-cases.csv"
 
@@ -58,7 +58,7 @@ FW_TYPE = {"certain": CERTAINTY, "q": UNCERTAINTY, "or": VAGUENESS, "and": VAGUE
            "q+or": FUZZINESS_WOBBLINESS, "q+and": FUZZINESS_WOBBLINESS}
 FW_METHOD = "EqualShareRule"                              # fw:EqualShareRule in the FW ontology
 # fw:implementedBy of fw:EqualShareRule: where the rule is implemented and tested
-IMPLEMENTED_BY = "https://github.com/leiza-scit/CHNT2026-amt/blob/main/py/weights.py"
+IMPLEMENTED_BY = "https://github.com/leiza-scit/samian-amt/blob/main/py/weights.py"
 
 # patterns expected per relation (domain--range), as stated by the data owners
 CONTEXTS = {

@@ -10,7 +10,7 @@ Decided with Allard Mees and Florian Thiery on 2026-11-04:
   question mark in the string does not change the shares.
 * Method (label agreed on 2026-11-04): "Probability based on frequency share" /
   "Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil". Local name FrequencyShare in the namespace
-  mini: until the FW ontology has an entry for it.
+  sam: until the FW ontology has an entry for it.
 * Level "A" (the whole database) is implemented. Level "C" (the potter's own repertoire, smoothed with
   (n_potter + k * share_A) / (N_potter + k), k = 5, with the count n and a status attested /
   never_attested / no_data) and a level for the stamp are planned; see PRIMER.md, step S4a.
@@ -29,7 +29,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from mini_amt_utils import ROOT  # noqa: E402
+from samian_amt_utils import ROOT  # noqa: E402
 
 COUNTS = ROOT / "data" / "form-counts.csv"
 METHOD = "FrequencyShare"

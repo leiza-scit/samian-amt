@@ -14,4 +14,4 @@
 # or the software DOI instead of the branch once there is one (see PRIMER, Teil D).
 # =============================================================================
 
-fw:EqualShareRule fw:implementedBy <https://github.com/leiza-scit/CHNT2026-amt/blob/main/py/weights.py> .
+fw:EqualShareRule fw:implementedBy <https://github.com/leiza-scit/samian-amt/blob/main/py/weights.py> .

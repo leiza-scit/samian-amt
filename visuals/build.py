@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build.py - figures for the vagueness / uncertainty cases of Potform and ProductionCentre (CHNT2026).
+"""build.py - figures for the vagueness / uncertainty cases of Potform and ProductionCentre.
 
 Nine figures in the *-visuals house pattern (1750x1000, Fira Sans, SVG plus PNG) and a caption
 page, written to visuals/site/. One figure per case:
@@ -15,7 +15,7 @@ page, written to visuals/site/. One figure per case:
     IC-PC.1 informationcarrier--productioncentre question mark    [A?]        uncertainty
 
 Weights, FW types and methods come from py/weights.py (the rule of the source paper), never from
-this file. The example strings and carriers are in data/cases.csv (extract of the CHNT exports);
+this file. The example strings and carriers are in data/cases.csv (extract of the Samian Research exports);
 the kiln sites in data/kilnsites-gaul.csv; the profile drawings in data/forms.json (traced from
 data/forms-src/ by trace_forms.py); the coastline in data/basemap-gaul.json.
 
@@ -309,7 +309,7 @@ def share_fig(name, code, title, subnote):
     f.text(60, 872, f"equal share: 1 / {st.n_possibilities} = {edges[0]['weight']:.2f} each (fw:EqualShareRule)", 22, False, DARK, "start")
     f.text(60, 906, "frequency: " + "   ·   ".join(f"{n_fmt(r['count'])} / {n_fmt(r['total'])} = {fr:.2f}" for r, fr in zip(rows, freq)), 22, False, DARK, "start")
     x = 60
-    for t in (f"fw:hasDegreeOfConnection  {edges[0]['weight']:.2f}", f"fw:hasType  fw:{edges[0]['type']}", "fw:hasMethod  fw:EqualShareRule", f"mini:frequencyShare  {freq[0]:.2f}"):
+    for t in (f"fw:hasDegreeOfConnection  {edges[0]['weight']:.2f}", f"fw:hasType  fw:{edges[0]['type']}", "fw:hasMethod  fw:EqualShareRule", f"sam:frequencyShare  {freq[0]:.2f}"):
         x += f.chip(x, 944, t, 19, "start") + 12
     note(f, subnote, 60, 978)
     f.save()
@@ -662,7 +662,7 @@ def page(file, title, intro, cards, grid=False):
     site_kit.write_assets()
     body = f'<div class="grid">\n{chr(10).join(cards)}\n</div>' if grid else "\n".join(cards)
     html = (f'<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            f'<title>{escape(title)} · Mini-AMT</title>\n<link rel="stylesheet" href="../assets/site.css"></head><body><main>\n'
+            f'<title>{escape(title)} · samian-amt</title>\n<link rel="stylesheet" href="../assets/site.css"></head><body><main>\n'
             f'{site_kit.nav_html("visuals", "visuals/" + file)}\n<h1>{escape(title)}</h1>\n<p class="intro">{intro}</p>\n{body}\n</main>\n<script>{JS}</script></body></html>\n')
     SITE.mkdir(parents=True, exist_ok=True)
     (SITE / file).write_text(html, encoding="utf-8", newline="\n")
@@ -688,9 +688,9 @@ def write_site(figs):
         thumbs.append(card(f"{len(groups[file])}×", title, intro, first, href=file))
     for label, caption, credit, name, href in globals().get("CHAIN_CARDS", []):
         thumbs.append(card(label, caption, credit, name, href=href))
-    thumbs.append(card("8×", "Model figures", "The Mini-AMT model in the same style: simple view, full semantics, toy reasoning, both directions, three chains (also one by one).",
+    thumbs.append(card("8×", "Model figures", "The samian-amt model in the same style: simple view, full semantics, toy reasoning, both directions, three chains (also one by one).",
                        "model-01-simple", href="model.html"))
-    page("index.html", "Mini-AMT visuals",
+    page("index.html", "samian-amt visuals",
          "Figures for the vagueness and uncertainty cases of the Potform and ProductionCentre relations, with examples from the Samian Research database, and for the model.",
          thumbs, grid=True)
 

@@ -1,4 +1,4 @@
-"""Chain sub pages: one page per chain of the CHNT data (A, B, C).
+"""Chain sub pages: one page per chain of the Samian Research data (A, B, C).
 
 Every chain holds vague, uncertain or fuzzy-wobbly statements. A page shows them in the order the
 reasoning uses them: first the asserted statements (the potform of each carrier, the centres of the
@@ -87,7 +87,7 @@ def main():
             forms = [(e["entity"], form_key(e["entity"])) for e in ed]
             name = f"chain-{L}-{n}-potform"
             B.potform_fig(name, code, f"Potform of carrier {r['carrier_id']}",
-                          f"Chain {L}, {potter}: carrier {r['carrier_id']}; source string as in the CHNT data (data/chains-source.csv).", forms)
+                          f"Chain {L}, {potter}: carrier {r['carrier_id']}; source string as in the Samian Research data (data/chains-source.csv).", forms)
             note = r["note"][0].upper() + r["note"][1:]
             cards.append(B.card(code, f"Potform of carrier {r['carrier_id']}: {r['potform_text']}",
                                 f"{TYPE[ed[0]['type']]}; weight {ed[0]['weight']:.2f} per statement. Note from the source table: {note}.", name))

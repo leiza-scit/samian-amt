@@ -1,4 +1,4 @@
-"""mini-amt - the single entry point.
+"""samian-amt - the single entry point.
 
     python main.py                 all steps, in order
     python main.py --list          print the steps and exit

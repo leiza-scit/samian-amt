@@ -52,7 +52,7 @@
 <text x="489.45000000000005" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasType  fw:Vagueness</text>
 <rect x="621.8" y="928" width="310.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="777.1999999999999" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">fw:hasMethod  fw:EqualShareRule</text>
-<rect x="944.5999999999999" y="928" width="243.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="1066.4499999999998" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">mini:frequencyShare  0.80</text>
+<rect x="944.5999999999999" y="928" width="241.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1065.1499999999999" y="944" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">sam:frequencyShare  0.80</text>
 <text x="60" y="978" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#55544f">Bars as on the Samian Research website (form “31 or 31R”, Dish). The degree stays the equal share; the frequency share (probability based on frequency share, level A) is additional information for the archaeologist, not a weight. Not yet in the FW ontology.</text>
 </svg>

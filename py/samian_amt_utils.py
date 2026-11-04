@@ -1,4 +1,4 @@
-"""Shared paths, namespaces and model readers for mini-amt."""
+"""Shared paths, namespaces and model readers for samian-amt."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -7,7 +7,7 @@ from rdflib import Graph, Namespace, RDF, RDFS
 from rdflib.collection import Collection
 
 ROOT = Path(__file__).resolve().parent.parent
-ONTOLOGY = ROOT / "ontology" / "mini-amt.ttl"
+ONTOLOGY = ROOT / "ontology" / "samian-amt.ttl"
 TOY = ROOT / "data" / "toy-chain.ttl"
 DIST = ROOT / "dist"
 DOCS = ROOT / "docs"

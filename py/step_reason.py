@@ -1,7 +1,7 @@
 """Step "reason": run the reasoning on the toy chain and write dist/.
 
 Writes
-  dist/mini-amt-with-toy.ttl   ontology + toy chain in one file (engine input)
+  dist/samian-amt-with-toy.ttl   ontology + toy chain in one file (engine input)
   dist/reasoned-edges.csv      asserted and derived edges with provenance
   dist/reasoning-report.md     the three ">>" derivations, human-readable
 
@@ -15,7 +15,7 @@ import sys
 
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 
-from mini_amt_utils import DIST, ONTOLOGY, TOY, load_graph, local, read_edges, read_model
+from samian_amt_utils import DIST, ONTOLOGY, TOY, load_graph, local, read_edges, read_model
 from reference_reasoner import reason
 
 ENGINE_TOL = 1e-9
@@ -35,7 +35,7 @@ def run_engine(merged_path):
 def main() -> int:
     DIST.mkdir(exist_ok=True)
 
-    merged = DIST / "mini-amt-with-toy.ttl"
+    merged = DIST / "samian-amt-with-toy.ttl"
     merged.write_text(ONTOLOGY.read_text(encoding="utf-8") + "\n\n" + TOY.read_text(encoding="utf-8"),
                       encoding="utf-8", newline="\n")
 

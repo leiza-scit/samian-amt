@@ -1,4 +1,4 @@
-title: Mini-AMT
+title: samian-amt
 description: A small AMT domain model for Potform, InformationCarrier, ProductionCentre and Actor, with role-chain reasoning (working draft)
 markdown: kramdown
 kramdown:

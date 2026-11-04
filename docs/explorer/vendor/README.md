@@ -1,4 +1,4 @@
-# Third-party libraries of the Explorer (Mini-AMT copy, without the Roboto files of the static pages)
+# Third-party libraries of the Explorer (samian-amt copy, without the Roboto files of the static pages)
 
 These files are copied unchanged from the packages below, so that the Explorer
 loads nothing from a CDN: no third party sees who opens it, and it works offline.

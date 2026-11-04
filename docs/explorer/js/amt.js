@@ -164,7 +164,7 @@ var AMT = function () {
 
   // Vocabulary IRIs
   var PREFIX = "http://academic-meta-tool.xyz/vocab#";
-  var PREFIX_INSTANCES = "http://github.com/leiza-scit/CAA2026-amt/";
+  var PREFIX_INSTANCES = "http://example.org/samian-amt/";
 
   var RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   var RDFS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -193,6 +193,9 @@ var AMT = function () {
   var P_FW_WEIGHT = FW_NS + "hasDegreeOfConnection";
   var P_FW_TYPE = FW_NS + "hasType";
   var P_FW_METHOD = FW_NS + "hasMethod";
+  // The evidence of a statement: fw:derivedFrom -> fw:TextEvidence with fw:sourceString
+  var P_FW_DERIVED = FW_NS + "derivedFrom";
+  var P_FW_SOURCE = FW_NS + "sourceString";
   var P_ANTECEDENT1 = AMT_NS + "antecedent1";
   var P_ANTECEDENT2 = AMT_NS + "antecedent2";
   var P_ANTECEDENT = AMT_NS + "antecedent";
@@ -349,6 +352,10 @@ var AMT = function () {
             role: role, from: from, to: to, width: width,
             type: LocalStore.objectOf(stmt, P_FW_TYPE) || null,
             method: LocalStore.objectOf(stmt, P_FW_METHOD) || null,
+            source: (function () {
+              var ev = LocalStore.objectOf(stmt, P_FW_DERIVED);
+              return ev ? LocalStore.objectOf(ev, P_FW_SOURCE) || null : null;
+            })(),
           });
         }
       });
@@ -470,6 +477,7 @@ var AMT = function () {
         width: graph.edges[i].width,
         type: graph.edges[i].type || null,
         method: graph.edges[i].method || null,
+        source: graph.edges[i].source || null,
         label: width,
         font: {
           align: "middle",

@@ -2,6 +2,35 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.17.0] - Explorer: header, legend, details, Cypher, readable reasoning
+
+### Added
+- **Cypher dialog** (icon `</>` in the bar): the graph as shown, for Neo4j 5 (one `MERGE` statement per node and per relationship, constraints on `id`; relationship properties `weight`, `role`, `fwType`, `method`, `inferred`, `source`). Copy or download as `.cypher`.
+- **Details panel** (icon in the bar, opens by itself on a click): weight, status (asserted or inferred, with the axiom), FW type, method and the source string of a clicked line; IRI and edge count of a clicked node. The neighbourhood of the selection stays in colour, the rest fades.
+- **Legend** (bottom right, foldable; folded by itself on a small window): what the node colours mean (Potform, InformationCarrier, ProductionCentre, Actor = potter) and the lines; a switch for the generic role `reaches`.
+- **About panel** (icon in the bar) with the logos of LEIZA, mainzed and NFDI4Objects and the funding note; **full screen** button; **PNG**, **SVG** and **link** (`?ttl=...&reasoning=on&labels=...`) buttons; label mode (names and weights, weights, none).
+- `amt.js` reads the source string of a statement (`fw:derivedFrom` to `fw:sourceString`).
+
+### Changed
+- Header: the AMT penguin at the top left, the title is fixed: "Samian Research - AMT Explorer" (before: the chain title). Turtle, Cypher, PNG, SVG, link are icons.
+- **Layout**: the nodes sit in columns in the direction of the chain (Potform, InformationCarrier, ProductionCentre, Actor); inferred lines that skip a column are dashed arcs above or below; line width follows the weight (1 to 3 px). *Warum:* Mit Reasoning war der Graph ein Knäuel; jetzt liegen behauptete Kanten in der Mitte und abgeleitete außen.
+- The generic role `reaches` is hidden by default (legend switch). *Warum:* Sie wiederholt `potformToCentre`, `potformToActor` und `carrierToActor` und verdoppelt die Linien.
+- Edge labels carry the role name without a prefix (the CURIE `sam:hasType` is in the details panel and in the Turtle file).
+- The Turtle download uses the prefix `sam:` instead of `ex:`.
+
+### Removed
+- The status "consistent" in the header; only a warning appears if the reasoner finds a violation. *Warum:* Es sagte nur, dass die Domain- und Range-Prüfung nichts fand, und lenkte vom Bild ab.
+
+### Note
+- `docs/explorer/assets/img/mainzed.png` is not in the repository (the logo could not be fetched); until it is added the page shows the word "mainzed".
+
+## [0.16.0] - Renamed to samian-amt
+
+### Changed
+- The repository is `leiza-scit/samian-amt` (before: `CHNT2026-amt`, working name "Mini-AMT"). Links, texts, README, PRIMER and the figures say `samian-amt`; "CHNT data" is "Samian Research data". *Warum:* Der Name sollte zum Projekt passen, nicht zur Konferenz.
+- Namespace `http://example.org/samian-amt/` with the prefix `sam:` (before `mini:`), still a placeholder for a persistent IRI. The Turtle files, the hextuples (`sam:frequencyShare` and the other `sam:` terms) and the Explorer data follow.
+- Files renamed: `ontology/mini-amt.ttl` is now `ontology/samian-amt.ttl`, `py/mini_amt_utils.py` is now `py/samian_amt_utils.py`; `dist/mini-amt-with-toy.ttl` is now `dist/samian-amt-with-toy.ttl` (generated, not tracked). The entries below 0.16.0 keep the old names; they describe the state at that time.
+
 ## [0.15.0] - AMT Explorer with the three chains
 
 ### Added

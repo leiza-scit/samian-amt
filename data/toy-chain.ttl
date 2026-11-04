@@ -1,7 +1,7 @@
 @prefix amt:  <http://academic-meta-tool.xyz/vocab#> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix mini: <http://example.org/mini-amt/> .
+@prefix sam: <http://example.org/samian-amt/> .
 
 # =============================================================================
 # Toy chain: one abstract individual per concept (no real cases)
@@ -12,11 +12,11 @@
 # direction of the source data only (hasType, hasProductionCentre, worksAt).
 # Everything else in the output is derived.
 
-mini:Potform_1  amt:instanceOf mini:Potform ;            rdfs:label "Potform 1" .
-mini:Carrier_1  amt:instanceOf mini:InformationCarrier ; rdfs:label "Carrier 1" .
-mini:Centre_1   amt:instanceOf mini:ProductionCentre ;   rdfs:label "Centre 1" .
-mini:Actor_1    amt:instanceOf mini:Actor ;              rdfs:label "Actor 1" .
+sam:Potform_1  amt:instanceOf sam:Potform ;            rdfs:label "Potform 1" .
+sam:Carrier_1  amt:instanceOf sam:InformationCarrier ; rdfs:label "Carrier 1" .
+sam:Centre_1   amt:instanceOf sam:ProductionCentre ;   rdfs:label "Centre 1" .
+sam:Actor_1    amt:instanceOf sam:Actor ;              rdfs:label "Actor 1" .
 
-_:e1 rdf:subject mini:Carrier_1 ; rdf:predicate mini:hasType             ; rdf:object mini:Potform_1 ; amt:weight 0.9 .
-_:e2 rdf:subject mini:Carrier_1 ; rdf:predicate mini:hasProductionCentre ; rdf:object mini:Centre_1  ; amt:weight 0.6 .
-_:e3 rdf:subject mini:Actor_1   ; rdf:predicate mini:worksAt             ; rdf:object mini:Centre_1  ; amt:weight 0.8 .
+_:e1 rdf:subject sam:Carrier_1 ; rdf:predicate sam:hasType             ; rdf:object sam:Potform_1 ; amt:weight 0.9 .
+_:e2 rdf:subject sam:Carrier_1 ; rdf:predicate sam:hasProductionCentre ; rdf:object sam:Centre_1  ; amt:weight 0.6 .
+_:e3 rdf:subject sam:Actor_1   ; rdf:predicate sam:worksAt             ; rdf:object sam:Centre_1  ; amt:weight 0.8 .

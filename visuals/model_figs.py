@@ -11,7 +11,7 @@ from html import escape
 
 import build as B
 from build import CLS, INST, LINE, MUTED, PROP, Fig, tw
-from mini_amt_utils import ONTOLOGY, TOY, load_graph, read_edges, read_model  # noqa: E402
+from samian_amt_utils import ONTOLOGY, TOY, load_graph, read_edges, read_model  # noqa: E402
 from reference_reasoner import reason  # noqa: E402
 from step_chains import comparison, run as run_chains  # noqa: E402
 
@@ -124,7 +124,7 @@ def chain_fig(model, name, title, legend, instances=None, weights=None, inverse_
 
 def semantics_fig(model):
     W2, H2 = 2200, 1180
-    f = new("model-02-full-semantics", "Mini-AMT: full semantics (AMT vocabulary)", W2, H2)
+    f = new("model-02-full-semantics", "samian-amt: full semantics (AMT vocabulary)", W2, H2)
     roles = model["roles"]
     inv_roles = {inv for _, _, inv in model["inverses"]}
     chain_roles = {r for _, ante, _, _ in model["chains"] for r in ante}
@@ -244,7 +244,7 @@ def chains_fig(res, only=None):
     if only:
         f = new(f"model-05{only.lower()}-chain-{only}", f"Chain {only}: {layout[0][1][0]['potter']}", 1750, H)
     else:
-        f = new("model-05-chains", "Three chains from the CHNT data: hextuples and derived degrees", 1750, H)
+        f = new("model-05-chains", "Three chains from the Samian Research data: hextuples and derived degrees", 1750, H)
     for chain, rs, ics, ae, pfs, pcs, n, h in layout:
         mid = y0 + 215 + (n - 1) * PITCH / 2
         pos = {}
@@ -301,7 +301,7 @@ FIGS = [
     ("model-02-full-semantics", "Full semantics", "Roles with domain and range, InverseAxiom, RoleChainAxiom with ordered antecedents, SubsumptionAxiom.", "02_full_semantics"),
     ("model-03-toy-reasoning", "Toy reasoning", "The same picture on the abstract toy chain, with toy weights and product logic.", "03_toy_reasoning"),
     ("model-04-both-directions", "Both directions", "Every derived property (>>) with its inverse (<<) below.", "04_reasoning_both"),
-    ("model-05-chains", "Three chains", "Three real chains from the CHNT data: hextuples with weight and FW type, derived degrees for M1 and M2.", "05_chains"),
+    ("model-05-chains", "Three chains", "Three real chains from the Samian Research data: hextuples with weight and FW type, derived degrees for M1 and M2.", "05_chains"),
 ]
 
 
@@ -311,7 +311,7 @@ def main():
     for n in CHAIN:
         model["concepts"][n]
 
-    chain_fig(model, "model-01-simple", "Mini-AMT: classes, properties, reasoning",
+    chain_fig(model, "model-01-simple", "samian-amt: classes, properties, reasoning",
               [("solid", "asserted property"), ("dashed", "inverse (InverseAxiom)"), ("red", "derived by role chain (>>)"), (CLS, "class (Concept)")])
     semantics_fig(model)
     state = reason(model, read_edges(g))
@@ -337,7 +337,7 @@ def main():
     cards = [B.card(f"{i}", t, c, n, [])
              for i, (n, t, c, d) in enumerate(figs, 1)]
     B.page("model.html", "Model",
-           "The Mini-AMT model: ontology, full semantics, toy reasoning, both directions and the three chains. "
+           "The samian-amt model: ontology, full semantics, toy reasoning, both directions and the three chains. "
            "The same figures stand in the documentation pages (<a href=\"../model.html\">Model</a>, "
            "<a href=\"../reasoning.html\">Reasoning</a>, <a href=\"../chains.html\">Chains</a>); here they are collected for presentations and papers, "
            "with PNG and SVG downloads.", cards)

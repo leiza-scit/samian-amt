@@ -1,4 +1,4 @@
-# mini-amt - dependencies
+# samian-amt - dependencies
 #
 # rdflib, resvg-py and pillow are all that main.py needs. The real AMT reasoner is
 # optional: if it is installed, step "reason" runs it and cross-checks its

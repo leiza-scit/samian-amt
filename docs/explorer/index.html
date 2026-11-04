@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en" data-theme="light">
   <head>
-    <title>Mini-AMT Explorer</title>
+    <title>Samian Research - AMT Explorer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Third-party libraries: kept in vendor/ (see vendor/README.md), nothing is loaded from a CDN -->
     <!-- RDF parsing -->
@@ -34,87 +35,147 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { height: 100%; }
-      body { display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+      body { display: flex; flex-direction: column; overflow: hidden; background: var(--bg); font-family: "Fira Sans", Roboto, Arial, sans-serif; }
       #bar {
         flex: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
         padding: 6px 14px; background: var(--bar); color: var(--bar-fg); min-height: 56px;
         border-bottom: 4px solid var(--accent);
       }
-      #bar a.home { color: #fff; font-weight: 600; text-decoration: none; margin-right: 6px; display: inline-flex; align-items: center; gap: 8px; }
-      #bar a.home img { height: 40px; width: auto; margin: -4px 0; }
-      #bar .btn-floating { background: var(--pal-green) !important; }
-      #bar .btn-floating:hover { background: var(--pal-green-teal) !important; }
-      #bar .btn-floating { width: 36px; height: 36px; line-height: 36px; }
-      #bar .btn-floating i { line-height: 36px; font-size: 20px; }
+      #bar a.home { display: inline-flex; align-items: center; }
+      #bar a.home img { height: 44px; width: auto; margin: -4px 0; }
       #bar .grow { flex: 1; min-width: 0; }
-      #title { font-weight: 600; }
-      #status { font-size: 0.9em; margin-left: 10px; }
-      .legend { font-size: 0.85em; white-space: nowrap; background: var(--card); color: var(--fg); padding: 2px 10px; border-radius: 12px; }
-      .legend b { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 8px; }
-      #r-but { background: var(--pal-grey); color: #fff; border-radius: 18px; text-transform: none; font-weight: 600; padding: 0 14px; white-space: nowrap; }
-      #r-but.on { background: var(--pal-bronze); }
-      #origin {
-        position: fixed; right: 12px; bottom: 12px; z-index: 5; max-width: 340px;
-        background: var(--card); border: 1px solid var(--pal-green-deep); border-radius: 4px; padding: 8px 10px;
-        font-size: 12px; line-height: 1.4; color: var(--fg); box-shadow: 0 1px 4px rgba(0,0,0,.25);
+      #title { font-weight: 600; font-size: 1.15em; }
+      #status { font-size: 0.9em; margin-left: 6px; }
+      #bar .pill {
+        display: inline-block; height: 28px; line-height: 28px; padding: 0 14px; border-radius: 18px; cursor: pointer;
+        background: var(--pal-grey); color: #fff; font-weight: 600; font-size: 13px; white-space: nowrap; text-transform: none;
       }
-      #origin img { display: block; height: 70px; width: auto; margin: 0 auto 6px; }
-      #origin a { color: var(--link); }
+      #bar .pill:hover { filter: brightness(1.12); }
+      #bar .pill.on { background: var(--pal-bronze); }
+      #bar .pill.act { background: var(--pal-green); }
+      #bar .sep { width: 1px; height: 22px; background: rgba(255,255,255,.3); margin: 0 4px; }
+      #chains, #exports, #infos { display: inline-flex; gap: 6px; align-items: center; }
+      #bar .ibtn {
+        width: 34px; height: 34px; border-radius: 50%; background: var(--pal-green); color: #fff; cursor: pointer;
+        display: inline-flex; align-items: center; justify-content: center;
+      }
+      #bar .ibtn:hover { filter: brightness(1.15); }
+      #bar .ibtn.on { background: var(--pal-bronze); }
+      #bar .ibtn i { font-size: 20px; line-height: 1; }
       #graph { flex: 1; min-height: 0; }
-      .modal { max-height: 80% !important; width: 90% !important; }
-      #chains { display: inline-flex; gap: 6px; }
-      #chains .chain { background: var(--pal-grey); color: #fff; border-radius: 18px; text-transform: none; font-weight: 600; padding: 0 14px; }
-      #chains .chain.on { background: var(--pal-bronze); }
-      #origin img { height: 36px; }
-      @media (max-width: 700px) { .legend, #origin img { display: none; } }
+
+      .card {
+        position: fixed; z-index: 5; background: var(--card); color: var(--fg); border: 1px solid var(--pal-green-deep);
+        border-radius: 4px; padding: 8px 10px; font-size: 12.5px; line-height: 1.4; box-shadow: 0 1px 4px rgba(0,0,0,.25);
+      }
+      .card a { color: var(--link); }
+      .card code { background: var(--code-bg); padding: 0 3px; border-radius: 2px; font-size: 11.5px; word-break: break-all; }
+
+      #legend { right: 12px; bottom: 12px; width: 300px; }
+      #legend .hd { display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; font-size: 13px; user-select: none; }
+      #legend .hd i { font-size: 20px; transition: transform .15s; }
+      #legend.shut .hd i { transform: rotate(180deg); }
+      #legend.shut #legend-body { display: none; }
+      #legend #legend-body { margin-top: 4px; }
+      #legend b.sec { display: block; margin-top: 7px; }
+      #legend .lg { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+      #legend .dot { flex: none; width: 15px; height: 15px; border-radius: 50%; border: 2px solid; }
+      #legend .ln { flex: none; width: 15px; height: 0; display: inline-block; }
+      #legend .ln.thick { border-top: 1px solid var(--asserted); height: 4px; border-bottom: 4px solid var(--asserted); border-top-width: 1px; width: 15px; }
+      #legend label.sw { display: flex; align-items: center; gap: 6px; margin-top: 7px; cursor: pointer; }
+      #legend label.sw span { padding-left: 24px; position: relative; }
+      #legend input[type=checkbox] { opacity: 1 !important; pointer-events: auto !important; position: static !important; width: 15px; height: 15px; margin: 0; }
+      #legend label.sw span { padding-left: 0; }
+
+      #panels { position: fixed; z-index: 6; right: 12px; top: 64px; width: 340px; display: flex; flex-direction: column; gap: 8px; max-height: calc(100vh - 76px); overflow: auto; }
+      #panels .card { position: static; display: none; }
+      #panels .card.open { display: block; }
+      #detail { max-height: 45vh; overflow: auto; }
+      #detail h6 { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
+      #detail .who { margin: 0 0 6px; color: var(--muted); }
+      #detail .hint { margin-top: 8px; color: var(--muted); font-size: 11.5px; }
+      #detail table { width: 100%; border-collapse: collapse; }
+      #detail th { text-align: left; font-weight: 500; color: var(--muted); padding: 2px 8px 2px 0; vertical-align: top; white-space: nowrap; width: 1%; }
+      #detail td { padding: 2px 0; }
+
+      #origin { border-color: var(--pal-green-deep); }
+      #origin .logos { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+      #origin .logos img { height: 34px; width: auto; display: block; }
+      #origin .logos .txt { font-weight: 700; font-size: 20px; letter-spacing: .02em; color: var(--pal-steel-dark); }
+
+      #cypherModal { max-height: 85% !important; width: 80% !important; }
+      #cypherModal .modal-content { padding: 18px 20px 8px; }
+      #cypherModal h5 { font-size: 20px; margin-bottom: 4px; }
+      #cypherModal textarea { width: 100%; height: 52vh; font-family: monospace; font-size: 12.5px; border: 1px solid var(--line); padding: 8px; white-space: pre; overflow: auto; }
+      #cypherModal .modal-footer { display: flex; gap: 8px; justify-content: flex-end; align-items: center; padding: 8px 16px; }
+      #cypherModal .modal-footer #cypher-note { margin-right: auto; color: var(--muted); font-size: 13px; }
+      #cypherModal .modal-footer a { cursor: pointer; font-weight: 600; text-transform: none; }
+
+      @media (max-width: 700px) { #legend { display: none; } #panels { width: auto; left: 12px; } }
     </style>
   </head>
 
   <body>
     <div id="bar">
-      <a class="home" href="../index.html" title="Mini-AMT documentation"><img src="assets/img/leiza.png" alt="LEIZA" />Mini-AMT</a>
-      <span id="title">loading...</span><span id="status"></span>
+      <a class="home" href="../index.html" title="samian-amt documentation"><img src="assets/img/amt-penguin-small.png" alt="Academic Meta Tool" /></a>
+      <span id="title">Samian Research - AMT Explorer</span><span id="status"></span>
       <span class="grow"></span>
-      <span class="legend"><b style="background:var(--asserted)"></b>asserted<b style="background:var(--inferred)"></b>inferred (one direction)</span>
       <span id="chains">
-        <a class="btn-small chain" data-file="chain-A.ttl" onclick="selectChain('chain-A.ttl')" title="Chain A: Vitalis viii, AND of two centres">Chain A</a>
-        <a class="btn-small chain" data-file="chain-B.ttl" onclick="selectChain('chain-B.ttl')" title="Chain B: Onnio-, OR of two centres">Chain B</a>
-        <a class="btn-small chain" data-file="chain-C.ttl" onclick="selectChain('chain-C.ttl')" title="Chain C: Ve- i, OR of three forms">Chain C</a>
+        <a class="pill chain" data-file="chain-A.ttl" onclick="selectChain('chain-A.ttl')" title="Chain A: Vitalis viii, AND of two centres">Chain A</a>
+        <a class="pill chain" data-file="chain-B.ttl" onclick="selectChain('chain-B.ttl')" title="Chain B: Onnio-, OR of two centres">Chain B</a>
+        <a class="pill chain" data-file="chain-C.ttl" onclick="selectChain('chain-C.ttl')" title="Chain C: Ve- i, OR of three forms">Chain C</a>
       </span>
-      <a class="btn-small" id="r-but" onclick="toggleReasoning()" title="reasoning on/off">Reasoning: off</a>
-      <a class="btn-floating" onclick="exportTTL()" title="download Turtle (including inferred statements)"><i class="material-icons">file_download</i></a>
+      <span class="sep"></span>
+      <a class="pill" id="r-but" onclick="toggleReasoning()" title="reasoning on/off">Reasoning: off</a>
+      <a class="pill" id="l-but" onclick="cycleLabels()" title="what is written on the lines">Labels: names + weights</a>
+      <span class="sep"></span>
+      <span id="exports">
+        <a class="ibtn" onclick="exportTTL()" title="Download Turtle (including inferred statements and the inverse roles)"><i class="material-icons">file_download</i></a>
+        <a class="ibtn" onclick="openCypher()" title="The graph as shown, as Cypher for Neo4j"><i class="material-icons">code</i></a>
+        <a class="ibtn" onclick="exportPNG()" title="The picture as PNG"><i class="material-icons">image</i></a>
+        <a class="ibtn" onclick="exportSVG()" title="The picture as SVG"><i class="material-icons">photo_size_select_large</i></a>
+        <a class="ibtn" onclick="copyLink()" title="Copy a link that remembers chain, reasoning and labels"><i class="material-icons">link</i></a>
+      </span>
+      <span class="sep"></span>
+      <span id="infos">
+        <a class="ibtn" id="b-full" onclick="toggleFullscreen()" title="Full screen (Esc to leave); the legend folds with its arrow"><i class="material-icons">fullscreen</i></a>
+        <a class="ibtn" id="b-detail" onclick="togglePanel('detail')" title="Details of the chain and of the selected node or line"><i class="material-icons">list_alt</i></a>
+        <a class="ibtn" id="b-origin" onclick="togglePanel('origin')" title="About this Explorer"><i class="material-icons">info_outline</i></a>
+      </span>
     </div>
     <div id="graph"></div>
 
-    <div id="origin">
-      <img src="assets/img/nfdi4objects.png" alt="NFDI4Objects" />
-      <b>Mini-AMT Explorer</b>: three chains of the Samian Research data (potform &rarr; carrier &rarr; production centre &rarr; potter),
-      weighted by the rule of the source paper, with the reasoning of the
-      <a href="https://github.com/alpaca-fair-framework/amt-engine">Academic Meta Tool</a> (Explorer adapted from the AMT engine, MIT licence).
-      A working draft of <b>LEIZA</b> and <b>NFDI4Objects</b>; NFDI4Objects is funded by the Deutsche Forschungsgemeinschaft (DFG)
-      &ndash; project number 501836407. <a href="../chains.html">How the chains are built</a>.
-    </div>
-
-    <!-- Modal: RDF export -->
-    <div id="rdfModal" class="modal">
-      <div class="modal-content" style="height: 100%; padding: 20px; margin: 0">
-        <textarea id="rdf" style="width: 100%; height: 100%; font-family: monospace; font-size: 14px"></textarea>
+    <div id="legend" class="card"><div class="hd" onclick="$('#legend').toggleClass('shut')" title="Show or hide the legend"><span>Legend</span><i class="material-icons">expand_more</i></div><div id="legend-body"></div></div>
+    <div id="panels">
+      <div id="detail" class="card"><div id="detail-body"></div></div>
+      <div id="origin" class="card">
+      <div class="logos">
+        <a href="https://www.leiza.de/" title="LEIZA"><img src="assets/img/leiza.png" alt="LEIZA" /></a>
+        <a href="https://www.mainzed.org/" title="mainzed"><img src="assets/img/mainzed.png" alt="mainzed" onerror="this.parentNode.innerHTML='&lt;span class=&quot;txt&quot;&gt;mainzed&lt;/span&gt;'" /></a>
+        <a href="https://www.nfdi4objects.net/" title="NFDI4Objects"><img src="assets/img/nfdi4objects.png" alt="NFDI4Objects" /></a>
+      </div>
+      <div class="txt-body">
+        <b>Samian Research - AMT Explorer</b>: three chains of the Samian Research data (potform &rarr; carrier &rarr; production centre &rarr; potter),
+        weighted by the rule of the source paper, with the reasoning of the
+        <a href="https://github.com/alpaca-fair-framework/amt-engine">Academic Meta Tool</a> (Explorer adapted from the AMT engine, MIT licence).
+        A working draft of <b>LEIZA</b> and <b>NFDI4Objects</b>; NFDI4Objects is funded by the Deutsche Forschungsgemeinschaft (DFG)
+        &ndash; project number 501836407. <a href="../chains.html">How the chains are built</a>.
+      </div>
       </div>
     </div>
 
-    <span id="hiddenclipboard" style="display: none"></span>
-    <script>
-      // The three chains replace the example dialogue of the AMT Explorer: one click loads the file, the reasoning button works on it.
-      function selectChain(file) {
-        chooseExample(file);
-        $("#chains .chain").each(function () { $(this).toggleClass("on", $(this).data("file") === file); });
-        update();
-      }
-      $(function () {
-        var f = new URLSearchParams(window.location.search).get("ttl") || "chain-A.ttl";
-        f = f.replace(/^data\//, "");
-        $("#chains .chain").each(function () { $(this).toggleClass("on", $(this).data("file") === f); });
-      });
-    </script>
+    <!-- Modal: Cypher of the graph as shown -->
+    <div id="cypherModal" class="modal">
+      <div class="modal-content">
+        <h5>Cypher</h5>
+        <textarea id="cypher" readonly spellcheck="false"></textarea>
+      </div>
+      <div class="modal-footer">
+        <span id="cypher-note"></span>
+        <a class="pill act waves-effect" style="background:var(--pal-green);color:#fff;border-radius:18px;padding:0 14px;height:28px;line-height:28px" onclick="copyCypher()">Copy</a>
+        <a class="pill act waves-effect" style="background:var(--pal-green);color:#fff;border-radius:18px;padding:0 14px;height:28px;line-height:28px" onclick="downloadCypher()">Download .cypher</a>
+        <a class="modal-action modal-close waves-effect btn-flat">Close</a>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,6 +1,6 @@
-# PRIMER — Mini-AMT (CHNT2026-amt)
+# PRIMER — samian-amt
 
-Arbeitsplan für das Repository `leiza-scit/CHNT2026-amt`. Wird in jedem Chat hochgeladen, am Ende des Chats
+Arbeitsplan für das Repository `leiza-scit/samian-amt`. Wird in jedem Chat hochgeladen, am Ende des Chats
 zurückgeschrieben. Dieses Dokument ist deutsch; alles andere im Repository ist britisches Englisch.
 
 ---
@@ -11,12 +11,12 @@ zurückgeschrieben. Dieses Dokument ist deutsch; alles andere im Repository ist 
 
 | Was | Wo | Rolle |
 |---|---|---|
-| Mini-AMT-Ontologie, Reasoning, Docs, Ketten | dieses Repository | Ziel |
+| samian-amt-Ontologie, Reasoning, Docs, Ketten | dieses Repository | Ziel |
 | `alpaca-fair-framework/amt-engine`, `alpaca-fair-framework/amt-runner` | GitHub | Engine (0.6.0) und Runner (0.5.0); Quelle für den späteren Viewer; ehemals `n4o-rse` |
 | `leiza-scit/CAA2026-amt` | GitHub | Vorbild für Viewer und Docs |
 | `caa-datadragons/FW_Ontology` | GitHub | `fw:`-Begriffe: Typ-Individuen, `fw:EqualShareRule`, Evidenz (Stand `15ae05f`) |
 | `n4o-rse/oer-001-sparqling-archaeology` (`notebooks_amt`) | GitHub | Vorbild für das Notebook |
-| CHNT-Exporte (Samian-Daten, `ct_ic_pc`) | lokal, nicht im Repository | Quelle der Zeichenketten und Gewichte |
+| Samian-Exporte (Samian-Daten, `ct_ic_pc`) | lokal, nicht im Repository | Quelle der Zeichenketten und Gewichte |
 
 **Befunde** (geprüft 2026-10-30):
 
@@ -41,12 +41,12 @@ zurückgeschrieben. Dieses Dokument ist deutsch; alles andere im Repository ist 
   `South Gaul?` = 0,5, Unsicherheit). Die AMT-Logiken stehen dort als `fw:PropagationMethod` (Vorschlag `data/amt-alignment.ttl`, gehört
   in `amt.ttl` der Engine).
 - **Engine 0.6.0 ausgeführt** (2026-10-30, S3a): `python main.py` vergleicht die drei Läufe (M1 Product, M1 Gödel, M2 Product, 340 Kanten) mit dem Referenz-Reasoner in Gewicht, Typ und Methode: gleich. Die Engine liest `fw:hasDegreeOfConnection`, `fw:hasType`, `fw:hasMethod` und `fw:derivedFrom` ohne `amt:weight`.
-- **SHACL** (Shapes der Engine, `validate_against_shapes`): M2 entspricht den Shapes; **M1 hat vier Verstöße**, alle bei den Oberrollen `mini:reaches` und `mini:reachedBy`: sie haben weder `rdfs:domain` noch `rdfs:range` (die Shapes verlangen je genau eines). Die Oberrolle fasst `potformToCentre`, `carrierToActor` und `potformToActor` zusammen, die verschiedene Concepts verbinden; ein einzelnes Domain/Range gibt es dafür nicht. Der Runner bricht deshalb bei `dist/chains-with-model.ttl` in der Validierung ab. Offen (S9).
+- **SHACL** (Shapes der Engine, `validate_against_shapes`): M2 entspricht den Shapes; **M1 hat vier Verstöße**, alle bei den Oberrollen `sam:reaches` und `sam:reachedBy`: sie haben weder `rdfs:domain` noch `rdfs:range` (die Shapes verlangen je genau eines). Die Oberrolle fasst `potformToCentre`, `carrierToActor` und `potformToActor` zusammen, die verschiedene Concepts verbinden; ein einzelnes Domain/Range gibt es dafür nicht. Der Runner bricht deshalb bei `dist/chains-with-model.ttl` in der Validierung ab. Offen (S9).
 
 ### A2 Zielbild
 
 ```
-CHNT-Strings ──► py/weights.py ──► Hextupel (dist/chains.ttl) ──► Reasoner ──► docs/ (GitHub Pages)
+Samian-Strings ──► py/weights.py ──► Hextupel (dist/chains.ttl) ──► Reasoner ──► docs/ (GitHub Pages)
  (data/*.csv)    Gewicht, FW-Typ,     s p o weight type method     M1 / M2        Viewer, Notebook
                  Methode
 ```
@@ -79,41 +79,47 @@ Eigenschaften, die das Ergebnis haben muss:
 | Zuordnung FW-Typ je Muster | `?` → `UncertainValue`; OR oder AND → `VagueValue`; `?` mit OR oder AND → `FuzzinessWobblinessValue` (Flo) | 2026-10-30 |
 | Erwartete Muster je Relation | Träger–Potform: OR, `?`, `?`+OR; Actor–Zentrum: OR, AND, `?`+AND, `?`; Träger–Zentrum: `?` (Flo) | 2026-10-30 |
 | Hextupel | Quadrupel plus Typ und Methode; Methode wird in `caa-datadragons/FW_Ontology` beschrieben und verlinkt | 2026-10-30 |
-| Namen für Gewicht, Typ, Methode, Evidenz | `fw:hasDegreeOfConnection` (≡ `amt:weight`), `fw:hasType` (Individuen `fw:Uncertainty` / `fw:Vagueness` / `fw:FuzzinessWobbliness`), `fw:hasMethod` (`fw:EqualShareRule`), optional `fw:derivedFrom` (`fw:TextEvidence`). Hinfällig: die Vorschläge `amt:type`, `amt:method`, `nfdi_fw:ReciprocalPossibilityWeight` und `nfdi_fw:WeightMethod`; die FW-Ontologie hat es am 2026-10-30 anders festgelegt. Mini-AMT zieht in S3a nach | 2026-10-30 |
+| Namen für Gewicht, Typ, Methode, Evidenz | `fw:hasDegreeOfConnection` (≡ `amt:weight`), `fw:hasType` (Individuen `fw:Uncertainty` / `fw:Vagueness` / `fw:FuzzinessWobbliness`), `fw:hasMethod` (`fw:EqualShareRule`), optional `fw:derivedFrom` (`fw:TextEvidence`). Hinfällig: die Vorschläge `amt:type`, `amt:method`, `nfdi_fw:ReciprocalPossibilityWeight` und `nfdi_fw:WeightMethod`; die FW-Ontologie hat es am 2026-10-30 anders festgelegt. samian-amt zieht in S3a nach | 2026-10-30 |
 | Methode und Typ abgeleiteter Kanten | wie in AMT.engine 0.6.0: Rollenkette setzt die Logik als `fw:hasMethod` (`amt:ProductLogic` usw.) und als Typ den gemeinsamen Typ der Vorderglieder, bei Unterschied `fw:FuzzinessWobbliness`; Inverse und Subsumtion übernehmen den Typ und haben keine Methode; kein Typ gilt als `fw:Vagueness`; der Referenz-Reasoner bildet das nach und wird gegen die Engine geprüft | 2026-10-30 |
 | Typ einer sicheren Aussage (Muster `certain`) | `fw:hasType fw:Certainty` (Gewicht 1.0); `createdBy` in M2 ebenso; `fw:Certainty` wird nie angenommen. Ersetzt: „kein Typ, AMT liest `fw:Vagueness`“ (2026-10-30) | 2026-11-03 |
 | Typ abgeleiteter Kanten mit `fw:Certainty` | `fw:Certainty` zählt nicht mit, sobald ein anderer Typ vorkommt; eine Kette sicherer Kanten bleibt sicher (Engine S25) | 2026-11-03 |
 | Gewicht im Hextupel | `fw:hasDegreeOfConnection` (die Engine liest es wie `amt:weight`); beide zusammen werden nicht geschrieben | 2026-10-30 |
-| Evidenzknoten | ein `fw:TextEvidence`-Knoten je Quellzeichenkette (`mini:ev_<potform\|centre>_<slug>`, `?` als `_q`), von allen Aussagen der Zeichenkette über `fw:derivedFrom` geteilt | 2026-10-30 |
+| Evidenzknoten | ein `fw:TextEvidence`-Knoten je Quellzeichenkette (`sam:ev_<potform\|centre>_<slug>`, `?` als `_q`), von allen Aussagen der Zeichenkette über `fw:derivedFrom` geteilt | 2026-10-30 |
 | Logik der Rollenketten | `ProductLogic` wie im Paper (Allard) | 2026-11-04 |
 | Modell M1 oder M2 | Beides (Allard): Liegt der Stempel auf einer Scherbe in einem Produktionsort, ist `hasProductionCentre` direkt gesetzt (M1; maßgeblich ist die Liste der Produktionsorte, nicht ein Kennzeichen je Scherbe). Sonst abgeleitet über die neue Rolle „gleicher Stempel“ (Träger → geometrisch identischer Stempel auf anderer Scherbe → Zentrum dieser Scherbe). Umsetzung: S4b | 2026-11-04 |
 | Schwächere Ableitungen Träger–Zentrum | (a) Name aus einem Nicht-Produktionsort, gefunden auf einer nicht identischen Scherbe im Produktionsort (Homonymrisiko); (b) Ähnlichkeit der Verbreitung von Töpfer oder Stempel und Zentrum (selten dokumentiert, mehrere Zentren haben ähnliche Verbreitung, zum Beispiel Haute-Yutz, Chémery-Faulquemont, Trier). Beide schwächer als direkt oder „gleicher Stempel“; Weg der Abschwächung (Methode oder Typ) noch zu klären (Memo 0.6.0) | 2026-11-04 |
 | Fragezeichen am Ende | bezieht sich auf die ganze Kette davor, schwächt immer ab, ohne zu sagen, ob wegen A oder B (Allard) | 2026-11-04 |
 | Zeit in der Kette | ignoriert, bis auf Weiteres (zu ungenau); Quietus-Beispiel bleibt AND ohne Reihenfolge | 2026-11-04 |
 | Beste Pfade | nur der beste einzelne Pfad; die Zahl der Träger zählt nicht | 2026-11-04 |
-| Actor und ActorEntity | zu einem Concept `Actor` zusammengeführt (schon in `ontology/mini-amt.ttl`) | 2026-11-04 |
+| Actor und ActorEntity | zu einem Concept `Actor` zusammengeführt (schon in `ontology/samian-amt.ttl`) | 2026-11-04 |
 | Träger–Töpfer | sicher (Gewicht 1.0, `fw:Certainty`), auch bei unsicherem Namen („Aquitanus?“): maßgeblich ist die geometrisch exakte Stempelgleichheit | 2026-11-04 |
 | Kombinierte Formen (`18/31`) | ein Typ, kein „dish or bowl“ (Allard) | 2026-11-04 |
 | Zentren-Strings ohne Knoten („South Gaul?“) | für dieses Modell nicht verwertbar; es entstehen keine Knoten für Regionen und Gruppen | 2026-11-04 |
 | Quellzeichenkette | bleibt erhalten (`fw:TextEvidence`), Allard bestätigt | 2026-11-04 |
 | Muster `?` nach OR bei Potformen | darf nicht vorkommen; drei fehlerhafte Einträge (212025, 213077, 210355) bereinigt Allard in der Datenbank | 2026-11-04 |
-| Häufigkeitsanteile („31 or 31R“ = 0,8025 / 0,1975) | Zusatzinformation, **kein Gewicht**: nicht in `fw:hasDegreeOfConnection`, nicht in der Kette, das Fragezeichen ändert sie nicht; nur ein Hinweis für den Archäologen, eine bestehende Unsicherheit an der Gesamtverteilung zu prüfen. Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“ (`mini:FrequencyShare`, noch nicht in der FW-Ontologie). Stufe A (ganze Datenbank) umgesetzt in `py/frequency.py` (allgemein) und für die drei Ketten; Stufe C (Töpfer, geglättet, k = 5, Glättung reicht als Rückfall) und Stempel vorgesehen. Belegzahlen aus `data/form-counts.csv` (Auszug aus Allards `data-1793809985134.csv`) | 2026-11-04 |
+| Häufigkeitsanteile („31 or 31R“ = 0,8025 / 0,1975) | Zusatzinformation, **kein Gewicht**: nicht in `fw:hasDegreeOfConnection`, nicht in der Kette, das Fragezeichen ändert sie nicht; nur ein Hinweis für den Archäologen, eine bestehende Unsicherheit an der Gesamtverteilung zu prüfen. Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“ (`sam:FrequencyShare`, noch nicht in der FW-Ontologie). Stufe A (ganze Datenbank) umgesetzt in `py/frequency.py` (allgemein) und für die drei Ketten; Stufe C (Töpfer, geglättet, k = 5, Glättung reicht als Rückfall) und Stempel vorgesehen. Belegzahlen aus `data/form-counts.csv` (Auszug aus Allards `data-1793809985134.csv`) | 2026-11-04 |
 | Typ-Klassen | hinfällig: der Typ einer Aussage ist ein Individuum von `fw:FW_Type`, keine Klasse (FW-Ontologie, 2026-10-30) | 2026-10-30 |
 | Sprache | PRIMER und Memos deutsch, Repository englisch | 2026-10-30 |
+| Name des Projekts | `samian-amt` (Repository `leiza-scit/samian-amt`, früher `CHNT2026-amt`, Arbeitsname „Mini-AMT“); überall nur noch `samian-amt`; in Links kein CHNT mehr | 2026-11-04 |
+| Prefix und Namespace | Prefix `sam:` statt `mini:`; Namespace `http://example.org/samian-amt/` bleibt ein Platzhalter bis zu einer persistenten IRI; Dateien `ontology/samian-amt.ttl`, `py/samian_amt_utils.py` | 2026-11-04 |
+| Titel des Explorers | „Samian Research - AMT Explorer“ (feste Kopfzeile, ohne Kettentitel); oben links das AMT-Logo (Pinguin), LEIZA, mainzed und NFDI4Objects im About-Panel | 2026-11-04 |
+| Status „consistent“ im Explorer | entfällt; nur bei Verstößen gegen die Integritätsaxiome erscheint eine Warnung | 2026-11-04 |
+| Cypher-Export im Explorer | der gezeigte Graph (eine Richtung; mit Reasoning auch die abgeleiteten Kanten), Neo4j 5, je Knoten und Kante eine Anweisung mit `MERGE`; Eigenschaften `weight`, `role`, `fwType`, `method`, `inferred`, `source` | 2026-11-04 |
+| Allgemeine Rolle `reaches` im Explorer | standardmäßig ausgeblendet (wiederholt die abgeleiteten Rollen), Schalter in der Legende; was ausgeblendet ist, steht weder im Bild noch im Cypher-Export | 2026-11-04 |
 
 ### A5 Was in welchem Chat hochgeladen wird
 
 Das Repository als Bündel (ohne Erzeugtes), dazu `PRIMER.md`:
 
 ```
-robocopy . %TEMP%\mini-amt-bundle /E /XD .git .venv dist __pycache__ docs\diagrams
+robocopy . %TEMP%\samian-amt-bundle /E /XD .git .venv dist __pycache__ docs\diagrams
 ```
 
 ```
-powershell -Command "Compress-Archive -Path $env:TEMP\mini-amt-bundle\* -DestinationPath mini-amt-bundle.zip -Force"
+powershell -Command "Compress-Archive -Path $env:TEMP\samian-amt-bundle\* -DestinationPath samian-amt-bundle.zip -Force"
 ```
 
-Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten, die sie brauchen, und dann einzeln).
+Nicht hochladen: `.git/`, `.venv/`, `dist/`, die Samian-Exporte (nur bei Schritten, die sie brauchen, und dann einzeln).
 
 ---
 
@@ -121,34 +127,36 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 
 | ID | Schritt | Repo | hängt ab von | Status |
 |---|---|---|---|---|
-| S1 | Modell, Ontologie, Referenz-Reasoner, vier Grafiken (0.1.0) | CHNT2026-amt | | erledigt 2026-10-30 |
-| S2 | Reasoning-Rollen mit Inversen, Docs für GitHub Pages, Gewichtsrichtung (0.2.0) | CHNT2026-amt | S1 | erledigt 2026-10-30 |
-| S3 | Gewichtsregel, Hextupel, drei echte Ketten, Modell M2 (0.3.0) | CHNT2026-amt | S2 | erledigt 2026-10-30 |
-| S4 | Entscheidung M1 / M2 und Logik nach der Prüfung durch Allard | CHNT2026-amt | S3 | entschieden 2026-11-04 (A4, Review-Seite); Umsetzung in S4a und S4b |
-| S4a | Neue Gewichtsregel (`?` halbiert) und Häufigkeitsanteile als Zusatzinformation (Stufe A) (0.14.0) | CHNT2026-amt | S4 | Patch geliefert 2026-11-04 |
-| S24 | AMT Explorer für die drei Ketten (A, B, C) auf den GitHub Pages, nur eine Reasoning-Richtung (0.15.0) | CHNT2026-amt | S4a | Patch geliefert 2026-11-04; Live-Test auf GitHub Pages steht aus |
-| S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | CHNT2026-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
-| S3a | Mini-AMT an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | CHNT2026-amt | S3 | erledigt 2026-10-30 (0.4.0) |
-| S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | CHNT2026-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
+| S1 | Modell, Ontologie, Referenz-Reasoner, vier Grafiken (0.1.0) | samian-amt | | erledigt 2026-10-30 |
+| S2 | Reasoning-Rollen mit Inversen, Docs für GitHub Pages, Gewichtsrichtung (0.2.0) | samian-amt | S1 | erledigt 2026-10-30 |
+| S3 | Gewichtsregel, Hextupel, drei echte Ketten, Modell M2 (0.3.0) | samian-amt | S2 | erledigt 2026-10-30 |
+| S4 | Entscheidung M1 / M2 und Logik nach der Prüfung durch Allard | samian-amt | S3 | entschieden 2026-11-04 (A4, Review-Seite); Umsetzung in S4a und S4b |
+| S4a | Neue Gewichtsregel (`?` halbiert) und Häufigkeitsanteile als Zusatzinformation (Stufe A) (0.14.0) | samian-amt | S4 | Patch geliefert 2026-11-04 |
+| S24 | AMT Explorer für die drei Ketten (A, B, C) auf den GitHub Pages, nur eine Reasoning-Richtung (0.15.0) | samian-amt | S4a | Patch geliefert 2026-11-04; Live-Test auf GitHub Pages steht aus |
+| S25 | Umbenennung auf `samian-amt` (Repository, Links, Prefix `sam:`, Dateinamen) (0.16.0) | samian-amt | S24 | Patch geliefert 2026-11-04 |
+| S26 | Explorer überarbeitet: Kopfzeile, Logos, Legende, Cypher, Details, Layout in Kettenrichtung, PNG/SVG, Link, Vollbild (0.17.0) | samian-amt | S25 | Patch geliefert 2026-11-04; mainzed-Logo steht aus |
+| S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | samian-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
+| S3a | samian-amt an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | samian-amt | S3 | erledigt 2026-10-30 (0.4.0) |
+| S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | samian-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
 | S5 | Methode und Typen in der FW-Ontologie | FW_Ontology | S3 | FW-Seite erledigt 2026-10-30; `fw:implementedBy` offen (Triple liegt in `ontology/fw-implemented-by.ttl`) |
 | S10 | Hextupel in amt-engine und amt-runner einlesen und durchreichen | amt-engine, amt-runner | S3a | erledigt 2026-10-30 (Engine 0.6.0, Runner 0.5.0; in den Primern dort S19 bis S23) |
-| S6 | Alle Potter und Träger als Hextupel (Export → `dist/`) | CHNT2026-amt | S4 | offen |
-| S7 | Viewer, angepasst aus amt-engine und amt-runner | CHNT2026-amt | S6 | offen |
-| S8 | Notebook (quarto-live) | CHNT2026-amt | S6 | offen |
-| S11 | Fallgrafiken PF.1–3, PC.1–4, IC-PC.1 mit Samian-Beispielen (`visuals/`, 0.6.0) | CHNT2026-amt | S3b | Patch geliefert 2026-11-04, nach Push erledigt; Rückfragen offen (Teil D) |
-| S12 | PF.4 (Häufigkeitsbalken) und Orientierungsebenen der Karten (0.7.0) | CHNT2026-amt | S11 | Patch geliefert 2026-11-04 |
-| S13 | Römische Variante der Karten (Provinzen, Straßen, Orte; 0.8.0) | CHNT2026-amt | S12 | Patch geliefert 2026-11-04 |
-| S14 | Modellgrafiken im Visuals-Stil, Visuals über die Docs veröffentlicht (0.9.0) | CHNT2026-amt | S13 | Patch geliefert 2026-11-04 |
-| S15 | Einzelketten, klarere Pfeile und nummerierte Kanten in den Visuals (0.9.1) | CHNT2026-amt | S14 | Patch geliefert 2026-11-04 |
-| S16 | Nummerierte Kanten in `docs/diagrams/02_full_semantics` (0.9.2) | CHNT2026-amt | S15 | Patch geliefert 2026-11-04 |
-| S17 | Review-Seite aus der öffentlichen Version genommen, `REVIEW.md` intern (0.9.3) | CHNT2026-amt | S16 | Patch geliefert 2026-11-04 |
-| S18 | Visuals-Seiten im Layout von GeoScience-FAIRification-LOD, getrennt nach Potform / Karten modern / Karten römisch (0.10.0) | CHNT2026-amt | S17 | Patch geliefert 2026-11-04 |
-| S19 | Ein Design für Docs und Visuals, Chain-Unterseiten (A, B, C), matplotlib entfernt (0.11.0) | CHNT2026-amt | S18 | erledigt 2026-11-04 |
-| S20 | Chain-Seiten: Kettengrafik oben, Entitäten und Aussagen im Text; Menü Docs/Visuals getrennt (0.12.0) | CHNT2026-amt | S19 | erledigt 2026-11-04 |
-| S21 | Chain-Seiten: Figuren für InformationCarrier–ProductionCentre je Carrier (0.12.1) | CHNT2026-amt | S20 | erledigt 2026-11-04 |
-| S22 | Koordinaten der vier Zentren und Profilzeichnungen 24, 27, 31, 32, 33 eingebaut (0.13.0) | CHNT2026-amt | S21 | erledigt 2026-11-04 |
-| S23 | Fehlerbehebung `check_cases` (Fallgrafiken wurden nicht neu gebaut); PC.1 mit Saciro iv (0.13.2) | CHNT2026-amt | S22 | Patch geliefert 2026-11-04 |
-| S9 | Engine-Abgleich und SHACL-Validierung | CHNT2026-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
+| S6 | Alle Potter und Träger als Hextupel (Export → `dist/`) | samian-amt | S4 | offen |
+| S7 | Viewer, angepasst aus amt-engine und amt-runner | samian-amt | S6 | offen |
+| S8 | Notebook (quarto-live) | samian-amt | S6 | offen |
+| S11 | Fallgrafiken PF.1–3, PC.1–4, IC-PC.1 mit Samian-Beispielen (`visuals/`, 0.6.0) | samian-amt | S3b | Patch geliefert 2026-11-04, nach Push erledigt; Rückfragen offen (Teil D) |
+| S12 | PF.4 (Häufigkeitsbalken) und Orientierungsebenen der Karten (0.7.0) | samian-amt | S11 | Patch geliefert 2026-11-04 |
+| S13 | Römische Variante der Karten (Provinzen, Straßen, Orte; 0.8.0) | samian-amt | S12 | Patch geliefert 2026-11-04 |
+| S14 | Modellgrafiken im Visuals-Stil, Visuals über die Docs veröffentlicht (0.9.0) | samian-amt | S13 | Patch geliefert 2026-11-04 |
+| S15 | Einzelketten, klarere Pfeile und nummerierte Kanten in den Visuals (0.9.1) | samian-amt | S14 | Patch geliefert 2026-11-04 |
+| S16 | Nummerierte Kanten in `docs/diagrams/02_full_semantics` (0.9.2) | samian-amt | S15 | Patch geliefert 2026-11-04 |
+| S17 | Review-Seite aus der öffentlichen Version genommen, `REVIEW.md` intern (0.9.3) | samian-amt | S16 | Patch geliefert 2026-11-04 |
+| S18 | Visuals-Seiten im Layout von GeoScience-FAIRification-LOD, getrennt nach Potform / Karten modern / Karten römisch (0.10.0) | samian-amt | S17 | Patch geliefert 2026-11-04 |
+| S19 | Ein Design für Docs und Visuals, Chain-Unterseiten (A, B, C), matplotlib entfernt (0.11.0) | samian-amt | S18 | erledigt 2026-11-04 |
+| S20 | Chain-Seiten: Kettengrafik oben, Entitäten und Aussagen im Text; Menü Docs/Visuals getrennt (0.12.0) | samian-amt | S19 | erledigt 2026-11-04 |
+| S21 | Chain-Seiten: Figuren für InformationCarrier–ProductionCentre je Carrier (0.12.1) | samian-amt | S20 | erledigt 2026-11-04 |
+| S22 | Koordinaten der vier Zentren und Profilzeichnungen 24, 27, 31, 32, 33 eingebaut (0.13.0) | samian-amt | S21 | erledigt 2026-11-04 |
+| S23 | Fehlerbehebung `check_cases` (Fallgrafiken wurden nicht neu gebaut); PC.1 mit Saciro iv (0.13.2) | samian-amt | S22 | Patch geliefert 2026-11-04 |
+| S9 | Engine-Abgleich und SHACL-Validierung | samian-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
 
 S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die Entscheidung in S4.
 
@@ -160,7 +168,7 @@ S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die E
 
 **Ziel:** Gewicht, FW-Typ und Methode jeder Aussage werden aus der Quellzeichenkette berechnet; drei echte Ketten laufen durch zwei Modelle.
 
-**Uploads:** Paper „How to handle vagueness and uncertainty“; die CHNT-Exporte nur für die Prüfung der Kantengewichte.
+**Uploads:** Paper „How to handle vagueness and uncertainty“; die Samian-Exporte nur für die Prüfung der Kantengewichte.
 
 Inhalt: `py/weights.py`, `data/weight-cases.csv`, `data/chains-source.csv`, `py/step_chains.py`, `ontology/variant-b-derived.ttl`,
 `ontology/fw-method-draft.ttl`, Grafik 05, Seite *Chains*, Abschnitte auf der Seite *Weights*, Review-Fragen 8 bis 14.
@@ -191,7 +199,7 @@ die exportierten Zentrumsgewichte der vier Träger stimmen mit der Regel überei
 Inhalt (0.14.0):
 
 - `py/weights.py`: `Gewicht = (1 / n_Möglichkeiten) · (1/2, wenn ?)`, Rekonstruktion und Selbsttest angepasst; `data/weight-cases.csv` neu gerechnet (`A or B?` 0,25; neuer Fall `A or B or C?` 0,17).
-- `py/frequency.py` und `data/form-counts.csv`: Anteile der Alternativen eines OR in der ganzen Datenbank (Stufe A). Nur Zusatzinformation (`mini:frequencyShare`, `mini:frequencyCount`, `mini:frequencyTotal`, `mini:frequencyLevel`, `mini:frequencyMethod`) in `dist/chains.ttl`; kein Gewicht, nicht in den Engine-Eingaben.
+- `py/frequency.py` und `data/form-counts.csv`: Anteile der Alternativen eines OR in der ganzen Datenbank (Stufe A). Nur Zusatzinformation (`sam:frequencyShare`, `sam:frequencyCount`, `sam:frequencyTotal`, `sam:frequencyLevel`, `sam:frequencyMethod`) in `dist/chains.ttl`; kein Gewicht, nicht in den Engine-Eingaben.
 - Grafiken, Seiten (*Weights*, *Review*, Kettenseiten, PF.3 und PF.4) und README an die Regel angepasst.
 
 **Abnahme:** `python main.py` läuft durch; `31 or 31R` ergibt 0,8025 / 0,1975; zwei Läufe ändern keine Datei.
@@ -200,7 +208,7 @@ Inhalt (0.14.0):
 
 ## S24 — AMT Explorer für die drei Ketten
 
-**Ziel:** Auf den Pages des Mini-AMT läuft der Explorer von `amt-engine` (reines JavaScript im Browser, Reasoner `js/amt-reasoner.js`), aber nur mit den drei Ketten.
+**Ziel:** Auf den Pages des samian-amt läuft der Explorer von `amt-engine` (reines JavaScript im Browser, Reasoner `js/amt-reasoner.js`), aber nur mit den drei Ketten.
 
 Inhalt (0.15.0):
 
@@ -213,6 +221,33 @@ Inhalt (0.15.0):
 
 **Offen:** Live-Test auf GitHub Pages; Modell M2 oder Gödel-Logik als Auswahl (bewusst nicht eingebaut).
 
+## S25 — Umbenennung auf samian-amt
+
+**Ziel:** Das Repository heißt überall `samian-amt`; kein `CHNT`, kein `Mini-AMT`, kein `mini:` mehr in den Quellen.
+
+Inhalt (0.16.0): Links und Texte (`leiza-scit/samian-amt`), Namespace `http://example.org/samian-amt/` mit Prefix `sam:`, `ontology/samian-amt.ttl`
+und `py/samian_amt_utils.py` (umbenannt; die alten Dateien löscht man von Hand), „CHNT data“ wird „Samian Research data“. Der CHANGELOG
+vor 0.16.0 bleibt unverändert (er beschreibt den damaligen Stand).
+
+**Abnahme:** `grep` nach `CHNT`, `Mini-AMT`, `mini:` in den Quellen (ohne `CHANGELOG.md` und `PRIMER.md`) findet nichts; `python main.py` läuft zweimal durch, danach
+ändert sich nichts mehr; die Turtle-Dateien tragen `sam:`.
+
+## S26 — Explorer überarbeitet
+
+**Ziel:** Der Explorer ist lesbar, auch mit Reasoning, und liefert die Ausgaben, die man für Folien und Neo4j braucht.
+
+Inhalt (0.17.0): Kopfzeile „Samian Research - AMT Explorer“ mit AMT-Logo; Icons statt Text für Turtle, Cypher, PNG, SVG, Link, Vollbild;
+Details-Panel und About-Panel (LEIZA, mainzed, NFDI4Objects) als Info-Icons in der Leiste; Legende der Knotenfarben unten rechts, einklappbar
+(klein: eingeklappt); Spalten in Kettenrichtung, abgeleitete Kanten als gestrichelte Bögen, dünnere Linien (Dicke = Gewicht), Fokus auf die
+Nachbarschaft beim Klick; Kantenbeschriftung wählbar (Namen und Gewichte, Gewichte, keine); allgemeine Rolle `reaches` schaltbar;
+Link merkt sich Kette, Reasoning, Beschriftung.
+
+**Abnahme:** Chromium (headless): Titel, keine Konsolenfehler außer dem fehlenden mainzed-Logo, Kanten ohne Reasoning 8 und mit Reasoning 16 (Chain A),
+Cypher-Dialog mit 7 Knoten und 16 Beziehungen, PNG und SVG laden, der Link stellt Kette, Reasoning und Beschriftung wieder her.
+
+**Offen:** `docs/explorer/assets/img/mainzed.png` (kein Zugriff auf mainzed.org aus der Arbeitsumgebung); Live-Test auf GitHub Pages;
+Cypher-Test in einer echten Neo4j-Instanz (hier nur die Textform geprüft).
+
 ## S4b — Hybridmodell Träger–Zentrum (zurückgestellt)
 
 Allard (2026-11-04): Stempel-ID (`in_id`, geometrisch eindeutig) und Fundort je Träger spielen für das kleine Modell erst mal keine Rolle; Flo stimmt zu. Die Daten liegen im Drive (`ct_ic_in.csv`: Träger, Stempel, `dieposition` ignorieren; `ct_ic_pc.csv`: das Gewicht ignorieren, es wird neu abgeleitet; `tblkilnsitesWithCoordinates.csv`: Liste der Produktionsorte). Abgeleitet wird mit den Faktoren Verbreitung 0,75 und Namensgleichheit 0,5 (eigene Methode je Art); mehrere Produktionsorte gleich stark (ein „or“); `Saint-Saturnin` ist die Kurzform von `Jonquières, Saint Saturnin`.
@@ -223,7 +258,7 @@ Allard (2026-11-04): Stempel-ID (`in_id`, geometrisch eindeutig) und Fundort je 
 
 **Abnahme:** Ontologie, Reasoner und Chain-Seiten zeigen beide Fälle; die Rollenkette „gleicher Stempel“ rechnet mit Product; der beste Pfad gewinnt; Dokumentation und `CHANGELOG.md` nennen die Schwächung.
 
-## S3a — Mini-AMT an die FW-Ontologie anpassen
+## S3a — samian-amt an die FW-Ontologie anpassen
 
 **Ziel:** Hextupel, Quellen und Dokumentation benutzen die Begriffe der FW-Ontologie statt meiner Vorschläge.
 
@@ -251,7 +286,7 @@ Inhalt:
 
 ## S3b — `fw:Certainty`
 
-**Ziel:** Das Mini-AMT folgt der Engine (S25) und der FW-Ontologie (2026-11-03): sichere Aussagen tragen `fw:Certainty`.
+**Ziel:** Das samian-amt folgt der Engine (S25) und der FW-Ontologie (2026-11-03): sichere Aussagen tragen `fw:Certainty`.
 
 **Inhalt:** `py/weights.py` (`CERTAINTY`, `FW_TYPE["certain"]`), `py/reference_reasoner.py` (`combine_types` wie die Engine), `py/step_chains.py` (`createdBy` mit `Certainty`, Engine-Prüfung überspringt Engines ohne `fw:Certainty`), `py/step_diagrams.py` (Kennzeichen `C`), `py/step_docs.py`, `data/weight-cases.csv`, README, `requirements.txt` (Engine-Commit `ce23c5c`), CHANGELOG 0.5.0.
 
@@ -275,7 +310,7 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 
 ## Teil D — Offene Punkte
 
-- **SHACL M1** (mit S4b klären; das Hybridmodell ändert die Rollen): `mini:reaches` und `mini:reachedBy` brauchen je ein `rdfs:domain` und ein `rdfs:range`, sonst entspricht M1 den Shapes der Engine nicht und der Runner bricht ab. Möglichkeiten: ein gemeinsames Oberconcept als Domain und Range (zum Beispiel `mini:Entity`); die Oberrolle und ihre drei Subsumtionen weglassen; oder die Shapes der Engine für Oberrollen lockern (Änderung in `amt-engine`). Das ist eine Modellentscheidung; mit S4 klären.
+- **SHACL M1** (mit S4b klären; das Hybridmodell ändert die Rollen): `sam:reaches` und `sam:reachedBy` brauchen je ein `rdfs:domain` und ein `rdfs:range`, sonst entspricht M1 den Shapes der Engine nicht und der Runner bricht ab. Möglichkeiten: ein gemeinsames Oberconcept als Domain und Range (zum Beispiel `sam:Entity`); die Oberrolle und ihre drei Subsumtionen weglassen; oder die Shapes der Engine für Oberrollen lockern (Änderung in `amt-engine`). Das ist eine Modellentscheidung; mit S4 klären.
 - `fw:implementedBy`: das Triple liegt bereit; an die FW-Ontologie weitergeben, mit einer Release- oder Zenodo-IRI statt des Branch-Links, sobald es eine gibt.
 - Typ abgeleiteter Kanten ist geklärt (A4), aber noch nicht mit Allard besprochen (Frage 9 der Review-Seite): eine abgeleitete Kante, deren Vorderglieder Unsicherheit und Vagheit mischen, bekommt `fw:FuzzinessWobbliness`.
 - Regionen und Gruppen ohne Zentrumsknoten (9.033 Strings): eigene Klasse oder weglassen?
@@ -288,5 +323,5 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 - **FW-Ontologie (Patch zum 0.14.0):** Beschreibung und Beispiele von `fw:EqualShareRule` an die neue Regel anpassen (`Lezoux or Vichy ?` = 0,25); Eintrag für die Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“; die Texte stehen im Patch `FW_Ontology`.
 - `fw:implementedBy`-Triple: bleibt (siehe oben).
 - LICENSE, `CITATION.cff` und eine `RELEASE`-Konstante fehlen noch; mit dem ersten Zenodo-Release nachziehen.
-- Namespace `mini:` ist ein Platzhalter; persistente IRI per w3id klären.
+- Namespace `sam:` ist ein Platzhalter; persistente IRI per w3id klären.
 - Eine IRI-Landkarte (A6) entsteht, sobald RDF veröffentlicht wird.

@@ -1,4 +1,4 @@
-"""A small, independent reference reasoner for the mini-amt axioms.
+"""A small, independent reference reasoner for the samian-amt axioms.
 
 It is NOT a replacement for the AMT engine. It implements the documented
 semantics of the three axiom types used here (see ontology/amt.ttl in the

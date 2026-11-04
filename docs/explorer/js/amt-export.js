@@ -6,7 +6,7 @@
 
 // ------------------------------------------------------------
 // Helper: strip a full IRI down to its local name
-// e.g. "http://github.com/leiza-scit/CAA2026-amt/Potter_A" -> "Potter_A"
+// e.g. "http://example.org/samian-amt/ae_vitalis_viii" -> "ae_vitalis_viii"
 // ------------------------------------------------------------
 var localName = function(iri) {
     var ex = _AMT.prefix;
@@ -120,7 +120,7 @@ var exportTTL = function() {
     if (edges.some(function(e) { return e.type || e.method; })) {
         lines.push("@prefix fw:   <http://w3id.org/fw_ontology/> .");
     }
-    lines.push("@prefix ex:   <"  + ex   + "> .");
+    lines.push("@prefix sam:  <"  + ex   + "> .");
     sep();
 
     // ── 2. AMT meta-ontology ───────────────────────────────────
@@ -202,7 +202,7 @@ var exportTTL = function() {
     // Helper: shorten an IRI to prefixed form for output
     var pfx = function(iri) {
         if (!iri) return iri;
-        if (iri.startsWith(ex))  return "ex:"  + iri.slice(ex.length);
+        if (iri.startsWith(ex))  return "sam:" + iri.slice(ex.length);
         if (iri.startsWith(AMT)) return "amt:" + iri.slice(AMT.length);
         if (iri.startsWith(RDF)) return "rdf:" + iri.slice(RDF.length);
         if (iri.startsWith(RDFS))return "rdfs:"+ iri.slice(RDFS.length);
@@ -318,95 +318,55 @@ var exportTTL = function() {
 };
 
 // ------------------------------------------------------------
-// exportCypher: serialise current graph as Neo4J Cypher
+// buildCypher: the graph as it is shown in the Explorer, as Cypher for Neo4j 5.
 //
-// Strategy: one single Cypher transaction so that node variables
-// defined in MERGE statements are visible to all subsequent
-// MERGE relationship statements in the same block.
-//
-// Structure:
-//   Block 1 – MERGE all nodes (variables stay in scope via WITH)
-//   Block 2 – MATCH all nodes back by id (safe variable rebind)
-//   Block 3 – MERGE all relationships using those variables
+// Shown = one direction only (inverse roles stay out), the generic role only if its switch is on, and with
+// reasoning on the inferred edges too. One statement per node and per relationship, each ended by ";", so the
+// script can be pasted into Neo4j Browser or run with cypher-shell and run again without duplicates (MERGE).
+//   node label           the concept (Potform, InformationCarrier, ProductionCentre, Actor)
+//   node properties      id (local name), iri, name
+//   relationship type    the role in UPPER_SNAKE_CASE (hasProductionCentre -> HAS_PRODUCTION_CENTRE)
+//   relationship props   weight, role, fwType, method (if any), inferred, source (the source string, if any)
 // ------------------------------------------------------------
-var exportCypher = function() {
-    var ex            = _AMT.prefix;
-    var rg            = getReasonedGraph();
-    var nodes         = rg.nodes;
-    var edges         = rg.edges;
-    var baseEdgeCount = rg.baseEdgeCount;
+var cypherString = function(s) { return JSON.stringify(String(s)); };
+var cypherRel = function(role) { return cypherSafe(localName(role).replace(/([a-z0-9])([A-Z])/g, "$1_$2")).toUpperCase(); };
 
-    // Build id → varName map
-    var varMap = {};
-    for (var i in nodes) {
-        varMap[nodes[i].id] = cypherSafe(localName(nodes[i].id));
-    }
-
-    var lines = [];
-    lines.push("// AMT Cypher export – single transaction");
-    lines.push("// Generated: " + new Date().toISOString());
-    lines.push("// Nodes: " + nodes.length + "  |  Edges: " + edges.length +
-               "  (inferred: " + (edges.length - baseEdgeCount) + ")");
-    lines.push("");
-
-    // ── Block 1: MERGE all nodes, carry variables forward with WITH ──
-    lines.push("// Step 1: create / match all nodes");
-    var nodeLines = [];
-    var varList   = [];
-    for (var ni in nodes) {
-        var n       = nodes[ni];
-        var varName = varMap[n.id];
-        var label   = cypherSafe(localName(n.concept));
-        nodeLines.push(
-            "MERGE (" + varName + ":" + label + " {id: \"" + localName(n.id) + "\"})\n" +
-            "  ON CREATE SET " + varName + ".label   = \"" + n.label.replace(/"/g, '\\"') + "\",\n" +
-            "                 " + varName + ".concept = \"" + localName(n.concept) + "\""
-        );
-        varList.push(varName);
-    }
-    lines.push(nodeLines.join("\n"));
-    lines.push("WITH " + varList.join(", "));
-    lines.push("");
-
-    // ── Block 2: MERGE all relationships in the same transaction ──
-    lines.push("// Step 2: create / match all relationships");
-
-    var buildEdgeLine = function(e, inferred) {
-        var w       = (typeof e.width === "number") ? e.width : parseFloat(e.width) || 0;
-        if (w > 1.0) w = 1.0;
-        w = Math.round(w * 1000000) / 1000000;
-        var relType = cypherSafe(localName(e.role)).toUpperCase();
-        var fromVar = varMap[e.from] || cypherSafe(localName(e.from));
-        var toVar   = varMap[e.to]   || cypherSafe(localName(e.to));
-        return (
-            "MERGE (" + fromVar + ")-[:" + relType + " {" +
-            "weight: " + w + ", " +
-            "role: \"" + localName(e.role) + "\", " +
-            "inferred: " + (inferred ? "true" : "false") + ", " +
-            "provenance: \"" + (e.provenance || []).map(localName).join(";") + "\", " +
-            "type: \"" + localName(e.type || "http://w3id.org/fw_ontology/Vagueness") + "\"" +
-            (e.method ? ", method: \"" + localName(e.method) + "\"" : "") +
-            "}]->(" + toVar + ")"
-        );
-    };
-
-    lines.push("// original assertions");
-    for (var j = 0; j < Math.min(baseEdgeCount, edges.length); j++) {
-        lines.push(buildEdgeLine(edges[j], false));
-    }
-
-    if (edges.length > baseEdgeCount) {
-        lines.push("");
-        lines.push("// inferred assertions (reasoning)");
-        for (var k = baseEdgeCount; k < edges.length; k++) {
-            lines.push(buildEdgeLine(edges[k], true));
-        }
-    }
-
-    lines.push("");
-    lines.push("RETURN *");
-
-    var content = lines.join("\n").replace(/Infinity/g, "1.0");
-    downloadFile("amt-graph-reasoned.cypher", content, "text/plain");
-    console.log("Cypher export done:", edges.length, "edges (" + (edges.length - baseEdgeCount) + " inferred)");
+var buildCypher = function() {
+    var nodes = _AMT.thisNodes, edges = _AMT.thisEdges;
+    var byId = {};
+    nodes.forEach(function(n) { byId[n.id] = n; });
+    var nInf = edges.filter(function(e) { return e.inferred; }).length;
+    var out = [];
+    out.push("// samian-amt: " + _AMT.file.replace(/\.ttl$/, "") + (_AMT.reasoning ? ", reasoning on" : ", reasoning off"));
+    out.push("// Cypher for Neo4j 5, the graph as shown in the Explorer: " + nodes.length + " nodes, " + edges.length +
+             " relationships (" + (edges.length - nInf) + " asserted, " + nInf + " inferred).");
+    out.push("// sam: = " + _AMT.prefix);
+    out.push("");
+    var labels = {};
+    nodes.forEach(function(n) { labels[cypherSafe(localName(n.concept))] = true; });
+    Object.keys(labels).sort().forEach(function(l) {
+        out.push("CREATE CONSTRAINT " + l.toLowerCase() + "_id IF NOT EXISTS FOR (n:" + l + ") REQUIRE n.id IS UNIQUE;");
+    });
+    out.push("");
+    nodes.forEach(function(n) {
+        out.push("MERGE (n:" + cypherSafe(localName(n.concept)) + " {id: " + cypherString(localName(n.id)) + "}) SET n.iri = " +
+                 cypherString(n.id) + ", n.name = " + cypherString(n.label) + ";");
+    });
+    out.push("");
+    edges.forEach(function(e) {
+        var a = byId[e.from], b = byId[e.to];
+        if (!a || !b) return;
+        var props = ["r.weight = " + (Math.round(e.weight * 1000000) / 1000000),
+                     "r.role = " + cypherString("sam:" + localName(e.role)),
+                     "r.fwType = " + cypherString(localName(e.type || "http://w3id.org/fw_ontology/Vagueness")),
+                     "r.inferred = " + (e.inferred ? "true" : "false")];
+        if (e.method) props.push("r.method = " + cypherString(localName(e.method)));
+        if (e.source) props.push("r.source = " + cypherString(e.source));
+        out.push("MATCH (a:" + cypherSafe(localName(a.concept)) + " {id: " + cypherString(localName(a.id)) + "}), (b:" +
+                 cypherSafe(localName(b.concept)) + " {id: " + cypherString(localName(b.id)) + "}) MERGE (a)-[r:" +
+                 cypherRel(e.role) + "]->(b) SET " + props.join(", ") + ";");
+    });
+    out.push("");
+    out.push("// Look at it: MATCH (a)-[r]->(b) RETURN a, r, b;");
+    return out.join("\n").replace(/Infinity/g, "1.0") + "\n";
 };

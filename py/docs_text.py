@@ -4,12 +4,12 @@ British English. Keep sentences short: the pages are read by archaeologists who
 review the model, not by reasoner developers.
 """
 
-REPO = "https://github.com/leiza-scit/CHNT2026-amt"      # planned home of the repository
+REPO = "https://github.com/leiza-scit/samian-amt"      # planned home of the repository
 BLOB = REPO + "/blob/main/"
 
 STATUS = """> **Status: working draft.** The namespace is a placeholder. The weights follow the
 > rule of the source paper (see Weights). The logic operator (product) and the role names are proposals,
-> except `hasType` / `isTypeOf`, which were agreed with Allard Mees. Three real chains from the CHNT data
+> except `hasType` / `isTypeOf`, which were agreed with Allard Mees. Three real chains from the Samian Research data
 > are modelled (see Chains)."""
 
 INDEX_INTRO = """A deliberately small [AMT](http://academic-meta-tool.xyz/) domain model for one chain:
