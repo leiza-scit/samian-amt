@@ -11,9 +11,11 @@ def main() -> int:
     import build
     import chain_pages
     import model_figs
+    import afe_roundtrip_figs
     import roundtrip_figs
     model_figs.main()      # first: the overview page of build.main() shows a model figure
     roundtrip_figs.main()
+    afe_roundtrip_figs.main()
     chain_pages.main()
     build.main()
     return 0

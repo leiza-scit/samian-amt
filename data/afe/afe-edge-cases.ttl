@@ -1,0 +1,31 @@
+# Grenzfaelle fuer den Roundtrip (siehe Memo, Abschnitt 7): A und D kommen anders zurueck (laut Karsten kommen sie nicht vor);
+# B kommt auf oberster Klassenebene gleich zurueck; C bleibt unveraendert.
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# A: Unsicherheit als Sammlung mit EINEM Mitglied (kommt als direkter Container zurueck)
+afe:90001 a nmo:NumismaticObject ;
+    nmo:hasAuthority [ a fw:UncertainValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 0.7 ; rdf:value nm:titus ] ] .
+
+# B: Klasse ohne "Resource" (kommt als VagueResourceValue zurueck, auf oberster Klassenebene gleich)
+afe:90002 a nmo:NumismaticObject ;
+    nmo:hasAuthority [ a fw:VagueValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 0.5 ; rdf:value nm:titus ],
+                    [ fw:hasConfidence 0.5 ; rdf:value nm:vespasian ] ] .
+
+# C: Vager Container mit einem Mitglied zu 1.0 (bleibt ein Container; das geht gut, weil der Typ dabeisteht)
+afe:90003 a nmo:NumismaticObject ;
+    nmo:hasAuthority [ a fw:VagueResourceValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 1.0 ; rdf:value nm:titus ] ] .
+
+# D: zwei Container an derselben Muenze mit demselben Typ (werden zu einem)
+afe:90004 a nmo:NumismaticObject ;
+    nmo:hasAuthority [ a fw:VagueResourceValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 0.5 ; rdf:value nm:titus ] ],
+        [ a fw:VagueResourceValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 0.5 ; rdf:value nm:vespasian ] ] .

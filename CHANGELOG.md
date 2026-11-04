@@ -2,6 +2,19 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.19.0] - Round trip AFE -> AMT -> AFE (package version 3), engine 0.7.0
+
+### Added
+- **Round trip AFE -> AMT -> AFE** (step `afe-roundtrip`, `py/step_afe_roundtrip.py`) on the coin data of the AFE, state of Karsten Tolle's package version 3 (2026-11-03; his answers are still open). Four forms of an AFE value (container with members, one uncertain value, certain value, unknown) become hextuples with `fw:hasMethod fw:AFEAssignment` and come back; each coin is compared with the original as a graph (numbers by value, `...Value` = `...ResourceValue` on the top class). *Warum:* Der Stand von Karstens Paket läuft damit schon im Repository und wird iterativ angepasst, sobald seine Antworten da sind.
+- `data/afe/`: `afe-all-cases.ttl` (five coins as sent), `afe-edge-cases.ttl` (constructed 90001 to 90004, cases A to D of the memo, expected outcome is part of the test), `afe-denomination-mint-test.ttl` (constructed 80001 to 80003; `nmo:hasDenomination` and `nmo:hasMint` are assumed names).
+- `queries/coins/afe-to-amt.rq` and `queries/coins/amt-to-afe.rq` (content as in the package, comments in English).
+- If the AMT engine 0.7.0 or newer is installed, the first file also goes through the engine (reasoning) before the way back; the result must be the same.
+- Documentation page **AFE round trip** (docs/afe-roundtrip.md) in the category Roundtrip, with two figures (`afe-roundtrip-01-flow`, `afe-roundtrip-02-cases`), results, edge cases, what is lost, the open questions to Karsten and both queries in full.
+- Written to `dist/`: `afe-<name>-as-amt.ttl`, `afe-<name>-back.ttl`, `afe-roundtrip-report.md`, `afe-engine-all-cases/`; Turtle is canonical, two runs give identical files.
+
+### Changed
+- `requirements.txt`: the AMT engine is now an active requirement at the release `v0.7.0` (before: a commented line naming a commit). *Warum:* Seit dem Release 0.7.0 kennt die Engine `fw:Certainty`; auf Windows mit Python 3.10 sind Roundtrip-Engine-Prüfung und SHACL für M1 und M2 damit bestätigt.
+
 ## [0.18.0] - Round trip AMT -> AFE -> AMT, SHACL of M1 solved
 
 ### Added

@@ -1,0 +1,111 @@
+<svg width="1750" height="1592" viewBox="0 0 1750 1592" xmlns="http://www.w3.org/2000/svg" role="img"><title>What the way back makes of each coin</title>
+<rect width="1750" height="1592" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">What the way back makes of each coin</text>
+<text x="60" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">Coin</text>
+<text x="210" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">AFE input</text>
+<text x="790" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">After the round trip</text>
+<text x="1370" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#55544f">Result</text>
+<rect x="50" y="140" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="168" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">11471</text>
+<text x="60" y="202" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">AFE</text>
+<text x="210" y="168" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority uncertain_value</text>
+<text x="790" y="168" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority uncertain_value</text>
+<rect x="1370" y="152" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="169" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<rect x="50" y="256" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="284" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">12324</text>
+<text x="60" y="318" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">AFE</text>
+<text x="210" y="284" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority FuzzinessWobbliness: commodus 0.25, lucius_verus 0.25,</text>
+<text x="210" y="306" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">marcus_aurelius 0.25</text>
+<text x="790" y="284" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority FuzzinessWobbliness: commodus 0.25, lucius_verus 0.25,</text>
+<text x="790" y="306" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">marcus_aurelius 0.25</text>
+<rect x="1370" y="268" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="285" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<rect x="50" y="372" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="400" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">15661</text>
+<text x="60" y="434" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">AFE</text>
+<text x="210" y="400" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 0.5, vespasian 0.5</text>
+<text x="790" y="400" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 0.5, vespasian 0.5</text>
+<rect x="1370" y="384" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="401" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<rect x="50" y="488" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="516" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">15668</text>
+<text x="60" y="550" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">AFE</text>
+<text x="210" y="516" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority aurelian</text>
+<text x="790" y="516" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority aurelian</text>
+<rect x="1370" y="500" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="517" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<rect x="50" y="604" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="632" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">16048</text>
+<text x="60" y="666" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">AFE</text>
+<text x="210" y="632" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Uncertain: philip_the_arab 0.6</text>
+<text x="790" y="632" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Uncertain: philip_the_arab 0.6</text>
+<rect x="1370" y="616" width="130" height="34" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="633" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">top class</text>
+<text x="210" y="694" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">fw:UncertainValue comes back as fw:UncertainResourceValue (the values are IRIs)</text>
+<rect x="50" y="720" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="748" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">80001</text>
+<text x="60" y="782" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">constructed</text>
+<text x="210" y="748" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority augustus · Denomination Vague: denarius 0.5, quinarius 0.5 ·</text>
+<text x="210" y="770" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Mint Uncertain: rome 0.6</text>
+<text x="790" y="748" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority augustus · Denomination Vague: denarius 0.5, quinarius 0.5 ·</text>
+<text x="790" y="770" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Mint Uncertain: rome 0.6</text>
+<rect x="1370" y="732" width="130" height="34" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="749" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">top class</text>
+<text x="210" y="810" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">the mint is a fw:UncertainValue: same change</text>
+<rect x="50" y="836" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="864" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">80002</text>
+<text x="60" y="898" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">constructed</text>
+<text x="210" y="864" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority nero · Denomination sestertius · Mint lugdunum</text>
+<text x="790" y="864" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority nero · Denomination sestertius · Mint lugdunum</text>
+<rect x="1370" y="848" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="865" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<rect x="50" y="952" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="980" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">80003</text>
+<text x="60" y="1014" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">constructed</text>
+<text x="210" y="980" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority trajan · Mint FuzzinessWobbliness: alexandria 0.3, antioch 0.3,</text>
+<text x="210" y="1002" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">rome 0.4</text>
+<text x="790" y="980" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority trajan · Mint FuzzinessWobbliness: alexandria 0.3, antioch 0.3,</text>
+<text x="790" y="1002" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">rome 0.4</text>
+<rect x="1370" y="964" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="981" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<rect x="50" y="1068" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="1096" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">90001</text>
+<text x="60" y="1130" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">edge case</text>
+<text x="210" y="1096" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Uncertain: titus 0.7</text>
+<text x="790" y="1096" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Uncertain: titus 0.7</text>
+<rect x="1370" y="1080" width="130" height="34" rx="4" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="1097" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">different</text>
+<text x="210" y="1158" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">uncertainty as a collection of one member comes back as a plain container: one AMT edge for both</text>
+<rect x="50" y="1184" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="1212" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">90002</text>
+<text x="60" y="1246" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">edge case</text>
+<text x="210" y="1212" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 0.5, vespasian 0.5</text>
+<text x="790" y="1212" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 0.5, vespasian 0.5</text>
+<rect x="1370" y="1196" width="130" height="34" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="1213" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">top class</text>
+<text x="210" y="1274" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">class without "Resource" comes back with it</text>
+<rect x="50" y="1300" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="1328" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">90003</text>
+<text x="60" y="1362" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">edge case</text>
+<text x="210" y="1328" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 1.0</text>
+<text x="790" y="1328" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 1.0</text>
+<rect x="1370" y="1312" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="1329" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
+<text x="210" y="1390" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">kept: the type is on the edge, only fw:Certainty at 1.0 becomes a direct value</text>
+<rect x="50" y="1416" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="60" y="1444" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">90004</text>
+<text x="60" y="1478" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">edge case</text>
+<text x="210" y="1444" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: vespasian 0.5 · Authority Vague: titus 0.5</text>
+<text x="790" y="1444" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Vague: titus 0.5, vespasian 0.5</text>
+<rect x="1370" y="1428" width="130" height="34" rx="4" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="1445" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">different</text>
+<text x="210" y="1506" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">two containers of the same kind become one container with both members</text>
+<rect x="60" y="1541" width="22" height="22" rx="3" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="92" y="1552" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">same</text>
+<rect x="174.0" y="1541" width="22" height="22" rx="3" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="206.0" y="1552" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">same on the top class (…Value = …ResourceValue)</text>
+<rect x="672.0" y="1541" width="22" height="22" rx="3" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="704.0" y="1552" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">different: not loss-free</text>
+</svg>

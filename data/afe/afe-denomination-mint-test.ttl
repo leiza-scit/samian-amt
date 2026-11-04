@@ -1,0 +1,30 @@
+# Konstruierte Testdaten (keine echten AFE-Daten!) fuer nmo:hasDenomination und nmo:hasMint.
+# Die Property-Namen und die Nomisma-IRIs sind angenommen; bitte von Karsten bestaetigen lassen.
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Alle drei Eigenschaften an einer Muenze, jede in einer anderen Form
+afe:80001 a nmo:NumismaticObject ;
+    nmo:hasAuthority nm:augustus ;
+    nmo:hasDenomination [ a fw:VagueResourceValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 0.5 ; rdf:value nm:denarius ],
+                    [ fw:hasConfidence 0.5 ; rdf:value nm:quinarius ] ] ;
+    nmo:hasMint [ a fw:UncertainValue ; fw:hasConfidence 0.6 ; rdf:value nm:rome ] .
+
+# Sichere Denomination und Mint
+afe:80002 a nmo:NumismaticObject ;
+    nmo:hasAuthority nm:nero ;
+    nmo:hasDenomination nm:sestertius ;
+    nmo:hasMint nm:lugdunum .
+
+# Mint unscharf (drei Kandidaten)
+afe:80003 a nmo:NumismaticObject ;
+    nmo:hasAuthority nm:trajan ;
+    nmo:hasMint [ a fw:FuzzinessWobblinessResourceValue, skos:Collection ;
+        skos:member [ fw:hasConfidence 0.4 ; rdf:value nm:rome ],
+                    [ fw:hasConfidence 0.3 ; rdf:value nm:antioch ],
+                    [ fw:hasConfidence 0.3 ; rdf:value nm:alexandria ] ] .

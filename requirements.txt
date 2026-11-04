@@ -12,8 +12,8 @@ resvg-py>=0.2      # step visuals: SVG -> PNG
 pillow>=10         # step visuals: text widths with the bundled Fira Sans
 # scikit-image>=0.22  # only for visuals/trace_forms.py, prepare_basemap.py, prepare_roman.py (one-off, output is committed)
 
-# Optional: the AMT engine (https://github.com/alpaca-fair-framework/amt-engine). 0.6.0 is the first
-# version that reads fw:hasType, fw:hasMethod and fw:derivedFrom; fw:Certainty came after the 0.6.0 tag
-# (engine step S25), so the line below names a commit. With an older engine the cross-check is skipped.
+# The AMT engine (https://github.com/alpaca-fair-framework/amt-engine), release 0.7.0 (Zenodo DOI 10.5281/zenodo.23965455):
+# the first release that reads fw:hasType, fw:hasMethod, fw:derivedFrom and knows fw:Certainty. The steps chains, roundtrip
+# and afe-roundtrip use it for the cross-check and skip it, with a note, if it is missing or older than 0.7.0.
 # The engine brings its own dependencies (rdflib, pyshacl, pyvis).
-# amt @ git+https://github.com/alpaca-fair-framework/amt-engine.git@ce23c5c
+amt @ git+https://github.com/alpaca-fair-framework/amt-engine.git@v0.7.0

@@ -8,7 +8,7 @@ title: Round trip
 
 The AFE coin data and the AMT meet in the same question: how is a vague or uncertain statement written down?
 AFE answers with containers (a value and a confidence), AMT with a hextuple (a weight and an FW type). Karsten Tolle's
-round trip goes **AFE → AMT → AFE**. This page shows the other direction, **AMT → AFE → AMT**: the three chains of this
+round trip goes **AFE → AMT → AFE** (see [AFE → AMT → AFE](afe-roundtrip.html)). This page shows the other direction, **AMT → AFE → AMT**: the three chains of this
 repository are written as the AFE container pattern with two SPARQL queries, read back with a third, and compared with
 what they started as.
 

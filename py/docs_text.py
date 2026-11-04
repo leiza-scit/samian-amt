@@ -185,7 +185,7 @@ REVIEW_QUESTIONS = [
 
 ROUNDTRIP_INTRO = """The AFE coin data and the AMT meet in the same question: how is a vague or uncertain statement written down?
 AFE answers with containers (a value and a confidence), AMT with a hextuple (a weight and an FW type). Karsten Tolle's
-round trip goes **AFE → AMT → AFE**. This page shows the other direction, **AMT → AFE → AMT**: the three chains of this
+round trip goes **AFE → AMT → AFE** (see [AFE → AMT → AFE](afe-roundtrip.html)). This page shows the other direction, **AMT → AFE → AMT**: the three chains of this
 repository are written as the AFE container pattern with two SPARQL queries, read back with a third, and compared with
 what they started as."""
 
@@ -241,3 +241,66 @@ ROUNDTRIP_TRICKS = """Four details of the two queries are worth knowing:
   `BIND(BNODE() AS ?edge)` gives every row its own statement node, which is what a reified statement needs.
 * **A lookup table.** `VALUES (?cType ?fwType) { ... }` maps the AFE container class to the FW type, so the type is
   data, not code."""
+
+
+AFE_RT_INTRO = """> **State of the package, version 3 (2026-11-03).** This page shows the round trip as Karsten Tolle's package describes it,
+> run on his coin data. His answers to the open questions at the end are still pending; the page is updated when they arrive.
+
+The other page, [AMT → AFE → AMT](roundtrip.html), starts with the AMT data of this repository and rebuilds an AFE pattern.
+This page starts with **real AFE data**: coins of the AFE with the container pattern for Authority (the issuing power).
+Two SPARQL queries turn the containers into AMT hextuples and back. The question is the same: does a vague or uncertain
+statement come back as it went?"""
+
+AFE_RT_CASES = """An AFE value has one of four forms. Each form has exactly one way into AMT:
+
+| Case | AFE form | AMT |
+|---|---|---|
+| 1 | a container with members: `fw:VagueResourceValue` or `fw:FuzzinessWobblinessResourceValue`, also a `skos:Collection` | one hextuple per member; weight = `fw:hasConfidence` of the member; `fw:hasType` from the container class |
+| 2 | one uncertain value: `fw:UncertainResourceValue` with `rdf:value` and `fw:hasConfidence` | one hextuple, `fw:Uncertainty` |
+| 3 | a certain value directly on the coin | one hextuple, weight 1.0, `fw:Certainty` |
+| 4 | `nm:uncertain_value`: unknown (Authority only) | the coin becomes a node without an edge |
+
+Every hextuple gets `fw:hasMethod fw:AFEAssignment`: in the AFE a person or the system enters the confidence; it is not a
+calculation rule. (`fw:EqualShareRule` belongs to the Samian source strings.) The way back reads the type from the edge and
+writes the container; a coin without an edge gets `nm:uncertain_value` again."""
+
+AFE_RT_RESULT = """Five coins of the AFE come back equal: four exactly the same, one (16048) on the **top class**. The AFE writes
+`fw:UncertainValue` where the way back writes `fw:UncertainResourceValue`; the values are IRIs, so the resource class is the
+fitting one, and the AFE side agreed that `…Value` and `…ResourceValue` are the same on the top level. The same holds for the
+constructed coin 80001.
+
+If the AMT engine 0.7.0 or newer is installed, the five coins also go through the engine (reasoning) before the way back, and
+the result is the same."""
+
+AFE_RT_EDGES = """Four constructed coins (`data/afe/afe-edge-cases.ttl`, numbers 90001 to 90004) test the border of the pattern. They
+are part of the test: the step fails if one of them behaves differently from what is written here.
+
+| Coin | Case (memo) | AFE input | Result | Why |
+|---|---|---|---|---|
+| 90001 | A | uncertainty written as a collection with one member | different | AMT has one edge for it, so the way back writes a plain container: the AFE form is not recoverable |
+| 90002 | B | `fw:VagueValue` (without "Resource") | same on the top class | the way back writes `fw:VagueResourceValue` |
+| 90003 | C | vague with one member at confidence 1.0 | same | the type is on the edge; only `fw:Certainty` at 1.0 becomes a direct value |
+| 90004 | D | two containers of the same kind on one property | different | they become one container with both members |
+
+Coins 80001 to 80003 test `nmo:hasDenomination` and `nmo:hasMint` in the same patterns. **Their property names are assumed**
+from Nomisma and the three coins are constructed; the AFE data seen so far have only `nmo:hasAuthority`."""
+
+AFE_RT_LOST = """* **Case A and case D.** The AFE form of an uncertainty as a one-member collection, and the split into several containers on
+  one property, are not carried by the hextuples (see the table above).
+* **Top class.** `…Value` becomes `…ResourceValue` (agreed as equal).
+* **Container identity.** Containers are blank nodes; they come back as new blank nodes, the structure is the same.
+* **Number spelling.** `0.25` and `0.250000` are the same `xsd:decimal`; the engine writes six places.
+* **Source texts.** There are none in the AFE data, so nothing is lost here (unlike the Samian strings)."""
+
+AFE_RT_QUESTIONS = """For Karsten Tolle (memo of 2026-11-03, section 8):
+
+1. Are `nmo:hasDenomination` and `nmo:hasMint` the property names in the AFE, with `nm:` concepts as values?
+2. How are coins without `nmo:hasAuthority` marked as unknown, and is it only Authority that has `nm:uncertain_value`?
+3. Is the confidence property `fw:hasConfidence` (as in the data) or `fw:hasConfidenceLevel`?
+4. Which class does a certain value get when it has to sit in a container?
+5. Is there a rule for the weights of a container (sum, equal share), or are they free?
+6. How should other properties with only the "uncertain" flag be read?
+
+From the other round trip, still open: may one subject have **two containers on the same predicate** (several `nmo:hasAuthority`
+edges, each with its own container)? Karsten's earlier answer says: today at most one container per property, in future
+several."""

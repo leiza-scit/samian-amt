@@ -140,7 +140,8 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die Samian-Exporte (nur bei Schritt
 | S27 | Explorer ruhiger: Beschriftung bei Auswahl, nur inferierte Linien, Positionen im Link, Legende kurz, mainzed-Logo (0.17.1) | samian-amt | S26 | Patch geliefert 2026-11-04 |
 | S28 | Roundtrip AMT → AFE → AMT: zwei SPARQL-CONSTRUCT-Abfragen, Schritt `roundtrip`, Dokuseite „Round trip“ mit drei Grafiken (0.18.0) | samian-amt | S27 | Patch geliefert 2026-11-04 (zusammen mit S29) |
 | S29 | SHACL von M1 über das Hilfsconcept `sam:Entity` gelöst (0.18.0) | samian-amt | S27 | Patch geliefert 2026-11-04 (zusammen mit S28) |
-| S30 | Karstens Use-Case und Roundtrip AFE → AMT → AFE ins Repository übernehmen (Vollständigkeit; wird dann ebenfalls nach AMT modelliert) | samian-amt | S28, Unterlagen von Karsten | offen, wartet auf Karsten |
+| S30 | Karstens Use-Case und Roundtrip AFE → AMT → AFE ins Repository übernehmen (Vollständigkeit; wird dann ebenfalls nach AMT modelliert) | samian-amt | S28, Unterlagen von Karsten | teilweise: Fassung 3 (Stand 2026-11-03) übernommen (0.19.0, Patch geliefert 2026-11-04); offen bis Karstens Antworten, Use-Case fehlt noch |
+| S31 | Engine 0.7.0 als feste Abhängigkeit (`requirements.txt`); S28 und S29 eingespielt und auf Windows mit Engine 0.7.0 bestätigt (0.19.0) | samian-amt | S28, S29 | Patch geliefert 2026-11-04 (zusammen mit S30) |
 | S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | samian-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
 | S3a | samian-amt an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | samian-amt | S3 | erledigt 2026-10-30 (0.4.0) |
 | S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | samian-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
@@ -275,7 +276,7 @@ Inhalt (0.18.0): `queries/amt-to-afe.rq` und `queries/afe-to-amt.rq` (SPARQL CON
 
 **Abnahme:** 20 Hextupel und 19 Knoten der Ketten und 36 Hextupel der 18 Fälle (alle sechs Muster) kommen unverändert zurück; die drei Reasoning-Läufe auf dem Rückgabegraphen ergeben dieselben 340 Kanten; Engine stimmt überein, SHACL ohne Verletzung; zwei Läufe liefern identische Dateien (kanonisches Turtle).
 
-**Erledigt 2026-11-04.**
+**Erledigt 2026-11-04; eingespielt (Commit 94ad614) und auf Windows mit Engine 0.7.0 bestätigt: Roundtrip-Engine-Prüfung stimmt, 340 Kanten.**
 
 **Offen (Fragen an Karsten und Allard):** (1) Sind zwei Container am selben Prädikat eines Subjekts (UND) in AFE zulässig? (2) Muss ein FW-Container seine Confidences auf 0,5 summieren? (3) Soll UND in AFE anders als über Gewicht und Typ sichtbar sein?
 
@@ -287,11 +288,19 @@ Inhalt (0.18.0): Hilfsconcept `sam:Entity` als Domain und Range von `sam:reaches
 
 **Abnahme:** Engine-SHACL für M1 und M2: keine Verletzung (vorher 4 bei `sam:reachedBy` und `sam:reaches`); Engine und Referenz-Reasoner stimmen bei allen 340 Kanten überein.
 
-**Erledigt 2026-11-04.**
+**Erledigt 2026-11-04; auf Windows mit Engine 0.7.0 bestätigt (SHACL M1 und M2 ohne Verletzung).**
 
 ## S30 — Karstens Use-Case und Roundtrip
 
-**Ziel:** Wenn die Unterlagen von Karsten (Use-Case, AFE → AMT → AFE, Fassung 3) vorliegen, kommen sie zur Vollständigkeit ins Repository und werden ebenfalls nach AMT modelliert (Flo, 2026-11-04). Die Navigation hat dafür seit 0.18.0 die eigene Kategorie „Roundtrip“ (`ROUNDTRIP_PAGES` in `py/site_kit.py`); Karstens Teil kommt iterativ als weitere Seiten dazu, die Seite „AMT → AFE → AMT“ steht schon darin. **Wartet auf Karsten.**
+**Ziel:** Wenn die Unterlagen von Karsten (Use-Case, AFE → AMT → AFE, Fassung 3) vorliegen, kommen sie zur Vollständigkeit ins Repository und werden ebenfalls nach AMT modelliert (Flo, 2026-11-04). Die Navigation hat dafür seit 0.18.0 die eigene Kategorie „Roundtrip“ (`ROUNDTRIP_PAGES` in `py/site_kit.py`).
+
+**Stand (0.19.0, 2026-11-04):** Fassung 3 (2026-11-03) ist übernommen, damit Flo schon etwas auf den GitHub Pages hat, während Karsten noch antwortet: `data/afe/` (fünf Münzen unverändert; konstruierte Randfälle 90001–90004; konstruierte Münzen 80001–80003 mit Denomination und Mint), `queries/coins/*.rq`, `py/step_afe_roundtrip.py` (Schritt `afe-roundtrip`), `visuals/afe_roundtrip_figs.py`, Seite `docs/afe-roundtrip.md`. Abnahme: fünf Münzen kommen gleich zurück (vier gleich, 16048 auf der Oberklasse `UncertainValue` = `UncertainResourceValue`), auch über die Engine 0.7.0; die Randfälle verhalten sich wie dokumentiert (90001 und 90004 verlustbehaftet, 90002 Oberklasse, 90003 gleich).
+
+**Offen (Fragen an Karsten, Memo Abschnitt 8):** (1) Heißen die Properties `nmo:hasDenomination` und `nmo:hasMint`? (Namen angenommen, Testdaten konstruiert); (2) Markierung „unbekannt“ bei Münzen ohne `nmo:hasAuthority`, nur für Authority? (3) `fw:hasConfidence` oder `fw:hasConfidenceLevel`? (4) Klasse für sichere Werte im Container? (5) Regel für die Gewichte im Container? (6) andere Properties mit nur dem Flag „uncertain“? Dazu aus S28: mehrere Container am selben Prädikat (Karsten: heute höchstens einer, künftig mehrere). Wenn die Antworten da sind: Abfragen und Erwartungen in `step_afe_roundtrip.py` anpassen, Seite aktualisieren; Use-Case nach AMT modellieren.
+
+## S31 — Engine 0.7.0 als Abhängigkeit
+
+**Ziel:** Die Engine ist ein fester Teil der Umgebung statt einer auskommentierten Zeile. Inhalt (0.19.0): `requirements.txt` nennt `amt @ git+https://github.com/alpaca-fair-framework/amt-engine.git@v0.7.0` (Release mit `fw:Certainty`, Zenodo 10.5281/zenodo.23965455). **Abnahme:** auf Windows mit Python 3.10 (2026-11-04): Engine 0.7.0 installiert, Roundtrip stimmt mit der Engine überein, SHACL für M1 und M2 ohne Verletzung.
 
 ## S4b — Hybridmodell Träger–Zentrum (zurückgestellt)
 
@@ -365,6 +374,8 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 - **S14 Rückfragen**: (1) Die fünf Modellgrafiken gibt es jetzt zweimal (matplotlib in `docs/diagrams`, Visuals-Stil in `docs/visuals`); weiterbauen wir künftig beide parallel, oder soll der Visuals-Stil für neue Grafiken (Allards Antworten, Roundtrip AMT Samian → AFE) die Hauptlinie werden? (2) Die Visuals-Seiten haben ein eigenes, schlichtes Layout; sollen sie das Jekyll-Layout der Docs übernehmen?
 - **S17 Rückfragen**: Was auf den öffentlichen Seiten noch als Vorschlag oder Platzhalter steht (Statushinweis der Startseite, Namespace `example.org`, `ProductLogic (proposal)` und die Rollennamen in *Vocabulary*, Toy-Gewichte in *Reasoning*, `fw:RelativeFrequency` auf der Visuals-Seite PF.4): bleibt es als gekennzeichneter Vorschlag stehen, oder soll es bis zur Klärung raus?
 - **S28 Rückfragen** (an Karsten und Allard): siehe Abschnitt S28 (zwei Container am selben Prädikat; Summe der Confidences; Sichtbarkeit von UND in AFE).
+- **S30 Rückfragen** (an Karsten): sechs Fragen des Memos zur Fassung 3, siehe Abschnitt S30; bis zur Antwort sind Denomination und Mint nur Annahmen.
+- Runner (`amt-runner`) noch nicht auf Engine 0.7.0 gehoben; eigener Chat.
 - **S19 Rückfragen** (Punkte 1 und 2 mit S22 erledigt): (1) Koordinaten von Kräherwald, Rheinzabern, Pfaffenhofen und Westerndorf (`visuals/sql/kilnsites-chains.sql`, Ergebnis nach `visuals/data/kilnsites-extra.csv`); bis dahin zeigen die Zentren-Figuren der Ketten A und B keine Karte; (2) Profilzeichnungen für die Formen 24, 27, 31, 32 und 33; (3) Allard prüft, ob es für die Fälle ohne Kette bessere archäologische Beispiele gibt.
 - **FW-Ontologie (Patch zum 0.14.0):** Beschreibung und Beispiele von `fw:EqualShareRule` an die neue Regel anpassen (`Lezoux or Vichy ?` = 0,25); Eintrag für die Methode „Wahrscheinlichkeit basierend auf dem Häufigkeitsanteil“; die Texte stehen im Patch `FW_Ontology`.
 - `fw:implementedBy`-Triple: bleibt (siehe oben).

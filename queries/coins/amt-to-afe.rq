@@ -1,0 +1,72 @@
+# AMT -> AFE (the way back), version 3 of the AFE-AMT-AFE package, 2026-11-03.
+# Reads the AMT edges with nmo:hasAuthority, nmo:hasDenomination and nmo:hasMint and builds the four AFE forms again.
+# The form follows from fw:hasType and the number of edges per (coin, property, kind):
+#   fw:Certainty (or no type) and weight 1.0     the property directly on the value                      (case 3)
+#   uncertainty with exactly one edge            fw:UncertainResourceValue with rdf:value, fw:hasConfidence (case 2)
+#   everything else (vagueness, fuzziness-wobbliness, no type with weight < 1, uncertainty with several edges)
+#                                                skos:Collection with one member per edge                  (case 1)
+#   coin without any edge                        nmo:hasAuthority nm:uncertain_value (Authority only)      (case 4)
+# The containers get a generated IRI urn:amt-afe:container:... (SPARQL cannot share a blank node across rows);
+# py/step_afe_roundtrip.py turns them into blank nodes. Not changed in content from the package.
+PREFIX nm:   <http://nomisma.org/id/>
+PREFIX nmo:  <http://nomisma.org/ontology#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX afe:  <http://afe.dainst.org/coin?afeid=>
+PREFIX fw:   <http://w3id.org/fw_ontology/>
+PREFIX amt:  <http://academic-meta-tool.xyz/vocab#>
+
+CONSTRUCT {
+    ?coin a nmo:NumismaticObject .
+    ?coin ?prop ?direct .
+    ?coin ?prop ?container .
+    ?container a ?afeClass, skos:Collection ;
+               skos:member ?member .
+    ?member    rdf:value ?authority ;
+               fw:hasConfidence ?weight .
+    ?coin ?prop ?single .
+    ?single    a ?afeClass ;
+               rdf:value ?authority ;
+               fw:hasConfidence ?weight .
+    ?coin nmo:hasAuthority ?unknown .
+}
+WHERE {
+    {
+        # Muenzen mit mindestens einer Kante
+        VALUES ?prop { nmo:hasAuthority nmo:hasDenomination nmo:hasMint }
+        ?edge rdf:subject ?coin ;
+              rdf:predicate ?prop ;
+              rdf:object ?authority ;
+              amt:weight ?weight .
+        OPTIONAL { ?edge fw:hasType ?t }
+        # sicher: Gewicht 1 und (Typ fw:Certainty oder kein Typ); fw:Certainty mit Gewicht unter 1 gilt als Vagheit
+        BIND(IF(?weight = 1 && (!BOUND(?t) || ?t = fw:Certainty), "certain",
+             IF(!BOUND(?t) || ?t = fw:Certainty, fw:Vagueness, ?t)) AS ?kind)
+        {
+            SELECT ?coin ?prop ?kind (COUNT(?e) AS ?n) WHERE {
+                VALUES ?prop { nmo:hasAuthority nmo:hasDenomination nmo:hasMint }
+                ?e rdf:subject ?coin ; rdf:predicate ?prop ; amt:weight ?w .
+                OPTIONAL { ?e fw:hasType ?tt }
+                BIND(IF(?w = 1 && (!BOUND(?tt) || ?tt = fw:Certainty), "certain",
+                     IF(!BOUND(?tt) || ?tt = fw:Certainty, fw:Vagueness, ?tt)) AS ?kind)
+            } GROUP BY ?coin ?prop ?kind
+        }
+        BIND(IRI(CONCAT("urn:amt-afe:container:", ENCODE_FOR_URI(STR(?coin)), ":",
+                        ENCODE_FOR_URI(STR(?prop)), ":", ENCODE_FOR_URI(STR(?kind)))) AS ?cid)
+        BIND(IF(?kind = "certain", ?authority, ?unbound) AS ?direct)
+        BIND(IF(?kind = fw:Uncertainty && ?n = 1, ?cid, ?unbound) AS ?single)
+        BIND(IF(?kind != "certain" && !(?kind = fw:Uncertainty && ?n = 1), ?cid, ?unbound) AS ?container)
+        BIND(IF(BOUND(?container), ?edge, ?unbound) AS ?member)
+        BIND(IF(?kind = fw:Vagueness, fw:VagueResourceValue,
+             IF(?kind = fw:FuzzinessWobbliness, fw:FuzzinessWobblinessResourceValue,
+             IF(?kind = fw:Uncertainty, fw:UncertainResourceValue, ?unbound))) AS ?afeClass)
+    }
+    UNION
+    {
+        # Muenzen ohne jede Kante (Eigenschaft nicht angegeben: nur fuer Authority unterscheidbar, siehe Memo)
+        ?coin amt:instanceOf afe:Coins .
+        FILTER NOT EXISTS { ?x rdf:subject ?coin . }
+        BIND(nm:uncertain_value AS ?unknown)
+    }
+}

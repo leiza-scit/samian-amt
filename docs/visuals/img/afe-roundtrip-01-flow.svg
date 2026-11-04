@@ -1,0 +1,55 @@
+<svg width="1750" height="860" viewBox="0 0 1750 860" xmlns="http://www.w3.org/2000/svg" role="img"><title>Round trip AFE → AMT → AFE: the four forms of an AFE value</title>
+<rect width="1750" height="860" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Round trip AFE → AMT → AFE: the four forms of an AFE value</text>
+<text x="330.0" y="112" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AFE (data of the AFE)</text>
+<text x="920.0" y="112" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AMT (hextuples)</text>
+<text x="1450.0" y="112" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AFE again</text>
+<text x="60" y="154" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">Case 1: container with members  ·  coin 15661</text>
+<rect x="60" y="174" width="540" height="108" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="76" y="204" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:VagueResourceValue + Collection ]</text>
+<text x="76" y="232" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">   nm:titus   0.5</text>
+<text x="76" y="260" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">   nm:vespasian   0.5</text>
+<rect x="680" y="174" width="480" height="108" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="696" y="204" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasAuthority  nm:titus   0.5   fw:Vagueness</text>
+<text x="696" y="232" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasAuthority  nm:vespasian   0.5   fw:Vagueness</text>
+<text x="696" y="260" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">fw:hasMethod fw:AFEAssignment</text>
+<rect x="1210" y="174" width="480" height="108" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1226" y="204" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:VagueResourceValue + Collection ]</text>
+<text x="1226" y="232" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">   nm:titus   0.5</text>
+<text x="1226" y="260" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">   nm:vespasian   0.5</text>
+<path d="M606,228.0 L674,228.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<path d="M1166,228.0 L1204,228.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<text x="60" y="324" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">Case 2: one uncertain value  ·  coin 16048</text>
+<rect x="60" y="344" width="540" height="80" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="76" y="374" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:UncertainValue ]</text>
+<text x="76" y="402" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">   nm:philip_the_arab   0.6</text>
+<rect x="680" y="344" width="480" height="80" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="696" y="374" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasAuthority  nm:philip_the_arab   0.6   fw:Uncertainty</text>
+<text x="696" y="402" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">fw:hasMethod fw:AFEAssignment</text>
+<rect x="1210" y="344" width="480" height="80" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1226" y="374" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:UncertainResourceValue ]</text>
+<text x="1226" y="402" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">   nm:philip_the_arab   0.6</text>
+<path d="M606,384.0 L674,384.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<path d="M1166,384.0 L1204,384.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<text x="60" y="466" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">Case 3: certain value  ·  coin 15668</text>
+<rect x="60" y="486" width="540" height="80" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="76" y="516" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  nm:aurelian</text>
+<rect x="680" y="486" width="480" height="80" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="696" y="516" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasAuthority  nm:aurelian   1   fw:Certainty</text>
+<text x="696" y="544" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">fw:hasMethod fw:AFEAssignment</text>
+<rect x="1210" y="486" width="480" height="80" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1226" y="516" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  nm:aurelian</text>
+<path d="M606,526.0 L674,526.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<path d="M1166,526.0 L1204,526.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<text x="60" y="608" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">Case 4: unknown  ·  coin 11471</text>
+<rect x="60" y="628" width="540" height="52" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="76" y="658" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  nm:uncertain_value</text>
+<rect x="680" y="628" width="480" height="52" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="696" y="658" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">node without an edge</text>
+<rect x="1210" y="628" width="480" height="52" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1226" y="658" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  nm:uncertain_value</text>
+<path d="M606,654.0 L674,654.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<path d="M1166,654.0 L1204,654.0" fill="none" stroke="#55544f" stroke-width="2.4" marker-end="url(#a)"/>
+<text x="60" y="835" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">Coins 15661, 16048, 15668 and 11471 of the AFE coin data (kept as sent). fw:hasConfidence and amt:weight are the same number here; the way back writes fw:UncertainResourceValue.</text>
+</svg>

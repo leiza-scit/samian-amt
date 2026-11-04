@@ -51,6 +51,15 @@ weight and FW type of every hextuple come back unchanged, and that the reasoning
 same edges. Not carried (documented, not smuggled through): source string, method, frequency shares, attribution.
 The AFE side is a rebuilt pattern with `sam:` predicates, not AFE data. Details: `docs/roundtrip.md`.
 
+## Round trip AFE → AMT → AFE
+
+`data/afe/` holds the coin data of the AFE as sent by Karsten Tolle (five coins, the four forms of an AFE value) and
+constructed test coins (edge cases, denomination and mint); `queries/coins/afe-to-amt.rq` and `queries/coins/amt-to-afe.rq`
+are his two queries. `py/step_afe_roundtrip.py` (`python main.py --only afe-roundtrip`) runs them, sends the first file
+through the AMT engine (0.7.0 or newer, if installed) and compares each coin with the original: same, same on the top
+class (`…Value` = `…ResourceValue`), or different. The constructed edge cases must behave as documented. State of the
+package of 2026-11-03; his answers are still open. Details: `docs/afe-roundtrip.md`.
+
 ## Weights, hextuple and chains
 
 `py/weights.py` computes the weight of a source string by the rule agreed with Allard Mees
