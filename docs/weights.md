@@ -116,7 +116,7 @@ and are **not** all symmetric. Apart from the first row they should not be store
 | Degree of truth or certainty of the statement | the attribution of a carrier to a centre holds with 0.5 (recorded as uncertain) | yes | `amt:weight` |
 | Conditional share | 40 % of the carriers of a potform are attributed to a centre, but only 10 % of that centre's carriers are of this potform | no | a separate measure on the pair |
 | Normalised alternatives | a carrier has two possible centres, weights 0.5 and 0.5 so that they sum to 1 | no: the sum is taken per source node, so the inverse edges would sum differently | normalise when reading, or keep as a separate measure |
-| Number of supporting carriers | twelve carriers support the association of a potform with a centre | yes, but it is a count, not a degree | a separate measure; see the open point below |
+| Number of supporting carriers | twelve carriers support the association of a potform with a centre | yes, but it is a count, not a degree | a separate measure |
 
 ## Conventions for the model
 
@@ -130,10 +130,3 @@ and are **not** all symmetric. Apart from the first row they should not be store
    compute it as its own measure on the pair, in the direction in which it is asked.
 4. **Check the symmetry.** A consistency check (a SPARQL query on the reasoned graph) can report every
    pair of inverse edges whose weights differ. It should return nothing.
-
-## Open for the degree step
-
-The rule reads a question mark as one more possibility: "A or B?" gives one third to A, one third to B
-and leaves one third to "neither". "A and B?" gives one half to each, because under AND both hold and the
-question mark is the only doubt. Whether that is what the archaeologist means by a question mark is an
-open question (see the Review page). The weight stays symmetric under inversion either way.

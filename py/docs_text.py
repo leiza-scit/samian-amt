@@ -7,7 +7,7 @@ review the model, not by reasoner developers.
 REPO = "https://github.com/leiza-scit/CHNT2026-amt"      # planned home of the repository
 BLOB = REPO + "/blob/main/"
 
-STATUS = """> **Status: draft for archaeological review.** The namespace is a placeholder. The weights follow the
+STATUS = """> **Status: working draft.** The namespace is a placeholder. The weights follow the
 > rule of the source paper (see Weights). The logic operator (product) and the role names are proposals,
 > except `hasType` / `isTypeOf`, which were agreed with Allard Mees. Three real chains from the CHNT data
 > are modelled (see Chains)."""
@@ -76,7 +76,7 @@ and are **not** all symmetric. Apart from the first row they should not be store
 | Degree of truth or certainty of the statement | the attribution of a carrier to a centre holds with 0.5 (recorded as uncertain) | yes | `amt:weight` |
 | Conditional share | 40 % of the carriers of a potform are attributed to a centre, but only 10 % of that centre's carriers are of this potform | no | a separate measure on the pair |
 | Normalised alternatives | a carrier has two possible centres, weights 0.5 and 0.5 so that they sum to 1 | no: the sum is taken per source node, so the inverse edges would sum differently | normalise when reading, or keep as a separate measure |
-| Number of supporting carriers | twelve carriers support the association of a potform with a centre | yes, but it is a count, not a degree | a separate measure; see the open point below |"""
+| Number of supporting carriers | twelve carriers support the association of a potform with a centre | yes, but it is a count, not a degree | a separate measure |"""
 
 WEIGHTS_RULES = """1. **Assert one direction only.** Assert the roles in the direction of the source data (`hasType`,
    `hasProductionCentre`, `worksAt`) and let the inverse axioms create the other direction. If both

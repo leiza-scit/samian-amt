@@ -126,6 +126,8 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S13 | Römische Variante der Karten (Provinzen, Straßen, Orte; 0.8.0) | CHNT2026-amt | S12 | Patch geliefert 2026-11-04 |
 | S14 | Modellgrafiken im Visuals-Stil, Visuals über die Docs veröffentlicht (0.9.0) | CHNT2026-amt | S13 | Patch geliefert 2026-11-04 |
 | S15 | Einzelketten, klarere Pfeile und nummerierte Kanten in den Visuals (0.9.1) | CHNT2026-amt | S14 | Patch geliefert 2026-11-04 |
+| S16 | Nummerierte Kanten in `docs/diagrams/02_full_semantics` (0.9.2) | CHNT2026-amt | S15 | Patch geliefert 2026-11-04 |
+| S17 | Review-Seite aus der öffentlichen Version genommen, `REVIEW.md` intern (0.9.3) | CHNT2026-amt | S16 | Patch geliefert 2026-11-04 |
 | S9 | Engine-Abgleich und SHACL-Validierung | CHNT2026-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
 
 S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die Entscheidung in S4.
@@ -220,6 +222,7 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 - **S12 Rückfragen**: (1) Häufigkeit als Grad (`fw:hasDegreeOfConnection` 0,80 mit Methode `fw:RelativeFrequency`) oder getrennt halten? A4 sagt „Anteile und Häufigkeiten gehören nicht in `amt:weight`“, die FW-Ontologie lässt den Grad für beliebige Methoden zu; (2) Zählung 9070 / 11302: welche Abfrage (ganze Datenbank, nur Gallien?) und Zeichnung für `31`; (3) Karten: moderne Regionen oder römische Provinzen (dann aus Pleiades, DARE oder Wikidata)?
 - **S13 Rückfragen**: (1) Lizenz der DARE-Ebenen (Provinzen, Orte) in `klokantech/roman-empire`: im Repository steht keine; vor Veröffentlichung klären; (2) die Latein-Namen der Flüsse sind mein Vorschlag, bitte gegenlesen; (3) die DARE-Provinzen haben keinen klaren Zeitschnitt (Itiner-e: größte Ausdehnung um 150 n. Chr.), reicht das, oder ein bestimmter Stand (zum Beispiel Ende 2. Jh.)?; (4) Pleiades-URIs der römischen Orte (und der Töpfereien, zum Beispiel Lezoux = Ledosum?) verlinken?
 - **S14 Rückfragen**: (1) Die fünf Modellgrafiken gibt es jetzt zweimal (matplotlib in `docs/diagrams`, Visuals-Stil in `docs/visuals`); weiterbauen wir künftig beide parallel, oder soll der Visuals-Stil für neue Grafiken (Allards Antworten, Roundtrip AMT Samian → AFE) die Hauptlinie werden? (2) Die Visuals-Seiten haben ein eigenes, schlichtes Layout; sollen sie das Jekyll-Layout der Docs übernehmen?
+- **S17 Rückfragen**: Was auf den öffentlichen Seiten noch als Vorschlag oder Platzhalter steht (Statushinweis der Startseite, Namespace `example.org`, `ProductLogic (proposal)` und die Rollennamen in *Vocabulary*, Toy-Gewichte in *Reasoning*, `fw:RelativeFrequency` auf der Visuals-Seite PF.4): bleibt es als gekennzeichneter Vorschlag stehen, oder soll es bis zur Klärung raus?
 - LICENSE, `CITATION.cff` und eine `RELEASE`-Konstante fehlen noch; mit dem ersten Zenodo-Release nachziehen.
 - Namespace `mini:` ist ein Platzhalter; persistente IRI per w3id klären.
 - Eine IRI-Landkarte (A6) entsteht, sobald RDF veröffentlicht wird.

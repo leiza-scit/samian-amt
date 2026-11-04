@@ -61,8 +61,7 @@ Source: [PNG](diagrams/05_chains.png) · drawn by `py/step_diagrams.py` from the
 The generated file is `dist/chains.ttl`; `dist/chains-with-model.ttl` adds the ontology and can be run with
 the [AMT runner](https://github.com/alpaca-fair-framework/amt-runner) (`python run_amt.py dist/chains-with-model.ttl`).
 The carrier-centre statements are inherited from the potter: they carry the same weight and type as the
-potter-centre statements, and AND or OR is not in the list for that relation (see question 11 of the
-[Review](review.html)).
+potter-centre statements, and AND or OR is not in the list for that relation.
 
 ## Derived degrees
 

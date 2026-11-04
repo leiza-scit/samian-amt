@@ -6,7 +6,7 @@ title: Overview
 
 # Mini-AMT: Potform, carrier, centre, actor
 
-> **Status: draft for archaeological review.** The namespace is a placeholder. The weights follow the
+> **Status: working draft.** The namespace is a placeholder. The weights follow the
 > rule of the source paper (see Weights). The logic operator (product) and the role names are proposals,
 > except `hasType` / `isTypeOf`, which were agreed with Allard Mees. Three real chains from the CHNT data
 > are modelled (see Chains).
@@ -41,7 +41,6 @@ Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` fr
 | [Reasoning](reasoning.html) | Why inverses are needed, the reasoning properties read from both ends, a worked chain |
 | [Chains](chains.html) | Three real chains from the CHNT data: weights, FW types, derived degrees, two models |
 | [Weights](weights.html) | How the weight is computed, the hextuple, and: is `amt:weight` the same in both directions? |
-| [Review](review.html) | Questions for the archaeological review |
 
 ## Files
 
