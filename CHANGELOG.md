@@ -2,6 +2,15 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.8.0] - Roman variant of the maps
+
+### Added
+- **Roman maps** `*-roman` for PC.1 to PC.4 and IC-PC.1 (14 figures in total): Roman provinces and names, major places with Latin names (DARE via `klokantech/roman-empire`), the Itiner-e road network (main, secondary, hypothetical), Latin river names (Liger, Sequana, Garumna, Rhodanus, Arar, Elaver, Mosella, Rhenus, Mosa, Matrona, Moenus, Nicer). `visuals/prepare_roman.py` builds `visuals/data/roman-gaul.json` (about 400 kB) from the two sources. *Warum:* Die Töpfereien liegen in römischen Provinzen; die moderne Karte zeigt, wo, die römische, in welchem Straßen- und Provinzgefüge.
+- Province borders: shared edges are borders; an edge with one province only is kept when inland (the limes) and dropped along the coast.
+
+### Changed
+- Legend and credit line of the maps depend on the variant; the site page lists both variants.
+
 ## [0.7.0] - Frequency case PF.4, orientation layers on the maps
 
 ### Added

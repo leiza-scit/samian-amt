@@ -313,7 +313,20 @@ def project(lon, lat, win):
 
 RIVER_W = lambda rank: 3.4 if rank <= 4 else 2.7 if rank <= 6 else 2.1 if rank <= 8 else 1.5
 RIVER_LABELS = {"Loire", "Seine", "Garonne", "Rhône", "Saône", "Allier", "Moselle", "Rhine", "Meuse", "Marne", "Dordogne", "Main", "Neckar", "Doubs"}
+# Latin names of the larger rivers (the Roman map)
+RIVER_LATIN = {"Loire": "Liger", "Seine": "Sequana", "Garonne": "Garumna", "Rhône": "Rhodanus", "Saône": "Arar", "Allier": "Elaver",
+               "Moselle": "Mosella", "Rhine": "Rhenus", "Meuse": "Mosa", "Marne": "Matrona", "Main": "Moenus", "Neckar": "Nicer"}
 C_RIVER, C_REGION, C_COUNTRY, C_PLACE = "#8fb9d6", "#b4af97", "#857f6a", "#9d977f"
+C_ROAD, C_ROAD2, C_PROV, C_PROVTXT = "#9a3412", "#e0bba3", "#6b4a35", "#8a5a44"
+ROMAN = json.loads((DATA / "roman-gaul.json").read_text(encoding="utf-8"))
+
+LEGEND = {"modern": [("river", "river"), ("region", "region border (modern)"), ("country", "country border"), ("city", "city > 150,000"), ("kiln", "other kiln site")],
+          "roman": [("river", "river"), ("main", "main road"), ("minor", "secondary road"), ("province", "province border"), ("place", "major place"), ("kiln", "other kiln site")]}
+
+
+def legend_box(style):
+    h = 28 * len(LEGEND[style]) + 18
+    return (20, 936 - h, 262, h)
 
 
 def pl(pts, win):
@@ -324,29 +337,42 @@ def hit(r, rects):
     return any(r[0] < q[0] + q[2] and q[0] < r[0] + r[2] and r[1] < q[1] + q[3] and q[1] < r[1] + r[3] for q in rects)
 
 
-def draw_base(f, win, keep_clear):
-    """Sea, land, region borders, country borders, rivers, region names, large cities (all Natural Earth, modern)."""
+def draw_base(f, win, keep_clear, style="modern"):
+    """Sea, land, rivers and, by style, modern regions / borders / cities or Roman provinces / roads / places."""
     f.rect(0, 0, 1000, 1000, SEA)
     for ring in BASE["rings"]:
         f.raw(f'<polygon points="{pl(ring, win)}" fill="{LAND}" stroke="#c9c6b9" stroke-width="1"/>')
-    for line in BASE["regions"]:
-        f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_REGION}" stroke-width="1.6" stroke-dasharray="6 4"/>')
-    for line in BASE["borders"]:
-        f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_COUNTRY}" stroke-width="2"/>')
+    if style == "modern":
+        for line in BASE["regions"]:
+            f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_REGION}" stroke-width="1.6" stroke-dasharray="6 4"/>')
+        for line in BASE["borders"]:
+            f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_COUNTRY}" stroke-width="2"/>')
+    else:
+        for line in ROMAN["provinces"]:
+            f.raw(f'<polyline points="{pl(line, win)}" fill="none" stroke="{C_PROV}" stroke-width="2.2" stroke-dasharray="12 4 2 4"/>')
     for r in sorted(BASE["rivers"], key=lambda r: -r["s"]):
         f.raw(f'<polyline points="{pl(r["p"], win)}" fill="none" stroke="{C_RIVER}" stroke-width="{RIVER_W(r["s"])}" stroke-linecap="round" stroke-linejoin="round"/>')
-    taken = list(keep_clear) + [(20, 778, 262, 158)]   # markers, their names, the legend
+    if style == "roman":
+        for minor in (1, 0):   # secondary roads first, so that the main roads lie on top
+            for r in ROMAN["roads"]:
+                if r["k"] == minor:
+                    dash = ' stroke-dasharray="3 4"' if r["h"] else ""
+                    col, w = (C_ROAD2, 1.1) if minor else (C_ROAD, 2.2)
+                    f.raw(f'<polyline points="{pl(r["p"], win)}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linejoin="round"{dash}/>')
+    taken = list(keep_clear) + [legend_box(style)]   # markers, their names, the legend
     # river names: on the longest stretch inside the map, at the first spot (middle, then either side) that is free
+    names = RIVER_LATIN if style == "roman" else {n: n for n in RIVER_LABELS}
     longest = {}
     for r in BASE["rivers"]:
-        if r["n"] in RIVER_LABELS:
+        if r["n"] in names:
             pts = [project(x, y, win) for x, y in r["p"]]
             pts = [q for q in pts if 40 < q[0] < 960 and 40 < q[1] < 960]
             if len(pts) >= 4 and len(pts) > len(longest.get(r["n"], [])):
                 longest[r["n"]] = pts
     for name in sorted(longest):
         pts = longest[name]
-        w = tw(name, 16) + 8
+        label = names[name]
+        w = tw(label, 16) + 8
         for frac in (0.5, 0.35, 0.65, 0.2, 0.8):
             m = int(len(pts) * frac)
             x, y = pts[m]
@@ -356,41 +382,51 @@ def draw_base(f, win, keep_clear):
             (x0, y0), (x1, y1) = pts[max(m - 2, 0)], pts[min(m + 2, len(pts) - 1)]
             ang = math.degrees(math.atan2(y1 - y0, x1 - x0))
             ang = ang + 180 if ang > 90 else ang - 180 if ang < -90 else ang
-            f.raw(f'<text transform="translate({x:.1f} {y:.1f}) rotate({ang:.1f})" dy="-9" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#4f84a8" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">{escape(name)}</text>')
+            f.raw(f'<text transform="translate({x:.1f} {y:.1f}) rotate({ang:.1f})" dy="-9" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#4f84a8" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">{escape(label)}</text>')
             taken.append(box)
             break
-    for lab in BASE["region_labels"]:
+    labs = BASE["region_labels"] if style == "modern" else ROMAN["province_labels"]
+    for lab in labs:
         x, y = project(lab["x"], lab["y"], win)
         t = lab["n"].upper()
         w = tw(t, 15) + 3 * len(t)
         r = (x - w / 2, y - 10, w, 20)
-        if 30 < x < 970 and 30 < y < 940 and not hit(r, taken):
-            f.raw(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" letter-spacing="3" fill="{C_PLACE}">{escape(t)}</text>')
+        if w / 2 + 20 < x < 1000 - w / 2 - 20 and 30 < y < 940 and not hit(r, taken):
+            f.raw(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" letter-spacing="3" fill="{C_PLACE if style == "modern" else C_PROVTXT}">{escape(t)}</text>')
             taken.append(r)
     n = 0
-    for c in BASE["cities"]:
+    cities = BASE["cities"] if style == "modern" else sorted(ROMAN["places"], key=lambda c: (c["x"] - win[0]) ** 2 + (c["y"] - win[1]) ** 2)   # Roman places: nearest to the focus first
+    for c in cities:
         x, y = project(c["x"], c["y"], win)
-        size = 20 if c["p"] >= 1000000 else 17
-        w = tw(c["n"], size, c["p"] >= 1000000)
+        big = c["p"] >= 1000000 if style == "modern" else False
+        size = 20 if big else 17
+        w = tw(c["n"], size, big)
         r = (x - 6, y - 14, w + 22, 28)
-        if 30 < x < 960 - w and 30 < y < 940 and not hit(r, taken) and n < 14:
+        if 30 < x < 960 - w and 30 < y < 940 and not hit(r, taken) and n < (14 if style == "modern" else 16):
             f.raw(f'<rect x="{x - 4.5:.1f}" y="{y - 4.5:.1f}" width="9" height="9" fill="#1f1f1d" stroke="#ffffff" stroke-width="1.2"/>')
-            f.text(x + 12, y, c["n"], size, c["p"] >= 1000000, "#3a3a37", "start", halo=True)
+            f.text(x + 12, y, c["n"], size, big, "#3a3a37", "start", halo=True)
             taken.append(r)
             n += 1
 
 
-def map_legend(f):
-    f.raw('<rect x="20" y="778" width="262" height="158" rx="6" fill="#ffffff" fill-opacity="0.88"/>')
-    y = 800
-    for kind, t in (("river", "river"), ("region", "region border (modern)"), ("country", "country border"), ("city", "city > 150,000"), ("kiln", "other kiln site")):
+def map_legend(f, style="modern"):
+    x0, y0, w, h = legend_box(style)
+    f.raw(f'<rect x="{x0}" y="{y0}" width="{w}" height="{h}" rx="6" fill="#ffffff" fill-opacity="0.88"/>')
+    y = y0 + 22
+    for kind, t in LEGEND[style]:
         if kind == "river":
             f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_RIVER}" stroke-width="3" stroke-linecap="round"/>')
         elif kind == "region":
             f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_REGION}" stroke-width="1.6" stroke-dasharray="6 4"/>')
         elif kind == "country":
             f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_COUNTRY}" stroke-width="2"/>')
-        elif kind == "city":
+        elif kind == "main":
+            f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_ROAD}" stroke-width="2.2"/>')
+        elif kind == "minor":
+            f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_ROAD2}" stroke-width="1.1"/>')
+        elif kind == "province":
+            f.raw(f'<line x1="32" y1="{y}" x2="68" y2="{y}" stroke="{C_PROV}" stroke-width="2.2" stroke-dasharray="12 4 2 4"/>')
+        elif kind in ("city", "place"):
             f.raw(f'<rect x="45.5" y="{y - 4.5}" width="9" height="9" fill="#1f1f1d"/>')
         else:
             f.raw(f'<circle cx="50" cy="{y}" r="6" fill="#ffffff" stroke="{MUTED}" stroke-width="1.2"/>')
@@ -398,7 +434,7 @@ def map_legend(f):
         y += 28
 
 
-def centre_fig(name, code, title, subnote, subject_kind):
+def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
     c, st, edges = statements(code)
     uncertain = st.n_questionmark > 0
     f = Fig(name, f"{code} {title}")
@@ -429,7 +465,7 @@ def centre_fig(name, code, title, subnote, subject_kind):
     keep_clear = [(x - 24, y - 24, 48, 48) for x, y, _, _ in placed] + labels
     f.raw('<defs><clipPath id="m"><rect x="0" y="0" width="1000" height="1000"/></clipPath></defs>')
     f.raw('<g clip-path="url(#m)">')
-    draw_base(f, win, keep_clear)
+    draw_base(f, win, keep_clear, style)
     chosen = {site for _, site, _, _ in ents}
     for site, k in KILNS.items():
         if site in chosen:
@@ -454,8 +490,10 @@ def centre_fig(name, code, title, subnote, subject_kind):
     km100 = 100 / 111.32 * win[3] * math.cos(math.radians(clat))
     f.rect(30, 944, km100, 8, "#ffffff", "#000000", 0, 1.2)
     f.text(30 + km100 + 12, 948, "100 km", 17, False, DARK, "start", halo=True)
-    map_legend(f)
-    f.text(30, 975, "Coast, rivers, regions, places: Natural Earth (modern)  ·  kiln sites: Samian Research (cat29.tblkilnsites)", 15, False, MUTED, "start", halo=True)
+    map_legend(f, style)
+    credit = ("Coast, rivers, regions, places: Natural Earth (modern)  ·  kiln sites: Samian Research (cat29.tblkilnsites)" if style == "modern" else
+              "Provinces, places: DARE  ·  roads: Itiner-e (CC BY 4.0)  ·  coast, rivers: Natural Earth  ·  kiln sites: Samian Research")
+    f.text(30, 975, credit, 15, False, MUTED, "start", halo=True)
     f.raw('<line x1="1000" y1="0" x2="1000" y2="1000" stroke="#000000" stroke-width="1"/>')
     # right panel
     px = 1040
@@ -551,21 +589,19 @@ def main():
     figs.append((share_fig("PF.4-frequency-bars", "PF.4", "Observed frequency instead of equal share",
         "Bars as on the Samian Research website (form “31 or 31R”, Dish); counts taken from a screenshot. The frequency method is a proposal, not yet in the FW ontology."),
         "PF.4", "Observed frequency instead of equal share", C["PF.4"]))
-    figs.append((centre_fig("PC.1-one-or", "PC.1", "One OR between centres",
-        f"Samian Research, Gaulish tradition: {C['PC.1']['query_rows']} carriers with OR in the centre; this string on {C['PC.1']['string_rows']}.", "actor"),
-        "PC.1", "One OR between centres", C["PC.1"]))
-    figs.append((centre_fig("PC.2-multiple-and", "PC.2", "Several centres with AND",
-        f"Samian Research, Gaulish tradition: {n_fmt(C['PC.2']['query_rows'])} carriers with AND and no ?; this string on {C['PC.2']['string_rows']}.", "actor"),
-        "PC.2", "Several centres with AND", C["PC.2"]))
-    figs.append((centre_fig("PC.3-and-question-mark", "PC.3", "AND and a question mark",
-        f"Samian Research, Gaulish tradition: {n_fmt(C['PC.3']['query_rows'])} carriers with AND and ?; this string on {C['PC.3']['string_rows']}.", "actor"),
-        "PC.3", "AND and a question mark", C["PC.3"]))
-    figs.append((centre_fig("PC.4-question-mark", "PC.4", "One centre with a question mark",
-        f"Samian Research, Gaulish tradition: {n_fmt(C['PC.4']['query_rows'])} carriers with only a ? in the centre; this string on {n_fmt(C['PC.4']['string_rows'])}.", "actor"),
-        "PC.4", "One centre with a question mark", C["PC.4"]))
-    figs.append((centre_fig("IC-PC.1-question-mark", "IC-PC.1", "Carrier to centre with a question mark",
-        f"Same query as PC.4 ({n_fmt(C['IC-PC.1']['query_rows'])} carriers); here the statement is asserted on the carrier (model M1, hasProductionCentre).", "carrier"),
-        "IC-PC.1", "Carrier to centre with a question mark", C["IC-PC.1"]))
+    specs = [("PC.1-one-or", "PC.1", "One OR between centres",
+              f"Samian Research, Gaulish tradition: {C['PC.1']['query_rows']} carriers with OR in the centre; this string on {C['PC.1']['string_rows']}.", "actor"),
+             ("PC.2-multiple-and", "PC.2", "Several centres with AND",
+              f"Samian Research, Gaulish tradition: {n_fmt(C['PC.2']['query_rows'])} carriers with AND and no ?; this string on {C['PC.2']['string_rows']}.", "actor"),
+             ("PC.3-and-question-mark", "PC.3", "AND and a question mark",
+              f"Samian Research, Gaulish tradition: {n_fmt(C['PC.3']['query_rows'])} carriers with AND and ?; this string on {C['PC.3']['string_rows']}.", "actor"),
+             ("PC.4-question-mark", "PC.4", "One centre with a question mark",
+              f"Samian Research, Gaulish tradition: {n_fmt(C['PC.4']['query_rows'])} carriers with only a ? in the centre; this string on {n_fmt(C['PC.4']['string_rows'])}.", "actor"),
+             ("IC-PC.1-question-mark", "IC-PC.1", "Carrier to centre with a question mark",
+              f"Same query as PC.4 ({n_fmt(C['IC-PC.1']['query_rows'])} carriers); here the statement is asserted on the carrier (model M1, hasProductionCentre).", "carrier")]
+    for name, code, title, subnote, kind in specs:
+        figs.append((centre_fig(name, code, title, subnote, kind), code, title, C[code]))
+        figs.append((centre_fig(name + "-roman", code, title, subnote, kind, "roman"), code, title + " (Roman map)", C[code]))
     write_site(figs)
     print(len(figs), "figures ->", IMG)
 
@@ -575,7 +611,7 @@ def write_site(figs):
     for name, code, title, c in figs:
         ed = wt.edges_for(c["source_string"], c["relation"])
         e = ed[0]
-        rows.append(f'<figure id="{code}"><img src="img/{name}.png" alt="{escape(code + " " + title)}" width="875">'
+        rows.append(f'<figure id="{name}"><img src="img/{name}.png" alt="{escape(code + " " + title)}" width="875">'
                     f'<figcaption><b>{code}</b> {escape(title)}. {escape(c["relation"])}; string <code>{escape(c["source_string"])}</code> '
                     f'({escape(c["pottername"] + ", id " + c["carrier_id"] if c["carrier_id"] else "any carrier")}); weight {e["weight"]:.2f} per statement, fw:{e["type"]}, fw:{e["method"]}. '
                     f'<a href="img/{name}.svg">SVG</a></figcaption></figure>')

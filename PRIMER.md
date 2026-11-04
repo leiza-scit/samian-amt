@@ -123,6 +123,7 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S8 | Notebook (quarto-live) | CHNT2026-amt | S6 | offen |
 | S11 | Fallgrafiken PF.1–3, PC.1–4, IC-PC.1 mit Samian-Beispielen (`visuals/`, 0.6.0) | CHNT2026-amt | S3b | Patch geliefert 2026-11-04, nach Push erledigt; Rückfragen offen (Teil D) |
 | S12 | PF.4 (Häufigkeitsbalken) und Orientierungsebenen der Karten (0.7.0) | CHNT2026-amt | S11 | Patch geliefert 2026-11-04 |
+| S13 | Römische Variante der Karten (Provinzen, Straßen, Orte; 0.8.0) | CHNT2026-amt | S12 | Patch geliefert 2026-11-04 |
 | S9 | Engine-Abgleich und SHACL-Validierung | CHNT2026-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
 
 S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die Entscheidung in S4.
@@ -215,6 +216,7 @@ Werden vor dem Start ausgearbeitet (Ziel, Uploads, Abnahme), sobald S4 entschied
 - Regionen und Gruppen ohne Zentrumsknoten (9.033 Strings): eigene Klasse oder weglassen?
 - **S11 Rückfragen**: (1) Quelle und Lizenz der sieben Profilzeichnungen; (2) `(R?)` in `15/17 or 18 (R?)`: Randscherbe unsicher? `py/weights.py` liest daraus die Entität `18 (R )`; (3) Pfaffenhofen und Westerndorf (70 Träger) fehlen in `cat29.tblkilnsites`, PC.1 nutzt deshalb `Aspiran or Saint-Saturnin`; (4) ob `Saint-Saturnin` = `Jonquières, Saint Saturnin`; (5) Zentren außerhalb der Tabelle (zum Beispiel Rheinzabern) per Wikidata nachladen?; (6) `18_31R` und `31R` sind noch ohne Figur.
 - **S12 Rückfragen**: (1) Häufigkeit als Grad (`fw:hasDegreeOfConnection` 0,80 mit Methode `fw:RelativeFrequency`) oder getrennt halten? A4 sagt „Anteile und Häufigkeiten gehören nicht in `amt:weight`“, die FW-Ontologie lässt den Grad für beliebige Methoden zu; (2) Zählung 9070 / 11302: welche Abfrage (ganze Datenbank, nur Gallien?) und Zeichnung für `31`; (3) Karten: moderne Regionen oder römische Provinzen (dann aus Pleiades, DARE oder Wikidata)?
+- **S13 Rückfragen**: (1) Lizenz der DARE-Ebenen (Provinzen, Orte) in `klokantech/roman-empire`: im Repository steht keine; vor Veröffentlichung klären; (2) die Latein-Namen der Flüsse sind mein Vorschlag, bitte gegenlesen; (3) die DARE-Provinzen haben keinen klaren Zeitschnitt (Itiner-e: größte Ausdehnung um 150 n. Chr.), reicht das, oder ein bestimmter Stand (zum Beispiel Ende 2. Jh.)?; (4) Pleiades-URIs der römischen Orte (und der Töpfereien, zum Beispiel Lezoux = Ledosum?) verlinken?
 - LICENSE, `CITATION.cff` und eine `RELEASE`-Konstante fehlen noch; mit dem ersten Zenodo-Release nachziehen.
 - Namespace `mini:` ist ein Platzhalter; persistente IRI per w3id klären.
 - Eine IRI-Landkarte (A6) entsteht, sobald RDF veröffentlicht wird.

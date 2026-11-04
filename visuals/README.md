@@ -1,6 +1,6 @@
 # Case figures: Potform and ProductionCentre
 
-Nine figures for the vagueness / uncertainty patterns of the Mini-AMT, each with a real example from the Samian
+Fourteen figures for the vagueness / uncertainty patterns of the Mini-AMT, each with a real example from the Samian
 Research database. Everything under `site/` is generated.
 
     pip install -r requirements.txt
@@ -24,3 +24,12 @@ OWL white, property metadata amber). SVGs name Fira Sans without embedding it; u
 `trace_forms.py` and `prepare_basemap.py` are one-off scripts (they need scikit-image); their results are committed.
 The profile drawings are the supplied JPGs, redrawn; their source and licence are still to be stated here.
 Coast, rivers, regions, borders, cities: Natural Earth, public domain (modern, not Roman). Fonts: Fira Sans, SIL OFL 1.1, see `fonts/`. Figures: CC BY 4.0. Code: MIT.
+
+## Roman maps
+
+Each map figure (PC.1 to PC.4, IC-PC.1) exists twice: with modern layers and, as `*-roman`, with Roman ones. The Roman map shows
+provinces and major places from the Digital Atlas of the Roman Empire (DARE, taken from `klokantech/roman-empire`), the roads of
+Itiner-e (de Soto et al. 2025, *Scientific Data* 12:1731, <https://doi.org/10.1038/s41597-025-06140-z>; dataset
+<https://doi.org/10.5281/zenodo.17122148>, CC BY 4.0; main roads solid, secondary roads thin, hypothetical segments dotted) and
+Latin names of the larger rivers. `prepare_roman.py` builds `data/roman-gaul.json` from the two sources. The DARE layers carry the
+licence of DARE, still to be checked and stated here.

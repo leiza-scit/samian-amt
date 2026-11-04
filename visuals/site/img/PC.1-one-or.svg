@@ -624,7 +624,6 @@
 <text transform="translate(581.3 226.7) rotate(-40.9)" dy="-9" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#4f84a8" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">Loire</text>
 <text transform="translate(671.3 179.2) rotate(274.0)" dy="-9" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#4f84a8" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">Rhône</text>
 <text transform="translate(656.7 111.3) rotate(69.2)" dy="-9" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#4f84a8" stroke="#ffffff" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">Saône</text>
-<text x="109.0" y="237.8" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" letter-spacing="3" fill="#9d977f">NOUVELLE-AQUITAINE</text>
 <text x="342.6" y="488.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" letter-spacing="3" fill="#9d977f">OCCITANIE</text>
 <rect x="342.4" y="868.8" width="9" height="9" fill="#1f1f1d" stroke="#ffffff" stroke-width="1.2"/>
 <text x="358.90130692989425" y="873.3333333333337" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#3a3a37" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Barcelona</text>
