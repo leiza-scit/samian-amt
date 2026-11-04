@@ -2,6 +2,11 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.12.1] - Chain pages: the carrier-centre statements get their figures
+
+### Added
+- **Chain pages**: a new part *Statements about the production centre of each carrier (InformationCarrier, hasProductionCentre)* with one figure per carrier (modern map, Roman map where all centres have coordinates). These are the statements that model M1 asserts on the carrier; before, only the actor statements (worksAt) and the potform statements were drawn, so the carrier-centre relation was missing on the page. The part with the derived degrees is now step 4. *Warum:* Die Beziehung InformationCarrier zu ProductionCentre fehlte auf den Chain-Seiten; sie ist die M1-Annahme, aus der die Ableitung startet.
+
 ## [0.12.0] - Chain pages: chain figure first, entities and statements in text; separated navigation
 
 ### Changed

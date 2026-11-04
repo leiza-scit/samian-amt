@@ -107,12 +107,27 @@ def main():
             B.centre_fig(name + "-roman", code, f"Centres of {potter}", sub, "actor", "roman")
             cards.append(B.card(code, f"Centres of {potter}: {mine[0]['centre_text']} (Roman map)", credit + " Roman map.", name + "-roman"))
 
+        cards.append(step(3, "Statements about the production centre of each carrier (InformationCarrier, hasProductionCentre)"))
+        for r in mine:
+            n += 1
+            code = f"{L}.{n}"
+            register(code, "informationcarrier--productioncentre", r["centre_text"], r)
+            _, st, ed = B.statements(code)
+            name = f"chain-{L}-{n}-carrier-centres"
+            sub = f"Chain {L}: carrier {r['carrier_id']} with the centres of its potter (model M1, asserted on the carrier)."
+            B.centre_fig(name, code, f"Centres of carrier {r['carrier_id']}", sub, "carrier")
+            credit = f"{TYPE[ed[0]['type']]}; weight {ed[0]['weight']:.2f} per statement."
+            cards.append(B.card(code, f"Centres of carrier {r['carrier_id']}: {r['centre_text']}", credit + (" Modern map." if have_map else " No map yet: coordinates missing."), name))
+            if have_map:
+                B.centre_fig(name + "-roman", code, f"Centres of carrier {r['carrier_id']}", sub, "carrier", "roman")
+                cards.append(B.card(code, f"Centres of carrier {r['carrier_id']}: {r['centre_text']} (Roman map)", credit + " Roman map.", name + "-roman"))
+
         ics = ["ic_" + r["carrier_id"] for r in mine]
         pfs = {e["to"] for e in edges if e["role"] == "hasType" and e["from"] in ics}
         pcs = {e["to"] for e in edges if e["role"] == "hasProductionCentre" and e["from"] in ics}
         ae = next(e["from"] for e in edges if e["role"] == "worksAt" and e["to"] in pcs and nodes[e["from"]][1] == potter)
         mine_nodes = set(ics) | pfs | pcs | {ae}
-        cards.append(step(3, "What the reasoning derives"))
+        cards.append(step(4, "What the reasoning derives"))
         dr = [(c["relation"], nodes[c["from"]][1], nodes[c["to"]][1], fmt(c["m1_product"]), fmt(c["m1_goedel"]), fmt(c["m2_product"]))
               for c in comp if c["from"] in mine_nodes and c["to"] in mine_nodes]
         cards.append(table(["Derived role", "From", "To", "M1 product", "M1 Goedel", "M2 product"], dr))

@@ -1,0 +1,49 @@
+<svg width="1750" height="1000" viewBox="0 0 1750 1000" xmlns="http://www.w3.org/2000/svg" role="img"><title>A.5 Centres of carrier 153346</title>
+<rect width="1750" height="1000" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="0" y="0" width="1000" height="1000" rx="0" fill="#f3f1e8" stroke="none" stroke-width="1"/>
+<text x="500" y="470" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="40" font-weight="500" fill="#55544f">No map yet</text>
+<text x="500" y="520" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" fill="#55544f">No coordinates in the export for: Kräherwald, Rheinzabern</text>
+<text x="500" y="556" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">Add them to visuals/data/kilnsites-extra.csv (query: visuals/sql/kilnsites-chains.sql)</text>
+<line x1="1000" y1="0" x2="1000" y2="1000" stroke="#000000" stroke-width="1"/>
+<rect x="1040" y="46" width="67.5" height="48" rx="5" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1073.75" y="70" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="28" font-weight="500" fill="#1f1f1d">A.5</text>
+<text x="1127.5" y="70" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="30" font-weight="500" fill="#1f1f1d">Centres of carrier 153346</text>
+<text x="1040" y="124" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" fill="#55544f">[A and B]  ·  vagueness</text>
+<text x="1040" y="152" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">informationcarrier--productioncentre</text>
+<rect x="1040" y="200" width="290" height="104" rx="30" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1185.0" y="236.92000000000002" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="26" font-weight="500" fill="#000000">Vitalis viii</text>
+<text x="1185.0" y="269.16" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">InformationCarrier  ·  id 153346</text>
+<rect x="1430" y="200" width="280" height="104" rx="6" fill="#ffffff" stroke="#000000" stroke-width="2.4" stroke-dasharray="8 6"/>
+<text x="1570" y="224" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">fw:TextEvidence</text>
+<text x="1570" y="256" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#1f1f1d">“Kräherwald and Rheinzabern”</text>
+<path d="M1330 252 H 1430" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<text x="1380" y="232" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">derivedFrom</text>
+<path d="M1185 304 V 527.0" fill="none" stroke="#55544f" stroke-width="1.6"/>
+<text x="1199" y="342" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#1f1f1d">hasProductionCentre</text>
+<path d="M1185 423.0 H 1330" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1247.85" y="407.0" width="58.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1277.0" y="423.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">1.00</text>
+<rect x="1330" y="380" width="380" height="86" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<circle cx="1366" cy="423.0" r="20" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1366" y="423.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#166534">1</text>
+<text x="1400" y="408.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Kräherwald</text>
+<text x="1400" y="438.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#ffffff">no coordinates yet</text>
+<path d="M1185 527.0 H 1330" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1247.85" y="511.0" width="58.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1277.0" y="527.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">1.00</text>
+<rect x="1330" y="484" width="380" height="86" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<circle cx="1366" cy="527.0" r="20" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1366" y="527.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#166534">2</text>
+<text x="1400" y="512.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Rheinzabern</text>
+<text x="1400" y="542.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#ffffff">no coordinates yet</text>
+<text x="1040" y="640" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#55544f">AND: every centre holds, so each keeps the full weight</text>
+<text x="1040" y="800" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="24" fill="#1f1f1d">weight = 1 / (n? + n possibilities) = 1 / (0 + 1) = 1.00</text>
+<rect x="1040" y="830" width="310.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1195.2" y="846" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#000000">fw:hasDegreeOfConnection  1.00</text>
+<rect x="1040" y="872" width="252.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1166.2" y="888" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#000000">fw:hasType  fw:Vagueness</text>
+<rect x="1040" y="914" width="326.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1203.1" y="930" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#000000">fw:hasMethod  fw:EqualShareRule</text>
+<text x="1040" y="962" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">Chain A: carrier 153346 with the centres of its potter (model M1, asserted on the carrier).</text>
+</svg>
