@@ -11,7 +11,6 @@ ONTOLOGY = ROOT / "ontology" / "mini-amt.ttl"
 TOY = ROOT / "data" / "toy-chain.ttl"
 DIST = ROOT / "dist"
 DOCS = ROOT / "docs"
-IMG = DOCS / "diagrams"
 
 AMT = Namespace("http://academic-meta-tool.xyz/vocab#")
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")

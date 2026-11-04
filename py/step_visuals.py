@@ -9,8 +9,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "visuals"))
 
 def main() -> int:
     import build
+    import chain_pages
     import model_figs
     model_figs.main()      # first: the overview page of build.main() shows a model figure
+    chain_pages.main()
     build.main()
     return 0
 

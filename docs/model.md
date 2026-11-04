@@ -20,9 +20,7 @@ title: Model
 Classes in dark orange. Black arrows are the asserted properties, dashed black arrows their inverses.
 Red arcs are the links the reasoner derives from the role chains.
 
-![Simple view](diagrams/01_simple_model.svg)
-
-Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
+<figure class="fig"><a href="visuals/img/model-01-simple.png"><img src="visuals/img/model-01-simple.png" alt="Simple view"></a><figcaption>Simple view<a href="visuals/img/model-01-simple.png">PNG</a><a href="visuals/img/model-01-simple.svg">SVG</a><a href="visuals/model.html">all model figures</a></figcaption></figure>
 
 ## Full semantics
 
@@ -30,9 +28,7 @@ The same model in the AMT vocabulary. Amber pills are roles (domain to range). W
 A dashed outline marks a role that exists only as the inverse of another role; a red outline marks a
 role that is derived by reasoning.
 
-![Full semantics](diagrams/02_full_semantics.svg)
-
-Source: [PNG](diagrams/02_full_semantics.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
+<figure class="fig"><a href="visuals/img/model-02-full-semantics.png"><img src="visuals/img/model-02-full-semantics.png" alt="Full semantics"></a><figcaption>Full semantics<a href="visuals/img/model-02-full-semantics.png">PNG</a><a href="visuals/img/model-02-full-semantics.svg">SVG</a><a href="visuals/model.html">all model figures</a></figcaption></figure>
 
 Read it from the left: the asserted roles and their inverses; the role chains that compose the roles
 along the chain direction (the numbers give the order of the antecedents); the derived roles with

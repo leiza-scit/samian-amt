@@ -139,6 +139,8 @@ def read_csv(p, delim=","):
 CASES = {r["case"]: r for r in read_csv(DATA / "cases.csv")}
 SHARES = read_csv(DATA / "shares.csv")
 KILNS = {r["site"]: r for r in read_csv(DATA / "kilnsites-gaul.csv")}
+if (DATA / "kilnsites-extra.csv").exists():   # same columns; sites outside the Gaulish export, see visuals/sql/
+    KILNS.update({r["site"]: r for r in read_csv(DATA / "kilnsites-extra.csv")})
 FORMS = json.loads((DATA / "forms.json").read_text(encoding="utf-8"))
 BASE = json.loads((DATA / "basemap-gaul.json").read_text(encoding="utf-8"))
 # spelling in the centre strings -> name in the kiln-site table
@@ -213,7 +215,7 @@ def potform_fig(name, code, title, subnote, forms):
     total = slots * ch + (slots - 1) * gap
     top = 190 + (650 - total) / 2
     cx, cw = 800, 890
-    maxh = max(FORMS[k]["h"] for _, k in forms)
+    maxh = max([FORMS[k]["h"] for _, k in forms if k] or [100])
     scale = min(3.4, (ch - 34) / maxh)
     cy_carrier = 190 + 650 / 2
     # carrier and evidence
@@ -234,7 +236,10 @@ def potform_fig(name, code, title, subnote, forms):
         f.rect(cx, y, 230, ch, TERM[0], "#000000", 6)
         f.text(cx + 115, mid - 22, label, 40, True, TERM[2], maxw=214)
         f.text(cx + 115, mid + 28, "Potform", 21, False, TERM[2])
-        form_art(f, key, cx + 250 + (cw - 250 - 150 * scale) / 2 - 10, y + (ch - FORMS[key]["h"] * scale) / 2, scale)
+        if key:
+            form_art(f, key, cx + 250 + (cw - 250 - 150 * scale) / 2 - 10, y + (ch - FORMS[key]["h"] * scale) / 2, scale)
+        else:
+            f.text(cx + 250 + (cw - 250) / 2, mid, "no profile drawing yet", 24, False, MUTED)
         f.path(f"M440 {cy_carrier} H 620 V {mid} H {cx}")
         f.chip(710, mid, f"{e['weight']:.2f}", 22, "middle", True)
     if ghost:
@@ -441,60 +446,68 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
     ents = []
     for e in edges:
         site = SITE_ALIAS.get(e["entity"], e["entity"])
-        k = KILNS[site]
+        k = KILNS.get(site)
         ents.append((e["entity"], site, k, e))
-    lons = [float(k["coordinate1"]) for _, _, k, _ in ents]
-    lats = [float(k["coordinate2"]) for _, _, k, _ in ents]
-    clon, clat = (min(lons) + max(lons)) / 2, (min(lats) + max(lats)) / 2
-    span = max(6.0, 1.9 * max(max(lats) - min(lats), (max(lons) - min(lons)) * math.cos(math.radians(clat))))
-    win = (clon, clat, span, 1000 / span)
-    # marker positions first, so that city labels can keep clear of them
-    placed, labels = [], []   # a marker that would touch an earlier one is pushed away, with a leader line
-    for i, (ent, site, k, e) in enumerate(ents, 1):
-        tx, ty = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
-        x, y = tx, ty
-        for px_, py_, _, _ in placed:
-            d = math.hypot(x - px_, y - py_)
-            if d < 50:
-                ang = math.atan2(y - py_, x - px_) if d > 1 else math.pi / 2
-                x, y = px_ + 50 * math.cos(ang), py_ + 50 * math.sin(ang)
-        placed.append((x, y, tx, ty))
-        right = x < 700
-        wl = tw(site, 22, True)
-        labels.append((x + 28, y - 14, wl, 28) if right else (x - 28 - wl, y - 14, wl, 28))
-    keep_clear = [(x - 24, y - 24, 48, 48) for x, y, _, _ in placed] + labels
-    f.raw('<defs><clipPath id="m"><rect x="0" y="0" width="1000" height="1000"/></clipPath></defs>')
-    f.raw('<g clip-path="url(#m)">')
-    draw_base(f, win, keep_clear, style)
-    chosen = {site for _, site, _, _ in ents}
-    for site, k in KILNS.items():
-        if site in chosen:
-            continue
-        x, y = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
-        if 8 < x < 992 and 8 < y < 992:
-            f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#ffffff" stroke="{MUTED}" stroke-width="1.2"/>')
-    for i, ((ent, site, k, e), (x, y, tx, ty)) in enumerate(zip(ents, placed), 1):
-        if math.hypot(x - tx, y - ty) > 1:
-            f.raw(f'<line x1="{tx:.1f}" y1="{ty:.1f}" x2="{x:.1f}" y2="{y:.1f}" stroke="#000000" stroke-width="1.4"/>')
-            f.raw(f'<circle cx="{tx:.1f}" cy="{ty:.1f}" r="3.5" fill="#000000"/>')
-        if uncertain:
-            f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="19" fill="#ffffff" stroke="{REAL[0]}" stroke-width="3" stroke-dasharray="6 4"/>')
-            f.text(x, y, str(i), 20, True, REAL[0])
-        else:
-            f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="19" fill="{REAL[0]}" stroke="#000000" stroke-width="1"/>')
-            f.text(x, y, str(i), 20, True, "#ffffff")
-        right = x < 700
-        f.text(x + (28 if right else -28), y, site, 22, True, DARK, "start" if right else "end", halo=True)
-    f.raw("</g>")
-    # scale bar (km), at the latitude of the window centre
-    km100 = 100 / 111.32 * win[3] * math.cos(math.radians(clat))
-    f.rect(30, 944, km100, 8, "#ffffff", "#000000", 0, 1.2)
-    f.text(30 + km100 + 12, 948, "100 km", 17, False, DARK, "start", halo=True)
-    map_legend(f, style)
-    credit = ("Coast, rivers, regions, places: Natural Earth (modern)  ·  kiln sites: Samian Research (cat29.tblkilnsites)" if style == "modern" else
-              "Provinces, places: DARE  ·  roads: Itiner-e (CC BY 4.0)  ·  coast, rivers: Natural Earth  ·  kiln sites: Samian Research")
-    f.text(30, 975, credit, 15, False, MUTED, "start", halo=True)
-    f.raw('<line x1="1000" y1="0" x2="1000" y2="1000" stroke="#000000" stroke-width="1"/>')
+    missing = [site for _, site, k, _ in ents if k is None]
+    if missing:
+        f.rect(0, 0, 1000, 1000, "#f3f1e8")
+        f.text(500, 470, "No map yet", 40, True, MUTED)
+        f.text(500, 520, "No coordinates in the export for: " + ", ".join(missing), 22, False, MUTED, maxw=900)
+        f.text(500, 556, "Add them to visuals/data/kilnsites-extra.csv (query: visuals/sql/kilnsites-chains.sql)", 19, False, MUTED, maxw=900)
+        f.raw('<line x1="1000" y1="0" x2="1000" y2="1000" stroke="#000000" stroke-width="1"/>')
+    else:
+        lons = [float(k["coordinate1"]) for _, _, k, _ in ents]
+        lats = [float(k["coordinate2"]) for _, _, k, _ in ents]
+        clon, clat = (min(lons) + max(lons)) / 2, (min(lats) + max(lats)) / 2
+        span = max(6.0, 1.9 * max(max(lats) - min(lats), (max(lons) - min(lons)) * math.cos(math.radians(clat))))
+        win = (clon, clat, span, 1000 / span)
+        # marker positions first, so that city labels can keep clear of them
+        placed, labels = [], []   # a marker that would touch an earlier one is pushed away, with a leader line
+        for i, (ent, site, k, e) in enumerate(ents, 1):
+            tx, ty = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
+            x, y = tx, ty
+            for px_, py_, _, _ in placed:
+                d = math.hypot(x - px_, y - py_)
+                if d < 50:
+                    ang = math.atan2(y - py_, x - px_) if d > 1 else math.pi / 2
+                    x, y = px_ + 50 * math.cos(ang), py_ + 50 * math.sin(ang)
+            placed.append((x, y, tx, ty))
+            right = x < 700
+            wl = tw(site, 22, True)
+            labels.append((x + 28, y - 14, wl, 28) if right else (x - 28 - wl, y - 14, wl, 28))
+        keep_clear = [(x - 24, y - 24, 48, 48) for x, y, _, _ in placed] + labels
+        f.raw('<defs><clipPath id="m"><rect x="0" y="0" width="1000" height="1000"/></clipPath></defs>')
+        f.raw('<g clip-path="url(#m)">')
+        draw_base(f, win, keep_clear, style)
+        chosen = {site for _, site, _, _ in ents}
+        for site, k in KILNS.items():
+            if site in chosen:
+                continue
+            x, y = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
+            if 8 < x < 992 and 8 < y < 992:
+                f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#ffffff" stroke="{MUTED}" stroke-width="1.2"/>')
+        for i, ((ent, site, k, e), (x, y, tx, ty)) in enumerate(zip(ents, placed), 1):
+            if math.hypot(x - tx, y - ty) > 1:
+                f.raw(f'<line x1="{tx:.1f}" y1="{ty:.1f}" x2="{x:.1f}" y2="{y:.1f}" stroke="#000000" stroke-width="1.4"/>')
+                f.raw(f'<circle cx="{tx:.1f}" cy="{ty:.1f}" r="3.5" fill="#000000"/>')
+            if uncertain:
+                f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="19" fill="#ffffff" stroke="{REAL[0]}" stroke-width="3" stroke-dasharray="6 4"/>')
+                f.text(x, y, str(i), 20, True, REAL[0])
+            else:
+                f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="19" fill="{REAL[0]}" stroke="#000000" stroke-width="1"/>')
+                f.text(x, y, str(i), 20, True, "#ffffff")
+            right = x < 700
+            f.text(x + (28 if right else -28), y, site, 22, True, DARK, "start" if right else "end", halo=True)
+        f.raw("</g>")
+        # scale bar (km), at the latitude of the window centre
+        km100 = 100 / 111.32 * win[3] * math.cos(math.radians(clat))
+        f.rect(30, 944, km100, 8, "#ffffff", "#000000", 0, 1.2)
+        f.text(30 + km100 + 12, 948, "100 km", 17, False, DARK, "start", halo=True)
+        map_legend(f, style)
+        credit = ("Coast, rivers, regions, places: Natural Earth (modern)  ·  kiln sites: Samian Research (cat29.tblkilnsites)" if style == "modern" else
+                  "Provinces, places: DARE  ·  roads: Itiner-e (CC BY 4.0)  ·  coast, rivers: Natural Earth  ·  kiln sites: Samian Research")
+        f.text(30, 975, credit, 15, False, MUTED, "start", halo=True)
+        f.raw('<line x1="1000" y1="0" x2="1000" y2="1000" stroke="#000000" stroke-width="1"/>')
     # right panel
     px = 1040
     w = tw(code, 28, True) + 30
@@ -531,7 +544,7 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
         f.raw(f'<circle cx="1366" cy="{mid}" r="20" fill="#ffffff" stroke="#000000" stroke-width="1"/>')
         f.text(1366, mid, str(i), 20, True, REAL[0])
         f.text(1400, mid - 15, site, 23, True, "#ffffff", "start", maxw=300)
-        sub2 = k["wikidataid"] if k["wikidataid"] not in ("", "NULL") else "no Wikidata item"
+        sub2 = "no coordinates yet" if k is None else k["wikidataid"] if k["wikidataid"] not in ("", "NULL") else "no Wikidata item"
         if ent != site:
             sub2 = f"“{ent}”  ·  {sub2}"
         f.text(1400, mid + 15, sub2, 17, False, "#ffffff", "start", maxw=300)
@@ -606,36 +619,8 @@ def main():
     print(len(figs), "figures ->", IMG)
 
 
-PAGES = [("index.html", "Overview"), ("potform.html", "Potform"), ("maps-modern.html", "Maps, modern"),
-         ("maps-roman.html", "Maps, Roman"), ("model.html", "Model")]
-ACCENT = "#9a3412"
-CSS = """
-@font-face{font-family:"Fira Sans";font-weight:400;src:url(fonts/FiraSans-Regular.ttf) format("truetype")}
-@font-face{font-family:"Fira Sans";font-weight:500;src:url(fonts/FiraSans-Medium.ttf) format("truetype")}
-:root{--bg:#f6f6f3;--card:#fff;--ink:#1f1f1d;--mut:#55544f;--line:#d8d6ce}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Fira Sans",system-ui,sans-serif}
-main{max-width:1040px;margin:0 auto;padding:32px 16px 64px}
-nav{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;margin:0 0 22px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-nav a{color:var(--mut);text-decoration:none}nav a:hover{color:#9a3412}
-nav a.on{color:#9a3412;font-weight:500}nav .up{margin-right:10px}
-h1{font-size:28px;font-weight:500;margin:0 0 10px}
-.intro{margin:0 0 24px;color:var(--mut)}
-section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 24px}
-img{display:block;width:100%;height:auto;border-radius:4px}
-.row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-top:14px}
-.cap{margin:0;font-size:20px;font-weight:500}
-.cap a{color:inherit;text-decoration:none}
-.n{color:#9a3412;margin-right:10px}
-.cr{margin:6px 0 0;color:var(--mut);font-size:14px}
-.dl{margin:6px 0 0;font-size:14px}
-.dl a{color:#9a3412;margin-right:14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.grid section{margin:0}
-@media(max-width:760px){.grid{grid-template-columns:1fr}}
-button{flex:none;font:inherit;font-size:14px;padding:5px 12px;border:1px solid #9a3412;border-radius:6px;background:#fff;color:#9a3412;cursor:pointer}
-button:hover{background:#9a3412;color:#fff}
-"""
+import site_kit  # noqa: E402  (py/ is on sys.path)
+
 JS = """document.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){
   var ok=function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1200)};
   if(navigator.clipboard){navigator.clipboard.writeText(b.dataset.c).then(ok).catch(function(){})}
@@ -665,17 +650,12 @@ def card(label, caption, credit, name, extra=(), href=None):
 
 
 def page(file, title, intro, cards, grid=False):
-    import shutil
-    nav = '<a class="up" href="../index.html">&larr; Mini-AMT docs</a>' + "".join(
-        f'<a{" class=on" if f == file else ""} href="{f}">{t}</a>' for f, t in PAGES)
+    site_kit.write_assets()
     body = f'<div class="grid">\n{chr(10).join(cards)}\n</div>' if grid else "\n".join(cards)
     html = (f'<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            f'<title>{escape(title)} · Mini-AMT visuals</title>\n<style>{CSS}</style></head><body><main>\n'
-            f'<nav>{nav}</nav>\n<h1>{escape(title)}</h1>\n<p class="intro">{intro}</p>\n{body}\n</main>\n<script>{JS}</script></body></html>\n')
+            f'<title>{escape(title)} · Mini-AMT</title>\n<link rel="stylesheet" href="../assets/site.css"></head><body><main>\n'
+            f'{site_kit.nav_html("visuals", "visuals/" + file)}\n<h1>{escape(title)}</h1>\n<p class="intro">{intro}</p>\n{body}\n</main>\n<script>{JS}</script></body></html>\n')
     SITE.mkdir(parents=True, exist_ok=True)
-    (SITE / "fonts").mkdir(exist_ok=True)
-    for f in (R, M):
-        shutil.copyfile(f, SITE / "fonts" / f.name)
     (SITE / file).write_text(html, encoding="utf-8", newline="\n")
 
 
@@ -697,7 +677,9 @@ def write_site(figs):
     for file, (title, intro) in info.items():
         first = groups[file][0][0]
         thumbs.append(card(f"{len(groups[file])}×", title, intro, first, href=file))
-    thumbs.append(card("8×", "Model", "The Mini-AMT model in the same style: simple view, full semantics, toy reasoning, both directions, three chains (also one by one).",
+    for label, caption, credit, name, href in globals().get("CHAIN_CARDS", []):
+        thumbs.append(card(label, caption, credit, name, href=href))
+    thumbs.append(card("8×", "Model figures", "The Mini-AMT model in the same style: simple view, full semantics, toy reasoning, both directions, three chains (also one by one).",
                        "model-01-simple", href="model.html"))
     page("index.html", "Mini-AMT visuals",
          "Figures for the vagueness and uncertainty cases of the Potform and ProductionCentre relations, with examples from the Samian Research database, and for the model.",

@@ -1,17 +1,16 @@
 # mini-amt - dependencies
 #
-# rdflib and matplotlib are all that main.py needs. The real AMT reasoner is
+# rdflib, resvg-py and pillow are all that main.py needs. The real AMT reasoner is
 # optional: if it is installed, step "reason" runs it and cross-checks its
 # result against the independent reference reasoner in py/.
 #
 #   pip install -r requirements.txt
 
 rdflib>=7.0        # parse ontology + toy data, read axioms
-matplotlib>=3.8    # the diagrams (Mermaid-like, drawn by py/diagram_kit.py)
 
 resvg-py>=0.2      # step visuals: SVG -> PNG
 pillow>=10         # step visuals: text widths with the bundled Fira Sans
-# scikit-image>=0.22  # only for visuals/trace_forms.py and prepare_basemap.py (one-off, output is committed)
+# scikit-image>=0.22  # only for visuals/trace_forms.py, prepare_basemap.py, prepare_roman.py (one-off, output is committed)
 
 # Optional: the AMT engine (https://github.com/alpaca-fair-framework/amt-engine). 0.6.0 is the first
 # version that reads fw:hasType, fw:hasMethod and fw:derivedFrom; fw:Certainty came after the 0.6.0 tag

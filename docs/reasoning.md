@@ -49,9 +49,7 @@ The limits, role by role:
 All three forward roles are subsumed by the generic role `reaches` (and `reachedBy` for the inverses),
 so one query finds every derived association.
 
-![Reasoning properties in both directions](diagrams/04_reasoning_both.svg)
-
-Source: [PNG](diagrams/04_reasoning_both.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
+<figure class="fig"><a href="visuals/img/model-04-both-directions.png"><img src="visuals/img/model-04-both-directions.png" alt="Reasoning properties in both directions"></a><figcaption>Reasoning properties in both directions<a href="visuals/img/model-04-both-directions.png">PNG</a><a href="visuals/img/model-04-both-directions.svg">SVG</a><a href="visuals/model.html">all model figures</a></figcaption></figure>
 
 ## A worked chain
 
@@ -59,9 +57,7 @@ One abstract individual per concept. Only the three weighted edges of the source
 everything else below is derived. The weights are arbitrary toy values, and the logic operator is
 `ProductLogic`: a chain is as strong as the product of its links.
 
-![Toy chain](diagrams/03_toy_reasoning.svg)
-
-Source: [PNG](diagrams/03_toy_reasoning.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
+<figure class="fig"><a href="visuals/img/model-03-toy-reasoning.png"><img src="visuals/img/model-03-toy-reasoning.png" alt="Toy chain"></a><figcaption>Toy chain<a href="visuals/img/model-03-toy-reasoning.png">PNG</a><a href="visuals/img/model-03-toy-reasoning.svg">SVG</a><a href="visuals/model.html">all model figures</a></figcaption></figure>
 
 | Edge | Weight | Source |
 |---|---|---|

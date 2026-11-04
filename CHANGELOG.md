@@ -2,6 +2,20 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.11.0] - One design for documentation and visuals, chain sub pages
+
+### Added
+- **Chain sub pages** `docs/visuals/chain-A.html`, `chain-B.html`, `chain-C.html` (`visuals/chain_pages.py`): for each chain of the CHNT data the vague, uncertain and fuzzy-wobbly statements first (potform of each carrier, centres of the potter, centres on a modern and a Roman map), then what the reasoning derives (chain figure, hextuple table, degrees under M1 and M2). The AMT reasoning use case end to end. *Warum:* Die drei Ketten enthalten alle Fälle von Vagheit, Unsicherheit und Fuzzy/Wobbly; sie zeigen den Reasoning-Fall von den Aussagen bis zum abgeleiteten Grad.
+- Centres without coordinates in the export (Kräherwald, Rheinzabern, Pfaffenhofen, Westerndorf) get a figure without map; `visuals/sql/kilnsites-chains.sql` extracts them, `visuals/data/kilnsites-extra.csv` is read if present. Forms without profile drawing (24, 27, 31, 32, 33) show a placeholder.
+- `py/site_kit.py`: the stylesheet (`docs/assets/site.css`), the navigation and the Jekyll layout, written by `main.py` (steps `visuals` and `docs`).
+
+### Changed
+- The **documentation pages** (Overview, Model, Vocabulary, Reasoning, Chains, Weights) have the design of the visuals pages: cream background, white cards, Fira Sans, accent `#9a3412`, one navigation with a *Documentation* and a *Visuals* row.
+- The figures in the documentation are the visuals figures (`docs/visuals/img/model-*`), no longer the matplotlib ones.
+
+### Removed
+- `docs/diagrams/`, `py/step_diagrams.py`, `py/diagram_kit.py` and the step `diagrams`; matplotlib is no longer a requirement. *Warum:* Es gibt nur noch einen Stil; die Grafiken sind außerdem auf allen Plattformen gleich.
+
 ## [0.10.0] - Visuals pages in the layout of the GeoScience-FAIRification-LOD figure page, split by group
 
 ### Changed

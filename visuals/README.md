@@ -2,7 +2,7 @@
 
 Fourteen figures for the vagueness / uncertainty patterns of the Mini-AMT, each with a real example from the Samian
 Research database, plus the five model figures (`model_figs.py`, same content as `docs/diagrams`, in the same style).
-Everything is generated into `docs/visuals/` (pages `index.html` (overview), `potform.html`, `maps-modern.html`, `maps-roman.html` and `model.html`, images in `img/`, Fira Sans in `fonts/`) and so is published with the
+Everything is generated into `docs/visuals/` (pages `index.html` (overview), `potform.html`, `maps-modern.html`, `maps-roman.html`, `chain-A/B/C.html` and `model.html`, images in `img/`; stylesheet and fonts in `docs/assets/`, written by `py/site_kit.py`) and so is published with the
 GitHub Pages site (menu entry *Visuals*). The matplotlib figures in `docs/diagrams/` stay the figures of the documentation pages.
 
     pip install -r requirements.txt
@@ -35,3 +35,11 @@ Itiner-e (de Soto et al. 2025, *Scientific Data* 12:1731, <https://doi.org/10.10
 <https://doi.org/10.5281/zenodo.17122148>, CC BY 4.0; main roads solid, secondary roads thin, hypothetical segments dotted) and
 Latin names of the larger rivers. `prepare_roman.py` builds `data/roman-gaul.json` from the two sources. The DARE layers carry the
 licence of DARE, still to be checked and stated here.
+
+## Chain pages
+
+`chain_pages.py` builds one page per chain of `data/chains-source.csv` (A, B, C): the asserted statements first (potform of each carrier,
+centres of the potter, as figures in the case style, centres on a modern and a Roman map), then the derived degrees (chain figure, table of
+the hextuples, table of the degrees under M1 and M2). Centres without coordinates in `data/kilnsites-gaul.csv` (Kräherwald, Rheinzabern,
+Pfaffenhofen, Westerndorf) get a figure without map until `data/kilnsites-extra.csv` exists (query: `sql/kilnsites-chains.sql`); forms without
+profile drawing (24, 27, 31, 32, 33) show a placeholder.

@@ -29,9 +29,7 @@ from them by `py/weights.py` (see [Weights](weights.html)). Two models are run o
 * **C** combines both: three possible forms (OR) and two centres with a question mark (AND with `?`), which
   is fuzzy/wobbly.
 
-![Three chains with weights, FW types and derived degrees](diagrams/05_chains.svg)
-
-Source: [PNG](diagrams/05_chains.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
+<figure class="fig"><a href="visuals/img/model-05-chains.png"><img src="visuals/img/model-05-chains.png" alt="Three chains with weights, FW types and derived degrees"></a><figcaption>Three chains with weights, FW types and derived degrees<a href="visuals/img/model-05-chains.png">PNG</a><a href="visuals/img/model-05-chains.svg">SVG</a><a href="visuals/model.html">all model figures</a></figcaption></figure>
 
 ## The hextuples of M1
 

@@ -20,9 +20,7 @@ an actor works at a centre). A role-chain reasoner derives the links that follow
 potforms are associated with which centres, which carriers with which actors, which potforms with
 which actors. Each derived link can be read from both ends.
 
-![Mini-AMT, simple view](diagrams/01_simple_model.svg)
-
-Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
+<figure class="fig"><a href="visuals/img/model-01-simple.png"><img src="visuals/img/model-01-simple.png" alt="Mini-AMT, simple view"></a><figcaption>Mini-AMT, simple view<a href="visuals/img/model-01-simple.png">PNG</a><a href="visuals/img/model-01-simple.svg">SVG</a><a href="visuals/model.html">all model figures</a></figcaption></figure>
 
 ## The three rules
 
@@ -58,4 +56,4 @@ Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` fr
 python main.py
 ```
 
-Writes the reasoning output (`dist/`), the diagrams and this documentation. See `python main.py --list`.
+Writes the reasoning output (`dist/`), the figures (`docs/visuals/`) and this documentation. See `python main.py --list`.

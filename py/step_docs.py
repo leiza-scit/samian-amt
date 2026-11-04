@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import docs_text as T  # noqa: E402
 from mini_amt_utils import DOCS, ONTOLOGY, ROOT, TOY, load_graph, read_edges, read_model  # noqa: E402
 from reference_reasoner import reason  # noqa: E402
+import site_kit  # noqa: E402
 import weights as W  # noqa: E402
 from step_chains import comparison, run as run_chains  # noqa: E402
 
@@ -28,10 +29,17 @@ KIND_ORDER = ["asserted", "inverse of an asserted role", "derived (>>)", "derive
               "generic (>>)", "generic inverse (<<)"]
 
 
+FIGURE = {"01_simple_model": "model-01-simple", "02_full_semantics": "model-02-full-semantics",
+          "03_toy_reasoning": "model-03-toy-reasoning", "04_reasoning_both": "model-04-both-directions",
+          "05_chains": "model-05-chains"}
+
+
 def figure(stem: str, alt: str) -> str:
-    return (f"![{alt}](diagrams/{stem}.svg)\n\n"
-            f"Source: [PNG](diagrams/{stem}.png) · drawn by `py/step_diagrams.py` from the ontology · "
-            f"[same figure in the visuals style](visuals/model.html).\n")
+    """A figure of the visuals set (docs/visuals/img), drawn by visuals/model_figs.py from the ontology."""
+    n = FIGURE[stem]
+    return (f'<figure class="fig"><a href="visuals/img/{n}.png"><img src="visuals/img/{n}.png" alt="{alt}"></a>'
+            f'<figcaption>{alt}<a href="visuals/img/{n}.png">PNG</a><a href="visuals/img/{n}.svg">SVG</a>'
+            f'<a href="visuals/model.html">all model figures</a></figcaption></figure>\n')
 
 
 def classify(model: dict) -> dict:
@@ -113,7 +121,7 @@ def index_page(model: dict) -> str:
 python main.py
 ```
 
-Writes the reasoning output (`dist/`), the diagrams and this documentation. See `python main.py --list`.
+Writes the reasoning output (`dist/`), the figures (`docs/visuals/`) and this documentation. See `python main.py --list`.
 """
 
 
@@ -408,6 +416,7 @@ def main() -> int:
     model = read_model(g)
     state = reason(model, read_edges(g))
     res = run_chains()
+    site_kit.write_assets()
     write("index.md", "Overview", index_page(model))
     write("model.md", "Model", model_page(model))
     write("vocabulary.md", "Vocabulary", vocabulary_page(model))
