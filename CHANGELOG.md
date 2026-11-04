@@ -2,6 +2,12 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.13.1] - Decisions from Allard Mees (S4)
+
+### Changed
+- `REVIEW.md` shows Allard's answer under each of the 14 questions (`REVIEW_ANSWERS` in `py/docs_text.py`). *Warum:* Die Antworten vom 4. November stehen jetzt direkt bei den Fragen.
+- `PRIMER.md`: decisions recorded in A4 (product logic, hybrid direct / "same stamp" model, weaker derivations, question mark, time ignored, best path, Actor merged, frequency method); S4 decided, S4a (frequency weights) and S4b (hybrid model) planned; open points listed for Memo 0.6.0.
+
 ## [0.13.0] - Chain pages: kiln coordinates and profile drawings
 
 ### Added

@@ -9,71 +9,85 @@ is proposed and what would change if the answer is no.
 
 - **Proposed:** `carrierToActor` says only that the actor worked at the centre to which the carrier is attributed.
 - **If not:** If it should read as an attribution, the chain needs more evidence than a shared centre (for example the actor's period). If it stays an association, the role names should avoid any implication of authorship.
+- **Answer (Allard Mees, 2026-11-04):** Association: the actor worked at the centre. Role names stay without any hint of authorship.
 
 ### 2. Should time enter the chain?
 
 - **Proposed:** Carrier and actor both have time intervals in the source model. At present the chain ignores them.
 - **If not:** An overlap of the two intervals can become one more link in the chain, with its own degree.
+- **Answer (Allard Mees, 2026-11-04):** No. Time intervals are ignored for now (too coarse); the order of centres is only a rough chronology.
 
 ### 3. What does the weight mean: a possibility degree or a probability?
 
 - **Proposed:** A degree of truth per statement, computed by the rule of the source paper (see the Weights page).
 - **If not:** If alternatives must sum to 1, the weights become directional and shares move into a separate measure.
+- **Answer (Allard Mees, 2026-11-04):** One degree of truth per statement.
 
 ### 4. Is `actorToPotform` a useful reading?
 
 - **Proposed:** It is the forms attested at the centre where the actor worked: a candidate repertoire, not the actor's own.
 - **If not:** If it misleads, drop the role and its inverse axiom; the other two associations are unaffected.
+- **Answer (Allard Mees, 2026-11-04):** Yes: a repertoire of forms attested at the centre.
 
 ### 5. Does one potform with many carriers at a centre need more than the best path?
 
 - **Proposed:** No: AMT keeps the best single path.
 - **If not:** If the number of carriers should count, it becomes a separate measure next to the weight.
+- **Answer (Allard Mees, 2026-11-04):** No. The number of carriers does not matter; AMT keeps the best single path.
 
 ### 6. Are the role names acceptable?
 
 - **Proposed:** `hasType` / `isTypeOf` are agreed. `hasProductionCentre`, `worksAt`, `hasWorker` and the six derived names are proposals.
 - **If not:** Renaming touches only the ontology; the documentation is generated from it.
+- **Answer (Allard Mees, 2026-11-04):** Understandable as they are; no renaming.
 
 ### 7. Is it right to collapse ActorEntity and Actor into one concept?
 
 - **Proposed:** Yes for this model: the chain only needs the person who works at a centre.
 - **If not:** If the stamp name (ActorEntity) must stay distinct from the person (Actor), one more concept and one more link enter the chain.
+- **Answer (Allard Mees, 2026-11-04):** ActorEntity and Actor may be merged (one concept `Actor`).
 
 ### 8. Is the carrier-centre link asserted (M1) or derived from the actor (M2)?
 
 - **Proposed:** M1: asserted, as in the data export. In the data the centre string belongs to the potter: every one of the 1,375 potters in the centre exports has exactly one, and the carriers compared (1,072 potters) share identical edges. The source paper says the carrier-centre relation follows from the potter-centre relation.
 - **If not:** M2 asserts only the carrier-potter link (crisp) and derives the carrier-centre link. That removes the double counting of the same doubt (see question 9) and needs a certain stamp attribution, which the 2,777 carriers with an uncertain potter name do not have.
+- **Answer (Allard Mees, 2026-11-04):** Both. Stamp found at a production site: `hasProductionCentre` is direct (the list of production sites decides). Otherwise derived through a new role "same stamp" (carrier, identical stamp on another sherd, centre of that sherd). Weaker derivations: a name found on a sherd that is not geometrically identical (homonym risk), and similarity of distributions (rarely documented). Distribution-based derivations are weaker than direct ones.
 
 ### 9. Which logic operator: product or Goedel?
 
 - **Proposed:** Product, as in the role-chain axioms of the source paper. Under M1 a statement that is inherited from the actor enters the chain twice: for Ve- i the carrier-actor degree is 0.25 under product and 0.5 under Goedel.
 - **If not:** Goedel (minimum) avoids the double count but ignores how many doubtful steps a chain has. M2 avoids it under both operators.
+- **Answer (Allard Mees, 2026-11-04):** Product logic.
 
 ### 10. Is a question mark one more possibility?
 
 - **Proposed:** Yes, as in the paper: "A or B?" gives one third to A and B and leaves one third to "neither".
 - **If not:** If the question mark should not take a share from the alternatives, "A or B?" would be 0.5 each and could no longer be told from "A or B"; the rule and the FW type would have to change.
+- **Answer (Allard Mees, 2026-11-04):** The question mark refers to the whole preceding chain and weakens it once more, without saying whether because of A or B. A trailing question mark always weakens the statement.
 
 ### 11. Which patterns occur on which relation?
 
 - **Proposed:** As listed on the Weights page. For the carrier-centre relation only the question mark is listed, but the exports also carry AND and OR there (inherited from the actor).
 - **If not:** If the carrier-centre relation is derived (M2) the inherited patterns disappear from it.
+- **Answer (Allard Mees, 2026-11-04):** Open pattern question confirmed in part: inherited patterns only in the derived case. A question mark must not follow a potform with OR; three such faulty entries exist and will be cleaned in the database (212025, 213077, 210355).
 
 ### 12. Are combined forms such as 18/31 one type?
 
 - **Proposed:** Yes (source paper, figure 6): a slash joins two numbers into one type, an OR separates alternatives. Generic forms such as "dish or bowl?" are modelled like any other alternative.
 - **If not:** If a generic form should be a class of its own, the possibilities would be counted differently.
+- **Answer (Allard Mees, 2026-11-04):** A combined form such as 18/31 is one type, as in archaeological practice; it is not "dish or bowl".
 
 ### 13. What about centre strings that name more entities than the model has nodes?
 
 - **Proposed:** The weight is computed from the whole string; an entity without a centre node gets no edge. This happens in 9,033 of 45,685 centre strings of the exports (regions, groups, centres missing in the mapping); every one of the 95,819 existing centre edges carries the weight the rule gives.
 - **If not:** Creating nodes for regions and groups would close the gap and needs a decision on their class.
+- **Answer (Allard Mees, 2026-11-04):** Assignments such as "South Gaul?" are not usable for this model.
 
 ### 14. Does the hextuple have to keep the order and spelling of the source string?
 
 - **Proposed:** No. The round trip from the hextuples back to the string is lossless except for the order of the entities and the spelling; weight, FW type and the number of edges decide the pattern.
 - **If not:** If the order matters, the original string becomes a seventh element or a property of the statement.
+- **Answer (Allard Mees, 2026-11-04):** Yes: the order and spelling of the source string must be kept (done through fw:TextEvidence).
 
 ### Weights page, formerly published
 

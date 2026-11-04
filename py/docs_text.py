@@ -94,6 +94,29 @@ and leaves one third to "neither". "A and B?" gives one half to each, because un
 question mark is the only doubt. Whether that is what the archaeologist means by a question mark is an
 open question (see the Review page). The weight stays symmetric under inversion either way."""
 
+# Allard Mees's answers to Memo 0.5.0 (2026-11-04), keyed by question number. Shown on REVIEW.md.
+REVIEW_ANSWERS = {
+    1: "Association: the actor worked at the centre. Role names stay without any hint of authorship.",
+    2: "No. Time intervals are ignored for now (too coarse); the order of centres is only a rough chronology.",
+    3: "One degree of truth per statement.",
+    4: "Yes: a repertoire of forms attested at the centre.",
+    5: "No. The number of carriers does not matter; AMT keeps the best single path.",
+    6: "Understandable as they are; no renaming.",
+    7: "ActorEntity and Actor may be merged (one concept `Actor`).",
+    8: "Both. Stamp found at a production site: `hasProductionCentre` is direct (the list of production sites decides). "
+       "Otherwise derived through a new role \"same stamp\" (carrier, identical stamp on another sherd, centre of that sherd). "
+       "Weaker derivations: a name found on a sherd that is not geometrically identical (homonym risk), and similarity of "
+       "distributions (rarely documented). Distribution-based derivations are weaker than direct ones.",
+    9: "Product logic.",
+    10: "The question mark refers to the whole preceding chain and weakens it once more, without saying whether because of A or B. "
+        "A trailing question mark always weakens the statement.",
+    11: "Open pattern question confirmed in part: inherited patterns only in the derived case. A question mark must not follow "
+        "a potform with OR; three such faulty entries exist and will be cleaned in the database (212025, 213077, 210355).",
+    12: "A combined form such as 18/31 is one type, as in archaeological practice; it is not \"dish or bowl\".",
+    13: "Assignments such as \"South Gaul?\" are not usable for this model.",
+    14: "Yes: the order and spelling of the source string must be kept (done through fw:TextEvidence).",
+}
+
 REVIEW_INTRO = """These are the points where the archaeological reading decides the model. Each question says what
 is proposed and what would change if the answer is no."""
 
