@@ -22,7 +22,7 @@ Red arcs are the links the reasoner derives from the role chains.
 
 ![Simple view](diagrams/01_simple_model.svg)
 
-Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` from the ontology.
+Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
 
 ## Full semantics
 
@@ -32,7 +32,7 @@ role that is derived by reasoning.
 
 ![Full semantics](diagrams/02_full_semantics.svg)
 
-Source: [PNG](diagrams/02_full_semantics.png) · drawn by `py/step_diagrams.py` from the ontology.
+Source: [PNG](diagrams/02_full_semantics.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
 
 Read it from the left: the asserted roles and their inverses; the role chains that compose the roles
 along the chain direction (the numbers give the order of the antecedents); the derived roles with

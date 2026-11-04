@@ -1,7 +1,9 @@
 # Case figures: Potform and ProductionCentre
 
 Fourteen figures for the vagueness / uncertainty patterns of the Mini-AMT, each with a real example from the Samian
-Research database. Everything under `site/` is generated.
+Research database, plus the five model figures (`model_figs.py`, same content as `docs/diagrams`, in the same style).
+Everything is generated into `docs/visuals/` (pages `index.html` and `model.html`, images in `img/`) and so is published with the
+GitHub Pages site (menu entry *Visuals*). The matplotlib figures in `docs/diagrams/` stay the figures of the documentation pages.
 
     pip install -r requirements.txt
     python main.py --only visuals

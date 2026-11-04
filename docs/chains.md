@@ -31,7 +31,7 @@ from them by `py/weights.py` (see [Weights](weights.html)). Two models are run o
 
 ![Three chains with weights, FW types and derived degrees](diagrams/05_chains.svg)
 
-Source: [PNG](diagrams/05_chains.png) · drawn by `py/step_diagrams.py` from the ontology.
+Source: [PNG](diagrams/05_chains.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
 
 ## The hextuples of M1
 

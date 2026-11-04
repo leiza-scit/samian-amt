@@ -2,6 +2,17 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.9.0] - Model figures in the visuals style, visuals published with the docs
+
+### Added
+- **Model figures in the visuals style** (`visuals/model_figs.py`): the five figures of `docs/diagrams` (simple view, full semantics, toy reasoning, both directions, three chains) redrawn as SVG with Fira Sans and the semantic colours, read from the ontology and the reasoner as before. Page `docs/visuals/model.html`; each figure links to its matplotlib twin. *Warum:* Dieselben Inhalte sollen auch im Stil der Fallgrafiken vorliegen (Poster, Paper, Folien), neue Grafiken kommen dort leicht dazu.
+- Menu entry **Visuals** in the documentation; every model figure page in the docs links to its visuals version.
+
+### Changed
+- The case figures and their page are now written to `docs/visuals/` (was `visuals/site/`), so GitHub Pages serves them: `.../visuals/index.html` (cases) and `.../visuals/model.html` (model). `visuals/site/` is removed.
+- `docs/diagrams/` (matplotlib) is unchanged and remains the source of the figures in the documentation pages.
+- `Fig` accepts a canvas size and a path colour (existing figures are byte-identical).
+
 ## [0.8.0] - Roman variant of the maps
 
 ### Added

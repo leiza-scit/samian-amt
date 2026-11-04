@@ -36,7 +36,7 @@ ROOT = HERE.parent
 sys.path.insert(0, str(ROOT / "py"))
 import weights as wt  # noqa: E402
 
-SITE, IMG, DATA = HERE / "site", HERE / "site" / "img", HERE / "data"
+SITE, IMG, DATA = ROOT / "docs" / "visuals", ROOT / "docs" / "visuals" / "img", HERE / "data"   # published via GitHub Pages
 R, M = HERE / "fonts/FiraSans-Regular.ttf", HERE / "fonts/FiraSans-Medium.ttf"
 W, H = 1750, 1000
 
@@ -72,10 +72,10 @@ def wrap(s, size, maxw):
 
 
 class Fig:
-    def __init__(s, name, title):
+    def __init__(s, name, title, w=W, h=H):
         s.name = name
-        s.o = [f'<svg width="{W}" height="{H}" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img"><title>{escape(title)}</title>',
-               f'<rect width="{W}" height="{H}" fill="#ffffff"/>',
+        s.o = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg" role="img"><title>{escape(title)}</title>',
+               f'<rect width="{w}" height="{h}" fill="#ffffff"/>',
                f'<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="{LINE}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>']
 
     def text(s, x, y, t, size=22, med=False, color=DARK, anchor="middle", maxw=None, halo=False):
@@ -100,10 +100,10 @@ class Fig:
         else:
             s.text(cx, y + h / 2, title, ts, True, c, anchor, mw)
 
-    def path(s, d, dash=False, m="a"):
+    def path(s, d, dash=False, m="a", color=LINE, sw=1.6):
         ds = ' stroke-dasharray="7 6"' if dash else ""
         mk = f' marker-end="url(#{m})"' if m else ""
-        s.o.append(f'<path d="{d}" fill="none" stroke="{LINE}" stroke-width="1.6"{ds}{mk}/>')
+        s.o.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{sw}"{ds}{mk}/>')
 
     def chip(s, x, y, t, size=19, anchor="middle", med=False):
         w = tw(t, size, med) + 18
@@ -606,6 +606,21 @@ def main():
     print(len(figs), "figures ->", IMG)
 
 
+NAV = ('<nav><a href="../index.html">Mini-AMT docs</a> · <a href="index.html">Case figures</a> · '
+       '<a href="model.html">Model figures</a></nav>')
+CSS = ('body{font:16px/1.5 "Fira Sans",sans-serif;max-width:960px;margin:2rem auto;padding:0 1rem;color:#1f1f1d}'
+       'nav{border-bottom:1px solid #ddd;padding-bottom:.6rem;margin-bottom:1.5rem;font-size:.9rem}'
+       'figure{margin:0 0 2rem}img{max-width:100%;border:1px solid #ddd}figcaption{color:#55544f}')
+
+
+def page(file, title, intro, rows):
+    html = (f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+            f'<title>{escape(title)}</title><style>{CSS}</style>{NAV}<h1>{escape(title)}</h1><p>{intro}</p>'
+            + "".join(rows) + "</html>\n")
+    SITE.mkdir(parents=True, exist_ok=True)
+    (SITE / file).write_text(html, encoding="utf-8", newline="\n")
+
+
 def write_site(figs):
     rows = []
     for name, code, title, c in figs:
@@ -615,14 +630,8 @@ def write_site(figs):
                     f'<figcaption><b>{code}</b> {escape(title)}. {escape(c["relation"])}; string <code>{escape(c["source_string"])}</code> '
                     f'({escape(c["pottername"] + ", id " + c["carrier_id"] if c["carrier_id"] else "any carrier")}); weight {e["weight"]:.2f} per statement, fw:{e["type"]}, fw:{e["method"]}. '
                     f'<a href="img/{name}.svg">SVG</a></figcaption></figure>')
-    html = ('<!doctype html><html lang="en"><meta charset="utf-8"><title>CHNT2026 vagueness and uncertainty cases</title>'
-            '<style>body{font:16px/1.5 "Fira Sans",sans-serif;max-width:960px;margin:2rem auto;padding:0 1rem;color:#1f1f1d}'
-            'figure{margin:0 0 2rem}img{max-width:100%;border:1px solid #ddd}figcaption{color:#55544f}</style>'
-            "<h1>Vagueness and uncertainty cases</h1>"
-            "<p>Potform and ProductionCentre, one figure per case. Examples from the Samian Research database.</p>"
-            + "".join(rows) + "</html>\n")
-    SITE.mkdir(exist_ok=True)
-    (SITE / "index.html").write_text(html, encoding="utf-8", newline="\n")
+    page("index.html", "Vagueness and uncertainty cases",
+         "Potform and ProductionCentre, one figure per case. Examples from the Samian Research database.", rows)
 
 
 if __name__ == "__main__":

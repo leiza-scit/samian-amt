@@ -22,7 +22,7 @@ which actors. Each derived link can be read from both ends.
 
 ![Mini-AMT, simple view](diagrams/01_simple_model.svg)
 
-Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` from the ontology.
+Source: [PNG](diagrams/01_simple_model.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
 
 ## The three rules
 

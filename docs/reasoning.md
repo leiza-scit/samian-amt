@@ -51,7 +51,7 @@ so one query finds every derived association.
 
 ![Reasoning properties in both directions](diagrams/04_reasoning_both.svg)
 
-Source: [PNG](diagrams/04_reasoning_both.png) · drawn by `py/step_diagrams.py` from the ontology.
+Source: [PNG](diagrams/04_reasoning_both.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
 
 ## A worked chain
 
@@ -61,7 +61,7 @@ everything else below is derived. The weights are arbitrary toy values, and the 
 
 ![Toy chain](diagrams/03_toy_reasoning.svg)
 
-Source: [PNG](diagrams/03_toy_reasoning.png) · drawn by `py/step_diagrams.py` from the ontology.
+Source: [PNG](diagrams/03_toy_reasoning.png) · drawn by `py/step_diagrams.py` from the ontology · [same figure in the visuals style](visuals/model.html).
 
 | Edge | Weight | Source |
 |---|---|---|

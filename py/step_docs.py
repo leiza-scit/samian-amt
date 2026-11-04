@@ -30,7 +30,8 @@ KIND_ORDER = ["asserted", "inverse of an asserted role", "derived (>>)", "derive
 
 def figure(stem: str, alt: str) -> str:
     return (f"![{alt}](diagrams/{stem}.svg)\n\n"
-            f"Source: [PNG](diagrams/{stem}.png) · drawn by `py/step_diagrams.py` from the ontology.\n")
+            f"Source: [PNG](diagrams/{stem}.png) · drawn by `py/step_diagrams.py` from the ontology · "
+            f"[same figure in the visuals style](visuals/model.html).\n")
 
 
 def classify(model: dict) -> dict:

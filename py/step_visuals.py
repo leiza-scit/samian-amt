@@ -1,4 +1,4 @@
-"""Step visuals: the eight vagueness / uncertainty case figures (PF.1-3, PC.1-4, IC-PC.1) -> visuals/site/."""
+"""Step visuals: case figures (PF.1-4, PC.1-4, IC-PC.1) and model figures in the visuals style -> docs/visuals/."""
 from __future__ import annotations
 
 import sys
@@ -9,7 +9,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "visuals"))
 
 def main() -> int:
     import build
+    import model_figs
     build.main()
+    model_figs.main()
     return 0
 
 

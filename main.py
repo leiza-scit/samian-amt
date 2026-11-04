@@ -22,7 +22,7 @@ STEPS = [
     ("reason",   "step_reason",   "reasoning on the toy chain -> dist/ (cross-checks the AMT engine if installed)"),
     ("chains",   "step_chains",   "three real chains as hextuples, reasoning of the models M1 and M2 -> dist/"),
     ("diagrams", "step_diagrams", "the five figures -> docs/diagrams/ (SVG + PNG)"),
-    ("visuals", "step_visuals",  "eight case figures for Potform and ProductionCentre -> visuals/site/ (SVG + PNG)"),
+    ("visuals", "step_visuals",  "case figures and model figures in the visuals style -> docs/visuals/ (SVG + PNG + 2 HTML pages)"),
     ("docs",     "step_docs",     "GitHub Pages documentation -> docs/ (generated from ontology, reasoning, diagrams)"),
 ]
 

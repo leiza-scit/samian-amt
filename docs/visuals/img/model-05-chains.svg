@@ -1,0 +1,132 @@
+<svg width="1750" height="1960" viewBox="0 0 1750 1960" xmlns="http://www.w3.org/2000/svg" role="img"><title>Three chains from the CHNT data: hextuples and derived degrees</title>
+<rect width="1750" height="1960" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<defs><marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Three chains from the CHNT data: hextuples and derived degrees</text>
+<text x="60" y="118" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="25" font-weight="500" fill="#1f1f1d">Chain A: Vitalis viii</text>
+<rect x="85.0" y="277.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.0" y="315.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Potform 31</text>
+<rect x="85.0" y="407.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.0" y="445.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Potform 32</text>
+<rect x="535.0" y="277.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="680.0" y="315.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Carrier 153340</text>
+<rect x="535.0" y="407.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="680.0" y="445.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Carrier 153346</text>
+<rect x="985.0" y="277.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1130.0" y="315.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Kräherwald</text>
+<rect x="985.0" y="407.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1130.0" y="445.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Rheinzabern</text>
+<rect x="1415.0" y="342.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1560.0" y="380.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Vitalis viii</text>
+<path d="M831.0,315.0 L979.0,315.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="858.66" y="299.0" width="39.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="315.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1 V</text>
+<path d="M831.0,315.0 L979.0,445.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="858.66" y="340.6" width="39.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="356.6" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1 V</text>
+<path d="M831.0,445.0 L979.0,315.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="858.66" y="387.4" width="39.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="403.4" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1 V</text>
+<path d="M831.0,445.0 L979.0,445.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="858.66" y="429.0" width="39.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="445.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1 V</text>
+<path d="M529.0,315.0 L381.0,315.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="427.05" y="299.0" width="55.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="315.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 U</text>
+<path d="M529.0,445.0 L381.0,445.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="427.05" y="429.0" width="55.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="445.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 U</text>
+<path d="M1409.0,380.0 L1281.0,315.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1325.3" y="331.5" width="39.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1345.0" y="347.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1 V</text>
+<path d="M1409.0,380.0 L1281.0,445.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1325.3" y="396.5" width="39.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1345.0" y="412.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1 V</text>
+<path d="M230.0,271.0 Q895.0,103.5 1560.0,336.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
+<rect x="756.6" y="187.45" width="276.8" height="32.1" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="895.0" y="203.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">Potform&gt;&gt;Actor   M1 0.5  |  M2 0.5</text>
+<path d="M230.0,489.0 Q680.0,689.0 1130.0,489.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<rect x="585.35" y="572.95" width="189.3" height="32.1" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="680.0" y="589.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">Potform&gt;&gt;Centre   0.5</text>
+<text x="60" y="638" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="25" font-weight="500" fill="#1f1f1d">Chain B: Onnio-</text>
+<rect x="85.0" y="862.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.0" y="900.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Potform 18/31</text>
+<rect x="535.0" y="862.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="680.0" y="900.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Carrier 103585</text>
+<rect x="985.0" y="797.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1130.0" y="835.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Pfaffenhofen</text>
+<rect x="985.0" y="927.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1130.0" y="965.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Westerndorf</text>
+<rect x="1415.0" y="862.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1560.0" y="900.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Onnio-</text>
+<path d="M831.0,900.0 L979.0,835.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="851.26" y="863.2" width="54.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="879.2" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 V</text>
+<path d="M831.0,900.0 L979.0,965.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="851.26" y="904.8" width="54.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="920.8" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 V</text>
+<path d="M529.0,900.0 L381.0,900.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="427.05" y="884.0" width="55.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="900.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 U</text>
+<path d="M1409.0,900.0 L1281.0,835.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1317.9" y="851.5" width="54.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1345.0" y="867.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 V</text>
+<path d="M1409.0,900.0 L1281.0,965.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1317.9" y="916.5" width="54.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1345.0" y="932.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 V</text>
+<path d="M230.0,856.0 Q895.0,656.0 1560.0,856.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
+<rect x="748.45" y="739.95" width="293.1" height="32.1" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="895.0" y="756.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">Potform&gt;&gt;Actor   M1 0.125  |  M2 0.5</text>
+<path d="M230.0,944.0 Q680.0,1176.5 1130.0,1009.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<rect x="581.05" y="1060.45" width="197.9" height="32.1" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="680.0" y="1076.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">Potform&gt;&gt;Centre   0.25</text>
+<text x="60" y="1158" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="25" font-weight="500" fill="#1f1f1d">Chain C: Ve- i</text>
+<rect x="85.0" y="1317.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.0" y="1355.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Potform 24</text>
+<rect x="85.0" y="1447.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.0" y="1485.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Potform 27</text>
+<rect x="85.0" y="1577.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.0" y="1615.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Potform 33</text>
+<rect x="535.0" y="1447.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="680.0" y="1485.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Carrier 211974</text>
+<rect x="985.0" y="1382.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1130.0" y="1420.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">La Graufesenque</text>
+<rect x="985.0" y="1512.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1130.0" y="1550.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Le Rozier</text>
+<rect x="1415.0" y="1447.0" width="290" height="76" rx="38.0" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1560.0" y="1485.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">Ve- i</text>
+<path d="M831.0,1485.0 L979.0,1420.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="844.8100000000001" y="1448.2" width="67.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="1464.2" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 FW</text>
+<path d="M831.0,1485.0 L979.0,1550.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="844.8100000000001" y="1489.8" width="67.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="878.36" y="1505.8" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 FW</text>
+<path d="M529.0,1485.0 L381.0,1355.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="423.65" y="1404.0" width="62.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="1420.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.33 V</text>
+<path d="M529.0,1485.0 L381.0,1485.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="423.65" y="1469.0" width="62.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="1485.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.33 V</text>
+<path d="M529.0,1485.0 L381.0,1615.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="423.65" y="1534.0" width="62.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="1550.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.33 V</text>
+<path d="M1409.0,1485.0 L1281.0,1420.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1311.45" y="1436.5" width="67.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1345.0" y="1452.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 FW</text>
+<path d="M1409.0,1485.0 L1281.0,1550.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1311.45" y="1501.5" width="67.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1345.0" y="1517.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5 FW</text>
+<path d="M230.0,1311.0 Q895.0,1176.0 1560.0,1441.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
+<rect x="742.75" y="1259.95" width="304.5" height="32.1" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="895.0" y="1276.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">Potform&gt;&gt;Actor   M1 0.083  |  M2 0.33</text>
+<path d="M230.0,1659.0 Q680.0,1826.5 1130.0,1594.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<rect x="576.85" y="1710.45" width="206.3" height="32.1" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="680.0" y="1726.5" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">Potform&gt;&gt;Centre   0.165</text>
+<path d="M60.0,1865.0 L116.0,1865.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<text x="126" y="1865" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">asserted, weight + type</text>
+<path d="M365.3,1865.0 L421.3,1865.0" fill="none" stroke="#dc2626" stroke-width="2.4" marker-end="url(#r)"/>
+<text x="431.3" y="1865" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">derived (product logic)</text>
+<path d="M668.3,1865.0 L724.3,1865.0" fill="none" stroke="#dc2626" stroke-width="2.4" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<text x="734.3" y="1865" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">derived Potform&gt;&gt;Centre</text>
+<text x="60" y="1910" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">Type: C certainty, U uncertainty (?), V vagueness (AND / OR), FW fuzziness-wobbliness (? with AND / OR). M1: carrier-centre asserted; M2: derived from the actor.</text>
+</svg>
