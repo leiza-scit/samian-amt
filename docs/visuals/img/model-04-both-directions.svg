@@ -3,56 +3,56 @@
 <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <defs><marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
 <text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Derived properties in both directions: &gt;&gt; and &lt;&lt;</text>
-<rect x="70.0" y="405.0" width="230" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
-<text x="185.0" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Potform</text>
-<rect x="530.0" y="405.0" width="230" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
-<text x="645.0" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">InformationCarrier</text>
-<rect x="990.0" y="405.0" width="230" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
-<text x="1105.0" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">ProductionCentre</text>
-<rect x="1450.0" y="405.0" width="230" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
-<text x="1565.0" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Actor</text>
-<path d="M766.0,435.0 L984.0,435.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
-<rect x="779.4" y="419" width="191.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="875.0" y="435" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">hasProductionCentre</text>
-<path d="M984.0,505.0 L766.0,505.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
-<rect x="777.8" y="489" width="194.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="875.0" y="505" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">isProductionCentreOf</text>
-<path d="M524.0,435.0 L306.0,435.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
-<rect x="372.25" y="419" width="85.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="415.0" y="435" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">hasType</text>
-<path d="M306.0,505.0 L524.0,505.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
-<rect x="370.65" y="489" width="88.7" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="415.0" y="505" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">isTypeOf</text>
-<path d="M1444.0,435.0 L1226.0,435.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
-<rect x="1293.6" y="419" width="82.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="1335.0" y="435" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">worksAt</text>
-<path d="M1226.0,505.0 L1444.0,505.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
-<rect x="1282.35" y="489" width="105.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="1335.0" y="505" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#000000">hasWorker</text>
-<path d="M685.0,399.0 Q1105.0,99.0 1525.0,399.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
-<rect x="961.5" y="221.9" width="287.0" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
-<text x="1105.0" y="237.95000000000002" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&gt;&gt; carrierToActor</text>
-<text x="1105.0" y="260.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">hasProductionCentre o hasWorker</text>
-<path d="M1525.0,541.0 Q1105.0,841.0 685.0,541.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
-<rect x="998.1" y="663.9" width="213.8" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
-<text x="1105.0" y="679.9499999999999" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&lt;&lt; actorToCarrier</text>
-<text x="1105.0" y="702.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">inverse of carrierToActor</text>
-<path d="M145.0,399.0 Q875.0,-121.0 1605.0,399.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
+<rect x="70.0" y="405.0" width="210" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="175.0" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#ffffff">Potform</text>
+<rect x="536.6666666666667" y="405.0" width="210" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="641.6666666666667" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#ffffff">InformationCarrier</text>
+<rect x="1003.3333333333335" y="405.0" width="210" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1108.3333333333335" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#ffffff">ProductionCentre</text>
+<rect x="1470.0" y="405.0" width="210" height="130" rx="16" fill="#9a3412" stroke="#000000" stroke-width="1"/>
+<text x="1575.0" y="470.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#ffffff">Actor</text>
+<path d="M752.7,435.0 L997.3,435.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="784.2500000000001" y="392" width="181.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="875.0000000000001" y="408" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasProductionCentre</text>
+<path d="M997.3,505.0 L752.7,505.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<rect x="782.7000000000002" y="516" width="184.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="875.0000000000001" y="532" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">isProductionCentreOf</text>
+<path d="M530.7,435.0 L286.0,435.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="367.4333333333334" y="392" width="81.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="408.33333333333337" y="408" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasType</text>
+<path d="M286.0,505.0 L530.7,505.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<rect x="365.9333333333334" y="516" width="84.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="408.33333333333337" y="532" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">isTypeOf</text>
+<path d="M1464.0,435.0 L1219.3,435.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1302.0666666666668" y="392" width="79.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1341.6666666666667" y="408" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">worksAt</text>
+<path d="M1219.3,505.0 L1464.0,505.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<rect x="1291.4166666666667" y="516" width="100.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1341.6666666666667" y="532" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">hasWorker</text>
+<path d="M681.7,399.0 Q1108.3,99.0 1535.0,399.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
+<rect x="964.8333333333335" y="221.9" width="287.0" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="1108.3333333333335" y="237.95000000000002" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&gt;&gt; carrierToActor</text>
+<text x="1108.3333333333335" y="260.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">hasProductionCentre o hasWorker</text>
+<path d="M1535.0,541.0 Q1108.3,841.0 681.7,541.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<rect x="1001.4333333333335" y="663.9" width="213.8" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="1108.3333333333335" y="679.9499999999999" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&lt;&lt; actorToCarrier</text>
+<text x="1108.3333333333335" y="702.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">inverse of carrierToActor</text>
+<path d="M135.0,399.0 Q875.0,-121.0 1615.0,399.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
 <rect x="688.55" y="111.9" width="372.9" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
 <text x="875.0" y="127.95" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&gt;&gt; potformToActor</text>
 <text x="875.0" y="150.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">isTypeOf o hasProductionCentre o hasWorker</text>
-<path d="M1605.0,541.0 Q875.0,1061.0 145.0,541.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<path d="M1615.0,541.0 Q875.0,1061.0 135.0,541.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
 <rect x="762.35" y="773.9" width="225.3" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
 <text x="875.0" y="789.9499999999999" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&lt;&lt; actorToPotform</text>
 <text x="875.0" y="812.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">inverse of potformToActor</text>
-<path d="M225.0,399.0 Q645.0,99.0 1065.0,399.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
-<rect x="509.3" y="221.9" width="271.4" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
-<text x="645.0" y="237.95000000000002" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&gt;&gt; potformToCentre</text>
-<text x="645.0" y="260.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">isTypeOf o hasProductionCentre</text>
-<path d="M1065.0,541.0 Q645.0,841.0 225.0,541.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
-<rect x="527.05" y="663.9" width="235.9" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
-<text x="645.0" y="679.9499999999999" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&lt;&lt; centreToPotform</text>
-<text x="645.0" y="702.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">inverse of potformToCentre</text>
+<path d="M215.0,399.0 Q641.7,99.0 1068.3,399.0" fill="none" stroke="#dc2626" stroke-width="2.6" marker-end="url(#r)"/>
+<rect x="505.96666666666675" y="221.9" width="271.4" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="641.6666666666667" y="237.95000000000002" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&gt;&gt; potformToCentre</text>
+<text x="641.6666666666667" y="260.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">isTypeOf o hasProductionCentre</text>
+<path d="M1068.3,541.0 Q641.7,841.0 215.0,541.0" fill="none" stroke="#dc2626" stroke-width="2.6" stroke-dasharray="7 6" marker-end="url(#r)"/>
+<rect x="523.7166666666667" y="663.9" width="235.9" height="54.2" rx="5" fill="#ffffff" stroke="#dc2626" stroke-width="1.4"/>
+<text x="641.6666666666667" y="679.9499999999999" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#dc2626">&lt;&lt; centreToPotform</text>
+<text x="641.6666666666667" y="702.05" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#7f1d1d">inverse of potformToCentre</text>
 <path d="M60.0,930.0 L116.0,930.0" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
 <text x="126" y="930" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">asserted property</text>
 <path d="M320.7,930.0 L376.7,930.0" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>

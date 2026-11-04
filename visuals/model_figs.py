@@ -74,15 +74,16 @@ def key(f, y, items, x=60):
 def chain_fig(model, name, title, legend, instances=None, weights=None, inverse_arcs=False, note=None):
     h = 1000 if inverse_arcs else 800
     f = new(name, title, 1750, h)
-    BW, BH, yc = 230, 130, 470
-    cx = {c: 70 + i * 460 + BW / 2 for i, c in enumerate(CHAIN)}
+    BW, BH, yc = 210, 130, 470
+    step = (1750 - 140 - BW) / 3
+    cx = {c: 70 + i * step + BW / 2 for i, c in enumerate(CHAIN)}
     top, bottom = yc - BH / 2, yc + BH / 2
     for c in CHAIN:
         if instances:
             lab, sub = instances[c]
             f.box(cx[c] - BW / 2, top, BW, BH, lab, sub, INST, rx=BH / 2)
         else:
-            f.box(cx[c] - BW / 2, top, BW, BH, c, None, CLS, ts=23, rx=16)
+            f.box(cx[c] - BW / 2, top, BW, BH, c, None, CLS, ts=21, rx=16)
 
     def wl(role, concept):
         return f"{role}  {weights[(role, concept)]:.2f}" if weights else role
@@ -96,9 +97,9 @@ def chain_fig(model, name, title, legend, instances=None, weights=None, inverse_
         sx = lambda c, facing: cx[c] + (BW / 2 + 6 if facing else -BW / 2 - 6)
         a, b = sx(d, right), sx(r, not right)
         line(f, (a, yc - 35), (b, yc - 35))
-        f.chip((a + b) / 2, yc - 35, wl(ante, d), 18)
+        f.chip((a + b) / 2, yc - 35 - 27, wl(ante, d), 17)
         line(f, (b, yc + 35), (a, yc + 35), dash=True)
-        f.chip((a + b) / 2, yc + 35, wl(inv, r), 18, med=False)
+        f.chip((a + b) / 2, yc + 35 + 27, wl(inv, r), 17)
 
     inverse_of = {ante: inv for _, ante, inv in model["inverses"]}
     for _, ante, cons, _ in model["chains"]:
@@ -156,7 +157,7 @@ def semantics_fig(model):
     def link(p, q, label=None, t=0.5, size=15, med=False, dash=False):
         line(f, p, q, dash=dash)
         if label:
-            f.text(p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t, label, size, med, halo=True)
+            f.text(p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t - 15, label, size, med, halo=True)
 
     base = [(a, b, c) for a, b, c in model["inverses"] if b in row_y or c in row_y]
     for _, ante, inv in base:
@@ -177,7 +178,11 @@ def semantics_fig(model):
         f.text(col["rca"], y + 34, f"logic: {logic} (proposal)", 15, color=MUTED)
         for i, role in enumerate(ante):
             dy = (i - (len(ante) - 1) / 2) * 34
-            link((pills[role]["r"][0] + 6, pills[role]["cy"]), (col["rca"] - 181, y + dy), str(i + 1), 0.22, 22, True)
+            p, q = (pills[role]["r"][0] + 6, pills[role]["cy"]), (col["rca"] - 181, y + dy)
+            link(p, q)
+            cxn, cyn = p[0] + (q[0] - p[0]) * 0.2, p[1] + (q[1] - p[1]) * 0.2
+            f.raw(f'<circle cx="{cxn:.1f}" cy="{cyn:.1f}" r="15" fill="#ffffff" stroke="#000000" stroke-width="1.6"/>')
+            f.text(cxn, cyn, str(i + 1), 19, True)
         pill(cons, col["der"], y, derived=True)
         link((col["rca"] + 181, y), (pills[cons]["l"][0] - 6, y), "consequent")
 
@@ -185,7 +190,7 @@ def semantics_fig(model):
     for _, sub, sup in model["subs"]:
         spread = (pills[sub]["cy"] - 600) / 4 * 0.5
         link((pills[sub]["r"][0] + 6, pills[sub]["cy"]), (pills[sup]["l"][0] - 6, pills[sup]["cy"] + spread),
-             "SubsumptionAxiom", 0.45)
+             "SubsumptionAxiom", 0.5, 14)
 
     for _, ante, inv in model["inverses"]:
         if ante in pills and ante not in row_y and inv not in pills:
@@ -200,7 +205,7 @@ def semantics_fig(model):
         f.rect(x, y - 16, 56, 32, fill, RED if red else "#000000", 16, 3 if red else 1.6, dashed)
         f.text(x + 70, y, text, 19, color=MUTED, anchor="start")
         x += 70 + tw(text, 19) + 50
-    f.text(60, H2 - 45, "Roles show domain -> range. The logic operator of the role chains is a proposal (product, as in the source paper).",
+    f.text(60, H2 - 45, "Roles show domain -> range. Numbers in circles: position of the role in the chain (order of the antecedents). The logic operator is a proposal (product, as in the source paper).",
            17, color=MUTED, anchor="start")
     f.save()
 
@@ -216,7 +221,8 @@ def fmt(x):
     return f"{x:.3f}".rstrip("0").rstrip(".")
 
 
-def chains_fig(res):
+def chains_fig(res, only=None):
+    """All chains in one figure, or (only='A') one chain alone as model-05<a>-chain-<A>."""
     comp = comparison(res)
     edges, nodes, rows = res["edges"], res["nodes"], res["rows"]
     panels = {}
@@ -224,6 +230,8 @@ def chains_fig(res):
         panels.setdefault(r["chain"], []).append(r)
     layout = []
     for chain, rs in sorted(panels.items()):
+        if only and chain != only:
+            continue
         ics = sorted("ic_" + r["carrier_id"] for r in rs)
         ae = "ae_" + next(e["from"] for e in edges if e["role"] == "worksAt" and e["from"].startswith("ae_")
                           and nodes[e["from"]][1] == rs[0]["potter"])[3:]
@@ -231,16 +239,20 @@ def chains_fig(res):
         pcs = list(dict.fromkeys(e["to"] for e in edges if e["role"] == "hasProductionCentre" and e["from"] in ics))
         n = max(len(pfs), len(ics), len(pcs))
         layout.append((chain, rs, ics, ae, pfs, pcs, n, (n - 1) * PITCH + 390))
-    H = sum(p[-1] for p in layout) + 270
-    f = new("model-05-chains", "Three chains from the CHNT data: hextuples and derived degrees", 1750, H)
-    y0 = 100
+    y0 = 40 if only else 100
+    H = sum(p[-1] for p in layout) + (y0 + 150 if only else 270)
+    if only:
+        f = new(f"model-05{only.lower()}-chain-{only}", f"Chain {only}: {layout[0][1][0]['potter']}", 1750, H)
+    else:
+        f = new("model-05-chains", "Three chains from the CHNT data: hextuples and derived degrees", 1750, H)
     for chain, rs, ics, ae, pfs, pcs, n, h in layout:
         mid = y0 + 215 + (n - 1) * PITCH / 2
         pos = {}
         for colname, items in (("pf", pfs), ("ic", ics), ("pc", pcs), ("ae", [ae])):
             for i, k in enumerate(items):
                 pos[k] = (COLX[colname], mid - ((len(items) - 1) / 2 - i) * PITCH)
-        f.text(60, y0 + 18, f"Chain {chain}: {rs[0]['potter']}", 25, True, anchor="start")
+        if not only:
+            f.text(60, y0 + 18, f"Chain {chain}: {rs[0]['potter']}", 25, True, anchor="start")
         BW, BH = 290, 76
         for k, (x, y) in pos.items():
             f.box(x - BW / 2, y - BH / 2, BW, BH, nodes[k][1], None, INST, ts=21, rx=BH / 2)
@@ -313,13 +325,20 @@ def main():
     chain_fig(model, "model-04-both-directions", "Derived properties in both directions: >> and <<",
               [("solid", "asserted property"), ("dashed", "inverse of an asserted property"), ("red", "derived, forward (>>)"), ("reddashed", "derived, inverse (<<)")],
               inverse_arcs=True)
-    chains_fig(run_chains())
+    res = run_chains()
+    chains_fig(res)
+    figs = list(FIGS)
+    for chain in sorted({r['chain'] for r in res['rows']}):
+        chains_fig(res, chain)
+        potter = next(r["potter"] for r in res["rows"] if r["chain"] == chain)
+        figs.append((f"model-05{chain.lower()}-chain-{chain}", f"Chain {chain}: {potter}",
+                     "The same chain as in the three-chain figure, on its own.", "05_chains"))
 
     rows = [f'<figure id="{n}"><img src="img/{n}.png" alt="{escape(t)}" width="875"><figcaption><b>{escape(t)}.</b> {escape(c)} '
             f'<a href="img/{n}.svg">SVG</a> · <a href="../diagrams/{d}.svg">docs version (matplotlib)</a></figcaption></figure>'
-            for n, t, c, d in FIGS]
+            for n, t, c, d in figs]
     B.page("model.html", "Model figures",
            "The Mini-AMT model in the style of the case figures. The figures in the documentation pages (<a href=\"../model.html\">Model</a>, "
            "<a href=\"../reasoning.html\">Reasoning</a>, <a href=\"../chains.html\">Chains</a>) are the matplotlib versions and are developed there; "
            "this page shows the same content for presentations and papers.", rows)
-    print(len(FIGS), "model figures ->", B.IMG)
+    print(len(figs), "model figures ->", B.IMG)

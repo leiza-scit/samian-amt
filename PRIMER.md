@@ -125,6 +125,7 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die CHNT-Exporte (nur bei Schritten
 | S12 | PF.4 (Häufigkeitsbalken) und Orientierungsebenen der Karten (0.7.0) | CHNT2026-amt | S11 | Patch geliefert 2026-11-04 |
 | S13 | Römische Variante der Karten (Provinzen, Straßen, Orte; 0.8.0) | CHNT2026-amt | S12 | Patch geliefert 2026-11-04 |
 | S14 | Modellgrafiken im Visuals-Stil, Visuals über die Docs veröffentlicht (0.9.0) | CHNT2026-amt | S13 | Patch geliefert 2026-11-04 |
+| S15 | Einzelketten, klarere Pfeile und nummerierte Kanten in den Visuals (0.9.1) | CHNT2026-amt | S14 | Patch geliefert 2026-11-04 |
 | S9 | Engine-Abgleich und SHACL-Validierung | CHNT2026-amt | S3 | Abgleich erledigt 2026-10-30 (mit S3a); SHACL: M1 hat vier Verstöße (Teil D) |
 
 S5 und der SHACL-Teil von S9 sind unabhängig von S4. S6 bis S8 warten auf die Entscheidung in S4.

@@ -2,6 +2,15 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.9.1] - Single chains, clearer arrows
+
+### Added
+- The three chains of figure 05 also as single figures `model-05a-chain-A`, `-05b-chain-B`, `-05c-chain-C` (own SVG and PNG, listed on `docs/visuals/model.html`). *Warum:* Eine Kette allein passt besser auf eine Folie oder in ein Paper.
+
+### Changed
+- Property labels in figures 01, 03 and 04 sit above (asserted) and below (inverse) their line instead of on it, so every arrowhead is visible; boxes are narrower for that.
+- Figure 02: the numbers on the edges are circled and explained in the note (position of the role in the chain, i.e. the order of the antecedents); axiom labels sit above their lines.
+
 ## [0.9.0] - Model figures in the visuals style, visuals published with the docs
 
 ### Added
