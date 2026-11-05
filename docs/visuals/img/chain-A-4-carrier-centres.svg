@@ -713,7 +713,7 @@
 <text x="1570" y="256" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" fill="#1f1f1d">“Kräherwald and Rheinzabern”</text>
 <path d="M1330 252 H 1430" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
 <text x="1380" y="232" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">derivedFrom</text>
-<path d="M1185 304 V 527.0" fill="none" stroke="#55544f" stroke-width="1.6"/>
+<path d="M1185 304 V 543.0" fill="none" stroke="#55544f" stroke-width="1.6"/>
 <text x="1199" y="342" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#1f1f1d">hasProductionCentre</text>
 <path d="M1185 423.0 H 1330" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
 <rect x="1247.85" y="407.0" width="58.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
@@ -723,14 +723,17 @@
 <text x="1366" y="423.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#166534">1</text>
 <text x="1400" y="408.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Kräherwald</text>
 <text x="1400" y="438.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#ffffff">no Wikidata item</text>
-<path d="M1185 527.0 H 1330" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
-<rect x="1247.85" y="511.0" width="58.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="1277.0" y="527.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">1.00</text>
-<rect x="1330" y="484" width="380" height="86" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
-<circle cx="1366" cy="527.0" r="20" fill="#ffffff" stroke="#000000" stroke-width="1"/>
-<text x="1366" y="527.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#166534">2</text>
-<text x="1400" y="512.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Rheinzabern</text>
-<text x="1400" y="542.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#ffffff">no Wikidata item</text>
+<line x1="1520" y1="466" x2="1520" y2="500" stroke="#55544f" stroke-width="1.6"/>
+<rect x="1497.15" y="472.0" width="45.7" height="22" rx="11" fill="#ffffff" stroke="#55544f" stroke-width="1.4"/>
+<text x="1520" y="483.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" font-weight="500" fill="#1f1f1d">and</text>
+<path d="M1185 543.0 H 1330" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1247.85" y="527.0" width="58.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1277.0" y="543.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">1.00</text>
+<rect x="1330" y="500" width="380" height="86" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<circle cx="1366" cy="543.0" r="20" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1366" y="543.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#166534">2</text>
+<text x="1400" y="528.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="23" font-weight="500" fill="#ffffff">Rheinzabern</text>
+<text x="1400" y="558.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#ffffff">no Wikidata item</text>
 <text x="1040" y="640" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" fill="#55544f">AND: every centre holds, so each keeps the full weight</text>
 <text x="1040" y="800" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="24" fill="#1f1f1d">weight = 1 / 1 = 1.00</text>
 <rect x="1040" y="830" width="310.4" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>

@@ -4,11 +4,12 @@ mini-01-cases  four rows: carrier -> potforms (Samian) and coin -> authorities (
 mini-02-form   the same four cases as AFE container and as AMT statement with its five parts
 
 The data come from py/step_mini_roundtrip.py, never from this file. The coins are schematic and invented
-(an abstract head, no real coin, no photograph); the numbers are the coins of data/afe/afe-mini-coins.ttl.
+(schematic emperor portraits from typical features, no real coin, no photograph); the numbers are the coins of data/afe/afe-mini-coins.ttl.
 """
 from __future__ import annotations
 
 import build as B
+import emperors as E
 from build import INST, MUTED, REAL, TERM, Fig, tw
 import step_mini_roundtrip as MR
 
@@ -23,18 +24,14 @@ def new(name, title, h):
     return f
 
 
-def coin_art(f, cx, cy, r, seed):
-    """A schematic coin: double rim, an abstract head, a dotted legend ring. Drawn, invented, no real coin."""
-    heads = ["M-14,26 C-30,10 -26,-18 -8,-30 C6,-40 24,-30 26,-12 C28,0 20,6 22,14 C24,22 12,28 4,26 Z",
-             "M-18,28 C-34,6 -22,-24 -2,-32 C16,-38 30,-22 26,-4 L32,6 L22,10 C24,20 10,30 -2,28 Z",
-             "M-12,28 C-30,12 -28,-14 -10,-28 C4,-38 22,-34 28,-18 C32,-6 24,-2 26,8 C26,20 12,30 -12,28 Z",
-             "M-16,26 C-32,8 -24,-20 -6,-30 C10,-38 28,-26 26,-8 C24,4 30,12 18,20 C10,28 -4,30 -16,26 Z"][seed % 4]
-    f.raw(f'<g transform="translate({cx},{cy})">'
-          f'<circle r="{r}" fill="#e9d9a6" stroke="#000000" stroke-width="2"/>'
-          f'<circle r="{r - 8}" fill="none" stroke="#8a7430" stroke-width="2"/>'
-          f'<circle r="{r - 15}" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/>'
-          f'<g transform="scale({r / 60:.3f})"><path d="{heads}" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/>'
-          f'<path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>')
+def coin_art(f, cx, cy, r, who=None):
+    """A schematic coin with the portrait of the authority (worn and featureless if there are several candidates)."""
+    E.place(f, cx, cy, r, who, True)
+
+
+def portrait(f, cx, cy, r, who):
+    """A round medallion with the portrait of one emperor (who = nomisma id)."""
+    E.place(f, cx, cy, r, who, False)
 
 
 def sherd_art(f, cx, cy, seed, k=1.0):
@@ -54,6 +51,11 @@ def arrows(f, x0, y0, x1, ys, chips, cx):
     for y, t in zip(ys, chips):
         f.path(f"M{x0},{y0} C{x0 + 45},{y0} {x1 - 55},{y} {x1 - 6},{y}", sw=2.2)
         f.chip(cx, (y0 + y) / 2 if len(ys) > 1 else y, t, 18)
+
+
+def who_of(edges):
+    """The authority drawn on the coin: the only one; with several candidates the coin is drawn worn (None)."""
+    return edges[0]["object"] if len(edges) == 1 else None
 
 
 def cases(r):
@@ -79,7 +81,7 @@ def cases(r):
             f.box(640, yy - 21, 150, 42, e["object"], None, TERM, 20)
         f.text(820, mid, "back: same" if p["same"] else "back: different", 17, True, "#166534", "start")
         # AFE side
-        coin_art(f, 985, mid, 62, p["n"] - 1)
+        coin_art(f, 985, mid, 62, who_of(c["edges"]))
         f.text(985, mid + 82, f"coin {c['coin']}  (drawn)", 15, False, MUTED)
         n = len(c["edges"])
         ys = [mid + (i - (n - 1) / 2) * gap for i, _ in enumerate(c["edges"])]
@@ -87,11 +89,12 @@ def cases(r):
             f.path(f"M1050,{mid} C1110,{mid} 1140,{yy} 1190,{yy}", sw=2.2)
             f.chip(1135, yy, f"{e['weight']}", 17)
             f.box(1195, yy - 21, 230, 42, e["object"], None, INST, 20)
-        f.text(1450, mid - 12, "back: same" if c["verdict"] == "same" else "back: " + c["verdict"], 17, True, "#166534", "start")
-        f.text(1450, mid + 14, NAMES[p["edges"][0]["type"]], 16, False, MUTED, "start")
+            portrait(f, 1462, yy, 25, e["object"])
+        f.text(1505, mid - 12, "back: same" if c["verdict"] == "same" else "back: " + c["verdict"], 17, True, "#166534", "start")
+        f.text(1505, mid + 14, NAMES[p["edges"][0]["type"]], 16, False, MUTED, "start")
         y += ROW
     f.legend(y + 24, [(TERM, "potform"), (INST, "authority"), (B.PROP, "weight = fw:hasDegreeOfConnection = amt:weight")])
-    f.text(60, y + 62, "Coins and sherds with potter's stamps are schematic and invented (the names are made up).", 16, False, MUTED, "start")
+    f.text(60, y + 62, "Coins, emperor portraits and sherds with potter's stamps are schematic and invented; a coin with several candidates is drawn worn.", 16, False, MUTED, "start")
     f.save()
 
 
@@ -152,11 +155,11 @@ def lines_amt(subj, prop, edges):
     return [f"{subj}  {prop}"] + [f"    {pre}{nm(e['object'])}   {e['weight']}   fw:{e['type']}" for e in edges]
 
 
-def draw_obj(f, side, cx, cy, n):
+def draw_obj(f, side, cx, cy, n, edges=None):
     if side == "samian":
         sherd_art(f, cx, cy, n - 1, 0.9)
     else:
-        coin_art(f, cx, cy, 52, n - 1)
+        coin_art(f, cx, cy, 52, who_of(edges))
 
 
 def panel(f, x, side, kind, title, n, edges, form, subj, prop, sy, verdict=None, cell_lines=0):
@@ -169,7 +172,7 @@ def panel(f, x, side, kind, title, n, edges, form, subj, prop, sy, verdict=None,
     ys = [mid + (i - (ne - 1) / 2) * gap for i in range(ne)]
     ox = x + 72
     reach = 66 if side == "samian" else 54
-    draw_obj(f, side, ox, mid, n)
+    draw_obj(f, side, ox, mid, n, edges)
     tx, tw_ = (x + 300, 190) if kind == "amt" else (x + 325, 175)
     if kind == "amt":
         for e, yy in zip(edges, ys):

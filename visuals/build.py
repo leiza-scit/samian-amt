@@ -195,6 +195,16 @@ def note(f, t, x=60, y=968, anchor="start"):
     f.text(x, y, t, 17, False, MUTED, anchor)
 
 
+def joiner(f, x, y0, y1, word):
+    """A thin line between two stacked boxes with "or" / "and" on it: how the alternatives of the source string belong together."""
+    if word not in ("or", "and"):
+        return
+    f.raw(f'<line x1="{x}" y1="{y0}" x2="{x}" y2="{y1}" stroke="{MUTED}" stroke-width="1.6"/>')
+    w, h = tw(word, 16, True) + 18, 22
+    f.rect(x - w / 2, (y0 + y1) / 2 - h / 2, w, h, "#ffffff", MUTED, 11, 1.4)
+    f.text(x, (y0 + y1) / 2, word, 16, True, DARK)
+
+
 # ---------------------------------------------------------------- potform figures
 
 def form_art(f, key, x, y, scale):
@@ -244,6 +254,8 @@ def potform_fig(name, code, title, subnote, forms):
             f.text(cx + 250 + (cw - 250) / 2, mid, "no profile drawing yet", 24, False, MUTED)
         f.path(f"M440 {cy_carrier} H 620 V {mid} H {cx}")
         f.chip(710, mid, f"{e['weight']:.2f}", 22, "middle", True)
+        if i < ncard - 1:
+            joiner(f, cx + 115, y + ch, y + ch + gap, st.connective)
     if ghost:
         y = top + ncard * (ch + gap)
         f.rect(cx, y, cw, ch, "#ffffff", "#000000", 6, 2.4, True)
@@ -257,10 +269,20 @@ def potform_fig(name, code, title, subnote, forms):
     return f.name
 
 
+def dashed_chip(f, x, y, t, size=19):
+    """A chip for something that is drawn but not modelled: white, dashed, grey text."""
+    w = tw(t, size) + 18
+    f.rect(x - w / 2, y - 16, w, 32, "#ffffff", MUTED, 4, 1.6, True)
+    f.text(x, y, t, size, False, MUTED)
+
+
 def share_fig(name, code, title, subnote):
-    """Equal share (the rule) against the observed share of each form in the database (the colour bars of the website)."""
+    """Equal share (the rule) against the observed share of each form in the database (the colour bars of the website).
+    With a potter in data/shares.csv a second bar is drawn: the repertoire of the potter (level C), an approximation
+    that is only drawn, not modelled."""
     c, st, edges = statements(code)
     rows = [r for r in SHARES if r["case"] == code]
+    rep = bool(rows[0]["rep_total"])
     freq = [round(int(r["count"]) / int(r["total"]), 2) for r in rows]
     import frequency
     counts = frequency.load_counts()
@@ -270,14 +292,21 @@ def share_fig(name, code, title, subnote):
     for r in rows:   # the percentages the website shows must follow from the counts
         if round(100 * int(r["count"]) / int(r["total"]), 2) != float(r["page_percent"]):
             raise SystemExit(f"{code} {r['form']}: counts give {100 * int(r['count']) / int(r['total']):.2f} %, the page says {r['page_percent']} %")
-    f = Fig(name, f"{code} {title}")
+        if rep and round(100 * int(r["rep_count"]) / int(r["rep_total"]), 2) != float(r["rep_percent"]):
+            raise SystemExit(f"{code} {r['form']}: repertoire counts give {100 * int(r['rep_count']) / int(r['rep_total']):.2f} %, the table says {r['rep_percent']} %")
+    f = Fig(name, f"{code} {title}", W, 1080)
     f.raw('<defs><linearGradient id="gy" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#15803d"/><stop offset="1" stop-color="#86efac"/></linearGradient>'
-          '<linearGradient id="rd" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#ef4444"/></linearGradient></defs>')
+          '<linearGradient id="rd" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#ef4444"/></linearGradient>'
+          '<linearGradient id="gyc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#5b7f9a"/><stop offset="1" stop-color="#c3d3df"/></linearGradient>'
+          '<linearGradient id="rdc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#d9c9b0"/><stop offset="1" stop-color="#b98f7a"/></linearGradient></defs>')
     header(f, code, title, c, st, edges)
-    ch, gap, cx, cw = 240, 36, 800, 890
+    ch, gap, cx, cw = 250, 40, 800, 890
     top = 190 + (650 - (2 * ch + gap)) / 2
     cy_c = 190 + 650 / 2
-    f.box(60, cy_c - 60, 340, 120, "any carrier", "InformationCarrier  ·  with this string", INST, 28, 19, 30)
+    if rep:
+        f.box(60, cy_c - 60, 340, 120, f"carrier of {rows[0]['potter']}", "InformationCarrier  ·  potter known", INST, 22, 19, 30)
+    else:
+        f.box(60, cy_c - 60, 340, 120, "any carrier", "InformationCarrier  ·  with this string", INST, 28, 19, 30)
     ev_y = 700
     f.rect(60, ev_y, 340, 130, OWL[0], OWL[1], 6, 2.4, True)
     f.text(230, ev_y + 30, "fw:TextEvidence", 23, True)
@@ -299,19 +328,45 @@ def share_fig(name, code, title, subnote):
             f.rect(cx + 215, mid - 70, 300, 140, "#ffffff", MUTED, 4, 1.6, True)
             f.text(cx + 365, mid, "drawing not supplied", 20, False, MUTED)
         bx, bw = cx + 545, 320
-        f.text(bx, mid - 52, f"{100 * int(r['count']) / int(r['total']):.2f} %", 36, True, DARK, "start")
-        f.text(bx, mid - 14, f"{n_fmt(r['count'])} of {n_fmt(r['total'])}", 21, False, MUTED, "start")
-        f.rect(bx, mid + 12, bw * int(r["count"]) / int(r["total"]), 26, "url(#gy)", "#000000", 0, 1)
-        f.rect(bx + bw * int(r["count"]) / int(r["total"]), mid + 12, bw * (1 - int(r["count"]) / int(r["total"])), 26, "url(#rd)", "#000000", 0, 1)
+        share = int(r["count"]) / int(r["total"])
+        if not rep:
+            f.text(bx, mid - 52, f"{100 * share:.2f} %", 36, True, DARK, "start")
+            f.text(bx, mid - 14, f"{n_fmt(r['count'])} of {n_fmt(r['total'])}", 21, False, MUTED, "start")
+            f.rect(bx, mid + 12, bw * share, 26, "url(#gy)", "#000000", 0, 1)
+            f.rect(bx + bw * share, mid + 12, bw * (1 - share), 26, "url(#rd)", "#000000", 0, 1)
+        else:
+            rs = int(r["rep_count"]) / int(r["rep_total"])
+            f.text(bx, mid - 92, "A  database  (modelled)", 18, True, DARK, "start")
+            f.text(bx, mid - 66, f"{100 * share:.2f} %", 28, True, DARK, "start")
+            f.text(bx + 118, mid - 64, f"{n_fmt(r['count'])} of {n_fmt(r['total'])}", 18, False, MUTED, "start")
+            f.rect(bx, mid - 44, bw * share, 22, "url(#gy)", "#000000", 0, 1)
+            f.rect(bx + bw * share, mid - 44, bw * (1 - share), 22, "url(#rd)", "#000000", 0, 1)
+            f.text(bx, mid + 6, "C  repertoire of the potter  (drawn only)", 18, True, MUTED, "start")
+            f.text(bx, mid + 32, f"{100 * rs:.2f} %", 28, True, MUTED, "start")
+            f.text(bx + 118, mid + 34, f"{r['rep_count']} of {r['rep_total']}", 18, False, MUTED, "start")
+            f.rect(bx, mid + 54, bw * rs, 22, "url(#gyc)", MUTED, 0, 1, True)
+            f.rect(bx + bw * rs, mid + 54, bw * (1 - rs), 22, "url(#rdc)", MUTED, 0, 1, True)
         f.path(f"M400 {cy_c} H 500 V {mid} H {cx}")
-        f.chip(650, mid - 20, f"equal share  {e['weight']:.2f}", 19, "middle")
-        f.chip(650, mid + 20, f"frequency  {fr:.2f}", 19, "middle", True)
+        if rep:
+            f.chip(650, mid - 38, f"equal share  {e['weight']:.2f}", 19, "middle")
+            f.chip(650, mid, f"frequency A  {fr:.2f}", 19, "middle", True)
+            dashed_chip(f, 650, mid + 38, f"repertoire C  {int(r['rep_count']) / int(r['rep_total']):.2f}")
+        else:
+            f.chip(650, mid - 20, f"equal share  {e['weight']:.2f}", 19, "middle")
+            f.chip(650, mid + 20, f"frequency  {fr:.2f}", 19, "middle", True)
+        if i < len(rows) - 1:
+            joiner(f, cx + 100, y + ch, y + ch + gap, st.connective)
     f.text(60, 872, f"equal share: 1 / {st.n_possibilities} = {edges[0]['weight']:.2f} each (fw:EqualShareRule)", 22, False, DARK, "start")
-    f.text(60, 906, "frequency: " + "   ·   ".join(f"{n_fmt(r['count'])} / {n_fmt(r['total'])} = {fr:.2f}" for r, fr in zip(rows, freq)), 22, False, DARK, "start")
+    f.text(60, 906, ("A, frequency in the database: " if rep else "frequency: ") + "   ·   ".join(f"{n_fmt(r['count'])} / {n_fmt(r['total'])} = {fr:.2f}" for r, fr in zip(rows, freq)), 22, False, DARK, "start")
+    y = 940
+    if rep:
+        f.text(60, 940, "C, repertoire of the potter (not modelled): " + "   ·   ".join(f"{r['rep_count']} / {r['rep_total']} = {int(r['rep_count']) / int(r['rep_total']):.2f}" for r in rows), 22, False, MUTED, "start")
+        y = 978
     x = 60
     for t in (f"fw:hasDegreeOfConnection  {edges[0]['weight']:.2f}", f"fw:hasType  fw:{edges[0]['type']}", "fw:hasMethod  fw:EqualShareRule", f"sam:frequencyShare  {freq[0]:.2f}"):
-        x += f.chip(x, 944, t, 19, "start") + 12
-    note(f, subnote, 60, 978)
+        x += f.chip(x, y + 4, t, 19, "start") + 12
+    for j, ln in enumerate(wrap(subnote, 17, 1630)):
+        f.text(60, y + 42 + 22 * j, ln, 17, False, MUTED, "start")
     f.save()
     return f.name
 
@@ -538,7 +593,7 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
     f.text(1380, 232, "derivedFrom", 15, False, MUTED)
     role = "worksAt" if subject_kind == "actor" else "hasProductionCentre"
     n = len(ents)
-    rh, rg = 86, 18
+    rh, rg = 86, (34 if st.connective in ("or", "and") else 18)
     rtop = 380
     rail = px + 145
     last = rtop + (n - 1) * (rh + rg) + rh / 2
@@ -557,6 +612,8 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
         if ent != site:
             sub2 = f"“{ent}”  ·  {sub2}"
         f.text(1400, mid + 15, sub2, 17, False, "#ffffff", "start", maxw=300)
+        if i < n:
+            joiner(f, 1520, y + rh, y + rh + rg, st.connective)
     ytop = max(rtop + n * (rh + rg) + 20, 640)
     if st.connective == "and":
         f.text(px, ytop, ("AND: every centre holds, so each keeps the full weight" if not uncertain else "AND: every centre holds; the ? halves the weight"), 20, False, MUTED, "start")
@@ -581,7 +638,7 @@ def check_cases():
         ed = wt.edges_for(c["source_string"], c["relation"])
         if not all(e["listed"] for e in ed):
             raise SystemExit(f"{code}: pattern not expected for {c['relation']}")
-    want = {"PF.1": ("or", 0.33, 3), "PF.2": ("q", 0.5, 1), "PF.3": ("q+or", 0.25, 2), "PF.4": ("or", 0.5, 2),
+    want = {"PF.1": ("or", 0.33, 3), "PF.2": ("q", 0.5, 1), "PF.3": ("q+or", 0.25, 2), "PF.4": ("or", 0.5, 2), "PF.4a": ("or", 0.5, 2), "PF.4b": ("or", 0.5, 2),
             "PC.1": ("or", 0.5, 2), "PC.2": ("and", 1.0, 2), "PC.3": ("q+and", 0.5, 3),
             "PC.4": ("q", 0.5, 1), "IC-PC.1": ("q", 0.5, 1)}
     for code, (pat, w, n) in want.items():
@@ -611,6 +668,12 @@ def main():
     figs.append((share_fig("PF.4-frequency-bars", "PF.4", "Frequency share next to the equal share",
         "Bars as on the Samian Research website (form “31 or 31R”, Dish). The degree stays the equal share; the frequency share (probability based on frequency share, level A) is additional information for the archaeologist, not a weight. Not yet in the FW ontology."),
         "PF.4", "Frequency share next to the equal share", C["PF.4"]))
+    figs.append((share_fig("PF.4a-repertoire-confirms", "PF.4a", "Frequency share: the repertoire confirms it",
+        "Marinus iii: 40 of his 50 vessels with 31 or 31R are 31, 80.00 % against 80.25 % in the whole database. Bar A is modelled (sam:frequencyShare, level A). Bar C, the repertoire of the potter, is an approximation that we only draw: level C is planned, not in the AMT model."),
+        "PF.4a", "Frequency share: the repertoire confirms it", C["PF.4a"]))
+    figs.append((share_fig("PF.4b-repertoire-deviates", "PF.4b", "Frequency share: the repertoire deviates",
+        "Belsa (Arvernicus)?: 9 of about 23 vessels are 31, 39.13 %, far below 80.25 % in the whole database (about five standard deviations). Bar A is modelled; bar C is only drawn. The counts are from the memo of 2026-11-04 and to be checked in the database; the potter's name has a variant and a ?, so exact matching may miss records."),
+        "PF.4b", "Frequency share: the repertoire deviates", C["PF.4b"]))
     specs = [("PC.1-one-or", "PC.1", "One OR between centres",
               f"Samian Research: carrier {C['PC.1']['carrier_id']} of {C['PC.1']['pottername']}, centre string “{C['PC.1']['source_string']}” (Raetian tradition); the same string as in chain B.", "actor"),
              ("PC.2-multiple-and", "PC.2", "Several centres with AND",

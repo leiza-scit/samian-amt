@@ -1,3 +1,7 @@
-case,form,count,total,page_percent,source
-PF.4,31,9070,11302,80.25,Samian Research website; form "31 or 31R" (Dish); taken from a screenshot of 2026-11-04
-PF.4,31R,2232,11302,19.75,Samian Research website; form "31 or 31R" (Dish); taken from a screenshot of 2026-11-04
+case,form,count,total,page_percent,source,potter,rep_count,rep_total,rep_percent,rep_source
+PF.4,31,9070,11302,80.25,"Samian Research website; form ""31 or 31R"" (Dish); taken from a screenshot of 2026-11-04",,,,,
+PF.4,31R,2232,11302,19.75,"Samian Research website; form ""31 or 31R"" (Dish); taken from a screenshot of 2026-11-04",,,,,
+PF.4a,31,9070,11302,80.25,"Samian Research website; form ""31 or 31R"" (Dish); taken from a screenshot of 2026-11-04",Marinus iii,40,50,80.00,"Memo section 9 (Farbbalken-Berechnung in PostgreSQL), 2026-11-04: 50 records, 10 of them 31R"
+PF.4a,31R,2232,11302,19.75,"Samian Research website; form ""31 or 31R"" (Dish); taken from a screenshot of 2026-11-04",Marinus iii,10,50,20.00,"Memo section 9 (Farbbalken-Berechnung in PostgreSQL), 2026-11-04: 50 records, 10 of them 31R"
+PF.4b,31,9070,11302,80.25,"Samian Research website; form ""31 or 31R"" (Dish); taken from a screenshot of 2026-11-04",Belsa (Arvernicus)?,9,23,39.13,"Memo section 9 (Farbbalken-Berechnung in PostgreSQL), 2026-11-04: 39.13 % for 31 of about 23 records; 9 of 23 is the only count that gives 39.13 %, to be checked in the database"
+PF.4b,31R,2232,11302,19.75,"Samian Research website; form ""31 or 31R"" (Dish); taken from a screenshot of 2026-11-04",Belsa (Arvernicus)?,14,23,60.87,"Memo section 9 (Farbbalken-Berechnung in PostgreSQL), 2026-11-04: 39.13 % for 31 of about 23 records; 9 of 23 is the only count that gives 39.13 %, to be checked in the database"

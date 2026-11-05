@@ -23,6 +23,9 @@
 <path d="M440 515.0 H 620 V 402.0 H 800" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
 <rect x="680.75" y="386.0" width="58.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="710.0" y="402.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">0.25</text>
+<line x1="915" y1="502.0" x2="915" y2="528.0" stroke="#55544f" stroke-width="1.6"/>
+<rect x="898.25" y="504.0" width="33.5" height="22" rx="11" fill="#ffffff" stroke="#55544f" stroke-width="1.4"/>
+<text x="915" y="515.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="16" font-weight="500" fill="#1f1f1d">or</text>
 <rect x="800" y="528.0" width="890" height="200" rx="6" fill="#ffffff" stroke="#000000" stroke-width="1"/>
 <rect x="800" y="528.0" width="230" height="200" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
 <text x="915" y="606.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="40" font-weight="500" fill="#ffffff">18</text>

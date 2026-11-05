@@ -2,6 +2,18 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.22.0] - "or" and "and" between the alternatives; PF.4a and PF.4b with the repertoire bar drawn
+
+### Added
+- **"or" / "and" on a thin line between the stacked boxes** of the alternatives (`joiner` in `visuals/build.py`): between the green centre boxes of the centre figures (PC.1 to PC.3 and the chain pages, for example chain A), between the potform cards of PF.1, PF.3 and PF.4 and between the form cards of the frequency figures. The word comes from the connective of the source string. *Warum:* Allard Mees (2026-11-05): Wer nicht eingeweiht ist, kann an der Ausgangsbezeichnung nicht ablesen, ob "or" oder "and" gemeint ist; so steht es im Bild.
+- **PF.4a** (Marinus iii: 40 of 50 vessels with 31 or 31R are 31, 80.00 % against 80.25 % in the database, the repertoire confirms) and **PF.4b** (Belsa (Arvernicus)?: 9 of 23, 39.13 %, the repertoire deviates). Each row shows two bars: **A**, the share in the whole database (modelled as `sam:frequencyShare`, level A) and **C**, the repertoire of the potter, drawn dashed and grey with the note that it is an approximation that is **not modelled** (level C is planned). *Warum:* Flo wollte an zwei Beispielen zeigen, welcher Balken im Modell steht und welcher nur als Näherung gezeichnet wird.
+- `visuals/data/shares.csv`: columns `potter`, `rep_count`, `rep_total`, `rep_percent`, `rep_source`; the build checks that the repertoire counts give the percentages in the table. Counts of the repertoire come from the memo of 2026-11-04; the counts of PF.4b (9 of 23) are derived from 39.13 % and "about 23" and are to be checked in the database.
+
+- **Emperor portraits on the invented coins** (new `visuals/emperors.py`, used by `visuals/mini_roundtrip_figs.py`): one hand-drawn profile bust per emperor (Vespasian, Titus, Marcus Aurelius, Lucius Verus, Commodus, Aurelian, Philip the Arab), each with its own skull, nose, lips, chin and neck, hair and beard (bald and lined, short curls, big curls, long beard, lion skin of Hercules, cropped hair with stubble). Drawn by eye after busts and an aureus that Flo supplied, nothing traced or copied from a photograph. They appear on the coin and as small medallions next to the authorities of the mini round trip figures. A coin with several candidates is drawn worn and without features. *Warum:* Flo: Es kommen keine echten Münzbilder, also zeichnen wir Kaiser, die man auseinanderhalten kann; nichts davon ist eine echte Münze.
+
+### Changed
+- The frequency figures are 80 px taller (the note under the figure wraps instead of being cut off).
+
 ## [0.21.0] - Mini round trip: Turtle files per case, SPARQL queries on the page, larger round trips not linked
 
 ### Added
