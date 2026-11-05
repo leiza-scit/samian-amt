@@ -1,0 +1,12 @@
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+afe:16048 a nmo:NumismaticObject ;
+    nmo:hasAuthority [ a fw:UncertainResourceValue ;
+            fw:hasConfidence 0.6 ;
+            rdf:value nm:philip_the_arab ] .
+

@@ -1,0 +1,37 @@
+@prefix amt: <http://academic-meta-tool.xyz/vocab#> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sam: <http://example.org/samian-amt/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sam:pf_15_17 rdfs:label "Potform 15/17" .
+
+sam:pf_18 rdfs:label "Potform 18" .
+
+sam:pf_18_31 rdfs:label "Potform 18/31" .
+
+sam:ic_156521 rdfs:label "Carrier 156521" ;
+    amt:instanceOf sam:InformationCarrier .
+
+[] fw:hasDegreeOfConnection 0.33 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:Vagueness ;
+    rdf:object sam:pf_15_17 ;
+    rdf:predicate sam:hasType ;
+    rdf:subject sam:ic_156521 .
+
+[] fw:hasDegreeOfConnection 0.33 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:Vagueness ;
+    rdf:object sam:pf_18_31 ;
+    rdf:predicate sam:hasType ;
+    rdf:subject sam:ic_156521 .
+
+[] fw:hasDegreeOfConnection 0.33 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:Vagueness ;
+    rdf:object sam:pf_18 ;
+    rdf:predicate sam:hasType ;
+    rdf:subject sam:ic_156521 .
+

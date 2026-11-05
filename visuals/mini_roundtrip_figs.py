@@ -230,7 +230,7 @@ def case_fig(side, p, c, r_idx):
     for i, kind in enumerate(order):
         x = PX + i * (PW + PGAP)
         t = titles[kind] + (" again" if i == 2 else "")
-        ends.append(panel(f, x, side, kind, t, n, edges, form, subj_s, prop, sy, "same" if i == 2 else None, cl))
+        ends.append(panel(f, x, side, kind, t, n, edges, form, subj_s, prop, sy, None, cl))
     for i in range(2):
         x0 = PX + i * (PW + PGAP) + PW + 6
         f.path(f"M{x0},{sy + 70} L{x0 + PGAP - 12},{sy + 70}", sw=2.6)

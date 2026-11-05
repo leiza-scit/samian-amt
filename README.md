@@ -66,7 +66,7 @@ package of 2026-11-03; his answers are still open. Details: `docs/afe-roundtrip.
 side (information carrier -> potform, coin -> `nmo:hasAuthority`), four kinds of statement (certain, uncertain, vague,
 vague and uncertain), five parts per statement. Both sides must come back the same; `data/afe/afe-mini-coins.ttl` holds
 the four coins, `data/afe/amt-parallel-statements.ttl` the test of two parallel statements in the AMT engine. The page
-`docs/mini-roundtrip.md` has two figures (invented coins and sherds) and the commands step by step.
+`docs/mini-roundtrip.md` has two figures (invented coins and sherds) and the commands step by step; every figure panel has its Turtle file in `docs/mini/` and the four SPARQL queries are on the page. The larger round trip pages (`roundtrip.html`, `afe-roundtrip.html`) are still built but not linked.
 
 ## Weights, hextuple and chains
 

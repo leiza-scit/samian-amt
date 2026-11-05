@@ -1,0 +1,7 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sam: <http://example.org/samian-amt/> .
+
+sam:ic_mini_1 a sam:InformationCarrier ;
+    rdfs:label "Carrier mini 1" ;
+    sam:hasType sam:pf_31 .
+

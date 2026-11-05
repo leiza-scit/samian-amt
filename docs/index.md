@@ -40,8 +40,6 @@ which actors. Each derived link can be read from both ends.
 | [Chains](chains.html) | Three real chains from the Samian Research data: weights, FW types, derived degrees, two models |
 | [Weights](weights.html) | How the weight is computed, the hextuple, and: is `amt:weight` the same in both directions? |
 | [Mini round trip](mini-roundtrip.html) | The smallest round trip: four kinds of statement (certain, uncertain, vague, vague and uncertain) on the Samian side and on the coin side, five parts each, drawn coins |
-| [Round trip](roundtrip.html) | AMT → AFE → AMT: the chains as the AFE container pattern and back, two SPARQL queries, what is kept and what is not |
-| [AFE round trip](afe-roundtrip.html) | AFE → AMT → AFE: Karsten Tolle's coin data as hextuples and back, four cases, edge cases (state of package version 3, answers pending) |
 | [Explorer](explorer/index.html) | The AMT Explorer in the browser with the three chains to choose from: graph, reasoning on and off, details, export as Turtle, Cypher, PNG and SVG |
 
 ## Files

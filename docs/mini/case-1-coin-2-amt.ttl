@@ -1,0 +1,24 @@
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix amt: <http://academic-meta-tool.xyz/vocab#> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+afe:15668 rdfs:label "afeid=15668" ;
+    amt:instanceOf afe:Coins .
+
+afe:Coins a amt:Concept ;
+    rdfs:label "afe coins" .
+
+nm:aurelian rdfs:label "aurelian" .
+
+[] amt:weight 1.0 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:Certainty ;
+    rdf:object nm:aurelian ;
+    rdf:predicate nmo:hasAuthority ;
+    rdf:subject afe:15668 .
+

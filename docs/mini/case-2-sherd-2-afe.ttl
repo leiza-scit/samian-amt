@@ -1,0 +1,12 @@
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sam: <http://example.org/samian-amt/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sam:ic_103585 a sam:InformationCarrier ;
+    rdfs:label "Carrier 103585" ;
+    sam:hasType [ a fw:UncertainResourceValue ;
+            fw:hasConfidence 0.5 ;
+            rdf:value sam:pf_18_31 ] .
+

@@ -6,6 +6,8 @@ title: Round trip
 
 # Round trip: AMT → AFE → AMT
 
+> **Work in progress.** This page is not linked from the navigation for now; the [mini round trip](mini-roundtrip.html) comes first and the larger round trips follow step by step.
+
 The AFE coin data and the AMT meet in the same question: how is a vague or uncertain statement written down?
 AFE answers with containers (a value and a confidence), AMT with a hextuple (a weight and an FW type). Karsten Tolle's
 round trip goes **AFE → AMT → AFE** (see [AFE → AMT → AFE](afe-roundtrip.html)). This page shows the other direction, **AMT → AFE → AMT**: the three chains of this

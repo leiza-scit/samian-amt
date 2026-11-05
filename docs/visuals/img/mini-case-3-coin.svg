@@ -61,8 +61,6 @@
 <text x="1234" y="455" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    a fw:VagueResourceValue, skos:Collection ;</text>
 <text x="1234" y="481" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    skos:member  nm:titus   0.5</text>
 <text x="1234" y="507" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    skos:member  nm:vespasian   0.5</text>
-<rect x="1570" y="154" width="150" height="30" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
-<text x="1645" y="169" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#ffffff">same</text>
 <path d="M566,260 L634,260" fill="none" stroke="#55544f" stroke-width="2.6" marker-end="url(#a)"/>
 <text x="600.0" y="236" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">query</text>
 <path d="M1146,260 L1214,260" fill="none" stroke="#55544f" stroke-width="2.6" marker-end="url(#a)"/>

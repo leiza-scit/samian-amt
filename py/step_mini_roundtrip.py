@@ -120,7 +120,7 @@ def run_potform() -> dict:
                       "edges": edges, "form": afe_form(afe, c, SAM.hasType), "same": potform_edges(back, c) == edges})
     if not all(c["same"] for c in cases):
         raise AssertionError("mini round trip (Potform): a case did not come back the same")
-    return {"cases": cases, "statements": counts["statements"], "nodes": counts["nodes"]}
+    return {"cases": cases, "statements": counts["statements"], "nodes": counts["nodes"], "graphs": (amt, afe, back)}
 
 
 def run_coins() -> dict:
@@ -143,7 +143,7 @@ def run_coins() -> dict:
         if v != "same" or got != EXPECTED_TYPES[n]:
             raise AssertionError(f"mini coin {coin}: {v}, types {got} instead of {EXPECTED_TYPES[n]}")
         out.append({"n": n, "coin": coin, "edges": edges, "form": afe_form(afe, uri, AR.NMO.hasAuthority), "verdict": v})
-    return {"cases": out, "engine": engine}
+    return {"cases": out, "engine": engine, "graphs": (afe, middle, back)}
 
 
 def run_parallel() -> dict | None:
@@ -166,6 +166,57 @@ def run() -> dict:
     if par is not None and par["containers_back"] != 1:
         raise AssertionError("parallel statements: the way back now keeps them apart; update the page and the PRIMER")
     return res
+
+
+def case_graph(g: Graph, subject) -> Graph:
+    """The part of a graph that belongs to one subject: its triples, nested blank nodes, and statements about it."""
+    out = Graph()
+    for pre, ns in g.namespaces():
+        out.bind(pre, ns)
+    seen: set = set()
+
+    def take(node):
+        if node in seen:
+            return
+        seen.add(node)
+        for p, o in g.predicate_objects(node):
+            out.add((node, p, o))
+            if isinstance(o, BNode):
+                take(o)
+            elif p in (RDF.subject, RDF.object, AMT.instanceOf):
+                for p2 in (RDF.type, RDFS.label):
+                    for o2 in g.objects(o, p2):
+                        out.add((o, p2, o2))
+    take(subject)
+    for st in g.subjects(RDF.subject, subject):
+        take(st)
+    for _, _, o in list(out.triples((None, AMT.instanceOf, None))):
+        for p2 in (RDF.type, RDFS.label):
+            for o2 in g.objects(o, p2):
+                out.add((o, p2, o2))
+    return out
+
+
+FORMS = {"sherd": ("1-amt", "2-afe", "3-amt-again"), "coin": ("1-afe", "2-amt", "3-afe-again")}
+
+
+def write_cases(r: dict, folder: Path) -> list[str]:
+    """One Turtle file per case, side and form (24 files): what the figures show, written canonically."""
+    folder.mkdir(parents=True, exist_ok=True)
+    pa, pf, pb = r["potform"]["graphs"]
+    ca, cm, cb = r["coins"]["graphs"]
+    names = []
+    for p, c in zip(r["potform"]["cases"], r["coins"]["cases"]):
+        subj = SAM["ic_" + p["carrier"]]
+        coin = next(x for x in AR.coins(ca) if AR.short(x) == c["coin"])
+        for side, graphs, node in (("sherd", (pa, pf, pb), subj), ("coin", (ca, cm, cb), coin)):
+            for form, g in zip(FORMS[side], graphs):
+                sub = case_graph(g, node)
+                canon = RT.canonical(sub) if side == "sherd" else AR.canonical(AR.blank(sub, False))
+                name = f"case-{p['n']}-{side}-{form}.ttl"
+                canon.serialize(folder / name, format="turtle")
+                names.append(name)
+    return names
 
 
 def report(r: dict) -> str:

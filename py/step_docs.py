@@ -108,8 +108,6 @@ def index_page(model: dict) -> str:
 | [Chains](chains.html) | Three real chains from the Samian Research data: weights, FW types, derived degrees, two models |
 | [Weights](weights.html) | How the weight is computed, the hextuple, and: is `amt:weight` the same in both directions? |
 | [Mini round trip](mini-roundtrip.html) | The smallest round trip: four kinds of statement (certain, uncertain, vague, vague and uncertain) on the Samian side and on the coin side, five parts each, drawn coins |
-| [Round trip](roundtrip.html) | AMT → AFE → AMT: the chains as the AFE container pattern and back, two SPARQL queries, what is kept and what is not |
-| [AFE round trip](afe-roundtrip.html) | AFE → AMT → AFE: Karsten Tolle's coin data as hextuples and back, four cases, edge cases (state of package version 3, answers pending) |
 | [Explorer](explorer/index.html) | The AMT Explorer in the browser with the three chains to choose from: graph, reasoning on and off, details, export as Turtle, Cypher, PNG and SVG |
 
 ## Files
@@ -458,6 +456,9 @@ def construct_example(r: dict, carrier: str = "ic_211974") -> tuple[str, str]:
     return sel, res
 
 
+BANNER = "> **Work in progress.** This page is not linked from the navigation for now; the [mini round trip](mini-roundtrip.html) comes first and the larger round trips follow step by step."
+
+
 def roundtrip_page(r: dict) -> str:
     sel, res = construct_example(r)
     q_to = (ROOT / "queries" / "amt-to-afe.rq").read_text(encoding="utf-8").rstrip()
@@ -465,6 +466,8 @@ def roundtrip_page(r: dict) -> str:
     c, p, lost = r["chains"], r["patterns"], r["lost"]
     forms = "\n".join(f"| {k} | {v} |" for k, v in sorted(r["afe_shapes"].items()))
     return f"""# Round trip: AMT → AFE → AMT
+
+{BANNER}
 
 {T.ROUNDTRIP_INTRO}
 
@@ -579,6 +582,8 @@ def afe_roundtrip_page(r: dict) -> str:
     rows = "\n".join(f"| {c} | {v} |" for c, v in a.items())
     return f"""# Round trip: AFE → AMT → AFE
 
+{BANNER}
+
 {T.AFE_RT_INTRO}
 
 ## Four forms of an AFE value
@@ -642,6 +647,15 @@ def mini_roundtrip_page(r: dict) -> str:
     figs = "".join(f"### Case {p['n']}: {p['name']}\n\n" + "".join(
         rt_figure(f"mini-case-{p['n']}-{k}", f"Case {p['n']} ({p['name']}), {lab}") for k, lab in (("sherd", "Samian: AMT, AFE, AMT"), ("coin", "coin: AFE, AMT, AFE")))
         for p in r["potform"]["cases"])
+    files = "| Case, side | Files (left to right in the figure) |\n|---|---|\n" + "\n".join(
+        f"| {p['n']} {p['name']}, {side} | " + " · ".join(f"[{lab}](mini/case-{p['n']}-{side}-{f}.ttl)" for f, lab in zip(MR.FORMS[side], labs)) + " |"
+        for p in r["potform"]["cases"] for side, labs in (("sherd", ("AMT", "AFE", "AMT again")), ("coin", ("AFE", "AMT", "AFE again"))))
+    q = lambda *path: (ROOT.joinpath(*path)).read_text(encoding="utf-8").rstrip()
+    queries = "\n\n".join(f"### {title}: `{name}`\n\n```sparql\n{q(*path)}\n```" for title, name, path in (
+        ("Samian, AMT → AFE", "queries/amt-to-afe.rq", ("queries", "amt-to-afe.rq")),
+        ("Samian, AFE → AMT", "queries/afe-to-amt.rq", ("queries", "afe-to-amt.rq")),
+        ("Coins, AFE → AMT", "queries/coins/afe-to-amt.rq", ("queries", "coins", "afe-to-amt.rq")),
+        ("Coins, AMT → AFE", "queries/coins/amt-to-afe.rq", ("queries", "coins", "amt-to-afe.rq"))))
     par_text = T.MINI_PARALLEL if par else "## Two statements on one property\n\nNeeds the AMT engine 0.7.0 or newer; not run in this build."
     return f"""# Mini round trip
 
@@ -662,6 +676,12 @@ def mini_roundtrip_page(r: dict) -> str:
 Left to right: the first form, the second form, the first form again after the way back. Samian: AMT → AFE → AMT; coins: AFE → AMT → AFE.
 
 {figs}
+## Turtle files
+
+{T.MINI_FILES}
+
+{files}
+
 ## Result
 
 {T.MINI_RESULT}
@@ -686,11 +706,13 @@ Each line is one command; the lines of one step belong together and are chained 
 
 Steps 4 to 6 and 7 are compared by the step itself as graphs (same statements, same nodes), not as text: the order of lines and blank-node names may differ.
 The step writes `dist/mini-potform-*.ttl`, `dist/mini-coins-*.ttl` and `dist/mini-roundtrip-report.md`. Step: [`py/step_mini_roundtrip.py`]({T.BLOB}py/step_mini_roundtrip.py),
-coins: `data/afe/afe-mini-coins.ttl`. The queries are those of the [AMT → AFE → AMT](roundtrip.html) and [AFE → AMT → AFE](afe-roundtrip.html) pages.
+coins: `data/afe/afe-mini-coins.ttl`. The method `fw:hasMethod fw:AFEAssignment` that the way back adds is not one of the five parts and is not compared.
 
-## Open points
+## The queries: SPARQL CONSTRUCT
 
-{T.MINI_OPEN}
+{T.MINI_CONSTRUCT}
+
+{queries}
 """
 
 
@@ -720,7 +742,9 @@ def main() -> int:
     write("weights.md", "Weights", weights_page())
     write("roundtrip.md", "Round trip", roundtrip_page(RT.run()))
     write("afe-roundtrip.md", "AFE round trip", afe_roundtrip_page(AR.run()))
-    write("mini-roundtrip.md", "Mini round trip", mini_roundtrip_page(MR.run()))
+    mini = MR.run()
+    MR.write_cases(mini, ROOT / "docs" / "mini")
+    write("mini-roundtrip.md", "Mini round trip", mini_roundtrip_page(mini))
     (ROOT / "REVIEW.md").write_text(review_page(), encoding="utf-8", newline="\n")
     print("wrote docs/index.md, model.md, vocabulary.md, reasoning.md, chains.md, weights.md, roundtrip.md, afe-roundtrip.md, mini-roundtrip.md and REVIEW.md (not published)")
     return 0

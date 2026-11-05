@@ -1,0 +1,7 @@
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+
+afe:15668 a nmo:NumismaticObject ;
+    nmo:hasAuthority nm:aurelian .
+

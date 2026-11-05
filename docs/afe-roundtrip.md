@@ -6,6 +6,8 @@ title: AFE round trip
 
 # Round trip: AFE → AMT → AFE
 
+> **Work in progress.** This page is not linked from the navigation for now; the [mini round trip](mini-roundtrip.html) comes first and the larger round trips follow step by step.
+
 > **State of the package, version 3 (2026-11-03), with the answers of 2026-11-05.** This page shows the round trip as Karsten Tolle's package describes it,
 > run on his coin data. His answers of 2026-11-05 to the questions of the memo are in (section "Open points"); the use case is
 > still open.

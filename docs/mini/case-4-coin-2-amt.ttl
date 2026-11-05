@@ -1,0 +1,42 @@
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix amt: <http://academic-meta-tool.xyz/vocab#> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+afe:Coins a amt:Concept ;
+    rdfs:label "afe coins" .
+
+nm:commodus rdfs:label "commodus" .
+
+nm:lucius_verus rdfs:label "lucius_verus" .
+
+nm:marcus_aurelius rdfs:label "marcus_aurelius" .
+
+afe:12324 rdfs:label "afeid=12324" ;
+    amt:instanceOf afe:Coins .
+
+[] amt:weight 0.25 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:FuzzinessWobbliness ;
+    rdf:object nm:lucius_verus ;
+    rdf:predicate nmo:hasAuthority ;
+    rdf:subject afe:12324 .
+
+[] amt:weight 0.25 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:FuzzinessWobbliness ;
+    rdf:object nm:marcus_aurelius ;
+    rdf:predicate nmo:hasAuthority ;
+    rdf:subject afe:12324 .
+
+[] amt:weight 0.25 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:FuzzinessWobbliness ;
+    rdf:object nm:commodus ;
+    rdf:predicate nmo:hasAuthority ;
+    rdf:subject afe:12324 .
+

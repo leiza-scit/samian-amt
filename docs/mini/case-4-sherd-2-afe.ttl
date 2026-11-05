@@ -1,0 +1,16 @@
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sam: <http://example.org/samian-amt/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sam:ic_210355 a sam:InformationCarrier ;
+    rdfs:label "Carrier 210355" ;
+    sam:hasType [ a fw:FuzzinessWobblinessResourceValue,
+                skos:Collection ;
+            skos:member [ fw:hasConfidence 0.25 ;
+                    rdf:value sam:pf_18_R ],
+                [ fw:hasConfidence 0.25 ;
+                    rdf:value sam:pf_15_17 ] ] .
+

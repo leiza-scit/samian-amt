@@ -1,0 +1,33 @@
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+@prefix amt: <http://academic-meta-tool.xyz/vocab#> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+afe:Coins a amt:Concept ;
+    rdfs:label "afe coins" .
+
+nm:titus rdfs:label "titus" .
+
+nm:vespasian rdfs:label "vespasian" .
+
+afe:15661 rdfs:label "afeid=15661" ;
+    amt:instanceOf afe:Coins .
+
+[] amt:weight 0.5 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:Vagueness ;
+    rdf:object nm:vespasian ;
+    rdf:predicate nmo:hasAuthority ;
+    rdf:subject afe:15661 .
+
+[] amt:weight 0.5 ;
+    fw:hasMethod fw:AFEAssignment ;
+    fw:hasType fw:Vagueness ;
+    rdf:object nm:titus ;
+    rdf:predicate nmo:hasAuthority ;
+    rdf:subject afe:15661 .
+
