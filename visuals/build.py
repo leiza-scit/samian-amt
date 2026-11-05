@@ -239,7 +239,7 @@ def potform_fig(name, code, title, subnote, forms):
     f.text(250, ev_y + 100, "fw:sourceString", 17, False, MUTED)
     f.path(f"M250 {cy_carrier + 60} V {ev_y}", dash=True)
     f.text(262, (cy_carrier + 60 + ev_y) / 2, "fw:derivedFrom", 19, False, MUTED, "start")
-    f.text(520, cy_carrier - 30, "hasType", 21, True, DARK, "start")
+    f.text(530, cy_carrier - 18, "hasType", 21, True, DARK)
     assert len(edges) == ncard, f"{code}: {len(edges)} statements but {ncard} drawings"
     for i, ((label, key), e) in enumerate(zip(forms, edges)):
         y = top + i * (ch + gap)
@@ -314,7 +314,7 @@ def share_fig(name, code, title, subnote):
     f.text(230, ev_y + 100, "fw:sourceString", 17, False, MUTED)
     f.path(f"M230 {cy_c + 60} V {ev_y}", dash=True)
     f.text(242, (cy_c + 60 + ev_y) / 2, "fw:derivedFrom", 19, False, MUTED, "start")
-    f.text(440, cy_c - 30, "hasType", 21, True, DARK, "start")
+    f.text(470, cy_c - 18, "hasType", 21, True, DARK)
     for i, (r, e, fr) in enumerate(zip(rows, edges, freq)):
         y = top + i * (ch + gap)
         mid = y + ch / 2
@@ -346,7 +346,7 @@ def share_fig(name, code, title, subnote):
             f.text(bx + 118, mid + 34, f"{r['rep_count']} of {r['rep_total']}", 18, False, MUTED, "start")
             f.rect(bx, mid + 54, bw * rs, 22, "url(#gyc)", MUTED, 0, 1, True)
             f.rect(bx + bw * rs, mid + 54, bw * (1 - rs), 22, "url(#rdc)", MUTED, 0, 1, True)
-        f.path(f"M400 {cy_c} H 500 V {mid} H {cx}")
+        f.path(f"M400 {cy_c} H 540 V {mid} H {cx}")
         if rep:
             f.chip(650, mid - 38, f"equal share  {e['weight']:.2f}", 19, "middle")
             f.chip(650, mid, f"frequency A  {fr:.2f}", 19, "middle", True)
@@ -526,7 +526,7 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
         clon = min(max(clon, -6.0 + half), 13.0 - half)
         win = (clon, clat, span, 1000 / span)
         # marker positions first, so that city labels can keep clear of them
-        placed, labels = [], []   # a marker that would touch an earlier one is pushed away, with a leader line
+        placed, labels = [], []   # a marker that would touch an earlier one is pushed away (no leader line)
         for i, (ent, site, k, e) in enumerate(ents, 1):
             tx, ty = project(float(k["coordinate1"]), float(k["coordinate2"]), win)
             x, y = tx, ty
@@ -551,9 +551,6 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
             if 8 < x < 992 and 8 < y < 992:
                 f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#ffffff" stroke="{MUTED}" stroke-width="1.2"/>')
         for i, ((ent, site, k, e), (x, y, tx, ty)) in enumerate(zip(ents, placed), 1):
-            if math.hypot(x - tx, y - ty) > 1:
-                f.raw(f'<line x1="{tx:.1f}" y1="{ty:.1f}" x2="{x:.1f}" y2="{y:.1f}" stroke="#000000" stroke-width="1.4"/>')
-                f.raw(f'<circle cx="{tx:.1f}" cy="{ty:.1f}" r="3.5" fill="#000000"/>')
             if uncertain:
                 f.raw(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="19" fill="#ffffff" stroke="{REAL[0]}" stroke-width="3" stroke-dasharray="6 4"/>')
                 f.text(x, y, str(i), 20, True, REAL[0])
@@ -598,7 +595,7 @@ def centre_fig(name, code, title, subnote, subject_kind, style="modern"):
     rail = px + 145
     last = rtop + (n - 1) * (rh + rg) + rh / 2
     f.path(f"M{rail} 304 V {last}", m=None)
-    f.text(rail + 14, 342, role, 21, True, DARK, "start")
+    f.text(rail + 20, 342, role, 21, True, DARK, "start")
     for i, (ent, site, k, e) in enumerate(ents, 1):
         y = rtop + (i - 1) * (rh + rg)
         mid = y + rh / 2

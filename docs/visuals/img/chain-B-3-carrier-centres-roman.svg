@@ -5763,8 +5763,6 @@
 <circle cx="903.1" cy="498.6" r="19" fill="#166534" stroke="#000000" stroke-width="1"/>
 <text x="903.1449750760727" y="498.61108333333345" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">1</text>
 <text x="875.1449750760727" y="498.61108333333345" text-anchor="end" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#1f1f1d" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Pfaffenhofen</text>
-<line x1="901.3" y1="501.4" x2="875.3" y2="540.1" stroke="#000000" stroke-width="1.4"/>
-<circle cx="901.3" cy="501.4" r="3.5" fill="#000000"/>
 <circle cx="875.3" cy="540.1" r="19" fill="#166534" stroke="#000000" stroke-width="1"/>
 <text x="875.30001462583" y="540.1400873850131" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">2</text>
 <text x="847.30001462583" y="540.1400873850131" text-anchor="end" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#1f1f1d" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Westerndorf</text>
@@ -5800,7 +5798,7 @@
 <path d="M1330 252 H 1430" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
 <text x="1380" y="232" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">derivedFrom</text>
 <path d="M1185 304 V 543.0" fill="none" stroke="#55544f" stroke-width="1.6"/>
-<text x="1199" y="342" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#1f1f1d">hasProductionCentre</text>
+<text x="1205" y="342" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#1f1f1d">hasProductionCentre</text>
 <path d="M1185 423.0 H 1330" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
 <rect x="1247.1" y="407.0" width="59.8" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
 <text x="1277.0" y="423.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">0.50</text>

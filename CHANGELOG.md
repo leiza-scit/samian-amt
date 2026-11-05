@@ -2,6 +2,13 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.22.1] - "hasType" label centred on the stub
+
+### Changed
+- The label **hasType** in the potform figures (PF.1, PF.3) and the frequency figures (PF.4, PF.4a, PF.4b) is centred above the short line between the carrier and the branch; before it started too far right and ran into the vertical line. *Warum:* Flo: Das „hasType“ bei PF.4x sah noch etwas unschön aus.
+- In the frequency figures (PF.4, PF.4a, PF.4b) the branch sits further right, so the label has room on both sides; the labels worksAt and hasProductionCentre have a little more distance to the vertical line.
+- **Map: the black leader line and dot are removed.** Markers that would overlap are still pushed apart, but without a line to the exact position. *Warum:* Flo: Die Hilfslinie zwischen Pfaffenhofen und Westerndorf war unverständlich und ist nicht erklärt; lieber weg.
+
 ## [0.22.0] - "or" and "and" between the alternatives; PF.4a and PF.4b with the repertoire bar drawn
 
 ### Added
