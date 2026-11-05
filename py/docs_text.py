@@ -243,8 +243,9 @@ ROUNDTRIP_TRICKS = """Four details of the two queries are worth knowing:
   data, not code."""
 
 
-AFE_RT_INTRO = """> **State of the package, version 3 (2026-11-03).** This page shows the round trip as Karsten Tolle's package describes it,
-> run on his coin data. His answers to the open questions at the end are still pending; the page is updated when they arrive.
+AFE_RT_INTRO = """> **State of the package, version 3 (2026-11-03), with the answers of 2026-11-05.** This page shows the round trip as Karsten Tolle's package describes it,
+> run on his coin data. His answers of 2026-11-05 to the questions of the memo are in (section "Open points"); the use case is
+> still open.
 
 The other page, [AMT → AFE → AMT](roundtrip.html), starts with the AMT data of this repository and rebuilds an AFE pattern.
 This page starts with **real AFE data**: coins of the AFE with the container pattern for Authority (the issuing power).
@@ -264,10 +265,10 @@ Every hextuple gets `fw:hasMethod fw:AFEAssignment`: in the AFE a person or the 
 calculation rule. (`fw:EqualShareRule` belongs to the Samian source strings.) The way back reads the type from the edge and
 writes the container; a coin without an edge gets `nm:uncertain_value` again."""
 
-AFE_RT_RESULT = """Five coins of the AFE come back equal: four exactly the same, one (16048) on the **top class**. The AFE writes
-`fw:UncertainValue` where the way back writes `fw:UncertainResourceValue`; the values are IRIs, so the resource class is the
-fitting one, and the AFE side agreed that `…Value` and `…ResourceValue` are the same on the top level. The same holds for the
-constructed coin 80001.
+AFE_RT_RESULT = """All five coins of the AFE come back exactly the same. One detail was settled on 2026-11-05: the way back writes
+`fw:UncertainResourceValue` (the values are IRIs, so the resource class is the fitting one), and Karsten Tolle asked to write
+coin 16048 that way in the AFE data too (it was `fw:UncertainValue`). `…Value` and `…ResourceValue` still count as the same
+class on the top level, which is what edge case B below shows.
 
 If the AMT engine 0.7.0 or newer is installed, the five coins also go through the engine (reasoning) before the way back, and
 the result is the same."""
@@ -287,20 +288,64 @@ from Nomisma and the three coins are constructed; the AFE data seen so far have 
 
 AFE_RT_LOST = """* **Case A and case D.** The AFE form of an uncertainty as a one-member collection, and the split into several containers on
   one property, are not carried by the hextuples (see the table above).
-* **Top class.** `…Value` becomes `…ResourceValue` (agreed as equal).
+* **Top class.** `…Value` becomes `…ResourceValue` (agreed as equal; only the old spelling is affected).
 * **Container identity.** Containers are blank nodes; they come back as new blank nodes, the structure is the same.
 * **Number spelling.** `0.25` and `0.250000` are the same `xsd:decimal`; the engine writes six places.
 * **Source texts.** There are none in the AFE data, so nothing is lost here (unlike the Samian strings)."""
 
-AFE_RT_QUESTIONS = """For Karsten Tolle (memo of 2026-11-03, section 8):
+AFE_RT_QUESTIONS = """Karsten Tolle's answers of 2026-11-05 to the seven questions of the memo (package version 4):
 
-1. Are `nmo:hasDenomination` and `nmo:hasMint` the property names in the AFE, with `nm:` concepts as values?
-2. How are coins without `nmo:hasAuthority` marked as unknown, and is it only Authority that has `nm:uncertain_value`?
-3. Is the confidence property `fw:hasConfidence` (as in the data) or `fw:hasConfidenceLevel`?
-4. Which class does a certain value get when it has to sit in a container?
-5. Is there a rule for the weights of a container (sum, equal share), or are they free?
-6. How should other properties with only the "uncertain" flag be read?
+| Question | Answer | What follows |
+|---|---|---|
+| Denomination and mint: are the names right? | Yes, the names are right and the values are real. He sent no coins. | The data for both stay constructed until a real coin arrives. |
+| Coins without `nmo:hasAuthority` | They are very frequent. Where the source says nothing, nothing is entered, and a missing value means nothing in particular (not entered, or other reasons). `nm:uncertain_value` means that the value cannot be determined because of the condition of the coin. | A missing value is not "unknown": a coin without an edge is the right AMT form of "no statement". `nm:uncertain_value` is a statement of its own. |
+| Confidence property | `fw:hasConfidence` | The queries stay as they are. |
+| Use case | Open: better statistics, which emperors are often confused, dependencies between attributes (emperor and date), earlier work with Dempster-Shafer on RDF reification. | No concrete case to rebuild yet. |
+| Certain values | The direct value is enough. | No `CertainValue` class needed. |
+| Where do the numbers come from? | Entered by hand in the AFE interface. With up to three emperors a certain entry gives 1/n (1/3 each); marked uncertain, an "ignorance" is subtracted (formula in progress); results of AI models will come. | 1/n is the same share as in Samian Research. The method keeps its general name until the formula stands. |
+| Other properties with the flag "uncertain" | Can stay out for now. | Out of scope. |
 
-From the other round trip, still open: may one subject have **two containers on the same predicate** (several `nmo:hasAuthority`
-edges, each with its own container)? Karsten's earlier answer says: today at most one container per property, in future
-several."""
+Further notes from the AFE side: `fw:sourceString` does not fit the AFE (there is no source text; the data come from SQL),
+so the AFE side of the round trips carries no evidence. In future several statements on one coin property are planned at
+the same time, for example two AI models giving different confidences for the same emperor, each with its own container and
+a `prov:wasAttributedTo` agent. The [Mini round trip](mini-roundtrip.html) page shows what the AMT engine does with that."""
+
+
+# ---------------------------------------------------------------- mini round trip (0.20.0)
+MINI_INTRO = """The smallest round trip that still says something: **one relation on each side, four kinds of statement, five parts per statement.**
+On the Samian side the relation is *information carrier → potform* (cases PF.1, PF.2 and PF.3 of the [visuals](visuals/index.html), plus one certain case).
+On the AFE side it is *coin → issuing authority* (`nmo:hasAuthority`, four coins of the AFE data). Both sides go AMT → AFE pattern → AMT, or AFE → AMT → AFE,
+and every case has to come back the same. It follows Karsten Tolle's advice to hold back: no method, no evidence, no further properties."""
+
+MINI_CASES = """| Case | Samian (carrier → potform) | AFE (coin → authority) | Type | Weight |
+|---|---|---|---|---|
+| 1 certain | `31` | coin 15668: aurelian | `fw:Certainty` | 1 |
+| 2 uncertain | `18/31?` (PF.2) | coin 16048: philip_the_arab | `fw:Uncertainty` | 0.5 on the Samian side, 0.6 in the AFE data |
+| 3 vague | `15/17 or 18 or 18/31` (PF.1) | coin 15661: titus or vespasian | `fw:Vagueness` | 0.33 each / 0.5 each |
+| 4 vague and uncertain | `15/17 or 18 (R?)` (PF.3) | coin 12324: commodus, lucius_verus or marcus_aurelius | `fw:FuzzinessWobbliness` | 0.25 each |
+
+The weights differ between the sides because the sides compute them by their own rule (Samian: the weight is shared equally between OR possibilities and a question mark halves it; AFE: the confidence is entered by hand).
+The round trip does not care: it carries the number, it does not calculate it. The coins and sherds in the figure are schematic and invented."""
+
+MINI_FIVE = """A statement here has five parts, nothing else: **subject, property, object, weight** (`fw:hasDegreeOfConnection`, the same number as `amt:weight`) and **type** (`fw:hasType`).
+The AFE form is a direct value for a certain statement, a `fw:UncertainResourceValue` with `rdf:value` and `fw:hasConfidence` for an uncertain one,
+and a `skos:Collection` of members (each with its confidence) for a vague or a fuzzy/wobbly one."""
+
+MINI_RESULT = """All four cases come back the same on both sides: the Samian side with 7 hextuples of 4 carriers (same statements, same nodes), the coin side
+with 4 coins, also through the AMT engine (version 0.7.0 or newer; `fw:Certainty` needs it)."""
+
+MINI_PARALLEL = """## Two statements on one property: what the engine does
+
+Karsten's second answer asks for parallel statements later, each with `prov:wasAttributedTo` (an agent such as an AI model). The test file
+[`data/afe/amt-parallel-statements.ttl`](https://github.com/leiza-scit/samian-amt/blob/main/data/afe/amt-parallel-statements.ttl) holds one coin and two statements
+`nmo:hasAuthority nm:augustus`, weight 0.3 and 0.8, each with `fw:derivedFrom` an agent (M65, M66, `prov:SoftwareAgent`). Result with the AMT engine 0.7.0:
+
+- the engine keeps **both edges** (weights 0.3 and 0.8) and both agent nodes;
+- `prov:wasAttributedTo` on the statement itself is dropped by the engine; `fw:derivedFrom` survives and is the better carrier for the agent;
+- the **way back** (`queries/coins/amt-to-afe.rq`) merges the two statements into one container, because it has nothing to group by. It would have to group by `fw:derivedFrom`.
+  That is a known limit, not yet an error: the step checks it and fails as soon as the way back keeps them apart, so that this page is updated."""
+
+MINI_OPEN = """- Images of the coins, with licence: asked of Karsten.
+- Will every container always have a model or agent as provenance? Asked of Karsten; decides whether `fw:derivedFrom` becomes the grouping key.
+- Several emperors by one model: two containers or one collection? Asked of Karsten.
+- The potform entity of case 4 is written `18 (R )` by the weight rule (a quirk of the source string, kept as it is)."""

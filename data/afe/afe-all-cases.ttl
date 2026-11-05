@@ -1,3 +1,5 @@
+# Five coins of the AFE as sent by Karsten Tolle (package version 3). One change on 2026-11-05, at his request: the class of 16048
+# is fw:UncertainResourceValue (was fw:UncertainValue), because the value is a resource.
 @prefix afe: <http://afe.dainst.org/coin?afeid=> .
 @prefix nfdi_fw: <http://w3id.org/fw_ontology/> .
 @prefix nm: <http://nomisma.org/id/> .
@@ -32,6 +34,6 @@ afe:11471 a nmo:NumismaticObject ;
 
 
 afe:16048 a nmo:NumismaticObject ;
-    nmo:hasAuthority [ a nfdi_fw:UncertainValue ;
+    nmo:hasAuthority [ a nfdi_fw:UncertainResourceValue ;
             nfdi_fw:hasConfidence 0.6 ;
             rdf:value nm:philip_the_arab ] .

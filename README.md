@@ -60,6 +60,14 @@ through the AMT engine (0.7.0 or newer, if installed) and compares each coin wit
 class (`…Value` = `…ResourceValue`), or different. The constructed edge cases must behave as documented. State of the
 package of 2026-11-03; his answers are still open. Details: `docs/afe-roundtrip.md`.
 
+## Mini round trip
+
+`py/step_mini_roundtrip.py` (`python main.py --only mini-roundtrip`) runs the smallest round trip: one relation on each
+side (information carrier -> potform, coin -> `nmo:hasAuthority`), four kinds of statement (certain, uncertain, vague,
+vague and uncertain), five parts per statement. Both sides must come back the same; `data/afe/afe-mini-coins.ttl` holds
+the four coins, `data/afe/amt-parallel-statements.ttl` the test of two parallel statements in the AMT engine. The page
+`docs/mini-roundtrip.md` has two figures (invented coins and sherds) and the commands step by step.
+
 ## Weights, hextuple and chains
 
 `py/weights.py` computes the weight of a source string by the rule agreed with Allard Mees

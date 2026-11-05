@@ -21,7 +21,7 @@ ACCENT = "#9a3412"
 
 DOC_PAGES = [("index.html", "Overview"), ("model.html", "Model"), ("vocabulary.html", "Vocabulary"),
              ("reasoning.html", "Reasoning"), ("chains.html", "Chains"), ("weights.html", "Weights")]
-ROUNDTRIP_PAGES = [("roundtrip.html", "AMT → AFE → AMT"), ("afe-roundtrip.html", "AFE → AMT → AFE")]
+ROUNDTRIP_PAGES = [("mini-roundtrip.html", "Mini round trip"), ("roundtrip.html", "AMT → AFE → AMT"), ("afe-roundtrip.html", "AFE → AMT → AFE")]
 VISUAL_PAGES = [("visuals/index.html", "Overview"), ("visuals/potform.html", "Potform"),
                 ("visuals/maps-modern.html", "Maps, modern"), ("visuals/maps-roman.html", "Maps, Roman"),
                 ("visuals/chain-A.html", "Chain A"), ("visuals/chain-B.html", "Chain B"),

@@ -23,6 +23,7 @@ STEPS = [
     ("chains",   "step_chains",   "three real chains as hextuples, reasoning of the models M1 and M2 -> dist/"),
     ("roundtrip", "step_roundtrip", "round trip AMT -> AFE -> AMT: two SPARQL queries, chains and all weight patterns come back the same -> dist/"),
     ("afe-roundtrip", "step_afe_roundtrip", "round trip AFE -> AMT -> AFE on the coin data of the AFE (package version 3): five coins, constructed edge cases -> dist/"),
+    ("mini-roundtrip", "step_mini_roundtrip", "mini round trip: four kinds of statement on the Samian side and the coin side, parallel statements in the engine -> dist/"),
     ("explorer", "step_explorer", "the AMT Explorer with the three chains to choose from -> docs/explorer/data/ (the page and its scripts are static)"),
     ("visuals", "step_visuals",  "case figures and model figures in the visuals style -> docs/visuals/ (SVG + PNG + 2 HTML pages)"),
     ("docs",     "step_docs",     "GitHub Pages documentation -> docs/ (generated from ontology, reasoning, figures); also the stylesheet and layout"),

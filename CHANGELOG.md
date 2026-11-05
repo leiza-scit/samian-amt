@@ -2,6 +2,19 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.20.0] - Mini round trip (Samian and coins), 16048 as UncertainResourceValue, parallel statements tested
+
+### Added
+- **Mini round trip** (step `mini-roundtrip`, `py/step_mini_roundtrip.py`): the smallest round trip with one relation on each side and four kinds of statement (certain, uncertain, vague, vague and uncertain), five parts per statement (subject, property, object, weight, type; no method, no evidence). Samian side: information carrier -> potform (PF.1, PF.2, PF.3 of the visuals plus one certain case, built with the weight rule of `py/weights.py`); coin side: coin -> `nmo:hasAuthority` (coins 15668, 16048, 15661, 12324). Both sides must come back the same; the coins also go through the AMT engine 0.7.0. *Warum:* Karsten wollte bremsen: eine Relation, vier Fälle, fünf Teile; so sieht man, ob Roundtrip auf beiden Seiten mit denselben Mitteln funktioniert.
+- `data/afe/afe-mini-coins.ttl` (the four coins, AFE container pattern) and `data/afe/amt-parallel-statements.ttl` (one coin, two parallel statements on `nmo:hasAuthority`, weights 0.3 and 0.8, agents M65 and M66 via `fw:derivedFrom`).
+- Test of parallel statements in the engine: both edges and both agents survive, `prov:wasAttributedTo` on the statement is dropped; the way back (`queries/coins/amt-to-afe.rq`) merges the two into one container. The step checks that this limit is still there and fails when it is gone, so that page and PRIMER get updated. *Warum:* Karsten plant parallele Aussagen mit `prov:wasAttributedTo`; die Engine kann das, die Rückrichtung braucht später einen Gruppierungsschlüssel (`fw:derivedFrom`).
+- Documentation page **Mini round trip** (docs/mini-roundtrip.md), first in the category Roundtrip, with two figures (`mini-01-cases`, `mini-02-form`; invented schematic sherds with a potter's stamp and invented coins, real images wait for Allard and Karsten) and the commands to run it step by step (Windows cmd).
+- Written to `dist/`: `mini-potform-{amt,afe,back}.ttl`, `mini-coins-{amt,back}.ttl`, `mini-roundtrip-report.md`; Turtle is canonical.
+
+### Changed
+- Coin 16048 and the constructed coin 80001 now use `fw:UncertainResourceValue` (before: the top class `fw:UncertainValue`). *Warum:* Karstens Antwort vom 2026-11-05; damit kommen alle fünf Münzen der AFE gleich zurück, nur die Randfälle 90001 und 90004 bleiben verlustbehaftet.
+- Page **AFE round trip**: result, "what is lost" and the open points updated with Karsten's answers of 2026-11-05 (`nm:uncertain_value` means not determinable because of a condition, a missing value is not unknown, `fw:sourceString` does not fit the AFE).
+
 ## [0.19.0] - Round trip AFE -> AMT -> AFE (package version 3), engine 0.7.0
 
 ### Added

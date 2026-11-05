@@ -54,9 +54,9 @@ VALUE_TO_RESOURCE = {FW.VagueValue: FW.VagueResourceValue, FW.UncertainValue: FW
                      FW.FuzzinessWobblinessValue: FW.FuzzinessWobblinessResourceValue}
 
 # what the constructed coins of data/afe/afe-edge-cases.ttl must do (memo, section 7)
-# coin 16048 is written with fw:UncertainValue in the AFE; the way back writes fw:UncertainResourceValue (the values are IRIs,
-# memo, section 2): equal on the top class, as is the constructed coin 80001. Everything else comes back the same.
-TOP_EXPECTED = {"all-cases": {"16048"}, "denomination-mint": {"80001"}}   # 80001: its mint is a fw:UncertainValue too
+# Since 2026-11-05 (Karsten Tolle) 16048 is written with fw:UncertainResourceValue in the AFE too (the values are IRIs), so every
+# coin of the first and third file comes back the same. The top-class rule stays for coins written the old way (edge case 90002).
+TOP_EXPECTED: dict[str, set] = {"all-cases": set(), "denomination-mint": set()}
 EDGE_EXPECTED = {"90001": "different", "90002": "top class", "90003": "same", "90004": "different"}
 MIN_ENGINE = (0, 7, 0)
 
@@ -214,10 +214,12 @@ def main() -> int:
     (DIST / "afe-roundtrip-report.md").write_text(report(r), encoding="utf-8", newline="\n")
     a, e, d = (r["files"][k]["verdicts"] for k in ("all-cases", "edge-cases", "denomination-mint"))
     same = sum(v == "same" for v in a.values())
-    d_top = [c for c, v in d.items() if v != "same"]
-    print(f"round trip AFE -> AMT -> AFE: {len(a)} coins of the AFE come back equal ({same} the same, {len(a) - same} on the top class: "
-          f"{', '.join(c for c, v in a.items() if v != 'same')}){' through the AMT engine' if r['engine'] else ' without the AMT engine'}; "
-          f"{len(d)} constructed coins with denomination and mint too ({', '.join(d_top)} on the top class)")
+    note = "" if same == len(a) else f" ({same} the same, {len(a) - same} on the top class)"
+    d_same = sum(v == "same" for v in d.values())
+    d_note = "all the same" if d_same == len(d) else f"{d_same} the same, {len(d) - d_same} on the top class"
+    print(f"round trip AFE -> AMT -> AFE: {len(a)} coins of the AFE come back equal{note}"
+          f"{' through the AMT engine' if r['engine'] else ' without the AMT engine'}; "
+          f"{len(d)} constructed coins with denomination and mint too ({d_note})")
     print("round trip AFE: constructed edge cases as documented: " + ", ".join(f"{c} {v}" for c, v in e.items()))
     return 0
 

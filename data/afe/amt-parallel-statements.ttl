@@ -1,0 +1,22 @@
+# Two parallel statements on one coin property: the same emperor, two sources (AI models M65 and M66) with different confidences.
+# The model is attached with fw:derivedFrom (the AMT engine reads it and passes it through); prov:wasAttributedTo on the
+# statement itself is not read by the engine and gets lost. Used by py/step_mini_roundtrip.py (needs engine 0.7.0).
+@prefix amt: <http://academic-meta-tool.xyz/vocab#> .
+@prefix fw: <http://w3id.org/fw_ontology/> .
+@prefix nm: <http://nomisma.org/id/> .
+@prefix nmo: <http://nomisma.org/ontology#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex: <http://example.org/> .
+@prefix afe: <http://afe.dainst.org/coin?afeid=> .
+nm:Authority a amt:Concept ; rdfs:label "Authority" .
+afe:Coins a amt:Concept ; rdfs:label "Coins" .
+afe:1 amt:instanceOf afe:Coins ; rdfs:label "coin 1" .
+nm:augustus amt:instanceOf nm:Authority ; rdfs:label "augustus" .
+ex:M65 a prov:SoftwareAgent ; rdfs:label "AI Modell M65"@de .
+ex:M66 a prov:SoftwareAgent ; rdfs:label "AI Modell M66"@de .
+[] rdf:subject afe:1 ; rdf:predicate nmo:hasAuthority ; rdf:object nm:augustus ;
+   amt:weight 0.3 ; fw:hasType fw:Uncertainty ; fw:derivedFrom ex:M65 .
+[] rdf:subject afe:1 ; rdf:predicate nmo:hasAuthority ; rdf:object nm:augustus ;
+   amt:weight 0.8 ; fw:hasType fw:Uncertainty ; fw:derivedFrom ex:M66 .

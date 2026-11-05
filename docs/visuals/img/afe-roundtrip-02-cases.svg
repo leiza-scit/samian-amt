@@ -41,9 +41,8 @@
 <text x="60" y="666" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">AFE</text>
 <text x="210" y="632" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Uncertain: philip_the_arab 0.6</text>
 <text x="790" y="632" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority Uncertain: philip_the_arab 0.6</text>
-<rect x="1370" y="616" width="130" height="34" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="1435" y="633" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">top class</text>
-<text x="210" y="694" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">fw:UncertainValue comes back as fw:UncertainResourceValue (the values are IRIs)</text>
+<rect x="1370" y="616" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="633" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
 <rect x="50" y="720" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
 <text x="60" y="748" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">80001</text>
 <text x="60" y="782" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">constructed</text>
@@ -51,9 +50,8 @@
 <text x="210" y="770" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Mint Uncertain: rome 0.6</text>
 <text x="790" y="748" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Authority augustus · Denomination Vague: denarius 0.5, quinarius 0.5 ·</text>
 <text x="790" y="770" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#000000">Mint Uncertain: rome 0.6</text>
-<rect x="1370" y="732" width="130" height="34" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
-<text x="1435" y="749" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">top class</text>
-<text x="210" y="810" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">the mint is a fw:UncertainValue: same change</text>
+<rect x="1370" y="732" width="130" height="34" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1435" y="749" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#ffffff">same</text>
 <rect x="50" y="836" width="1650" height="104" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
 <text x="60" y="864" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">80002</text>
 <text x="60" y="898" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">constructed</text>

@@ -16,9 +16,7 @@ from samian_amt_utils import local
 
 FLOW = [("15661", "Case 1: container with members"), ("16048", "Case 2: one uncertain value"),
         ("15668", "Case 3: certain value"), ("11471", "Case 4: unknown")]
-NOTE = {"16048": "fw:UncertainValue comes back as fw:UncertainResourceValue (the values are IRIs)",
-        "80001": "the mint is a fw:UncertainValue: same change",
-        "90001": "uncertainty as a collection of one member comes back as a plain container: one AMT edge for both",
+NOTE = {"90001": "uncertainty as a collection of one member comes back as a plain container: one AMT edge for both",
         "90002": "class without \"Resource\" comes back with it",
         "90003": "kept: the type is on the edge, only fw:Certainty at 1.0 becomes a direct value",
         "90004": "two containers of the same kind become one container with both members"}

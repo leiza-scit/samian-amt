@@ -1,0 +1,125 @@
+<svg width="1750" height="1054" viewBox="0 0 1750 1054" xmlns="http://www.w3.org/2000/svg" role="img"><title>Mini round trip: four kinds of statement, two sides</title>
+<rect width="1750" height="1054" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Mini round trip: four kinds of statement, two sides</text>
+<text x="60" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#55544f">Case</text>
+<text x="300" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#55544f">Samian: carrier → potform  (AMT)</text>
+<text x="940" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#55544f">AFE: coin → issuing authority  (nmo:hasAuthority)</text>
+<rect x="50" y="140" width="1650" height="184" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="218.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">1  certain</text>
+<text x="66" y="250.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">constructed, same rule</text>
+<g transform="translate(400,228.0) scale(1.0)"><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">OF NOVI</text></g>
+<text x="400" y="310.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">carrier mini_1  (drawn sherd)</text>
+<path d="M478,232.0 C545,232.0 575,232.0 635,232.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="572.35" y="216.0" width="25.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="232.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1</text>
+<rect x="640" y="211.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="232.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">31</text>
+<text x="820" y="232.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<g transform="translate(985,232.0)"><circle r="62" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="54" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="47" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(1.033)"><path d="M-14,26 C-30,10 -26,-18 -8,-30 C6,-40 24,-30 26,-12 C28,0 20,6 22,14 C24,22 12,28 4,26 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<text x="985" y="314.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">coin 15668  (drawn)</text>
+<path d="M1050,232.0 C1110,232.0 1140,232.0 1190,232.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1122.35" y="216.0" width="25.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="232.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1</text>
+<rect x="1195" y="211.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="232.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">aurelian</text>
+<text x="1450" y="220.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<text x="1450" y="246.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">certainty</text>
+<rect x="50" y="336" width="1650" height="184" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="414.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">2  uncertain</text>
+<text x="66" y="446.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">PF.2, Onnio-</text>
+<g transform="translate(400,424.0) scale(1.0)"><path d="M-66,-10 L-38,-44 L12,-46 L64,-26 L72,10 L40,40 L-16,46 L-60,28 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-66,-10 L-38,-44 L12,-46 L64,-26 L72,10 L40,40 L-16,46 L-60,28 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">ARVTVS F</text></g>
+<text x="400" y="506.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">carrier 103585  (drawn sherd)</text>
+<path d="M478,428.0 C545,428.0 575,428.0 635,428.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="564.95" y="412.0" width="40.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="428.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5</text>
+<rect x="640" y="407.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="428.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">18/31</text>
+<text x="820" y="428.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<g transform="translate(985,428.0)"><circle r="62" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="54" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="47" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(1.033)"><path d="M-18,28 C-34,6 -22,-24 -2,-32 C16,-38 30,-22 26,-4 L32,6 L22,10 C24,20 10,30 -2,28 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<text x="985" y="510.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">coin 16048  (drawn)</text>
+<path d="M1050,428.0 C1110,428.0 1140,428.0 1190,428.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1114.7" y="412.0" width="40.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="428.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.6</text>
+<rect x="1195" y="407.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="428.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">philip_the_arab</text>
+<text x="1450" y="416.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<text x="1450" y="442.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">uncertainty</text>
+<rect x="50" y="532" width="1650" height="184" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="610.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">3  vague</text>
+<text x="66" y="642.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">PF.1, Secundus v</text>
+<g transform="translate(400,620.0) scale(1.0)"><path d="M-72,-18 L-24,-48 L30,-38 L68,-14 L64,26 L14,46 L-38,42 L-68,20 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-72,-18 L-24,-48 L30,-38 L68,-14 L64,26 L14,46 L-38,42 L-68,20 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">VALENI M</text></g>
+<text x="400" y="702.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">carrier 156521  (drawn sherd)</text>
+<path d="M478,624.0 C545,624.0 575,574.0 635,574.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="560.7" y="558.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="574.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.33</text>
+<rect x="640" y="553.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="574.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">15/17</text>
+<path d="M478,624.0 C545,624.0 575,624.0 635,624.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="560.7" y="608.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="624.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.33</text>
+<rect x="640" y="603.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="624.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">18</text>
+<path d="M478,624.0 C545,624.0 575,674.0 635,674.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="560.7" y="658.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="674.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.33</text>
+<rect x="640" y="653.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="674.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">18/31</text>
+<text x="820" y="624.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<g transform="translate(985,624.0)"><circle r="62" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="54" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="47" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(1.033)"><path d="M-12,28 C-30,12 -28,-14 -10,-28 C4,-38 22,-34 28,-18 C32,-6 24,-2 26,8 C26,20 12,30 -12,28 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<text x="985" y="706.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">coin 15661  (drawn)</text>
+<path d="M1050,624.0 C1110,624.0 1140,599.0 1190,599.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1114.95" y="583.0" width="40.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="599.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5</text>
+<rect x="1195" y="578.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="599.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">titus</text>
+<path d="M1050,624.0 C1110,624.0 1140,649.0 1190,649.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1114.95" y="633.0" width="40.1" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="649.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.5</text>
+<rect x="1195" y="628.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="649.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">vespasian</text>
+<text x="1450" y="612.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<text x="1450" y="638.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">vagueness</text>
+<rect x="50" y="728" width="1650" height="184" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="806.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="21" font-weight="500" fill="#000000">4  vague and uncertain</text>
+<text x="66" y="838.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">PF.3, Secundus ii</text>
+<g transform="translate(400,816.0) scale(1.0)"><path d="M-64,-26 L-14,-46 L40,-42 L72,-8 L58,30 L8,46 L-44,38 L-72,8 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-64,-26 L-14,-46 L40,-42 L72,-8 L58,30 L8,46 L-44,38 L-72,8 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">CASTI OF</text></g>
+<text x="400" y="898.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">carrier 210355  (drawn sherd)</text>
+<path d="M478,820.0 C545,820.0 575,795.0 635,795.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="560.7" y="779.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="795.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.25</text>
+<rect x="640" y="774.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="795.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">15/17</text>
+<path d="M478,820.0 C545,820.0 575,845.0 635,845.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="560.7" y="829.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="585.0" y="845.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.25</text>
+<rect x="640" y="824.0" width="150" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="715.0" y="845.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">18 (R )</text>
+<text x="820" y="820.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<g transform="translate(985,820.0)"><circle r="62" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="54" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="47" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(1.033)"><path d="M-16,26 C-32,8 -24,-20 -6,-30 C10,-38 28,-26 26,-8 C24,4 30,12 18,20 C10,28 -4,30 -16,26 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<text x="985" y="902.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">coin 12324  (drawn)</text>
+<path d="M1050,820.0 C1110,820.0 1140,770.0 1190,770.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1110.7" y="754.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="770.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.25</text>
+<rect x="1195" y="749.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="770.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">commodus</text>
+<path d="M1050,820.0 C1110,820.0 1140,820.0 1190,820.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1110.7" y="804.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="820.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.25</text>
+<rect x="1195" y="799.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="820.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">lucius_verus</text>
+<path d="M1050,820.0 C1110,820.0 1140,870.0 1190,870.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1110.7" y="854.0" width="48.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1135.0" y="870.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.25</text>
+<rect x="1195" y="849.0" width="230" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1310.0" y="870.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">marcus_aurelius</text>
+<text x="1450" y="808.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#166534">back: same</text>
+<text x="1450" y="834.0" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">fuzzy / wobbly</text>
+<rect x="60" y="937" width="22" height="22" rx="3" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="92" y="948" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">potform</text>
+<rect x="198.3" y="937" width="22" height="22" rx="3" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="230.3" y="948" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">authority</text>
+<rect x="345.5" y="937" width="22" height="22" rx="3" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="377.5" y="948" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">weight = fw:hasDegreeOfConnection = amt:weight</text>
+<text x="60" y="986" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">Coins and sherds with potter's stamps are schematic and invented (the names are made up).</text>
+</svg>

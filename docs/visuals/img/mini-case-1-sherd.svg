@@ -1,0 +1,44 @@
+<svg width="1750" height="567" viewBox="0 0 1750 567" xmlns="http://www.w3.org/2000/svg" role="img"><title>Case 1, certain: Samian: carrier → potform</title>
+<rect width="1750" height="567" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Case 1, certain: Samian: carrier → potform</text>
+<text x="310.0" y="138" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AMT (hextuples)</text>
+<g transform="translate(132,260) scale(0.9)"><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">OF NOVI</text></g>
+<path d="M198,260 C258,260 280,260.0 354,260.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="295.35" y="244.0" width="25.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="308.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1</text>
+<rect x="360" y="239.0" width="190" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="455.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">31</text>
+<text x="310.0" y="304.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#55544f">fw:Certainty</text>
+<rect x="60" y="405" width="500" height="72" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="74" y="429" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">ic:mini_1  sam:hasType</text>
+<text x="74" y="455" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    sam:pf_31   1   fw:Certainty</text>
+<text x="890.0" y="138" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AFE (container pattern)</text>
+<g transform="translate(712,260) scale(0.9)"><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">OF NOVI</text></g>
+<path d="M778,260 L959,260" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="843.4" y="244" width="63.2" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="875.0" y="260" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">direct</text>
+<rect x="965" y="239" width="175" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="1052.5" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">pf_31</text>
+<text x="890.0" y="304.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#55544f">direct value = fw:Certainty</text>
+<rect x="640" y="405" width="500" height="72" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="654" y="429" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">ic:mini_1  sam:hasType  sam:pf_31</text>
+<text x="1470.0" y="138" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AMT (hextuples) again</text>
+<g transform="translate(1292,260) scale(0.9)"><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="#c2552d" stroke="#000000" stroke-width="2" stroke-linejoin="round"/><path d="M-70,-22 L-30,-46 L18,-40 L62,-18 L70,20 L28,44 L-24,40 L-62,22 Z" fill="none" stroke="#7a2f14" stroke-width="2" stroke-dasharray="3 6" transform="scale(.86)"/><rect x="-52" y="-15" width="104" height="30" rx="2" fill="#a8431f" stroke="#5e220c" stroke-width="2"/><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-weight="500" font-size="19" letter-spacing="1" fill="#4a1a08">OF NOVI</text></g>
+<path d="M1358,260 C1418,260 1440,260.0 1514,260.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1455.35" y="244.0" width="25.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1468.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">1</text>
+<rect x="1520" y="239.0" width="190" height="42" rx="6" fill="#4c1d95" stroke="#000000" stroke-width="1"/>
+<text x="1615.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#ffffff">31</text>
+<text x="1470.0" y="304.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#55544f">fw:Certainty</text>
+<rect x="1220" y="405" width="500" height="72" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1234" y="429" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">ic:mini_1  sam:hasType</text>
+<text x="1234" y="455" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    sam:pf_31   1   fw:Certainty</text>
+<rect x="1570" y="154" width="150" height="30" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1645" y="169" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#ffffff">same</text>
+<path d="M566,260 L634,260" fill="none" stroke="#55544f" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="600.0" y="236" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">query</text>
+<path d="M1146,260 L1214,260" fill="none" stroke="#55544f" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="1180.0" y="236" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">query</text>
+<text x="60" y="513" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">Invented sherd with an invented potter's stamp; weights by the rule of py/weights.py. Queries: amt-to-afe.rq / afe-to-amt.rq.</text>
+</svg>

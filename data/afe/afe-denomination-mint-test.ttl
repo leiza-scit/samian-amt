@@ -13,7 +13,7 @@ afe:80001 a nmo:NumismaticObject ;
     nmo:hasDenomination [ a fw:VagueResourceValue, skos:Collection ;
         skos:member [ fw:hasConfidence 0.5 ; rdf:value nm:denarius ],
                     [ fw:hasConfidence 0.5 ; rdf:value nm:quinarius ] ] ;
-    nmo:hasMint [ a fw:UncertainValue ; fw:hasConfidence 0.6 ; rdf:value nm:rome ] .
+    nmo:hasMint [ a fw:UncertainResourceValue ; fw:hasConfidence 0.6 ; rdf:value nm:rome ] .
 
 # Sichere Denomination und Mint
 afe:80002 a nmo:NumismaticObject ;

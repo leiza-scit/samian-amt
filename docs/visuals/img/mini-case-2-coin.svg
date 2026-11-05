@@ -1,0 +1,53 @@
+<svg width="1750" height="593" viewBox="0 0 1750 593" xmlns="http://www.w3.org/2000/svg" role="img"><title>Case 2, uncertain: AFE: coin → authority</title>
+<rect width="1750" height="593" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">Case 2, uncertain: AFE: coin → authority</text>
+<text x="310.0" y="138" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AFE (container pattern)</text>
+<g transform="translate(132,260)"><circle r="52" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="44" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="37" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(0.867)"><path d="M-18,28 C-34,6 -22,-24 -2,-32 C16,-38 30,-22 26,-4 L32,6 L22,10 C24,20 10,30 -2,28 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<path d="M186,260 L212,260" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="216" y="243" width="46" height="34" rx="6" fill="#ffffff" stroke="#000000" stroke-width="2.4" stroke-dasharray="8 6"/>
+<text x="239.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">[ ]</text>
+<path d="M262,260 C286,260 305,260.0 379,260.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="312.7" y="244.0" width="40.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="333.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.6</text>
+<rect x="385" y="239.0" width="175" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="472.5" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#000000">philip_the_arab</text>
+<text x="310.0" y="304.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#55544f">fw:UncertainResourceValue</text>
+<rect x="60" y="405" width="500" height="98" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="74" y="429" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">afe:16048  nmo:hasAuthority  [</text>
+<text x="74" y="455" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    a fw:UncertainResourceValue ;</text>
+<text x="74" y="481" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    rdf:value  nm:philip_the_arab   0.6</text>
+<text x="890.0" y="138" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AMT (hextuples)</text>
+<g transform="translate(712,260)"><circle r="52" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="44" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="37" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(0.867)"><path d="M-18,28 C-34,6 -22,-24 -2,-32 C16,-38 30,-22 26,-4 L32,6 L22,10 C24,20 10,30 -2,28 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<path d="M766,260 C826,260 860,260.0 934,260.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="867.7" y="244.0" width="40.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="888.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.6</text>
+<rect x="940" y="239.0" width="190" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1035.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#000000">philip_the_arab</text>
+<text x="890.0" y="304.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#55544f">fw:Uncertainty</text>
+<rect x="640" y="405" width="500" height="98" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="654" y="429" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">afe:16048  nmo:hasAuthority</text>
+<text x="654" y="455" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    nm:philip_the_arab   0.6   fw:Uncertainty</text>
+<text x="1470.0" y="138" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="24" font-weight="500" fill="#1f1f1d">AFE (container pattern) again</text>
+<g transform="translate(1292,260)"><circle r="52" fill="#e9d9a6" stroke="#000000" stroke-width="2"/><circle r="44" fill="none" stroke="#8a7430" stroke-width="2"/><circle r="37" fill="none" stroke="#8a7430" stroke-width="2" stroke-dasharray="2 5"/><g transform="scale(0.867)"><path d="M-18,28 C-34,6 -22,-24 -2,-32 C16,-38 30,-22 26,-4 L32,6 L22,10 C24,20 10,30 -2,28 Z" fill="#c9b36b" stroke="#6b5a1f" stroke-width="2.4" stroke-linejoin="round"/><path d="M-24,36 C-10,44 12,44 28,34" fill="none" stroke="#6b5a1f" stroke-width="2.4"/></g></g>
+<path d="M1346,260 L1372,260" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1376" y="243" width="46" height="34" rx="6" fill="#ffffff" stroke="#000000" stroke-width="2.4" stroke-dasharray="8 6"/>
+<text x="1399.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="18" font-weight="500" fill="#000000">[ ]</text>
+<path d="M1422,260 C1446,260 1465,260.0 1539,260.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<rect x="1472.7" y="244.0" width="40.6" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1493.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">0.6</text>
+<rect x="1545" y="239.0" width="175" height="42" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1632.5" y="260.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" font-weight="500" fill="#000000">philip_the_arab</text>
+<text x="1470.0" y="304.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#55544f">fw:UncertainResourceValue</text>
+<rect x="1220" y="405" width="500" height="98" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<text x="1234" y="429" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">afe:16048  nmo:hasAuthority  [</text>
+<text x="1234" y="455" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    a fw:UncertainResourceValue ;</text>
+<text x="1234" y="481" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#000000">    rdf:value  nm:philip_the_arab   0.6</text>
+<rect x="1570" y="154" width="150" height="30" rx="4" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1645" y="169" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="17" font-weight="500" fill="#ffffff">same</text>
+<path d="M566,260 L634,260" fill="none" stroke="#55544f" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="600.0" y="236" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">query</text>
+<path d="M1146,260 L1214,260" fill="none" stroke="#55544f" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="1180.0" y="236" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">query</text>
+<text x="60" y="539" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="15" fill="#55544f">Invented coin; weights as entered in data/afe/afe-mini-coins.ttl. Queries: afe-to-amt.rq / amt-to-afe.rq.</text>
+</svg>

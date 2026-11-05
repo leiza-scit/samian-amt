@@ -1,0 +1,41 @@
+<svg width="1750" height="760" viewBox="0 0 1750 760" xmlns="http://www.w3.org/2000/svg" role="img"><title>The same four cases as AFE container and as AMT statement</title>
+<rect width="1750" height="760" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text x="60" y="60" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="34" font-weight="500" fill="#1f1f1d">The same four cases as AFE container and as AMT statement</text>
+<text x="60" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#55544f">AFE container (Turtle, short)</text>
+<text x="770" y="112" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#55544f">AMT statements: subject, property, object, weight, type</text>
+<text x="60" y="154" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">1  certain  ·  coin 15668</text>
+<rect x="50" y="176" width="700" height="52" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="770" y="176" width="930" height="52" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="204" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  nm:aurelian</text>
+<text x="786" y="204" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:15668  nmo:hasAuthority  nm:aurelian   1   fw:Certainty</text>
+<path d="M752,202.0 L768,202.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<text x="60" y="276" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">2  uncertain  ·  coin 16048</text>
+<rect x="50" y="298" width="700" height="80" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="770" y="298" width="930" height="80" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="326" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:UncertainResourceValue ]</text>
+<text x="66" y="354" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">    nm:philip_the_arab   0.6</text>
+<text x="786" y="326" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:16048  nmo:hasAuthority  nm:philip_the_arab   0.6   fw:Uncertainty</text>
+<path d="M752,338.0 L768,338.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<text x="60" y="426" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">3  vague  ·  coin 15661</text>
+<rect x="50" y="448" width="700" height="108" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="770" y="448" width="930" height="108" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="476" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:VagueResourceValue + skos:Collection ]</text>
+<text x="66" y="504" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">    nm:titus   0.5</text>
+<text x="66" y="532" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">    nm:vespasian   0.5</text>
+<text x="786" y="476" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:15661  nmo:hasAuthority  nm:titus   0.5   fw:Vagueness</text>
+<text x="786" y="504" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:15661  nmo:hasAuthority  nm:vespasian   0.5   fw:Vagueness</text>
+<path d="M752,502.0 L768,502.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<text x="60" y="604" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="20" font-weight="500" fill="#1f1f1d">4  vague and uncertain  ·  coin 12324</text>
+<rect x="50" y="626" width="700" height="136" rx="6" fill="#ffffff" stroke="#d8d6ce" stroke-width="1"/>
+<rect x="770" y="626" width="930" height="136" rx="6" fill="#fffbea" stroke="#d8d6ce" stroke-width="1"/>
+<text x="66" y="654" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">nmo:hasAuthority  [ fw:FuzzinessWobblinessResourceValue + skos:Collection ]</text>
+<text x="66" y="682" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">    nm:commodus   0.25</text>
+<text x="66" y="710" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">    nm:lucius_verus   0.25</text>
+<text x="66" y="738" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">    nm:marcus_aurelius   0.25</text>
+<text x="786" y="654" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:12324  nmo:hasAuthority  nm:commodus   0.25   fw:FuzzinessWobbliness</text>
+<text x="786" y="682" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:12324  nmo:hasAuthority  nm:lucius_verus   0.25   fw:FuzzinessWobbliness</text>
+<text x="786" y="710" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="17" fill="#000000">afe:12324  nmo:hasAuthority  nm:marcus_aurelius   0.25   fw:FuzzinessWobbliness</text>
+<path d="M752,694.0 L768,694.0" fill="none" stroke="#55544f" stroke-width="2.2" marker-end="url(#a)"/>
+<text x="60" y="796" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="16" fill="#55544f">Five parts only: no fw:hasMethod and no evidence. The way back needs nothing else to rebuild the container.</text>
+</svg>

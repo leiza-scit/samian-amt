@@ -6,8 +6,9 @@ title: AFE round trip
 
 # Round trip: AFE → AMT → AFE
 
-> **State of the package, version 3 (2026-11-03).** This page shows the round trip as Karsten Tolle's package describes it,
-> run on his coin data. His answers to the open questions at the end are still pending; the page is updated when they arrive.
+> **State of the package, version 3 (2026-11-03), with the answers of 2026-11-05.** This page shows the round trip as Karsten Tolle's package describes it,
+> run on his coin data. His answers of 2026-11-05 to the questions of the memo are in (section "Open points"); the use case is
+> still open.
 
 The other page, [AMT → AFE → AMT](roundtrip.html), starts with the AMT data of this repository and rebuilds an AFE pattern.
 This page starts with **real AFE data**: coins of the AFE with the container pattern for Authority (the issuing power).
@@ -33,10 +34,10 @@ writes the container; a coin without an edge gets `nm:uncertain_value` again.
 
 ## Result
 
-Five coins of the AFE come back equal: four exactly the same, one (16048) on the **top class**. The AFE writes
-`fw:UncertainValue` where the way back writes `fw:UncertainResourceValue`; the values are IRIs, so the resource class is the
-fitting one, and the AFE side agreed that `…Value` and `…ResourceValue` are the same on the top level. The same holds for the
-constructed coin 80001.
+All five coins of the AFE come back exactly the same. One detail was settled on 2026-11-05: the way back writes
+`fw:UncertainResourceValue` (the values are IRIs, so the resource class is the fitting one), and Karsten Tolle asked to write
+coin 16048 that way in the AFE data too (it was `fw:UncertainValue`). `…Value` and `…ResourceValue` still count as the same
+class on the top level, which is what edge case B below shows.
 
 If the AMT engine 0.7.0 or newer is installed, the five coins also go through the engine (reasoning) before the way back, and
 the result is the same.
@@ -47,7 +48,7 @@ the result is the same.
 | 12324 | same |
 | 15661 | same |
 | 15668 | same |
-| 16048 | top class |
+| 16048 | same |
 
 All coins of the test data, with the constructed ones:
 
@@ -72,7 +73,7 @@ from Nomisma and the three coins are constructed; the AFE data seen so far have 
 
 * **Case A and case D.** The AFE form of an uncertainty as a one-member collection, and the split into several containers on
   one property, are not carried by the hextuples (see the table above).
-* **Top class.** `…Value` becomes `…ResourceValue` (agreed as equal).
+* **Top class.** `…Value` becomes `…ResourceValue` (agreed as equal; only the old spelling is affected).
 * **Container identity.** Containers are blank nodes; they come back as new blank nodes, the structure is the same.
 * **Number spelling.** `0.25` and `0.250000` are the same `xsd:decimal`; the engine writes six places.
 * **Source texts.** There are none in the AFE data, so nothing is lost here (unlike the Samian strings).
@@ -91,18 +92,22 @@ The coin data and the memo are from Karsten Tolle (AFE).
 
 ## Open points
 
-For Karsten Tolle (memo of 2026-11-03, section 8):
+Karsten Tolle's answers of 2026-11-05 to the seven questions of the memo (package version 4):
 
-1. Are `nmo:hasDenomination` and `nmo:hasMint` the property names in the AFE, with `nm:` concepts as values?
-2. How are coins without `nmo:hasAuthority` marked as unknown, and is it only Authority that has `nm:uncertain_value`?
-3. Is the confidence property `fw:hasConfidence` (as in the data) or `fw:hasConfidenceLevel`?
-4. Which class does a certain value get when it has to sit in a container?
-5. Is there a rule for the weights of a container (sum, equal share), or are they free?
-6. How should other properties with only the "uncertain" flag be read?
+| Question | Answer | What follows |
+|---|---|---|
+| Denomination and mint: are the names right? | Yes, the names are right and the values are real. He sent no coins. | The data for both stay constructed until a real coin arrives. |
+| Coins without `nmo:hasAuthority` | They are very frequent. Where the source says nothing, nothing is entered, and a missing value means nothing in particular (not entered, or other reasons). `nm:uncertain_value` means that the value cannot be determined because of the condition of the coin. | A missing value is not "unknown": a coin without an edge is the right AMT form of "no statement". `nm:uncertain_value` is a statement of its own. |
+| Confidence property | `fw:hasConfidence` | The queries stay as they are. |
+| Use case | Open: better statistics, which emperors are often confused, dependencies between attributes (emperor and date), earlier work with Dempster-Shafer on RDF reification. | No concrete case to rebuild yet. |
+| Certain values | The direct value is enough. | No `CertainValue` class needed. |
+| Where do the numbers come from? | Entered by hand in the AFE interface. With up to three emperors a certain entry gives 1/n (1/3 each); marked uncertain, an "ignorance" is subtracted (formula in progress); results of AI models will come. | 1/n is the same share as in Samian Research. The method keeps its general name until the formula stands. |
+| Other properties with the flag "uncertain" | Can stay out for now. | Out of scope. |
 
-From the other round trip, still open: may one subject have **two containers on the same predicate** (several `nmo:hasAuthority`
-edges, each with its own container)? Karsten's earlier answer says: today at most one container per property, in future
-several.
+Further notes from the AFE side: `fw:sourceString` does not fit the AFE (there is no source text; the data come from SQL),
+so the AFE side of the round trips carries no evidence. In future several statements on one coin property are planned at
+the same time, for example two AI models giving different confidences for the same emperor, each with its own container and
+a `prov:wasAttributedTo` agent. The [Mini round trip](mini-roundtrip.html) page shows what the AMT engine does with that.
 
 ## The queries in full
 
