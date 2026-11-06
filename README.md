@@ -29,7 +29,7 @@ The three rules, as role chains over the roles that point along the chain direct
     [Potform]>>[Actor]                         = isTypeOf o hasProductionCentre o hasWorker
 
 Two of the three asserted roles point against the chain direction, so every rule
-needs at least one inverse. `hasType` / `isTypeOf` was agreed with Allard Mees.
+needs at least one inverse.
 Every role carries a `skos:definition` and a `skos:scopeNote` in the ontology; the
 documentation is generated from them.
 
@@ -70,8 +70,7 @@ the four coins, `data/afe/amt-parallel-statements.ttl` the test of two parallel 
 
 ## Weights, hextuple and chains
 
-`py/weights.py` computes the weight of a source string by the rule agreed with Allard Mees
-(2026-11-04: equal share of the paper, halved by a question mark),
+`py/weights.py` computes the weight of a source string by the rule,
 `amt_weight = (1 / n_possibilities) * (1/2 if "?" else 1)`, and derives the FW type
 (`fw:Certainty`, `fw:Uncertainty`, `fw:Vagueness`, `fw:FuzzinessWobbliness`) from the pattern of the string
 (question mark, AND, OR) for each relation. A statement then is a **hextuple** with the terms of the

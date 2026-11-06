@@ -9,7 +9,7 @@ BLOB = REPO + "/blob/main/"
 
 STATUS = """> **Status: working draft.** The namespace is a placeholder. The weights follow the
 > rule of the source paper (see Weights). The logic operator (product) and the role names are proposals,
-> except `hasType` / `isTypeOf`, which were agreed with Allard Mees. Three real chains from the Samian Research data
+> except `hasType` / `isTypeOf`. Three real chains from the Samian Research data
 > are modelled (see Chains)."""
 
 INDEX_INTRO = """A deliberately small [AMT](http://academic-meta-tool.xyz/) domain model for one chain:
@@ -38,7 +38,7 @@ data asserts, only one points along that chain:
 | `worksAt` | Actor to ProductionCentre | no, against it |
 
 Without inverses nothing composes: the first rule starts at a Potform, but no asserted edge leaves a
-Potform. `hasType` therefore gets its inverse `isTypeOf` (agreed with Allard Mees), and `worksAt` gets
+Potform. `hasType` therefore gets its inverse `isTypeOf`, and `worksAt` gets
 `hasWorker`. Every rule uses at least one inverse. The derived roles get inverses too, so that an
 association can be asked from either end: "which centres go with this potform?" and "which potforms
 go with this centre?"."""

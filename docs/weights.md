@@ -54,7 +54,7 @@ which Allard Mees re-derives from the strings (the weights in the database expor
 For an OR of forms the database knows how often each form occurs. [`py/frequency.py`](https://github.com/leiza-scit/samian-amt/blob/main/py/frequency.py)
 divides the number of vessels of each alternative by the number of vessels of all alternatives (level A, the
 whole database): "31 or 31R" gives 9,070 / 11,302 = 0.8025 and 2,232 / 11,302 = 0.1975. The method is called
-*probability based on frequency share* (agreed with Allard Mees; local name `sam:FrequencyShare`, not yet in
+*probability based on frequency share* (local name `sam:FrequencyShare`, not yet in
 the FW ontology). The shares are a hint for the archaeologist to check an existing uncertainty against the
 distribution in the database. They are not written to `fw:hasDegreeOfConnection`, do not enter the chains,
 and a question mark does not change them. In `dist/chains.ttl` they stand beside the hextuple as

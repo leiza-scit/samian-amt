@@ -8,7 +8,7 @@ title: Overview
 
 > **Status: working draft.** The namespace is a placeholder. The weights follow the
 > rule of the source paper (see Weights). The logic operator (product) and the role names are proposals,
-> except `hasType` / `isTypeOf`, which were agreed with Allard Mees. Three real chains from the Samian Research data
+> except `hasType` / `isTypeOf`. Three real chains from the Samian Research data
 > are modelled (see Chains).
 
 A deliberately small [AMT](http://academic-meta-tool.xyz/) domain model for one chain:

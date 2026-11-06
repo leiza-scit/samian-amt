@@ -80,7 +80,7 @@ The production centre is the attributed place of production of this information 
 
 #### sam:isTypeOf
 
-The potform is the type of this information carrier. Inverse of hasType (agreed with Allard Mees).
+The potform is the type of this information carrier. Inverse of hasType.
 
 - **Limit:** The same statement as hasType, read from the potform: one potform is the type of many carriers.
 - **Domain to range:** `Potform` to `InformationCarrier`

@@ -106,7 +106,7 @@ sam:isTypeOf a amt:Role ;
     rdfs:label "isTypeOf" ;
     rdfs:domain sam:Potform ;
     rdfs:range  sam:InformationCarrier ;
-    skos:definition "The potform is the type of this information carrier. Inverse of hasType (agreed with Allard Mees)."@en ;
+    skos:definition "The potform is the type of this information carrier. Inverse of hasType."@en ;
     skos:scopeNote  "The same statement as hasType, read from the potform: one potform is the type of many carriers."@en .
 
 sam:isProductionCentreOf a amt:Role ;
