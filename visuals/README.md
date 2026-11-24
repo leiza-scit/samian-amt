@@ -27,6 +27,13 @@ OWL white, property metadata amber). SVGs name Fira Sans without embedding it; u
 The profile drawings are the supplied JPGs, redrawn; their source and licence are still to be stated here.
 Coast, rivers, regions, borders, cities: Natural Earth, public domain (modern, not Roman). Fonts: Fira Sans, SIL OFL 1.1, see `fonts/`. Figures: CC BY 4.0. Code: MIT.
 
+## Chain C: potform and centres side by side
+
+`chain_combo.py` (called from `chain_pages.py`, only for chain C) lays the figures C.1 and C.2 (Roman map) out again as one
+figure with the panels A and B: `docs/visuals/img/chain-C-potform-centres.svg` and `.png`. Strings, weights, types and methods come from
+`py/weights.py`; the vessel profiles and the map come from the SVGs of the same run. It needs `fonts/FiraSans-Bold.ttf` (bold kiln numbers;
+the pages do not use it). The map window and the three form cards are sized for chain C.
+
 ## Roman maps
 
 Each map figure (PC.1 to PC.4, IC-PC.1) exists twice: with modern layers and, as `*-roman`, with Roman ones. The Roman map shows

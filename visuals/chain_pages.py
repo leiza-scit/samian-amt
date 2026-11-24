@@ -15,6 +15,7 @@ import csv
 from html import escape
 
 import build as B
+import chain_combo
 from step_chains import comparison, run as run_chains
 
 SRC = B.ROOT / "data" / "chains-source.csv"
@@ -84,6 +85,8 @@ def main():
             code = f"{L}.{n}"
             register(code, "informationcarrier--potform", r["potform_text"], r)
             _, st, ed = B.statements(code)
+            if n == 1:
+                pot_first = (r, ed)                          # the first carrier: panel A of the combined figure
             forms = [(e["entity"], form_key(e["entity"])) for e in ed]
             name = f"chain-{L}-{n}-potform"
             B.potform_fig(name, code, f"Potform of carrier {r['carrier_id']}",
@@ -106,6 +109,13 @@ def main():
         if have_map:
             B.centre_fig(name + "-roman", code, f"Centres of {potter}", sub, "actor", "roman")
             cards.append(B.card(code, f"Centres of {potter}: {mine[0]['centre_text']} (Roman map)", credit + " Roman map.", name + "-roman"))
+            if L == "C":                                    # chain C: potform and centres side by side (see chain_combo.py)
+                r1, ed1 = pot_first
+                combo = chain_combo.build(L, f"chain-{L}-potform-centres", potter, r1["carrier_id"], r1["potform_text"], ed1,
+                                          B.IMG / f"chain-{L}-1-potform.svg", mine[0]["centre_text"], ed, B.IMG / f"{name}-roman.svg")
+                combo_card = B.card("A | B", f"Potform of carrier {r1['carrier_id']} (A) and centres of {potter} (B)",
+                                    f"A: {TYPE[ed1[0]['type']]}, weight {ed1[0]['weight']:.2f} per statement. "
+                                    f"B: {TYPE[ed[0]['type']]}, weight {ed[0]['weight']:.2f} per statement. Roman map.", combo)
 
         cards.append(step(3, "Statements about the production centre of each carrier (InformationCarrier, hasProductionCentre)"))
         for r in mine:
@@ -156,6 +166,9 @@ def main():
                    f'<p>The statements come from the strings of the source data. Each string becomes one statement per entity, '
                    f'with a degree of connection (weight) and a type from the FW ontology. In this chain:</p><ul>{read}</ul>'
                    + table_inner(["Role", "From", "To", "Source string", "FW type", "Weight = 1/possibilities (× 1/2 for ?)"], srows) + "</section>")
+        if L == "C":
+            top.append(step("", "Potform and centres side by side"))
+            top.append(combo_card)
         cards = top + cards
         types = sorted({TYPE[e["type"]] for e in edges if e["from"] in mine_nodes and e["to"] in mine_nodes})
         B.page(f"chain-{L}.html", f"Chain {L}: {potter}",

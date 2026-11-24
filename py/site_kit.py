@@ -111,6 +111,8 @@ def write_assets() -> None:
     (DOCS / "assets" / "fonts").mkdir(parents=True, exist_ok=True)
     (DOCS / "assets" / "site.css").write_text(CSS, encoding="utf-8", newline="\n")
     for f in sorted(FONTS.glob("FiraSans-*.ttf")):
+        if f.name == "FiraSans-Bold.ttf":
+            continue          # only visuals/chain_combo.py needs it (bold kiln numbers in the figure); the pages use 400 and 500
         shutil.copyfile(f, DOCS / "assets" / "fonts" / f.name)
     (DOCS / "_layouts").mkdir(parents=True, exist_ok=True)
     (DOCS / "_layouts" / "default.html").write_text(layout_html(), encoding="utf-8", newline="\n")

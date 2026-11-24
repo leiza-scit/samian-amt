@@ -2,6 +2,16 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.24.0] - Chain C: potform and centres side by side
+
+### Added
+- **Combined figure for chain C** (`visuals/chain_combo.py`, called from `visuals/chain_pages.py`): panel **A** is the statement of the carrier about the potform (three forms, "or", weight 0.33), panel **B** the statement of the potter about its centres on the Roman map ("and", weight 0.50). It is built from the data (`py/weights.py`) and from the figures C.1 and C.2 of the same run, written to `docs/visuals/img/chain-C-potform-centres.svg` and `.png`, and shown on the page `chain-C.html` under *Potform and centres side by side*. *Warum:* Flo braucht für den Absatz zu Chain C im Paper ein Bild, das Potform und Zentren nebeneinander zeigt.
+- Titles, subtitles, weight formulas and notes are left out; everything else stays. The two panels carry black labels A and B, their own legend (only the colours they show), property labels as amber chips on the middle of the arrow, "or" / "and" on a line between the boxes, and the map flush with the dividers. The kiln numbers 1 and 2 are bold and centred on their ink.
+- `visuals/fonts/FiraSans-Bold.ttf` (SIL OFL 1.1, licence in the same folder): the bold numbers of the figure. `py/site_kit.py` does not copy it to the pages.
+
+### Changed
+- `py/site_kit.py`: the font copy skips `FiraSans-Bold.ttf`; the pages use weights 400 and 500.
+
 ## [0.23.0] - Common modelling layer between the systems (figure)
 
 ### Added
