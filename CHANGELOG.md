@@ -2,6 +2,12 @@
 
 All notable changes are recorded here. Each entry says **what** changed and **why**; the German *Warum* lines are the short rationale for the team.
 
+## [0.23.0] - Common modelling layer between the systems (figure)
+
+### Added
+- **Figure `layer-01-common-layer`** (`visuals/layer_figs.py`, drawn by the step `visuals`): generic, without example data. System A, System B and further systems each have a crosswalk ("to layer", "from layer") to one **common modelling layer** in which every statement has the same five parts (subject, property, object, weight, type; AMT statements typed with the FW ontology); reasoning (AMT engine), validation (SHACL) and exploration (AMT Explorer) read the layer and are written once. No header and no footer text in the figure. *Warum:* Flo: Der Crosswalk zwischen AMT und AFE bringt nicht nur die Daten in eine Modellierungsebene, sondern erlaubt auch, die Werkzeuge für beide Projekte nachzunutzen; die Ebene ist gemeinsam (nicht nur „AMT“), und die Grafik soll generisch bleiben, ohne Beispiele (auch für das Working Paper).
+- Section **One modelling layer for both systems** with the figure on the page *Mini round trip*.
+
 ## [0.22.1] - "hasType" label centred on the stub
 
 ### Changed

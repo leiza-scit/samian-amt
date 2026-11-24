@@ -331,6 +331,11 @@ MINI_FIVE = """A statement here has five parts, nothing else: **subject, propert
 The AFE form is a direct value for a certain statement, a `fw:UncertainResourceValue` with `rdf:value` and `fw:hasConfidence` for an uncertain one,
 and a `skos:Collection` of members (each with its confidence) for a vague or a fuzzy/wobbly one."""
 
+MINI_LAYER = """Both sides end in the same five parts, and that is what the crosswalk is for. It does not only move the data of one system into the other: it gives all systems
+**one common modelling layer**. Every system has its own crosswalk to the layer ("to layer") and back ("from layer"); in the layer a statement has the same five parts for
+every source, the weight and the type come from AMT and the FW ontology. The tools are written once for that shape and serve every system: the reasoning of the AMT engine,
+the shape checks and the AMT Explorer read the layer, not the source. In this repository the systems are Samian Research and the AFE; a further system needs its own crosswalk and nothing else."""
+
 MINI_RESULT = """All four cases come back the same on both sides: the Samian side with 7 hextuples of 4 carriers (same statements, same nodes), the coin side
 with 4 coins, also through the AMT engine (version 0.7.0 or newer; `fw:Certainty` needs it)."""
 

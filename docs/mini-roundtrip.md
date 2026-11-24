@@ -33,6 +33,15 @@ and a `skos:Collection` of members (each with its confidence) for a vague or a f
 
 <figure class="fig"><a href="visuals/img/mini-02-form.png"><img src="visuals/img/mini-02-form.png" alt="The same four cases as AFE container and as AMT statement"></a><figcaption>The same four cases as AFE container and as AMT statement<a href="visuals/img/mini-02-form.png">PNG</a><a href="visuals/img/mini-02-form.svg">SVG</a></figcaption></figure>
 
+## One modelling layer for both systems
+
+Both sides end in the same five parts, and that is what the crosswalk is for. It does not only move the data of one system into the other: it gives all systems
+**one common modelling layer**. Every system has its own crosswalk to the layer ("to layer") and back ("from layer"); in the layer a statement has the same five parts for
+every source, the weight and the type come from AMT and the FW ontology. The tools are written once for that shape and serve every system: the reasoning of the AMT engine,
+the shape checks and the AMT Explorer read the layer, not the source. In this repository the systems are Samian Research and the AFE; a further system needs its own crosswalk and nothing else.
+
+<figure class="fig"><a href="visuals/img/layer-01-common-layer.png"><img src="visuals/img/layer-01-common-layer.png" alt="A common modelling layer between several systems; the tools are written once"></a><figcaption>A common modelling layer between several systems; the tools are written once<a href="visuals/img/layer-01-common-layer.png">PNG</a><a href="visuals/img/layer-01-common-layer.svg">SVG</a></figcaption></figure>
+
 ## Each case on its own
 
 Left to right: the first form, the second form, the first form again after the way back. Samian: AMT → AFE → AMT; coins: AFE → AMT → AFE.

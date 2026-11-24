@@ -1,0 +1,73 @@
+<svg width="1750" height="880" viewBox="0 0 1750 880" xmlns="http://www.w3.org/2000/svg" role="img"><title>A common modelling layer between several systems and the tools that are written once</title>
+<rect width="1750" height="880" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#55544f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="60" y="50" width="500" height="110" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="310.0" y="88.76" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="28" font-weight="500" fill="#ffffff">Reasoning</text>
+<text x="310.0" y="123.48" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#ffffff">AMT engine: role chains and weights</text>
+<path d="M310.0,162 L310.0,248" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="276.75" y="189" width="66.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="310.0" y="205" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">reads</text>
+<rect x="625" y="50" width="500" height="110" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="875.0" y="88.76" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="28" font-weight="500" fill="#ffffff">Validation</text>
+<text x="875.0" y="123.48" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#ffffff">SHACL shapes on the statements</text>
+<path d="M875.0,162 L875.0,248" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="841.75" y="189" width="66.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="875.0" y="205" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">reads</text>
+<rect x="1190" y="50" width="500" height="110" rx="6" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="1440.0" y="88.76" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="28" font-weight="500" fill="#ffffff">Exploration</text>
+<text x="1440.0" y="123.48" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#ffffff">AMT Explorer: the inferred edges</text>
+<path d="M1440.0,162 L1440.0,248" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="1406.75" y="189" width="66.5" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1440.0" y="205" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">reads</text>
+<rect x="60" y="250" width="1630" height="270" rx="10" fill="#ffffff" stroke="#9a3412" stroke-width="3"/>
+<text x="90" y="288" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="30" font-weight="500" fill="#9a3412">Common modelling layer</text>
+<rect x="395" y="351" width="300" height="68" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="545.0" y="385.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="26" font-weight="500" fill="#000000">subject</text>
+<path d="M695,385 L1053,385" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="822.0" y="369" width="106.0" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="875.0" y="385" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">property</text>
+<rect x="1055" y="351" width="300" height="68" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="1205.0" y="385.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="26" font-weight="500" fill="#000000">object</text>
+<path d="M875,402 L875,427 M815,427 L935,427 M815,427 L815,439 M935,427 L935,439" fill="none" stroke="#55544f" stroke-width="1.6"/>
+<rect x="772.35" y="439" width="85.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="815.0" y="455" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">weight</text>
+<rect x="903.55" y="439" width="62.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="935.0" y="455" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="22" font-weight="500" fill="#000000">type</text>
+<text x="875" y="488" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">one shape for every system: five parts, nothing else</text>
+<rect x="60" y="650" width="500" height="130" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="310.0" y="682" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="26" font-weight="500" fill="#000000">System A</text>
+<text x="310.0" y="721" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">own data model</text>
+<text x="310.0" y="750" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">own crosswalk to the layer</text>
+<path d="M235.0,648 L235.0,522" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="193.05" y="569.0" width="83.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="235.0" y="585.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">to layer</text>
+<path d="M385.0,522 L385.0,648" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="331.35" y="569.0" width="107.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="385.0" y="585.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">from layer</text>
+<rect x="625" y="650" width="500" height="130" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="875.0" y="682" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="26" font-weight="500" fill="#000000">System B</text>
+<text x="875.0" y="721" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">own data model</text>
+<text x="875.0" y="750" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">own crosswalk to the layer</text>
+<path d="M800.0,648 L800.0,522" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="758.05" y="569.0" width="83.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="800.0" y="585.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">to layer</text>
+<path d="M950.0,522 L950.0,648" fill="none" stroke="#55544f" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="896.35" y="569.0" width="107.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="950.0" y="585.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">from layer</text>
+<rect x="1190" y="650" width="500" height="130" rx="6" fill="#e2e8f0" stroke="#000000" stroke-width="2.4" stroke-dasharray="8 6"/>
+<text x="1440.0" y="682" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="26" font-weight="500" fill="#000000">System n</text>
+<text x="1440.0" y="721" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">any further source</text>
+<text x="1440.0" y="750" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">own crosswalk to the layer</text>
+<path d="M1365.0,648 L1365.0,522" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<rect x="1323.05" y="569.0" width="83.9" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1365.0" y="585.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">to layer</text>
+<path d="M1515.0,522 L1515.0,648" fill="none" stroke="#55544f" stroke-width="1.6" stroke-dasharray="7 6" marker-end="url(#a)"/>
+<rect x="1461.35" y="569.0" width="107.3" height="32" rx="4" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="1515.0" y="585.0" text-anchor="middle" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#000000">from layer</text>
+<rect x="60" y="829" width="22" height="22" rx="3" fill="#166534" stroke="#000000" stroke-width="1"/>
+<text x="92" y="840" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">tool, written once</text>
+<rect x="280.8" y="829" width="22" height="22" rx="3" fill="#e2e8f0" stroke="#000000" stroke-width="1"/>
+<text x="312.8" y="840" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">system, statement part</text>
+<rect x="548.3" y="829" width="22" height="22" rx="3" fill="#fbbf24" stroke="#000000" stroke-width="1"/>
+<text x="580.3" y="840" text-anchor="start" dominant-baseline="central" font-family="Fira Sans" font-size="19" fill="#55544f">property, weight, type</text>
+</svg>

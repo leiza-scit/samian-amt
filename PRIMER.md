@@ -143,6 +143,7 @@ Nicht hochladen: `.git/`, `.venv/`, `dist/`, die Samian-Exporte (nur bei Schritt
 | S30 | Karstens Use-Case und Roundtrip AFE → AMT → AFE ins Repository übernehmen (Vollständigkeit; wird dann ebenfalls nach AMT modelliert) | samian-amt | S28, Unterlagen von Karsten | teilweise: Fassung 3 (Stand 2026-11-03) übernommen (0.19.0, Patch geliefert 2026-11-04); Karstens Antworten vom 2026-11-05 eingearbeitet (0.20.0); Use-Case fehlt noch (A4) |
 | S31 | Engine 0.7.0 als feste Abhängigkeit (`requirements.txt`); S28 und S29 eingespielt und auf Windows mit Engine 0.7.0 bestätigt (0.19.0) | samian-amt | S28, S29 | Patch geliefert 2026-11-04 (zusammen mit S30) |
 | S32 | Mini-Roundtrip (0.20.0 und 0.21.0): eine Relation je Seite (Träger → Potform, Münze → Authority), vier Fälle, fünf Teile; parallele Aussagen im Engine-Test; Seite mit gezeichneten Münzen und Scherben | samian-amt | S28, S30, Engine 0.7.0 | 0.20.0 gepusht 2026-11-05 (b16b32d); 0.21.0 (TTL je Fall, SPARQL-Abschnitt, große Roundtrip-Seiten ausgeblendet) geliefert 2026-11-05; Karstens Antworten vom 2026-11-05 eingearbeitet, Bilder warten auf den AFE-Server; 0.22.0 gepusht 2026-11-05 (a4357d3), 0.22.1 (hasType-Label, Kartenhilfslinie entfernt) geliefert |
+| S33 | Gemeinsame Modellierungsebene: generische Grafik (System A, B, n; Crosswalk je System; Engine, SHACL und Explorer nur einmal) für die Seite „Mini round trip“ und das Working Paper (0.23.0) | samian-amt | S32 | Patch geliefert 2026-11-24 |
 | S4b | Hybridmodell: `hasProductionCentre` direkt, sonst Rolle „gleicher Stempel“ (neu), schwächere Ableitungen (Verbreitung 0,75, Namensgleichheit 0,5) | samian-amt | S4 | zurückgestellt (Allard und Flo, 2026-11-04: Stempel-ID und Fundort spielen für das kleine Modell erst mal keine Rolle) |
 | S3a | samian-amt an die FW-Ontologie anpassen (Namen, Typ-Individuen, Methode, Evidenz) | samian-amt | S3 | erledigt 2026-10-30 (0.4.0) |
 | S3b | `fw:Certainty` für sichere Aussagen, Typkombination wie die Engine (0.5.0) | samian-amt | S3a | Patch geliefert 2026-11-03, nach Push erledigt |
@@ -298,6 +299,18 @@ Inhalt (0.18.0): Hilfsconcept `sam:Entity` als Domain und Range von `sam:reaches
 **Stand (0.19.0, 2026-11-04):** Fassung 3 (2026-11-03) ist übernommen, damit Flo schon etwas auf den GitHub Pages hat, während Karsten noch antwortet: `data/afe/` (fünf Münzen unverändert; konstruierte Randfälle 90001–90004; konstruierte Münzen 80001–80003 mit Denomination und Mint), `queries/coins/*.rq`, `py/step_afe_roundtrip.py` (Schritt `afe-roundtrip`), `visuals/afe_roundtrip_figs.py`, Seite `docs/afe-roundtrip.md`. Abnahme: fünf Münzen kommen gleich zurück (vier gleich, 16048 auf der Oberklasse `UncertainValue` = `UncertainResourceValue`), auch über die Engine 0.7.0; die Randfälle verhalten sich wie dokumentiert (90001 und 90004 verlustbehaftet, 90002 Oberklasse, 90003 gleich).
 
 **Offen (Fragen an Karsten, Memo Abschnitt 8):** (1) Heißen die Properties `nmo:hasDenomination` und `nmo:hasMint`? (Namen angenommen, Testdaten konstruiert); (2) Markierung „unbekannt“ bei Münzen ohne `nmo:hasAuthority`, nur für Authority? (3) `fw:hasConfidence` oder `fw:hasConfidenceLevel`? (4) Klasse für sichere Werte im Container? (5) Regel für die Gewichte im Container? (6) andere Properties mit nur dem Flag „uncertain“? Dazu aus S28: mehrere Container am selben Prädikat (Karsten: heute höchstens einer, künftig mehrere). Wenn die Antworten da sind: Abfragen und Erwartungen in `step_afe_roundtrip.py` anpassen, Seite aktualisieren; Use-Case nach AMT modellieren.
+
+## S33 — Gemeinsame Modellierungsebene (Grafik)
+
+**Ziel:** Eine Grafik, die den Satz „Der Crosswalk zwischen AMT und AFE erlaubt nicht nur die Integration der Daten in eine Modellierungsebene, sondern auch die Nachnutzung der Werkzeuge für beide Projekte“ zeigt.
+
+**Beschluss (2026-11-24, Flo):** Die Ebene heißt „Common modelling layer“ (nicht „AMT modelling layer“): gemeinsam wird sie dadurch, dass alle Systeme dieselben fünf Teile haben (AMT-Aussagen, typisiert mit der FW-Ontologie). Die Grafik bleibt generisch: keine Beispieldaten, keine Systemnamen (System A, B, n); welche Systeme gemeint sind, sagt die Bildunterschrift.
+
+**Stand (0.23.0, 2026-11-24):** `visuals/layer_figs.py` (Schritt `visuals`) zeichnet `layer-01-common-layer`: oben die drei Werkzeuge (Reasoning, Validation, Exploration; grün), in der Mitte die Ebene mit einer generischen Aussage (subject, property, object, weight, type), unten System A, System B und gestrichelt System n, je System ein Pfeil „to layer“ und „from layer“. Beschriftungen als gelbe Chips auf der Mitte der Pfeile; weder Titel noch Fußzeile. Eingebunden als Abschnitt „One modelling layer for both systems“ auf der Seite „Mini round trip“ (`py/docs_text.py`: `MINI_LAYER`).
+
+**Offen:** (1) ob die Grafik auf die Startseite der Visuals soll; (2) ob die Werkzeugkästen später die konkreten Repositories nennen sollen (amt-engine, amt-runner).
+
+**Abnahme:** `python main.py` zweimal hintereinander, `git status` beim zweiten Lauf unverändert gegenüber dem ersten; `docs/visuals/img/layer-01-common-layer.png` zeigt Werkzeuge, Ebene und drei Systeme ohne Titel, Fußzeile und Beispielwerte.
 
 ## S32 — Mini-Roundtrip
 

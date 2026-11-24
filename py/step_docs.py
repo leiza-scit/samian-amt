@@ -671,6 +671,11 @@ def mini_roundtrip_page(r: dict) -> str:
 {T.MINI_FIVE}
 
 {rt_figure("mini-02-form", "The same four cases as AFE container and as AMT statement")}
+## One modelling layer for both systems
+
+{T.MINI_LAYER}
+
+{rt_figure("layer-01-common-layer", "A common modelling layer between several systems; the tools are written once")}
 ## Each case on its own
 
 Left to right: the first form, the second form, the first form again after the way back. Samian: AMT → AFE → AMT; coins: AFE → AMT → AFE.
