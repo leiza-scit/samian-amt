@@ -19,7 +19,7 @@ data asserts, only one points along that chain:
 | `worksAt` | Actor to ProductionCentre | no, against it |
 
 Without inverses nothing composes: the first rule starts at a Potform, but no asserted edge leaves a
-Potform. `hasType` therefore gets its inverse `isTypeOf` (agreed with Allard Mees), and `worksAt` gets
+Potform. `hasType` therefore gets its inverse `isTypeOf`, and `worksAt` gets
 `hasWorker`. Every rule uses at least one inverse. The derived roles get inverses too, so that an
 association can be asked from either end: "which centres go with this potform?" and "which potforms
 go with this centre?".
